@@ -8,15 +8,20 @@ package FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -47,10 +52,17 @@ public class LoginController implements Initializable {
     private Label status;
     
     @FXML
-    void LogInAction(ActionEvent event) {
+    void LogInAction(ActionEvent event) throws IOException {
         if (pracownikR.isSelected()) {
-            if (login.getText().equals("pracownik") && passwd.getText().equals("test")) {
+            if (login.getText().equals("kierownik") && passwd.getText().equals("test")) {
                 status.setText("Logowanie zakończone sukcesem!");
+                
+             Stage PrimaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Kierownik.fxml"));
+            Scene scene = new Scene(root, 800, 480);
+            PrimaryStage.setScene(scene);
+            PrimaryStage.show();
+            PrimaryStage.setResizable(false);
             } else {
                 status.setText("Logowanie się nie powiodło!");
             }
