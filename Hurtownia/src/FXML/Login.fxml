@@ -36,15 +36,18 @@
                   <Font size="23.0" />
                </font>
             </Label>
-            <RadioButton fx:id="klientR" layoutX="183.0" layoutY="225.0" mnemonicParsing="false" onAction="#Select" text="Klient">
+            <RadioButton fx:id="klientR" layoutX="183.0" layoutY="225.0" mnemonicParsing="false"  text="Klient" toggleGroup="$group">
                <font>
                   <Font size="14.0" />
                </font>
+               
             </RadioButton>
-            <RadioButton fx:id="pracownikR" layoutX="52.0" layoutY="225.0" mnemonicParsing="false" onAction="#Select" text="Obsługa">
-               <font>
+            <RadioButton fx:id="pracownikR" layoutX="52.0" layoutY="225.0" mnemonicParsing="false"  text="Obsługa" toggleGroup="$group">
+             
+                <font>
                   <Font size="14.0" />
                </font>
+               
             </RadioButton>
             <Button fx:id="zalogujbtn" layoutX="213.0" layoutY="272.0" mnemonicParsing="false" onAction="#LogInAction" prefHeight="34.0" prefWidth="128.0" text="Zaloguj" />
             <Label fx:id="status" layoutX="55.0" layoutY="332.0" prefHeight="17.0" prefWidth="217.0" textFill="#d33010">
