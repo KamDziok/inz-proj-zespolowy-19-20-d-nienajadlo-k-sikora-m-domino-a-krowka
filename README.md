@@ -1,4 +1,4 @@
 HURTOWNIA
 
-![diagram klas](diagramKlas.jpg)
+![diagram ERD](ERD.png)
 ![diagram przypadków użycia](useDiagram.jpg)
