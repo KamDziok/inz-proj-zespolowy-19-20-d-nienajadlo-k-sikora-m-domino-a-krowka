@@ -1,3 +1,4 @@
 HURTOWNIA
 
-![alt text](./diagramklas.jpg)
+![diagram klas](diagramklas.jpg)
+![diagram przypadków użycia](useDiagram.jpg)
