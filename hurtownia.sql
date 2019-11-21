@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 21 Lis 2019, 23:05
+-- Czas generowania: 21 Lis 2019, 23:11
 -- Wersja serwera: 10.4.8-MariaDB
 -- Wersja PHP: 7.3.11
 
@@ -34,7 +34,8 @@ CREATE TABLE `adresy` (
   `Ulica` varchar(30) NOT NULL,
   `NumerBudynku` varchar(30) NOT NULL,
   `NumerLokalu` int(11) NOT NULL,
-  `AdresID` int(11) NOT NULL
+  `AdresID` int(11) NOT NULL,
+  `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -207,7 +208,8 @@ CREATE TABLE `zamowienie` (
 -- Indeksy dla tabeli `adresy`
 --
 ALTER TABLE `adresy`
-  ADD PRIMARY KEY (`AdresID`);
+  ADD PRIMARY KEY (`AdresID`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indeksy dla tabeli `hurtownia`
