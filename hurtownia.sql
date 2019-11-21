@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 21 Lis 2019, 20:43
+-- Czas generowania: 21 Lis 2019, 23:05
 -- Wersja serwera: 10.4.8-MariaDB
 -- Wersja PHP: 7.3.11
 
@@ -68,6 +68,7 @@ CREATE TABLE `kategorie` (
 --
 
 CREATE TABLE `klient` (
+  `KlientID` int(11) NOT NULL,
   `Imie` varchar(30) NOT NULL,
   `Nazwisko` varchar(30) NOT NULL,
   `Telefon` decimal(12,0) NOT NULL,
@@ -82,6 +83,7 @@ CREATE TABLE `klient` (
 --
 
 CREATE TABLE `ksiegowosc` (
+  `KsiegowoscID` int(11) NOT NULL,
   `Data` date NOT NULL,
   `Przychody` float NOT NULL,
   `Koszty` float NOT NULL,
@@ -96,6 +98,7 @@ CREATE TABLE `ksiegowosc` (
 --
 
 CREATE TABLE `magazyn` (
+  `MagazynID` int(11) NOT NULL,
   `Ilosc` int(11) NOT NULL,
   `CenaSprzedazy` float NOT NULL,
   `ProduktID` int(11) NOT NULL,
@@ -211,7 +214,7 @@ ALTER TABLE `adresy`
 --
 ALTER TABLE `hurtownia`
   ADD PRIMARY KEY (`HurtowniaID`),
-  ADD KEY `AdresID` (`AdresID`);
+  ADD KEY `hurtownia_ibfk_1` (`AdresID`);
 
 --
 -- Indeksy dla tabeli `kategorie`
@@ -223,15 +226,23 @@ ALTER TABLE `kategorie`
 -- Indeksy dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  ADD KEY `AdresID` (`AdresID`),
-  ADD KEY `login` (`login`);
+  ADD PRIMARY KEY (`KlientID`),
+  ADD KEY `login` (`login`),
+  ADD KEY `klient_ibfk_1` (`AdresID`);
+
+--
+-- Indeksy dla tabeli `ksiegowosc`
+--
+ALTER TABLE `ksiegowosc`
+  ADD PRIMARY KEY (`KsiegowoscID`);
 
 --
 -- Indeksy dla tabeli `magazyn`
 --
 ALTER TABLE `magazyn`
-  ADD KEY `ProduktID` (`ProduktID`),
-  ADD KEY `HurtowniaID` (`HurtowniaID`);
+  ADD PRIMARY KEY (`MagazynID`),
+  ADD KEY `magazyn_ibfk_1` (`ProduktID`),
+  ADD KEY `magazyn_ibfk_2` (`HurtowniaID`);
 
 --
 -- Indeksy dla tabeli `pracownik`
@@ -245,14 +256,21 @@ ALTER TABLE `pracownik`
 --
 ALTER TABLE `produkty`
   ADD PRIMARY KEY (`ProduktID`),
-  ADD KEY `KategoriaID` (`KategoriaID`);
+  ADD KEY `kategorie_ibfk_1` (`KategoriaID`);
+
+--
+-- Indeksy dla tabeli `reklama`
+--
+ALTER TABLE `reklama`
+  ADD PRIMARY KEY (`ReklamaID`);
 
 --
 -- Indeksy dla tabeli `towaryzamowienie`
 --
 ALTER TABLE `towaryzamowienie`
-  ADD KEY `ProduktID` (`ProduktID`),
-  ADD KEY `ZamowienieID` (`ZamowienieID`);
+  ADD PRIMARY KEY (`TowaryZamowienieID`),
+  ADD KEY `ZamowienieID` (`ZamowienieID`),
+  ADD KEY `towaryzamowienie_ibfk_1` (`ProduktID`);
 
 --
 -- Indeksy dla tabeli `uzytkownicy`
@@ -264,13 +282,90 @@ ALTER TABLE `uzytkownicy`
 -- Indeksy dla tabeli `wyplaty`
 --
 ALTER TABLE `wyplaty`
-  ADD KEY `PracownikID` (`PracownikID`);
+  ADD PRIMARY KEY (`WyplataID`),
+  ADD KEY `wyplaty_ibfk_1` (`PracownikID`);
 
 --
 -- Indeksy dla tabeli `zamowienie`
 --
 ALTER TABLE `zamowienie`
   ADD PRIMARY KEY (`ZamowienieID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT dla tabeli `adresy`
+--
+ALTER TABLE `adresy`
+  MODIFY `AdresID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `hurtownia`
+--
+ALTER TABLE `hurtownia`
+  MODIFY `HurtowniaID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `kategorie`
+--
+ALTER TABLE `kategorie`
+  MODIFY `KategoriaID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `klient`
+--
+ALTER TABLE `klient`
+  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `ksiegowosc`
+--
+ALTER TABLE `ksiegowosc`
+  MODIFY `KsiegowoscID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `magazyn`
+--
+ALTER TABLE `magazyn`
+  MODIFY `MagazynID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `pracownik`
+--
+ALTER TABLE `pracownik`
+  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `produkty`
+--
+ALTER TABLE `produkty`
+  MODIFY `ProduktID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `reklama`
+--
+ALTER TABLE `reklama`
+  MODIFY `ReklamaID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `towaryzamowienie`
+--
+ALTER TABLE `towaryzamowienie`
+  MODIFY `TowaryZamowienieID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `wyplaty`
+--
+ALTER TABLE `wyplaty`
+  MODIFY `WyplataID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `zamowienie`
+--
+ALTER TABLE `zamowienie`
+  MODIFY `ZamowienieID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ograniczenia dla zrzutów tabel
@@ -306,7 +401,7 @@ ALTER TABLE `pracownik`
 -- Ograniczenia dla tabeli `produkty`
 --
 ALTER TABLE `produkty`
-  ADD CONSTRAINT `produkty_ibfk_1` FOREIGN KEY (`KategoriaID`) REFERENCES `kategorie` (`KategoriaID`);
+  ADD CONSTRAINT `kategorie_ibfk_1` FOREIGN KEY (`KategoriaID`) REFERENCES `kategorie` (`KategoriaID`);
 
 --
 -- Ograniczenia dla tabeli `towaryzamowienie`
