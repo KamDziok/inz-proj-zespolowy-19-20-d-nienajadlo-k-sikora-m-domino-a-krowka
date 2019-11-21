@@ -70,6 +70,12 @@ public class LoginController implements Initializable {
         if (klientR.isSelected()) {
             if (login.getText().equals("klient") && passwd.getText().equals("test")) {
                 status.setText("Logowanie zakończone sukcesem!");
+                 Stage PrimaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
+            Scene scene = new Scene(root, 800, 480);
+            PrimaryStage.setScene(scene);
+            PrimaryStage.show();
+            PrimaryStage.setResizable(false);
             } else {
                 status.setText("Logowanie się nie powiodło!");
             }
