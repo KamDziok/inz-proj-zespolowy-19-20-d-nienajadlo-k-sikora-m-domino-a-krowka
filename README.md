@@ -10,7 +10,7 @@
 ### Diagram przypadków uzycia
 ![diagram przypadków użycia](useDiagram.jpg)
 
-### Diagram przypadków uzycia
+### Diagram aktywności
 ![diagram aktywności](activity_diagram.jpg)
 
 ***
