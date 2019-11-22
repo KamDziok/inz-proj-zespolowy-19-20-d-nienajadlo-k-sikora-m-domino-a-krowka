@@ -10,6 +10,9 @@
 ### Diagram przypadków uzycia
 ![diagram przypadków użycia](useDiagram.jpg)
 
+### Diagram przypadków uzycia
+![diagram aktywności](activity_diagram.jpg)
+
 ***
 
 ## Aby uruchomić program należy:
