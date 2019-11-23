@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2019-11-22 23:46:43 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Klient" table="klient" catalog="hurtownia" optimistic-lock="version">
+        <id name="klientId" type="java.lang.Integer">
+            <column name="KlientID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="adresy" class="hibernate.Adresy" fetch="select">
+            <column name="AdresID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="uzytkownicy" class="hibernate.Uzytkownicy" fetch="select">
+            <column name="login" length="30" not-null="true" />
+        </many-to-one>
+        <property name="imie" type="string">
+            <column name="Imie" length="30" not-null="true" />
+        </property>
+        <property name="nazwisko" type="string">
+            <column name="Nazwisko" length="30" not-null="true" />
+        </property>
+        <property name="telefon" type="long">
+            <column name="Telefon" precision="12" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
