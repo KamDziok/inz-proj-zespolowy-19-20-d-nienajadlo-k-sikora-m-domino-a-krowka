@@ -23,7 +23,7 @@ public class UzytkownicyQuery {
     public boolean selecyByLoginandPassword(String login, String password) {
         Uzytkownicy u = null;
         session = hibernate.HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Nauczyciele where login = '" + login + "' and haslo = '" + password + "'";
+        String hql = "from Uzytkownicy where login = '" + login + "' and haslo = '" + password + "'";
         query = session.createQuery(hql);
         u = (Uzytkownicy) query.uniqueResult();
         session.close();
