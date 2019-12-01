@@ -13,6 +13,9 @@
 ### Diagram aktywności
 ![diagram aktywności](activity_diagram.jpg)
 
+### Praca nad diagramami sekwencji.
+![diagram sekwencji logowania](diagram_sekwencji.jpg)
+
 ***
 
 ## Aby uruchomić program należy:
