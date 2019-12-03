@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-11-22 23:46:43 by Hibernate Tools 4.3.1
+// Generated 2019-12-03 21:04:59 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -14,6 +14,7 @@ public class Hurtownia  implements java.io.Serializable {
      private Integer hurtowniaId;
      private Adresy adresy;
      private long telefon;
+     private Set ksiegowoscs = new HashSet(0);
      private Set magazyns = new HashSet(0);
 
     public Hurtownia() {
@@ -24,9 +25,10 @@ public class Hurtownia  implements java.io.Serializable {
         this.adresy = adresy;
         this.telefon = telefon;
     }
-    public Hurtownia(Adresy adresy, long telefon, Set magazyns) {
+    public Hurtownia(Adresy adresy, long telefon, Set ksiegowoscs, Set magazyns) {
        this.adresy = adresy;
        this.telefon = telefon;
+       this.ksiegowoscs = ksiegowoscs;
        this.magazyns = magazyns;
     }
    
@@ -50,6 +52,13 @@ public class Hurtownia  implements java.io.Serializable {
     
     public void setTelefon(long telefon) {
         this.telefon = telefon;
+    }
+    public Set getKsiegowoscs() {
+        return this.ksiegowoscs;
+    }
+    
+    public void setKsiegowoscs(Set ksiegowoscs) {
+        this.ksiegowoscs = ksiegowoscs;
     }
     public Set getMagazyns() {
         return this.magazyns;

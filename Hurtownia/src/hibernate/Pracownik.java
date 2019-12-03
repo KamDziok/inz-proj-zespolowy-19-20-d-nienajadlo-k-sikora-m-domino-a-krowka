@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-11-22 23:46:43 by Hibernate Tools 4.3.1
+// Generated 2019-12-03 21:04:59 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,30 +12,32 @@ public class Pracownik  implements java.io.Serializable {
 
 
      private Integer pracownikId;
-     private Uzytkownicy uzytkownicy;
      private String imie;
      private String nazwisko;
      private float placa;
      private String stanowisko;
+     private String login;
+     private String password;
      private Set wyplaties = new HashSet(0);
 
     public Pracownik() {
     }
 
 	
-    public Pracownik(Uzytkownicy uzytkownicy, String imie, String nazwisko, float placa, String stanowisko) {
-        this.uzytkownicy = uzytkownicy;
+    public Pracownik(String imie, String nazwisko, float placa, String stanowisko, String password) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.placa = placa;
         this.stanowisko = stanowisko;
+        this.password = password;
     }
-    public Pracownik(Uzytkownicy uzytkownicy, String imie, String nazwisko, float placa, String stanowisko, Set wyplaties) {
-       this.uzytkownicy = uzytkownicy;
+    public Pracownik(String imie, String nazwisko, float placa, String stanowisko, String login, String password, Set wyplaties) {
        this.imie = imie;
        this.nazwisko = nazwisko;
        this.placa = placa;
        this.stanowisko = stanowisko;
+       this.login = login;
+       this.password = password;
        this.wyplaties = wyplaties;
     }
    
@@ -45,13 +47,6 @@ public class Pracownik  implements java.io.Serializable {
     
     public void setPracownikId(Integer pracownikId) {
         this.pracownikId = pracownikId;
-    }
-    public Uzytkownicy getUzytkownicy() {
-        return this.uzytkownicy;
-    }
-    
-    public void setUzytkownicy(Uzytkownicy uzytkownicy) {
-        this.uzytkownicy = uzytkownicy;
     }
     public String getImie() {
         return this.imie;
@@ -80,6 +75,20 @@ public class Pracownik  implements java.io.Serializable {
     
     public void setStanowisko(String stanowisko) {
         this.stanowisko = stanowisko;
+    }
+    public String getLogin() {
+        return this.login;
+    }
+    
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    public String getPassword() {
+        return this.password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
     public Set getWyplaties() {
         return this.wyplaties;

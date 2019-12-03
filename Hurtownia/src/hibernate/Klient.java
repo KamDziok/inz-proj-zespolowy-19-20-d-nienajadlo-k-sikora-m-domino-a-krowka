@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-11-22 23:46:43 by Hibernate Tools 4.3.1
+// Generated 2019-12-03 21:04:59 by Hibernate Tools 4.3.1
 
 
 
@@ -11,20 +11,22 @@ public class Klient  implements java.io.Serializable {
 
      private Integer klientId;
      private Adresy adresy;
-     private Uzytkownicy uzytkownicy;
      private String imie;
      private String nazwisko;
      private long telefon;
+     private String login;
+     private String password;
 
     public Klient() {
     }
 
-    public Klient(Adresy adresy, Uzytkownicy uzytkownicy, String imie, String nazwisko, long telefon) {
+    public Klient(Adresy adresy, String imie, String nazwisko, long telefon, String login, String password) {
        this.adresy = adresy;
-       this.uzytkownicy = uzytkownicy;
        this.imie = imie;
        this.nazwisko = nazwisko;
        this.telefon = telefon;
+       this.login = login;
+       this.password = password;
     }
    
     public Integer getKlientId() {
@@ -40,13 +42,6 @@ public class Klient  implements java.io.Serializable {
     
     public void setAdresy(Adresy adresy) {
         this.adresy = adresy;
-    }
-    public Uzytkownicy getUzytkownicy() {
-        return this.uzytkownicy;
-    }
-    
-    public void setUzytkownicy(Uzytkownicy uzytkownicy) {
-        this.uzytkownicy = uzytkownicy;
     }
     public String getImie() {
         return this.imie;
@@ -68,6 +63,20 @@ public class Klient  implements java.io.Serializable {
     
     public void setTelefon(long telefon) {
         this.telefon = telefon;
+    }
+    public String getLogin() {
+        return this.login;
+    }
+    
+    public void setLogin(String login) {
+        this.login = login;
+    }
+    public String getPassword() {
+        return this.password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 

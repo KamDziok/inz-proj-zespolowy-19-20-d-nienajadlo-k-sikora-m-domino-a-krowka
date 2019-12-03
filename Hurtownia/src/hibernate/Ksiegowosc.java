@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-11-22 23:46:43 by Hibernate Tools 4.3.1
+// Generated 2019-12-03 21:04:59 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,6 +11,7 @@ public class Ksiegowosc  implements java.io.Serializable {
 
 
      private Integer ksiegowoscId;
+     private Hurtownia hurtownia;
      private Date data;
      private float przychody;
      private float koszty;
@@ -20,7 +21,8 @@ public class Ksiegowosc  implements java.io.Serializable {
     public Ksiegowosc() {
     }
 
-    public Ksiegowosc(Date data, float przychody, float koszty, float aktywa, float pasywa) {
+    public Ksiegowosc(Hurtownia hurtownia, Date data, float przychody, float koszty, float aktywa, float pasywa) {
+       this.hurtownia = hurtownia;
        this.data = data;
        this.przychody = przychody;
        this.koszty = koszty;
@@ -34,6 +36,13 @@ public class Ksiegowosc  implements java.io.Serializable {
     
     public void setKsiegowoscId(Integer ksiegowoscId) {
         this.ksiegowoscId = ksiegowoscId;
+    }
+    public Hurtownia getHurtownia() {
+        return this.hurtownia;
+    }
+    
+    public void setHurtownia(Hurtownia hurtownia) {
+        this.hurtownia = hurtownia;
     }
     public Date getData() {
         return this.data;

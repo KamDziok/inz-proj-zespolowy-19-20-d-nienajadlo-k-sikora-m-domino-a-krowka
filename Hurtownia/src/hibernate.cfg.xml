@@ -4,20 +4,19 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Hurtownia</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/HurtowniaP</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="hibernate/Uzytkownicy.hbm.xml"/>
-    <mapping resource="hibernate/Wyplaty.hbm.xml"/>
-    <mapping resource="hibernate/Pracownik.hbm.xml"/>
-    <mapping resource="hibernate/Produkty.hbm.xml"/>
-    <mapping resource="hibernate/Adresy.hbm.xml"/>
     <mapping resource="hibernate/Hurtownia.hbm.xml"/>
-    <mapping resource="hibernate/Magazyn.hbm.xml"/>
+    <mapping resource="hibernate/Pracownik.hbm.xml"/>
     <mapping resource="hibernate/Ksiegowosc.hbm.xml"/>
-    <mapping resource="hibernate/Klient.hbm.xml"/>
-    <mapping resource="hibernate/Towaryzamowienie.hbm.xml"/>
+    <mapping resource="hibernate/Wyplaty.hbm.xml"/>
     <mapping resource="hibernate/Reklama.hbm.xml"/>
-    <mapping resource="hibernate/Zamowienie.hbm.xml"/>
+    <mapping resource="hibernate/Klient.hbm.xml"/>
+    <mapping resource="hibernate/Adresy.hbm.xml"/>
+    <mapping resource="hibernate/Towaryzamowienie.hbm.xml"/>
+    <mapping resource="hibernate/Magazyn.hbm.xml"/>
     <mapping resource="hibernate/Kategorie.hbm.xml"/>
+    <mapping resource="hibernate/Zamowienie.hbm.xml"/>
+    <mapping resource="hibernate/Produkty.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

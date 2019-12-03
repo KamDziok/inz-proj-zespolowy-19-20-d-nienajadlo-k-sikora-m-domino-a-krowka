@@ -8,6 +8,8 @@ package FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+import hibernate.Pracownik;
+import hibernate.PracownikQuery;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -29,64 +31,93 @@ import javafx.stage.Stage;
  * @author monika
  */
 public class LoginController implements Initializable {
-    
+
     @FXML
     private PasswordField passwd;
-    
+
     @FXML
     private TextField login;
-    
+
     @FXML
     private RadioButton klientR;
-    
+
     @FXML
     private RadioButton pracownikR;
-    
+
     @FXML
     private Button zalogujbtn;
-    
+
     @FXML
     private ToggleButtonGroup group;
-    
+
     @FXML
     private Label status;
-    
+
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
+        String log = login.getText();
+        String pass = passwd.getText();
+
         if (pracownikR.isSelected()) {
-            if (login.getText().equals("kierownik") && passwd.getText().equals("test")) {
+
+            PracownikQuery pracownik = new PracownikQuery();
+
+            Pracownik logowanie = pracownik.selectByLoginandPassword(log, pass);
+
+            if (logowanie != null) {
                 status.setText("Logowanie zakończone sukcesem!");
+
+                if (logowanie.getStanowisko().equals("kierownik")) {
+
+                    Stage PrimaryStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Kierownik.fxml"));
+                    Scene scene = new Scene(root, 700, 700);
+                    PrimaryStage.setScene(scene);
+                    PrimaryStage.show();
+                    PrimaryStage.setResizable(false);
+
+                }
                 
-             Stage PrimaryStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Kierownik.fxml"));
-            Scene scene = new Scene(root, 800, 480);
-            PrimaryStage.setScene(scene);
-            PrimaryStage.show();
-            PrimaryStage.setResizable(false);
-            } else {
-                status.setText("Logowanie się nie powiodło!");
+             
+                
+                if(logowanie.getStanowisko().equals("ksiegowa")) {
+                    
+                    Stage PrimaryStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Ksiegowosc.fxml"));
+                    Scene scene = new Scene(root, 900, 700);
+                    PrimaryStage.setScene(scene);
+                    PrimaryStage.show();
+                    PrimaryStage.setResizable(false);
+                }
+
             }
+
+        } else {
+            status.setText("Logowanie się nie powiodło!");
         }
+
+        //}
         if (klientR.isSelected()) {
             if (login.getText().equals("klient") && passwd.getText().equals("test")) {
                 status.setText("Logowanie zakończone sukcesem!");
-                 Stage PrimaryStage = new Stage();
-            Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
-            Scene scene = new Scene(root, 800, 480);
-            PrimaryStage.setScene(scene);
-            PrimaryStage.show();
-            PrimaryStage.setResizable(false);
+                Stage PrimaryStage = new Stage();
+                Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
+                Scene scene = new Scene(root, 800, 480);
+                PrimaryStage.setScene(scene);
+                PrimaryStage.show();
+                PrimaryStage.setResizable(false);
             } else {
                 status.setText("Logowanie się nie powiodło!");
             }
         }
     }
-    
+
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-      final ToggleGroup  group = new ToggleGroup();
+    public void initialize(URL url, ResourceBundle rb
+    ) {
+        final ToggleGroup group = new ToggleGroup();
         klientR.setToggleGroup(group);
         pracownikR.setToggleGroup(group);
     }
-    
+
 }
