@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 21 Lis 2019, 23:11
+-- Czas generowania: 03 Gru 2019, 20:55
 -- Wersja serwera: 10.4.8-MariaDB
 -- Wersja PHP: 7.3.11
 
@@ -74,7 +74,8 @@ CREATE TABLE `klient` (
   `Nazwisko` varchar(30) NOT NULL,
   `Telefon` decimal(12,0) NOT NULL,
   `AdresID` int(11) NOT NULL,
-  `login` varchar(30) NOT NULL
+  `login` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -89,7 +90,8 @@ CREATE TABLE `ksiegowosc` (
   `Przychody` float NOT NULL,
   `Koszty` float NOT NULL,
   `Aktywa` float NOT NULL,
-  `Pasywa` float NOT NULL
+  `Pasywa` float NOT NULL,
+  `HurtowniaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -118,8 +120,16 @@ CREATE TABLE `pracownik` (
   `Placa` float NOT NULL,
   `PracownikID` int(11) NOT NULL,
   `Stanowisko` varchar(30) NOT NULL,
-  `login` varchar(30) NOT NULL
+  `login` varchar(30) DEFAULT NULL,
+  `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `pracownik`
+--
+
+INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES
+('Jan', 'Kowalski', 1222, 3, 'magazynier', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -160,17 +170,6 @@ CREATE TABLE `towaryzamowienie` (
   `Ilosc` int(11) NOT NULL,
   `ProduktID` int(11) NOT NULL,
   `ZamowienieID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `uzytkownicy`
---
-
-CREATE TABLE `uzytkownicy` (
-  `login` varchar(30) NOT NULL,
-  `haslo` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -229,14 +228,14 @@ ALTER TABLE `kategorie`
 --
 ALTER TABLE `klient`
   ADD PRIMARY KEY (`KlientID`),
-  ADD KEY `login` (`login`),
   ADD KEY `klient_ibfk_1` (`AdresID`);
 
 --
 -- Indeksy dla tabeli `ksiegowosc`
 --
 ALTER TABLE `ksiegowosc`
-  ADD PRIMARY KEY (`KsiegowoscID`);
+  ADD PRIMARY KEY (`KsiegowoscID`),
+  ADD KEY `ksiegowosc_fk-1` (`HurtowniaID`);
 
 --
 -- Indeksy dla tabeli `magazyn`
@@ -250,8 +249,7 @@ ALTER TABLE `magazyn`
 -- Indeksy dla tabeli `pracownik`
 --
 ALTER TABLE `pracownik`
-  ADD PRIMARY KEY (`PracownikID`),
-  ADD KEY `login` (`login`);
+  ADD PRIMARY KEY (`PracownikID`);
 
 --
 -- Indeksy dla tabeli `produkty`
@@ -273,12 +271,6 @@ ALTER TABLE `towaryzamowienie`
   ADD PRIMARY KEY (`TowaryZamowienieID`),
   ADD KEY `ZamowienieID` (`ZamowienieID`),
   ADD KEY `towaryzamowienie_ibfk_1` (`ProduktID`);
-
---
--- Indeksy dla tabeli `uzytkownicy`
---
-ALTER TABLE `uzytkownicy`
-  ADD PRIMARY KEY (`login`);
 
 --
 -- Indeksy dla tabeli `wyplaty`
@@ -337,7 +329,7 @@ ALTER TABLE `magazyn`
 -- AUTO_INCREMENT dla tabeli `pracownik`
 --
 ALTER TABLE `pracownik`
-  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkty`
@@ -383,8 +375,13 @@ ALTER TABLE `hurtownia`
 -- Ograniczenia dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  ADD CONSTRAINT `klient_ibfk_1` FOREIGN KEY (`AdresID`) REFERENCES `adresy` (`AdresID`),
-  ADD CONSTRAINT `klient_ibfk_2` FOREIGN KEY (`login`) REFERENCES `uzytkownicy` (`login`);
+  ADD CONSTRAINT `klient_ibfk_1` FOREIGN KEY (`AdresID`) REFERENCES `adresy` (`AdresID`);
+
+--
+-- Ograniczenia dla tabeli `ksiegowosc`
+--
+ALTER TABLE `ksiegowosc`
+  ADD CONSTRAINT `ksiegowosc_fk-1` FOREIGN KEY (`HurtowniaID`) REFERENCES `hurtownia` (`HurtowniaID`);
 
 --
 -- Ograniczenia dla tabeli `magazyn`
@@ -392,12 +389,6 @@ ALTER TABLE `klient`
 ALTER TABLE `magazyn`
   ADD CONSTRAINT `magazyn_ibfk_1` FOREIGN KEY (`ProduktID`) REFERENCES `produkty` (`ProduktID`),
   ADD CONSTRAINT `magazyn_ibfk_2` FOREIGN KEY (`HurtowniaID`) REFERENCES `hurtownia` (`HurtowniaID`);
-
---
--- Ograniczenia dla tabeli `pracownik`
---
-ALTER TABLE `pracownik`
-  ADD CONSTRAINT `pracownik_ibfk_1` FOREIGN KEY (`login`) REFERENCES `uzytkownicy` (`login`);
 
 --
 -- Ograniczenia dla tabeli `produkty`
