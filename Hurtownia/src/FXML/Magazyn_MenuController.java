@@ -5,6 +5,8 @@
  */
 package FXML;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -20,31 +22,39 @@ import javafx.scene.control.TextField;
  *
  * @author monika
  */
-public class Menu_MagazynController implements Initializable {
+public class Magazyn_MenuController implements Initializable {
     @FXML
-    private TableView<?> produktyM;
+    private TableView<?> produkty;
     @FXML
-    private TableColumn<?, ?> idPM;
+    private TableColumn<?, ?> IdProdukt;
     @FXML
-    private TableColumn<?, ?> nazwaPM;
+    private TableColumn<?, ?> nazwaP;
     @FXML
-    private TableColumn<?, ?> iloscPM;
+    private TableColumn<?, ?> iloscP;
     @FXML
-    private TableColumn<?, ?> cenaPM;
+    private TableColumn<?, ?> cenaP;
     @FXML
-    private TableColumn<?, ?> idZm;
+    private JFXComboBox<?> kategoriaCombo;
     @FXML
-    private TableColumn<?, ?> nazwaZM;
+    private Button wylogujBtnP;
     @FXML
-    private TableColumn<?, ?> iloscZm;
+    private TableColumn<?, ?> idP;
     @FXML
-    private TextField wyszukajZM;
+    private JFXTextField idWysz;
     @FXML
-    private Label produktWcz;
+    private Button Szukajbtn;
     @FXML
-    private Button btnSzukaj;
+    private Label idProdukty;
     @FXML
-    private TextField iloscZM;
+    private Label idKategoria;
+    @FXML
+    private Label nazwaProdukty;
+    @FXML
+    private TextField ilosctxt;
+    @FXML
+    private Button zmienBtn;
+    @FXML
+    private Button wylogujBtnZ;
 
     /**
      * Initializes the controller class.
