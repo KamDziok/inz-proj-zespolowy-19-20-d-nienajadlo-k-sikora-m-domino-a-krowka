@@ -8,6 +8,8 @@ package FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+import hibernate.Klient;
+import hibernate.KlientQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikQuery;
 import java.io.IOException;
@@ -98,7 +100,11 @@ public class LoginController implements Initializable {
 
         //}
         if (klientR.isSelected()) {
-            if (login.getText().equals("klient") && passwd.getText().equals("test")) {
+           // if (login.getText().equals("klient") && passwd.getText().equals("test")) {
+            KlientQuery klient = new KlientQuery();
+             Klient logowanie = klient.selectByLoginandPassword(log, pass);
+            if(logowanie != null){
+                
                 status.setText("Logowanie zakończone sukcesem!");
                 Stage PrimaryStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
@@ -106,6 +112,7 @@ public class LoginController implements Initializable {
                 PrimaryStage.setScene(scene);
                 PrimaryStage.show();
                 PrimaryStage.setResizable(false);
+                
             } else {
                 status.setText("Logowanie się nie powiodło!");
             }
