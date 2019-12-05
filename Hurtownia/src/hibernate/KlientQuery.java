@@ -42,4 +42,11 @@ public class KlientQuery {
         return k;
     }
     
+    public String changeAddress(Klient client, String address){
+        
+        
+        
+        return address;
+    }
+    
 }
