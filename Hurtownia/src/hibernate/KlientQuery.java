@@ -43,11 +43,25 @@ public class KlientQuery {
         return k;
     }
     
-    public String changeAddress(Klient client, String address){
+    public void changeAddress(Klient client, String country, String city, String street, String buildingNumber, String localNumber, String email){
         
+        int clientId = client.getKlientId();
         
+        // SQL operations and variables
         
-        return address;
+        Klient clientAddress = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Klient where KlientID= '" + clientId;
+        query = session.createQuery(hql);
+        clientAddress = (Klient) query.uniqueResult();
+        session.close();
+        
+        if(country.length() == 0){
+            String query = "UPDATE `adresy ` SET Kraj=" + country + " WHERE AdresID = ";
+        }
+        
+        System.out.println(clientAddress);
+        
     }
     
     public void rejestracja(String imie , String nazwisko, String telefon,String login,String haslo){
