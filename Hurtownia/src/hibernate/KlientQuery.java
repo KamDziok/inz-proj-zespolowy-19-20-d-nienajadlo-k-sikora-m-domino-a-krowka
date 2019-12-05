@@ -6,6 +6,7 @@
 package hibernate;
 
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -49,4 +50,20 @@ public class KlientQuery {
         return address;
     }
     
+    public void rejestracja(String imie , String nazwisko, String telefon,String login,String haslo){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "INSERT INTO `klient` (`Imie`, `Nazwisko`, `Telefon`,`AdresID` ,`login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', '"+telefon+"', NULL, '"+login+"', '" + haslo+"')";
+try {
+    session.getTransaction().begin();
+    session.createSQLQuery(query).executeUpdate();
+    session.getTransaction().commit();
+    session.close();
+}
+catch (HibernateException error){
+    session.getTransaction().rollback();
+    session.close();
+}
+    
+}
 }
