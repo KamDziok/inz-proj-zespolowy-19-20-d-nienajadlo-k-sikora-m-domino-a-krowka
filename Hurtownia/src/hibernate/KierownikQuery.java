@@ -23,8 +23,7 @@ public class KierownikQuery {
     
         session = HibernateUtil.getSessionFactory().openSession();
     String query = "INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', '"+placa+"', NULL, '"+stanowisko+"', NULL, NULL)";
-    // INSERT INTO "`pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES ('" + Marian +"', '"+Pazdzioch+"', '"+3000+"', NULL, '"+Majciarz+"', '"+Menda+"', '"+Społeczna+"')"
-try {
+  try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();
     session.getTransaction().commit();
