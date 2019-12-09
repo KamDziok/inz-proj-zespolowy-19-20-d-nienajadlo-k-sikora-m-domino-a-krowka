@@ -144,6 +144,18 @@ public class LoginController implements Initializable {
         PrimaryStage.show();
         PrimaryStage.setResizable(false);
     }
+    
+       @FXML
+    void PrzypomnienieHaslaOnAction(ActionEvent event) throws IOException {
+         Stage PrimaryStage = new Stage();
+                   Parent root = FXMLLoader.load(getClass().getResource("/FXML/ZmianaHasla.fxml"));
+                    Scene scene = new Scene(root, 500, 400);
+                    PrimaryStage.setScene(scene);
+                    PrimaryStage.show();
+                    PrimaryStage.setResizable(false);
+        
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb
