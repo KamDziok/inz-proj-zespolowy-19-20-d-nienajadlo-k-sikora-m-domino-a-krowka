@@ -107,6 +107,16 @@ public class LoginController implements Initializable {
                     PrimaryStage.show();
                     PrimaryStage.setResizable(false);
                 }
+                
+                if (logowanie.getStanowisko().equals("marketing")) {
+
+                    Stage PrimaryStage = new Stage();
+                  Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Marketing.fxml"));
+                    Scene scene = new Scene(root, 900, 700);
+                    PrimaryStage.setScene(scene);
+                    PrimaryStage.show();
+                    PrimaryStage.setResizable(false);
+                }
 
             }
 

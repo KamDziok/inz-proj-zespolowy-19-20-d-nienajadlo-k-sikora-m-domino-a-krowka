@@ -32,8 +32,7 @@
                               <Label layoutX="25.0" layoutY="189.0" text="Opis:" />
                               <TextArea fx:id="opisD" layoutX="69.0" layoutY="189.0" prefHeight="128.0" prefWidth="243.0" />
                               <ImageView fx:id="grafika" fitHeight="175.0" fitWidth="223.0" layoutX="345.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label layoutX="24.0" layoutY="129.0" text="Grafika:" />
-                              <TextField fx:id="grafika" layoutX="69.0" layoutY="125.0" prefHeight="25.0" prefWidth="212.0" />
+                              <Label layoutX="24.0" layoutY="129.0" text="Grafika:" />                            
                               <Button fx:id="dodajbtn" layoutX="457.0" layoutY="292.0" mnemonicParsing="false" text="Dodaj" />
                            </children>
                         </AnchorPane>
