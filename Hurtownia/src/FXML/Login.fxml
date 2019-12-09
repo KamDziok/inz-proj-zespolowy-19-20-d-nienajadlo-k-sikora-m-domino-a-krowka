@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.ToggleButtonGroup?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -15,7 +17,7 @@
         <URL value="@login.css" />
     </stylesheets>
    <children>
-      <Pane prefHeight="383.0" prefWidth="365.0">
+      <Pane layoutX="4.0" prefHeight="418.0" prefWidth="391.0">
          <children>
             <PasswordField fx:id="passwd" layoutX="114.0" layoutY="170.0" prefHeight="30.0" prefWidth="203.0" promptText="Enter your password">
                <font>
@@ -36,21 +38,11 @@
                   <Font size="23.0" />
                </font>
             </Label>
-            <RadioButton fx:id="klientR" layoutX="183.0" layoutY="225.0" mnemonicParsing="false"  text="Klient" toggleGroup="$group">
+            <Button fx:id="zalogujbtn" layoutX="71.0" layoutY="291.0" mnemonicParsing="false" onAction="#LogInAction" prefHeight="34.0" prefWidth="256.0" text="Zaloguj">
                <font>
-                  <Font size="14.0" />
-               </font>
-               
-            </RadioButton>
-            <RadioButton fx:id="pracownikR" layoutX="52.0" layoutY="225.0" mnemonicParsing="false"  text="Obsługa" toggleGroup="$group">
-             
-                <font>
-                  <Font size="14.0" />
-               </font>
-               
-            </RadioButton>
-            <Button fx:id="zalogujbtn" layoutX="213.0" layoutY="272.0" mnemonicParsing="false" onAction="#LogInAction" prefHeight="34.0" prefWidth="128.0" text="Zaloguj" />
-            <Label fx:id="status" layoutX="55.0" layoutY="332.0" prefHeight="17.0" prefWidth="217.0" textFill="#d33010">
+                  <Font size="13.0" />
+               </font></Button>
+            <Label fx:id="status" layoutX="78.0" layoutY="20.0" prefHeight="17.0" prefWidth="217.0" textFill="#d33010">
                <font>
                   <Font size="14.0" />
                </font>
@@ -60,6 +52,22 @@
                   <Font size="14.0" />
                </font>
             </TextField>
+            <ToggleButtonGroup fx:id="group" layoutX="103.0" layoutY="235.0" prefHeight="20.0" prefWidth="203.0" selectionType="SINGLE">
+                <toggles>
+                  <RadioButton fx:id="klientR" mnemonicParsing="false" prefHeight="20.0" prefWidth="85.0" text="Klient">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </RadioButton>
+                  <RadioButton fx:id="pracownikR" mnemonicParsing="false" prefHeight="20.0" prefWidth="103.0" text="Obsługa">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </RadioButton>
+                </toggles>
+            </ToggleButtonGroup>
+            <JFXButton fx:id="forgotPasswordBtn" layoutX="20.0" layoutY="364.0" prefHeight="32.0" prefWidth="153.0" text="Nie pamiętasz hasła?" />
+            <JFXButton fx:id="rejestracjaH" layoutX="223.0" layoutY="364.0" onAction="#RejestracjaAction" prefHeight="32.0" prefWidth="159.0" text="Zarejestruj się teraz!" />
          </children>
       </Pane>
    </children>

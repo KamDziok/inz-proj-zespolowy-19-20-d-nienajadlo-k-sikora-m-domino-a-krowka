@@ -8,6 +8,7 @@ package FXML;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
+import com.jfoenix.controls.JFXButton;
 import hibernate.Klient;
 import hibernate.KlientQuery;
 import hibernate.Pracownik;
@@ -20,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -38,7 +40,16 @@ public class LoginController implements Initializable {
     private PasswordField passwd;
 
     @FXML
+    private Button zalogujbtn;
+
+    @FXML
+    private Label status;
+
+    @FXML
     private TextField login;
+
+    @FXML
+    private ToggleButtonGroup group;
 
     @FXML
     private RadioButton klientR;
@@ -47,13 +58,10 @@ public class LoginController implements Initializable {
     private RadioButton pracownikR;
 
     @FXML
-    private Button zalogujbtn;
+    private JFXButton forgotPasswordBtn;
 
     @FXML
-    private ToggleButtonGroup group;
-
-    @FXML
-    private Label status;
+    private JFXButton rejestracjaH;
 
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
@@ -89,8 +97,8 @@ public class LoginController implements Initializable {
                     PrimaryStage.show();
                     PrimaryStage.setResizable(false);
                 }
-                
-                  if (logowanie.getStanowisko().equals("magazynier")) {
+
+                if (logowanie.getStanowisko().equals("magazynier")) {
 
                     Stage PrimaryStage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("/FXML/Magazyn_Menu.fxml"));
@@ -125,6 +133,16 @@ public class LoginController implements Initializable {
                 status.setText("Logowanie się nie powiodło!");
             }
         }
+    }
+
+    @FXML
+    void RejestracjaAction(ActionEvent event) throws IOException {
+        Stage PrimaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML/Rejestracja.fxml"));
+        Scene scene = new Scene(root, 500, 600);
+        PrimaryStage.setScene(scene);
+        PrimaryStage.show();
+        PrimaryStage.setResizable(false);
     }
 
     @Override
