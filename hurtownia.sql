@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 03 Gru 2019, 20:55
+-- Czas generowania: 10 Gru 2019, 19:47
 -- Wersja serwera: 10.4.8-MariaDB
 -- Wersja PHP: 7.3.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `hurtownia`
+-- Baza danych: `hurtowniap`
 --
 
 -- --------------------------------------------------------
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `adresy` (
+  `KlientID` int(11) NOT NULL,
   `Kraj` varchar(30) NOT NULL,
   `Miasto` varchar(30) NOT NULL,
   `Ulica` varchar(30) NOT NULL,
@@ -73,10 +74,16 @@ CREATE TABLE `klient` (
   `Imie` varchar(30) NOT NULL,
   `Nazwisko` varchar(30) NOT NULL,
   `Telefon` decimal(12,0) NOT NULL,
-  `AdresID` int(11) NOT NULL,
   `login` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `klient`
+--
+
+INSERT INTO `klient` (`KlientID`, `Imie`, `Nazwisko`, `Telefon`, `login`, `password`) VALUES
+(1, 'Jan', 'Kowalski', '123123123', 'jankowalski', 'jankowalski');
 
 -- --------------------------------------------------------
 
@@ -121,7 +128,7 @@ CREATE TABLE `pracownik` (
   `PracownikID` int(11) NOT NULL,
   `Stanowisko` varchar(30) NOT NULL,
   `login` varchar(30) DEFAULT NULL,
-  `password` varchar(50) NOT NULL
+  `password` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -129,7 +136,10 @@ CREATE TABLE `pracownik` (
 --
 
 INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES
-('Jan', 'Kowalski', 1222, 3, 'magazynier', NULL, '');
+('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
+('Marian', 'Pazdzioch', 3000, 4, 'Majciarz', 'Menda', 'Społeczna'),
+('Mairan', 'Kowalski', 1200, 5, 'magazynier', 'login', 'haslo'),
+('Maiasdran', 'Kowalasdasdski', 1200, 6, 'magaasdzynier', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -208,7 +218,8 @@ CREATE TABLE `zamowienie` (
 --
 ALTER TABLE `adresy`
   ADD PRIMARY KEY (`AdresID`),
-  ADD UNIQUE KEY `Email` (`Email`);
+  ADD UNIQUE KEY `Email` (`Email`),
+  ADD KEY `klient_adres` (`KlientID`);
 
 --
 -- Indeksy dla tabeli `hurtownia`
@@ -227,8 +238,7 @@ ALTER TABLE `kategorie`
 -- Indeksy dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  ADD PRIMARY KEY (`KlientID`),
-  ADD KEY `klient_ibfk_1` (`AdresID`);
+  ADD PRIMARY KEY (`KlientID`);
 
 --
 -- Indeksy dla tabeli `ksiegowosc`
@@ -311,7 +321,7 @@ ALTER TABLE `kategorie`
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `ksiegowosc`
@@ -329,7 +339,7 @@ ALTER TABLE `magazyn`
 -- AUTO_INCREMENT dla tabeli `pracownik`
 --
 ALTER TABLE `pracownik`
-  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkty`
@@ -366,16 +376,16 @@ ALTER TABLE `zamowienie`
 --
 
 --
+-- Ograniczenia dla tabeli `adresy`
+--
+ALTER TABLE `adresy`
+  ADD CONSTRAINT `klient_adres` FOREIGN KEY (`KlientID`) REFERENCES `klient` (`KlientID`);
+
+--
 -- Ograniczenia dla tabeli `hurtownia`
 --
 ALTER TABLE `hurtownia`
   ADD CONSTRAINT `hurtownia_ibfk_1` FOREIGN KEY (`AdresID`) REFERENCES `adresy` (`AdresID`);
-
---
--- Ograniczenia dla tabeli `klient`
---
-ALTER TABLE `klient`
-  ADD CONSTRAINT `klient_ibfk_1` FOREIGN KEY (`AdresID`) REFERENCES `adresy` (`AdresID`);
 
 --
 -- Ograniczenia dla tabeli `ksiegowosc`
