@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-03 21:04:59 by Hibernate Tools 4.3.1
+// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -12,20 +12,21 @@ public class Adresy  implements java.io.Serializable {
 
 
      private Integer adresId;
+     private Klient klient;
      private String kraj;
      private String miasto;
      private String ulica;
      private String numerBudynku;
      private int numerLokalu;
      private String email;
-     private Set klients = new HashSet(0);
      private Set hurtownias = new HashSet(0);
 
     public Adresy() {
     }
 
 	
-    public Adresy(String kraj, String miasto, String ulica, String numerBudynku, int numerLokalu, String email) {
+    public Adresy(Klient klient, String kraj, String miasto, String ulica, String numerBudynku, int numerLokalu, String email) {
+        this.klient = klient;
         this.kraj = kraj;
         this.miasto = miasto;
         this.ulica = ulica;
@@ -33,14 +34,14 @@ public class Adresy  implements java.io.Serializable {
         this.numerLokalu = numerLokalu;
         this.email = email;
     }
-    public Adresy(String kraj, String miasto, String ulica, String numerBudynku, int numerLokalu, String email, Set klients, Set hurtownias) {
+    public Adresy(Klient klient, String kraj, String miasto, String ulica, String numerBudynku, int numerLokalu, String email, Set hurtownias) {
+       this.klient = klient;
        this.kraj = kraj;
        this.miasto = miasto;
        this.ulica = ulica;
        this.numerBudynku = numerBudynku;
        this.numerLokalu = numerLokalu;
        this.email = email;
-       this.klients = klients;
        this.hurtownias = hurtownias;
     }
    
@@ -50,6 +51,13 @@ public class Adresy  implements java.io.Serializable {
     
     public void setAdresId(Integer adresId) {
         this.adresId = adresId;
+    }
+    public Klient getKlient() {
+        return this.klient;
+    }
+    
+    public void setKlient(Klient klient) {
+        this.klient = klient;
     }
     public String getKraj() {
         return this.kraj;
@@ -92,13 +100,6 @@ public class Adresy  implements java.io.Serializable {
     
     public void setEmail(String email) {
         this.email = email;
-    }
-    public Set getKlients() {
-        return this.klients;
-    }
-    
-    public void setKlients(Set klients) {
-        this.klients = klients;
     }
     public Set getHurtownias() {
         return this.hurtownias;

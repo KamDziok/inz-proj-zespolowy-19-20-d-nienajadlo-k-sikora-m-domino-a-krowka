@@ -5,11 +5,15 @@
  */
 package FXML;
 
+import hibernate.Klient;
+import hibernate.KlientQuery;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -33,13 +37,36 @@ public class RejestracjaController implements Initializable {
     private Button zarejestrujBtn;
     @FXML
     private PasswordField hasloR;
+     @FXML
+    private Label status;
 
-    /**
-     * Initializes the controller class.
-     */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    @FXML
+    void Zarejestruj(ActionEvent event) {
+
+          String imie = imieR.getText();
+        String nazwisko = nazwiskoR.getText();
+        long telefon = Long.parseLong(telefonR.getText());
+   
+        String login = loginR.getText();
+        String haslo = hasloR.getText();
+
+        Klient k = new Klient(imie, nazwisko,  telefon, login, haslo);
+
+        KlientQuery queryK = new KlientQuery();
+
+        try {
+            queryK.rejestracja(imie, nazwisko, telefon, login, haslo);
+            status.setText("Rejestracja udana!");
+            
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }
     
 }

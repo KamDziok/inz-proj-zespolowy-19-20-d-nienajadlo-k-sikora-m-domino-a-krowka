@@ -64,10 +64,10 @@ public class KlientQuery {
         
     }
     
-    public void rejestracja(String imie , String nazwisko, String telefon,String login,String haslo){
+    public void rejestracja(String imie , String nazwisko, long telefon,String login,String haslo){
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `klient` (`Imie`, `Nazwisko`, `Telefon`,`AdresID` ,`login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', '"+telefon+"', NULL, '"+login+"', '" + haslo+"')";
+    String query = "INSERT INTO `klient` (`Imie`, `Nazwisko`, `Telefon`,`login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', '"+telefon+"', '"+login+"', '" + haslo+"')";
 try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();
@@ -76,7 +76,7 @@ try {
 }
 catch (HibernateException error){
     session.getTransaction().rollback();
-    session.close();
+    session.close();  
 }
     
 }

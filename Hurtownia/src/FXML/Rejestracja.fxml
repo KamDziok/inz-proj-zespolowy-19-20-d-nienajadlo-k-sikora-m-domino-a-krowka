@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="442.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="FXML.RejestracjaController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.RejestracjaController">
    <children>
       <Pane prefHeight="572.0" prefWidth="442.0">
          <children>
@@ -57,8 +56,9 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="zarejestrujBtn" layoutX="155.0" layoutY="464.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="133.0" text="ZAREJESTRUJ" />
+            <Button fx:id="zarejestrujBtn" layoutX="155.0" layoutY="464.0" mnemonicParsing="false" onAction="#Zarejestruj" prefHeight="44.0" prefWidth="133.0" text="ZAREJESTRUJ" />
             <PasswordField fx:id="hasloR" layoutX="129.0" layoutY="391.0" prefHeight="25.0" prefWidth="247.0" />
+            <Label fx:id="status" layoutX="72.0" layoutY="529.0" prefHeight="25.0" prefWidth="290.0" />
          </children>
       </Pane>
    </children>

@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-03 21:04:59 by Hibernate Tools 4.3.1
+// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -24,12 +24,11 @@ public class Pracownik  implements java.io.Serializable {
     }
 
 	
-    public Pracownik(String imie, String nazwisko, float placa, String stanowisko, String password) {
+    public Pracownik(String imie, String nazwisko, float placa, String stanowisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.placa = placa;
         this.stanowisko = stanowisko;
-        this.password = password;
     }
     public Pracownik(String imie, String nazwisko, float placa, String stanowisko, String login, String password, Set wyplaties) {
        this.imie = imie;
