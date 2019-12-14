@@ -63,8 +63,8 @@ public class RejestracjaController extends Logowanie implements Initializable {
         try {
             queryK.rejestracja(imie, nazwisko, telefon, login, haslo);
             status.setText("Rejestracja udana!");
-             String rejestracja = "/FXML/Login.fxml";
-            wczytywanie(event, rejestracja);
+             String alert = "/FXML/Alert.fxml";
+            wczytywanie(event, alert);
             
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
