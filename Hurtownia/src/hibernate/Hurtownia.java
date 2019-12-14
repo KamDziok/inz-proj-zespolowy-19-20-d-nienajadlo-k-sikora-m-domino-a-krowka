@@ -25,7 +25,8 @@ public class Hurtownia  implements java.io.Serializable {
         this.adresy = adresy;
         this.telefon = telefon;
     }
-    public Hurtownia(Adresy adresy, long telefon, Set ksiegowoscs, Set magazyns) {
+    public Hurtownia(Adresy adresy, long telefon, Set ksiegowoscs, 
+            Set magazyns) {
        this.adresy = adresy;
        this.telefon = telefon;
        this.ksiegowoscs = ksiegowoscs;

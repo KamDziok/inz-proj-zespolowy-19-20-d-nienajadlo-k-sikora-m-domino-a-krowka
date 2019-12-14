@@ -3,7 +3,8 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-12-10 21:47:50 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="hibernate.Hurtownia" table="hurtownia" catalog="hurtowniap2" optimistic-lock="version">
+    <class name="hibernate.Hurtownia" table="hurtownia" catalog="hurtowniap2"
+           optimistic-lock="version">
         <id name="hurtowniaId" type="java.lang.Integer">
             <column name="HurtowniaID" />
             <generator class="identity" />
@@ -14,13 +15,15 @@
         <property name="telefon" type="long">
             <column name="Telefon" precision="12" scale="0" not-null="true" />
         </property>
-        <set name="ksiegowoscs" table="ksiegowosc" inverse="true" lazy="true" fetch="select">
+        <set name="ksiegowoscs" table="ksiegowosc" inverse="true" lazy="true" 
+             fetch="select">
             <key>
                 <column name="HurtowniaID" not-null="true" />
             </key>
             <one-to-many class="hibernate.Ksiegowosc" />
         </set>
-        <set name="magazyns" table="magazyn" inverse="true" lazy="true" fetch="select">
+        <set name="magazyns" table="magazyn" inverse="true" lazy="true" 
+             fetch="select">
             <key>
                 <column name="HurtowniaID" not-null="true" />
             </key>

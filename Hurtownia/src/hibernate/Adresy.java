@@ -25,7 +25,8 @@ public class Adresy  implements java.io.Serializable {
     }
 
 	
-    public Adresy(Klient klient, String kraj, String miasto, String ulica, String numerBudynku, int numerLokalu, String email) {
+    public Adresy(Klient klient, String kraj, String miasto, String ulica, 
+            String numerBudynku, int numerLokalu, String email) {
         this.klient = klient;
         this.kraj = kraj;
         this.miasto = miasto;
@@ -34,7 +35,9 @@ public class Adresy  implements java.io.Serializable {
         this.numerLokalu = numerLokalu;
         this.email = email;
     }
-    public Adresy(Klient klient, String kraj, String miasto, String ulica, String numerBudynku, int numerLokalu, String email, Set hurtownias) {
+    public Adresy(Klient klient, String kraj, String miasto, String ulica, 
+            String numerBudynku, int numerLokalu, String email, 
+            Set hurtownias) {
        this.klient = klient;
        this.kraj = kraj;
        this.miasto = miasto;

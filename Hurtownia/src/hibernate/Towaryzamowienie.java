@@ -17,7 +17,8 @@ public class Towaryzamowienie  implements java.io.Serializable {
     public Towaryzamowienie() {
     }
 
-    public Towaryzamowienie(Produkty produkty, Zamowienie zamowienie, int ilosc) {
+    public Towaryzamowienie(Produkty produkty, Zamowienie zamowienie, 
+            int ilosc) {
        this.produkty = produkty;
        this.zamowienie = zamowienie;
        this.ilosc = ilosc;

@@ -24,13 +24,15 @@ public class Pracownik  implements java.io.Serializable {
     }
 
 	
-    public Pracownik(String imie, String nazwisko, float placa, String stanowisko) {
+    public Pracownik(String imie, String nazwisko, float placa, 
+            String stanowisko) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.placa = placa;
         this.stanowisko = stanowisko;
     }
-    public Pracownik(String imie, String nazwisko, float placa, String stanowisko, String login, String password, Set wyplaties) {
+    public Pracownik(String imie, String nazwisko, float placa, 
+            String stanowisko, String login, String password, Set wyplaties) {
        this.imie = imie;
        this.nazwisko = nazwisko;
        this.placa = placa;

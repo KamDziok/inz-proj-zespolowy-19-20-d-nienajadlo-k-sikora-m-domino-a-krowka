@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate 
+Reverse Engineering DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="HurtowniaP"/>
-  <table-filter match-name="hurtownia"/>
-  <table-filter match-name="kategorie"/>
-  <table-filter match-name="towaryzamowienie"/>
-  <table-filter match-name="magazyn"/>
-  <table-filter match-name="klient"/>
-  <table-filter match-name="ksiegowosc"/>
-  <table-filter match-name="reklama"/>
+  <schema-selection match-catalog="HurtowniaP2"/>
   <table-filter match-name="pracownik"/>
-  <table-filter match-name="wyplaty"/>
-  <table-filter match-name="produkty"/>
-  <table-filter match-name="zamowienie"/>
   <table-filter match-name="adresy"/>
+  <table-filter match-name="produkty"/>
+  <table-filter match-name="wyplaty"/>
+  <table-filter match-name="kategorie"/>
+  <table-filter match-name="reklama"/>
+  <table-filter match-name="hurtownia"/>
+  <table-filter match-name="ksiegowosc"/>
+  <table-filter match-name="towaryzamowienie"/>
+  <table-filter match-name="klient"/>
+  <table-filter match-name="zamowienie"/>
+  <table-filter match-name="magazyn"/>
 </hibernate-reverse-engineering>

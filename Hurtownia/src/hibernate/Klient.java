@@ -23,14 +23,16 @@ public class Klient  implements java.io.Serializable {
     }
 
 	
-    public Klient(String imie, String nazwisko, long telefon, String login, String password) {
+    public Klient(String imie, String nazwisko, long telefon, String login, 
+            String password) {
         this.imie = imie;
         this.nazwisko = nazwisko;
         this.telefon = telefon;
         this.login = login;
         this.password = password;
     }
-    public Klient(String imie, String nazwisko, long telefon, String login, String password, Set adresies) {
+    public Klient(String imie, String nazwisko, long telefon, String login,
+            String password, Set adresies) {
        this.imie = imie;
        this.nazwisko = nazwisko;
        this.telefon = telefon;

@@ -23,7 +23,8 @@ public class KlientQuery {
     public boolean selecyByLoginandPassword(String login, String password) {
         Klient k = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Klient where login = '" + login + "' and password = '" + password + "'";
+        String hql = "from Klient where login = '" + login + "'"
+                + " and password = '" + password + "'";
         query = session.createQuery(hql);
         k = (Klient) query.uniqueResult();
         session.close();
@@ -36,14 +37,18 @@ public class KlientQuery {
     public Klient selectByLoginandPassword(String login, String password){
         Klient k = null;
         session = HibernateUtil.getSessionFactory().openSession();
-         String hql = "from Klient where login = '" + login + "' and password = '" + password + "'";
+         String hql = "from Klient where login = '" + login + "' "
+                 + "and password = "
+                 + "'" + password + "'";
         query = session.createQuery(hql);
         k = (Klient) query.uniqueResult();
         session.close();
         return k;
     }
     
-    public void changeAddress(Klient client, String country, String city, String street, String buildingNumber, String localNumber, String email){
+    public void changeAddress(Klient client, String country, String city, 
+            String street, String buildingNumber, String localNumber,
+            String email){
         
         int clientId = client.getKlientId();
         
@@ -57,17 +62,21 @@ public class KlientQuery {
         session.close();
         
         if(country.length() == 0){
-            String query = "UPDATE `adresy ` SET Kraj=" + country + " WHERE AdresID = ";
+            String query = "UPDATE `adresy ` SET Kraj=" + country +
+                    " WHERE AdresID = ";
         }
         
         System.out.println(clientAddress);
         
     }
     
-    public void rejestracja(String imie , String nazwisko, long telefon,String login,String haslo){
+    public void rejestracja(String imie , String nazwisko, long telefon,
+            String login,String haslo){
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `klient` (`Imie`, `Nazwisko`, `Telefon`,`login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', '"+telefon+"', '"+login+"', '" + haslo+"')";
+    String query = "INSERT INTO `klient` (`Imie`, `Nazwisko`, `Telefon`,"
+            + "`login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', "
+            + "'"+telefon+"', '"+login+"', '" + haslo+"')";
 try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();

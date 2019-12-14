@@ -19,10 +19,14 @@ public class KierownikQuery {
     Query query = null;
     Criteria criteria = null;
     
-    public void dodajPracownika(String imie , String nazwisko, float placa,String stanowisko){
+    public void dodajPracownika(String imie , String nazwisko, 
+            float placa,String stanowisko){
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES ('" + imie +"', '"+nazwisko+"', '"+placa+"', NULL, '"+stanowisko+"', NULL, NULL)";
+    String query = "INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`,"
+            + " `PracownikID`, `Stanowisko`, `login`, `password`) "
+            + "VALUES ('" + imie +"', '"+nazwisko+"', '"+placa+"',"
+            + " NULL, '"+stanowisko+"', NULL, NULL)";
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();

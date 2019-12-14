@@ -22,7 +22,8 @@ import javafx.scene.control.TextField;
  *
  * @author monika
  */
-public class RejestracjaController implements Initializable {
+public class RejestracjaController extends Logowanie implements Initializable {
+
     @FXML
     private TextField imieR;
     @FXML
@@ -37,36 +38,39 @@ public class RejestracjaController implements Initializable {
     private Button zarejestrujBtn;
     @FXML
     private PasswordField hasloR;
-     @FXML
+    @FXML
     private Label status;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-    @FXML
-    void Zarejestruj(ActionEvent event) {
+    }
 
-          String imie = imieR.getText();
+    @FXML
+    void zarejestruj(ActionEvent event) {
+
+        String imie = imieR.getText();
         String nazwisko = nazwiskoR.getText();
         long telefon = Long.parseLong(telefonR.getText());
-   
+
         String login = loginR.getText();
         String haslo = hasloR.getText();
 
-        Klient k = new Klient(imie, nazwisko,  telefon, login, haslo);
+        Klient k = new Klient(imie, nazwisko, telefon, login, haslo);
 
         KlientQuery queryK = new KlientQuery();
 
         try {
             queryK.rejestracja(imie, nazwisko, telefon, login, haslo);
             status.setText("Rejestracja udana!");
+             String rejestracja = "/FXML/Login.fxml";
+            wczytywanie(event, rejestracja);
             
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
+        
+       
     }
-    
+
 }

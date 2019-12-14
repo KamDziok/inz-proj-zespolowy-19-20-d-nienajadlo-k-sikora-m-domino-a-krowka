@@ -12,35 +12,57 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="FXML.Menu_MarketingController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" 
+            styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/8.0.171" 
+            fx:controller="FXML.Menu_MarketingController">
     <stylesheets>
         <URL value="@menu_marketing.css" />
     </stylesheets>
    <children>
       <Pane layoutX="-1.0" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy=
+"UNAVAILABLE">
               <tabs>
                 <Tab text="Dodaj reklame">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight=
+"180.0" prefWidth="200.0">
                            <children>
-                              <Label layoutX="24.0" layoutY="26.0" prefHeight="17.0" prefWidth="44.0" text="Tytuł:" />
-                              <TextField fx:id="tytulD" layoutX="68.0" layoutY="22.0" prefHeight="25.0" prefWidth="213.0" />
-                              <DatePicker fx:id="dataD" layoutX="69.0" layoutY="76.0" prefHeight="25.0" prefWidth="212.0" />
-                              <Label layoutX="24.0" layoutY="80.0" text="Data:" />
-                              <Label layoutX="25.0" layoutY="189.0" text="Opis:" />
-                              <TextArea fx:id="opisD" layoutX="69.0" layoutY="189.0" prefHeight="128.0" prefWidth="243.0" />
-                              <ImageView fx:id="grafika" fitHeight="175.0" fitWidth="223.0" layoutX="345.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
-                              <Label layoutX="24.0" layoutY="129.0" text="Grafika:" />                            
-                              <Button fx:id="dodajbtn" layoutX="457.0" layoutY="292.0" mnemonicParsing="false" text="Dodaj" />
+                              <Label layoutX="24.0" layoutY="26.0"
+                                     prefHeight="17.0" prefWidth="44.0"
+                                     text="Tytuł:" />
+                              <TextField fx:id="tytulD" layoutX="68.0"
+                                         layoutY="22.0" prefHeight="25.0" 
+                                         prefWidth="213.0" />
+                              <DatePicker fx:id="dataD" layoutX="69.0" 
+                                          layoutY="76.0"
+                                          prefHeight="25.0" prefWidth="212.0" />
+                              <Label layoutX="24.0" layoutY="80.0" text="Data:"
+                              />
+                              <Label layoutX="25.0" layoutY="189.0" text="Opis:" 
+                              />
+                              <TextArea fx:id="opisD" layoutX="69.0" 
+                                        layoutY="189.0" prefHeight="128.0"
+                                        prefWidth="243.0" />
+                              <ImageView fx:id="grafika" fitHeight="175.0" 
+                                         fitWidth="223.0" layoutX="345.0" 
+                                         layoutY="14.0" pickOnBounds="true"
+                                         preserveRatio="true" />
+                              <Label layoutX="24.0" layoutY="129.0"
+                                     text="Grafika:" />                            
+                              <Button fx:id="dodajbtn" layoutX="457.0" 
+                                      layoutY="292.0" mnemonicParsing="false"
+                                      text="Dodaj" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="Modyfikuj reklame">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" 
+                                prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
               </tabs>

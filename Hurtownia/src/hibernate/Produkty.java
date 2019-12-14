@@ -23,13 +23,15 @@ public class Produkty  implements java.io.Serializable {
     }
 
 	
-    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, String opis) {
+    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, 
+            String opis) {
         this.kategorie = kategorie;
         this.nazwa = nazwa;
         this.cenaKupna = cenaKupna;
         this.opis = opis;
     }
-    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, String opis, Set magazyns, Set towaryzamowienies) {
+    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, 
+            String opis, Set magazyns, Set towaryzamowienies) {
        this.kategorie = kategorie;
        this.nazwa = nazwa;
        this.cenaKupna = cenaKupna;

@@ -22,7 +22,8 @@ public class PracownikQuery {
      public boolean selecyByLoginandPassword(String login, String password) {
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Pracownik where login = '" + login + "' and password = '" + password + "'";
+        String hql = "from Pracownik where login = '" + login + 
+                "' and password = '" + password + "'";
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
@@ -35,7 +36,8 @@ public class PracownikQuery {
     public Pracownik selectByLoginandPassword(String login, String password){
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
-         String hql = "from Pracownik where login = '" + login + "' and password = '" + password + "'";
+         String hql = "from Pracownik where login = '" + login + "' "
+                 + "and password = '" + password + "'";
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();

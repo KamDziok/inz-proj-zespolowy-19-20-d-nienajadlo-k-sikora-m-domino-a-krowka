@@ -25,7 +25,8 @@ public class Hurtownia extends Application {
     @Override
     public void start(Stage primaryStage) {
           try{
-           Parent root = FXMLLoader.load(getClass().getResource("/FXML/Login.fxml"));
+           Parent root = FXMLLoader.load(getClass().getResource("/FXML/"
+                   + "Login.fxml"));
            Scene scene = new Scene(root, 400, 415);
            primaryStage.setScene(scene);
            primaryStage.show();

@@ -24,13 +24,13 @@ import javafx.scene.control.TextField;
  */
 public class Magazyn_MenuController implements Initializable {
     @FXML
-    private TableView<?> produkty;
+    private TableView<?> produktyW;
     @FXML
     private TableColumn<?, ?> IdProdukt;
     @FXML
-    private TableColumn<?, ?> nazwaP;
+    private TableColumn<?, ?> nazwaPK;
     @FXML
-    private TableColumn<?, ?> iloscP;
+    private TableColumn<?, ?> iloscPK;
     @FXML
     private TableColumn<?, ?> cenaP;
     @FXML

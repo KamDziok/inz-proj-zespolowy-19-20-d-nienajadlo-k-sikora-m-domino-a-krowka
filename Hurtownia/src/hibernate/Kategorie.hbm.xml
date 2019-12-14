@@ -3,7 +3,8 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-12-10 21:47:50 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="hibernate.Kategorie" table="kategorie" catalog="hurtowniap2" optimistic-lock="version">
+    <class name="hibernate.Kategorie" table="kategorie" catalog="hurtowniap2" 
+           optimistic-lock="version">
         <id name="kategoriaId" type="java.lang.Integer">
             <column name="KategoriaID" />
             <generator class="identity" />
@@ -14,7 +15,8 @@
         <property name="opis" type="string">
             <column name="Opis" length="300" not-null="true" />
         </property>
-        <set name="produkties" table="produkty" inverse="true" lazy="true" fetch="select">
+        <set name="produkties" table="produkty" inverse="true" lazy="true" 
+             fetch="select">
             <key>
                 <column name="KategoriaID" not-null="true" />
             </key>

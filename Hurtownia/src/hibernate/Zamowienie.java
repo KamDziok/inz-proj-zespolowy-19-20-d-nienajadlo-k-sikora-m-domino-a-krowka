@@ -23,13 +23,15 @@ public class Zamowienie  implements java.io.Serializable {
     }
 
 	
-    public Zamowienie(String statusZaplaty, String statusTransportu, Date data, float koszt) {
+    public Zamowienie(String statusZaplaty, String statusTransportu, Date data, 
+            float koszt) {
         this.statusZaplaty = statusZaplaty;
         this.statusTransportu = statusTransportu;
         this.data = data;
         this.koszt = koszt;
     }
-    public Zamowienie(String statusZaplaty, String statusTransportu, Date data, float koszt, Set towaryzamowienies) {
+    public Zamowienie(String statusZaplaty, String statusTransportu, Date data, 
+            float koszt, Set towaryzamowienies) {
        this.statusZaplaty = statusZaplaty;
        this.statusTransportu = statusTransportu;
        this.data = data;

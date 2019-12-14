@@ -3,7 +3,8 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 2019-12-10 21:47:50 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="hibernate.Adresy" table="adresy" catalog="hurtowniap2" optimistic-lock="version">
+    <class name="hibernate.Adresy" table="adresy" catalog="hurtowniap2" 
+           optimistic-lock="version">
         <id name="adresId" type="java.lang.Integer">
             <column name="AdresID" />
             <generator class="identity" />
@@ -29,7 +30,8 @@
         <property name="email" type="string">
             <column name="Email" length="50" not-null="true" unique="true" />
         </property>
-        <set name="hurtownias" table="hurtownia" inverse="true" lazy="true" fetch="select">
+        <set name="hurtownias" table="hurtownia" inverse="true" lazy="true" 
+             fetch="select">
             <key>
                 <column name="AdresID" not-null="true" />
             </key>

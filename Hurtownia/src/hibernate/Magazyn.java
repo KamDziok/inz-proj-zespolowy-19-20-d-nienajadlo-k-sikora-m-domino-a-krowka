@@ -18,7 +18,8 @@ public class Magazyn  implements java.io.Serializable {
     public Magazyn() {
     }
 
-    public Magazyn(Hurtownia hurtownia, Produkty produkty, int ilosc, float cenaSprzedazy) {
+    public Magazyn(Hurtownia hurtownia, Produkty produkty, int ilosc,
+            float cenaSprzedazy) {
        this.hurtownia = hurtownia;
        this.produkty = produkty;
        this.ilosc = ilosc;

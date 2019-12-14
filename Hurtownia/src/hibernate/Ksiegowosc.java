@@ -21,7 +21,8 @@ public class Ksiegowosc  implements java.io.Serializable {
     public Ksiegowosc() {
     }
 
-    public Ksiegowosc(Hurtownia hurtownia, Date data, float przychody, float koszty, float aktywa, float pasywa) {
+    public Ksiegowosc(Hurtownia hurtownia, Date data, float przychody, 
+            float koszty, float aktywa, float pasywa) {
        this.hurtownia = hurtownia;
        this.data = data;
        this.przychody = przychody;

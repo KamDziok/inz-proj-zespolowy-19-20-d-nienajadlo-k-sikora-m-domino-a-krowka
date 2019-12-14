@@ -18,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -34,7 +35,7 @@ import javafx.stage.Stage;
  *
  * @author monika
  */
-public class LoginController implements Initializable {
+public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     private PasswordField passwd;
@@ -78,44 +79,56 @@ public class LoginController implements Initializable {
                 status.setText("Logowanie zakończone sukcesem!");
 
                 if (logowanie.getStanowisko().equals("kierownik")) {
-
-                    Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Kierownik.fxml"));
-                    Scene scene = new Scene(root, 700, 700);
-                    PrimaryStage.setScene(scene);
-                    PrimaryStage.show();
-                    PrimaryStage.setResizable(false);
-
+                    
+                    String kierownik = "/FXML/Menu_Kierownik.fxml";
+                    wczytywanie(event, kierownik);
+                    /*Stage PrimaryStage = new Stage();
+                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                     + "/Menu_Kierownik.fxml"));
+                     Scene scene = new Scene(root, 750, 600);
+                     PrimaryStage.setScene(scene);
+                     PrimaryStage.show();
+                     PrimaryStage.setResizable(false);*/
                 }
 
                 if (logowanie.getStanowisko().equals("ksiegowa")) {
-
-                    Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Ksiegowosc.fxml"));
+                    
+                    String ksiegowy = "/FXML/Menu_Ksiegowosc.fxml";
+                    wczytywanie(event, ksiegowy);
+                    /*Stage PrimaryStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                            + "/Menu_Ksiegowosc.fxml"));
                     Scene scene = new Scene(root, 900, 700);
                     PrimaryStage.setScene(scene);
                     PrimaryStage.show();
-                    PrimaryStage.setResizable(false);
+                    PrimaryStage.setResizable(false);     */
                 }
 
                 if (logowanie.getStanowisko().equals("magazynier")) {
-
-                    Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML/Magazyn_Menu.fxml"));
+                    
+                    String magazynier = "/FXML/Magazyn_Menu.fxml";
+                    wczytywanie(event, magazynier);
+                    /* Stage PrimaryStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                            + "/Magazyn_Menu.fxml"));
                     Scene scene = new Scene(root, 900, 700);
                     PrimaryStage.setScene(scene);
                     PrimaryStage.show();
-                    PrimaryStage.setResizable(false);
+                    PrimaryStage.setResizable(false); */
+                            
                 }
-                
+
                 if (logowanie.getStanowisko().equals("marketing")) {
 
-                    Stage PrimaryStage = new Stage();
-                  Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Marketing.fxml"));
+                    String marketing = "/FXML/Menu_Marketing.fxml";
+                    wczytywanie(event, marketing);
+                  /*  Stage PrimaryStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                            + "/Menu_Marketing.fxml"));
                     Scene scene = new Scene(root, 900, 700);
                     PrimaryStage.setScene(scene);
                     PrimaryStage.show();
-                    PrimaryStage.setResizable(false);
+                    PrimaryStage.setResizable(false); */
                 }
 
             }
@@ -130,15 +143,16 @@ public class LoginController implements Initializable {
             KlientQuery klient = new KlientQuery();
             Klient logowanie = klient.selectByLoginandPassword(log, pass);
             if (logowanie != null) {
-
                 status.setText("Logowanie zakończone sukcesem!");
-                Stage PrimaryStage = new Stage();
+                String adres = "/FXML/Menu_Klient.fxml";
+                wczytywanie(event, adres);
+                /*Stage PrimaryStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
                 Scene scene = new Scene(root, 800, 480);
                 PrimaryStage.setScene(scene);
                 PrimaryStage.show();
-                PrimaryStage.setResizable(false);
-
+                PrimaryStage.setResizable(false); */
+                
             } else {
                 status.setText("Logowanie się nie powiodło!");
             }
@@ -147,23 +161,27 @@ public class LoginController implements Initializable {
 
     @FXML
     void RejestracjaAction(ActionEvent event) throws IOException {
-        Stage PrimaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/FXML/Rejestracja.fxml"));
+        
+        String rejestracja ="/FXML/Rejestracja.fxml";
+        wczytywanie(event, rejestracja);
+       /* Stage PrimaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                + "/Rejestracja.fxml"));
         Scene scene = new Scene(root, 500, 600);
         PrimaryStage.setScene(scene);
         PrimaryStage.show();
-        PrimaryStage.setResizable(false);
+        PrimaryStage.setResizable(false);*/
     }
-    
-       @FXML
+
+    @FXML
     void PrzypomnienieHaslaOnAction(ActionEvent event) throws IOException {
-         Stage PrimaryStage = new Stage();
-                   Parent root = FXMLLoader.load(getClass().getResource("/FXML/ZmianaHasla.fxml"));
-                    Scene scene = new Scene(root, 500, 400);
-                    PrimaryStage.setScene(scene);
-                    PrimaryStage.show();
-                    PrimaryStage.setResizable(false);
-        
+        Stage PrimaryStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                + "/ZmianaHasla.fxml"));
+        Scene scene = new Scene(root, 500, 400);
+        PrimaryStage.setScene(scene);
+        PrimaryStage.show();
+        PrimaryStage.setResizable(false);
 
     }
 
