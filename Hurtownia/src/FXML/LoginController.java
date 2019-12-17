@@ -175,13 +175,17 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     void PrzypomnienieHaslaOnAction(ActionEvent event) throws IOException {
-        Stage PrimaryStage = new Stage();
+        
+        String przypomnienieH = "/FXML/Przypomnienie.fxml";
+        wczytywanie(event, przypomnienieH);
+       
+        /*Stage PrimaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                + "/ZmianaHasla.fxml"));
+                + "/Przypomnienie.fxml"));
         Scene scene = new Scene(root, 500, 400);
         PrimaryStage.setScene(scene);
         PrimaryStage.show();
-        PrimaryStage.setResizable(false);
+        PrimaryStage.setResizable(false); */
 
     }
 

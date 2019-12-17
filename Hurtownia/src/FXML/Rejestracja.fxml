@@ -8,10 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="442.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="FXML.RejestracjaController">
+<AnchorPane id="AnchorPane" prefHeight="572.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.RejestracjaController">
    <children>
       <Pane prefHeight="572.0" prefWidth="442.0">
          <children>
@@ -30,51 +27,28 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="imieR" layoutX="129.0" layoutY="108.0" 
-                       prefHeight="25.0" prefWidth="247.0"
-                       promptText="Wprowadź swoje imie" />
-            <TextField fx:id="nazwiskoR" layoutX="129.0" 
-                       layoutY="151.0" prefHeight="25.0"
-                       prefWidth="247.0" promptText="Wprowadź swoje nazwisko" />
-            <TextField fx:id="telefonR" layoutX="129.0" layoutY="200.0" 
-                       prefHeight="25.0" prefWidth="247.0" 
-                       promptText="Wprowadź numer telefonu" />
+            <TextField fx:id="imieR" layoutX="129.0" layoutY="108.0" prefHeight="25.0" prefWidth="247.0" promptText="Wprowadź swoje imie" />
+            <TextField fx:id="nazwiskoR" layoutX="129.0" layoutY="151.0" prefHeight="25.0" prefWidth="247.0" promptText="Wprowadź swoje nazwisko" />
+            <TextField fx:id="telefonR" layoutX="129.0" layoutY="200.0" prefHeight="25.0" prefWidth="247.0" promptText="Wprowadź numer telefonu" />
             <Label layoutX="36.0" layoutY="200.0" text="Telefon:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="36.0" layoutY="250.0" text="Email:">
+            <TextField fx:id="loginR" layoutX="129.0" layoutY="309.0" prefHeight="25.0" prefWidth="247.0" />
+            <Label layoutX="36.0" layoutY="309.0" text="Login:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="emailR" layoutX="129.0" layoutY="250.0" 
-                       prefHeight="25.0" prefWidth="247.0" 
-                       promptText="Wprowadź adres email">
-               <font>
-                  <Font />
-               </font>
-            </TextField>
-            <TextField fx:id="loginR" layoutX="129.0" layoutY="334.0"
-                       prefHeight="25.0" prefWidth="247.0" />
-            <Label layoutX="36.0" layoutY="338.0" text="Login:">
+            <Label layoutX="35.0" layoutY="366.0" text="Hasło:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="36.0" layoutY="391.0" text="Hasło:">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
-            <Button fx:id="zarejestrujBtn" layoutX="155.0" layoutY="464.0" 
-                    mnemonicParsing="false" onAction="#zarejestruj" 
-                    prefHeight="44.0" prefWidth="133.0" text="ZAREJESTRUJ" />
-            <PasswordField fx:id="hasloR" layoutX="129.0" layoutY="391.0" 
-                           prefHeight="25.0" prefWidth="247.0" />
-            <Label fx:id="status" layoutX="72.0" layoutY="529.0" 
-                   prefHeight="25.0" prefWidth="290.0" />
+            <Button fx:id="zarejestrujBtn" layoutX="155.0" layoutY="464.0" mnemonicParsing="false" onAction="#zarejestruj" prefHeight="44.0" prefWidth="133.0" text="ZAREJESTRUJ" />
+            <PasswordField fx:id="hasloR" layoutX="129.0" layoutY="366.0" prefHeight="25.0" prefWidth="247.0" />
+            <Label fx:id="status" layoutX="72.0" layoutY="529.0" prefHeight="25.0" prefWidth="290.0" />
          </children>
       </Pane>
    </children>

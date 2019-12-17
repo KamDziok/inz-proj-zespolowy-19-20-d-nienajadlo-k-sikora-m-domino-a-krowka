@@ -24,20 +24,23 @@ import javafx.scene.control.TextField;
  */
 public class RejestracjaController extends Logowanie implements Initializable {
 
-    @FXML
-    private TextField imieR;
+   private TextField imieR;
+
     @FXML
     private TextField nazwiskoR;
+
     @FXML
     private TextField telefonR;
-    @FXML
-    private TextField emailR;
+
     @FXML
     private TextField loginR;
+
     @FXML
     private Button zarejestrujBtn;
+
     @FXML
     private PasswordField hasloR;
+
     @FXML
     private Label status;
 
