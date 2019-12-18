@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import com.jfoenix.controls.JFXButton;
 import hibernate.Klient;
 import hibernate.KlientQuery;
 import hibernate.Pracownik;
@@ -26,6 +27,7 @@ import javafx.scene.control.TextField;
  */
 public class PrzypomnienieController extends Logowanie implements Initializable {
 
+   
     @FXML
     private TextField loginSPR;
 
@@ -48,29 +50,33 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
     private PasswordField powtorzH;
 
     @FXML
+    private JFXButton backButton;
+    
+     @FXML
+    private Label potwierdzenie;
+
+    @FXML
+    void backInto(ActionEvent event) {
+        
+        String powrot = "/FXML/Login.fxml";
+        wczytywanie(event, powrot);
+
+    }
+
+    
+    @FXML
     void sprawdz(ActionEvent event) {
 
         String login = loginSPR.getText();
-        // sprawdzenie loginu dla klienta
+        
         KlientQuery klient = new KlientQuery();
         Klient k = klient.wyszukiwanie(login);
         
-        try {
-            if (k != null) {
-                statusSPR.setText("Login istnieje w bazie!");
-            } else {
-                statusSPR.setText("Login nie odnaleziono w bazie!");
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        // sprawdzenie loginu dla obsługi
         PracownikQuery pracownik = new PracownikQuery();
         Pracownik p = pracownik.wyszukiwanie(login);
+        
         try {
-            if (p != null) {
+            if (k != null || p !=null) {
                 statusSPR.setText("Login istnieje w bazie!");
             } else {
                 statusSPR.setText("Login nie odnaleziono w bazie!");
@@ -80,17 +86,25 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
             System.out.println(e.getMessage());
         }
     }
+        
+        
+    
 
     @FXML
     void zmianaHasla(ActionEvent event) {
         
         String login = loginZH.getText();
         String nHaslo = noweHaslo.getText();
+        String pHaslo = powtorzH.getText();
+        
+        if(pHaslo.equals(nHaslo)){
+            potwierdzenie.setText("Hasła się zgadzają!");
+        }
 
         //zmiana hasła dla klienta przez formularz ZmianaHasła
         KlientQuery klient = new KlientQuery();
         try {
-
+            
             klient.changePassword(login, nHaslo);
             String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);

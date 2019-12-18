@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import com.jfoenix.controls.JFXButton;
 import hibernate.Klient;
 import hibernate.KlientQuery;
 import java.net.URL;
@@ -24,7 +25,9 @@ import javafx.scene.control.TextField;
  */
 public class RejestracjaController extends Logowanie implements Initializable {
 
-   private TextField imieR;
+  
+    @FXML
+    private TextField imieR;
 
     @FXML
     private TextField nazwiskoR;
@@ -43,6 +46,16 @@ public class RejestracjaController extends Logowanie implements Initializable {
 
     @FXML
     private Label status;
+
+    @FXML
+    private JFXButton backButton;
+
+    @FXML
+    void backInto(ActionEvent event) {
+        
+        String powrot = "/FXML/Login.fxml";
+        wczytywanie(event, powrot);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
