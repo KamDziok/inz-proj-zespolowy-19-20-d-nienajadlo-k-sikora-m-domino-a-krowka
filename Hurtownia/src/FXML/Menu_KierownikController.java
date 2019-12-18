@@ -5,8 +5,10 @@
  */
 package FXML;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,9 +23,9 @@ import javafx.scene.control.TextField;
  *
  * @author monika
  */
-public class Menu_KierownikController implements Initializable {
+public class Menu_KierownikController extends Logowanie implements Initializable {
 
-    @FXML
+     @FXML
     private TableView<?> zamowieniaTable;
 
     @FXML
@@ -43,6 +45,9 @@ public class Menu_KierownikController implements Initializable {
 
     @FXML
     private TableColumn<?, ?> cena;
+
+    @FXML
+    private JFXButton wylogujZA;
 
     @FXML
     private TextField nazwaP;
@@ -67,6 +72,17 @@ public class Menu_KierownikController implements Initializable {
 
     @FXML
     private ComboBox<?> katCombo;
+
+    @FXML
+    private JFXButton wylogujbtn;
+
+    @FXML
+    void wyloguj(ActionEvent event) {
+        
+        String wylogowywanie = "/FXML/Login.fxml";
+        wczytywanie(event, wylogowywanie);
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

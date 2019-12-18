@@ -5,8 +5,10 @@
  */
 package FXML;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -17,11 +19,13 @@ import javafx.scene.control.TableView;
  *
  * @author monika
  */
-public class Menu_KlientController implements Initializable {
+public class Menu_KlientController extends Logowanie implements Initializable {
 
-    
-    @FXML
+   @FXML
     private TableView<?> zamowieniaK;
+
+    @FXML
+    private JFXButton wylogujTZ;
 
     @FXML
     private Label nazwiskoL;
@@ -34,6 +38,17 @@ public class Menu_KlientController implements Initializable {
 
     @FXML
     private Label telefonL;
+
+    @FXML
+    private JFXButton wylogujDO;
+
+    @FXML
+    void wyloguj(ActionEvent event) {
+
+        String klientPanel = "/FXML/Login.fxml";
+        wczytywanie(event, klientPanel);
+        
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

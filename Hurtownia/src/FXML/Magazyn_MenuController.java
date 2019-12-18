@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ import javafx.scene.control.TextField;
  *
  * @author monika
  */
-public class Magazyn_MenuController implements Initializable {
+public class Magazyn_MenuController extends Logowanie implements Initializable {
     @FXML
     private TableView<?> produktyW;
     @FXML
@@ -56,9 +57,14 @@ public class Magazyn_MenuController implements Initializable {
     @FXML
     private Button wylogujBtnZ;
 
-    /**
-     * Initializes the controller class.
-     */
+       @FXML
+    void wyloguj(ActionEvent event) {
+         
+        String wylogowanie = "/FXML/Login.fxml";
+           wczytywanie(event, wylogowanie);
+    }
+    
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

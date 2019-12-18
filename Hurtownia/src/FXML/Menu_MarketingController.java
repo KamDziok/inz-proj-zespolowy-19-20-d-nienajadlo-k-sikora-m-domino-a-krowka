@@ -5,8 +5,10 @@
  */
 package FXML;
 
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -20,21 +22,35 @@ import javafx.scene.image.ImageView;
  *
  * @author monika
  */
-public class Menu_MarketingController implements Initializable {
+public class Menu_MarketingController extends Logowanie implements 
+        Initializable {
+
     @FXML
     private TextField tytulD;
+    
     @FXML
     private DatePicker dataD;
+    
     @FXML
     private TextArea opisD;
+    
     @FXML
     private ImageView grafika;
+    
     @FXML
     private Button dodajbtn;
-
-    /**
-     * Initializes the controller class.
-     */
+    
+    @FXML
+    private JFXButton wylogujDR;
+    
+    @FXML
+    void wyloguj(ActionEvent event) {
+        
+        String reklama = "/FXML/Login.fxml";
+        wczytywanie(event, reklama);
+        
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
