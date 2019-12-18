@@ -7,23 +7,26 @@ package hibernate;
 
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
  * @author monika
  */
 public class PracownikQuery {
-     Session session = null;
+
+    Session session = null;
     Query query = null;
     Criteria criteria = null;
-    
-     public boolean selecyByLoginandPassword(String login, String password) {
+
+    public boolean selecyByLoginandPassword(String login, String password) {
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Pracownik where login = '" + login + 
-                "' and password = '" + password + "'";
+        String hql = "from Pracownik where login = '" + login
+                + "' and password = '" + password + "'";
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
@@ -32,28 +35,55 @@ public class PracownikQuery {
         }
         return false;
     }
-    
-    public Pracownik selectByLoginandPassword(String login, String password){
+
+    public Pracownik selectByLoginandPassword(String login, String password) {
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
-         String hql = "from Pracownik where login = '" + login + "' "
-                 + "and password = '" + password + "'";
+        String hql = "from Pracownik where login = '" + login + "' "
+                + "and password = '" + password + "'";
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
         return p;
     }
- 
-      
-      
-       public List <Pracownik> PracownikSelectAll(){
+
+    public Pracownik wyszukiwanie(String login) {
+        Pracownik p = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "From Pracownik WHERE Login  = '" + login + "'";
+        query = session.createQuery(hql);
+        p = (Pracownik) query.uniqueResult();
+        session.close();
+
+        return p;
+    }
+
+    public void changePassword(String login, String password) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Pracownik pracownik = new PracownikQuery().wyszukiwanie(login);
+            pracownik.setPassword(password);
+            session.update(pracownik);
+            tx.commit();
+
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    public List<Pracownik> PracownikSelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Pracownik.class);
-        List <Pracownik> p = criteria.list();
+        List<Pracownik> p = criteria.list();
         session.close();
         return p;
     }
-        
-        
-        
+
 }

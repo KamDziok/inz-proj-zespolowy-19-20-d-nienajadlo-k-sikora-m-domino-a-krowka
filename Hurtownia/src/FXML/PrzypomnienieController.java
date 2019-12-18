@@ -7,6 +7,8 @@ package FXML;
 
 import hibernate.Klient;
 import hibernate.KlientQuery;
+import hibernate.Pracownik;
+import hibernate.PracownikQuery;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -48,12 +50,27 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
     @FXML
     void sprawdz(ActionEvent event) {
 
-        KlientQuery klient = new KlientQuery();
         String login = loginSPR.getText();
-
+        // sprawdzenie loginu dla klienta
+        KlientQuery klient = new KlientQuery();
         Klient k = klient.wyszukiwanie(login);
+        
         try {
             if (k != null) {
+                statusSPR.setText("Login istnieje w bazie!");
+            } else {
+                statusSPR.setText("Login nie odnaleziono w bazie!");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        // sprawdzenie loginu dla obsługi
+        PracownikQuery pracownik = new PracownikQuery();
+        Pracownik p = pracownik.wyszukiwanie(login);
+        try {
+            if (p != null) {
                 statusSPR.setText("Login istnieje w bazie!");
             } else {
                 statusSPR.setText("Login nie odnaleziono w bazie!");
@@ -66,14 +83,27 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
 
     @FXML
     void zmianaHasla(ActionEvent event) {
-
-        KlientQuery klient = new KlientQuery();
+        
         String login = loginZH.getText();
         String nHaslo = noweHaslo.getText();
 
+        //zmiana hasła dla klienta przez formularz ZmianaHasła
+        KlientQuery klient = new KlientQuery();
         try {
 
             klient.changePassword(login, nHaslo);
+            String alert = "/FXML/Login.fxml";
+            wczytywanie(event, alert);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+        //zmiana hasła dla obsługi przez formularz ZmianaHasła
+        PracownikQuery pracownik = new PracownikQuery();
+        try {
+
+            pracownik.changePassword(login, nHaslo);
             String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
 
