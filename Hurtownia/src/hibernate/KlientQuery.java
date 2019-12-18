@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -90,26 +91,33 @@ public class KlientQuery {
     }
 
     public void changePassword(String login, String password) {
-
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            String hql = "UPDATE Klient SET password = '" + password
-                    + "' WHERE login = '" + login + "'";
-            query = session.createQuery(hql);
+            tx = session.beginTransaction();
+            Klient klient = new KlientQuery().wyszukiwanie(login);
+            klient.setPassword(password);
+            session.update(klient);
+            tx.commit();
+
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
             session.close();
-        }catch(Exception e){
-            System.out.println(e.getMessage());
         }
     }
-    
-    public Klient wyszukiwanie(String login){
+
+    public Klient wyszukiwanie(String login) {
         Klient k = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "From Klient WHERE Login  = '"+ login+"'" ;
+        String hql = "From Klient WHERE Login  = '" + login + "'";
         query = session.createQuery(hql);
-        k = (Klient)query.uniqueResult();
+        k = (Klient) query.uniqueResult();
         session.close();
-        
+
         return k;
     }
 

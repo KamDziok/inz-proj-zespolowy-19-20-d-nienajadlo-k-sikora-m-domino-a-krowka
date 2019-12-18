@@ -22,8 +22,9 @@ import javafx.scene.control.TextField;
  *
  * @author monika
  */
-public class PrzypomnienieController implements Initializable {
-@FXML
+public class PrzypomnienieController extends Logowanie implements Initializable {
+
+    @FXML
     private TextField loginSPR;
 
     @FXML
@@ -43,17 +44,17 @@ public class PrzypomnienieController implements Initializable {
 
     @FXML
     private PasswordField powtorzH;
-    
+
     @FXML
     void sprawdz(ActionEvent event) {
 
         KlientQuery klient = new KlientQuery();
         String login = loginSPR.getText();
-       
+
         Klient k = klient.wyszukiwanie(login);
         try {
             if (k != null) {
-                statusSPR.setText("Login istnieje");
+                statusSPR.setText("Login istnieje w bazie!");
             } else {
                 statusSPR.setText("Login nie odnaleziono w bazie!");
             }
@@ -69,11 +70,13 @@ public class PrzypomnienieController implements Initializable {
         KlientQuery klient = new KlientQuery();
         String login = loginZH.getText();
         String nHaslo = noweHaslo.getText();
-        
+
         try {
-         
+
             klient.changePassword(login, nHaslo);
-            
+            String alert = "/FXML/Login.fxml";
+            wczytywanie(event, alert);
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
