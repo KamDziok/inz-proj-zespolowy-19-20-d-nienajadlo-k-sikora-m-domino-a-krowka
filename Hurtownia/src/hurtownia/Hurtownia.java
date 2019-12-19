@@ -7,6 +7,7 @@ package hurtownia;
 
 import hibernate.Klient;
 import hibernate.KlientQuery;
+import hibernate.PracownikQuery;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -42,7 +43,6 @@ public class Hurtownia extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        
         launch(args);
     }
     
