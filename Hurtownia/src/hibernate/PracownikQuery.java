@@ -12,6 +12,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 
 /**
  *
@@ -111,18 +112,31 @@ public class PracownikQuery {
         }
     }    
     
-    public void addNewProduct()throws Exception {
+    public void addNewProduct(int productID, String productName, 
+            double productPrice,String productDescription, int categoryID)
+            throws Exception {
+        
         Produkty lastProduct = null;
         
         session = HibernateUtil.getSessionFactory().openSession();
-
-        String hql = "select p from Produkty p where ProduktID = (select max(pp.ProductID) from Produkty pp)";
-        query = session.createQuery(hql);
-        lastProduct = (Produkty) query.uniqueResult();
-        session.close();
-        
-        System.out.println(lastProduct.getProduktId());
-//        SELECT * FROM `produkty` WHERE `ProduktID` = (SELECT MAX(ProduktID) FROM produkty)
+    
+        String query = "INSERT INTO `produkty`(`ProduktID`, `Nazwa`, "
+                + "`CenaKupna`, `Opis`, `KategoriaID`) VALUES ("+productID+""
+                + ",'"+productName+"', "+productPrice+",'"+productDescription+"', "+categoryID+")";
+        System.out.println(query);      
+        try {
+          session.getTransaction().begin();
+          session.createSQLQuery(query).executeUpdate();
+          session.getTransaction().commit();
+          session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
     }
+    
 
 }
+
+
