@@ -122,8 +122,9 @@ public class PracownikQuery {
     
         String query = "INSERT INTO `produkty`(`ProduktID`, `Nazwa`, "
                 + "`CenaKupna`, `Opis`, `KategoriaID`) VALUES ("+productID+""
-                + ",'"+productName+"', "+productPrice+",'"+productDescription+"', "+categoryID+")";
-        System.out.println(query);      
+                + ",'"+productName+"', "+productPrice+","
+                + "'"+productDescription+"', "+categoryID+")";
+          
         try {
           session.getTransaction().begin();
           session.createSQLQuery(query).executeUpdate();
