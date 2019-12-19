@@ -86,7 +86,7 @@ public class PracownikQuery {
         return p;
     }
     
-    public void changeAddress()throws Exception{
+    public void changeProductQuantity() throws Exception{
             
         String query;  
 
