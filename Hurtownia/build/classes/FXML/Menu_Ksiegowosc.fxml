@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -11,90 +12,53 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="409.0" prefWidth="652.0" 
-            xmlns:fx="http://javafx.com/fxml/1" 
-            xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="FXML.Menu_KsiegowoscController">
+<AnchorPane id="AnchorPane" prefHeight="409.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.Menu_KsiegowoscController">
    <children>
       <Pane layoutX="-1.0" prefHeight="409.0" prefWidth="652.0">
          <children>
-            <TabPane prefHeight="409.0" prefWidth="652.0" 
-                     tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="409.0" prefWidth="652.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Pracownicy">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0"
-                                prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="pracownicy" layoutX="67.0" 
-                                         layoutY="82.0" prefHeight="261.0" 
-                                         prefWidth="518.0">
+                              <TableView fx:id="pracownicy" layoutX="67.0" layoutY="82.0" prefHeight="261.0" prefWidth="518.0">
                                 <columns>
-                                  <TableColumn fx:id="id" prefWidth="101.0" 
-                                               text="Id pracownika" />
-                                  <TableColumn fx:id="imieP" prefWidth="67.0"
-                                               text="Imie" />
-                                    <TableColumn fx:id="nazwiskoP" 
-                                                 prefWidth="89.0" 
-                                                 text="Nazwisko" />
-                                    <TableColumn fx:id="stanowiskoP" 
-                                                 prefWidth="142.0"
-                                                 text="Stanowisko" />
-                                    <TableColumn fx:id="placa" prefWidth="118.0" 
-                                                 text="Wynagrodzenie" />
+                                  <TableColumn fx:id="id" prefWidth="101.0" text="Id pracownika" />
+                                  <TableColumn fx:id="imieP" prefWidth="67.0" text="Imie" />
+                                    <TableColumn fx:id="nazwiskoP" prefWidth="89.0" text="Nazwisko" />
+                                    <TableColumn fx:id="stanowiskoP" prefWidth="142.0" text="Stanowisko" />
+                                    <TableColumn fx:id="placa" prefWidth="118.0" text="Wynagrodzenie" />
                                 </columns>
                               </TableView>
-                              <Label layoutX="67.0" layoutY="33.0" 
-                                     prefHeight="17.0" prefWidth="151.0" 
-                                     text="Wyszukaj pracownika po id:" />
-                              <TextField fx:id="szukajID1" layoutX="227.0" 
-                                         layoutY="29.0" prefHeight="25.0"
-                                         prefWidth="131.0" />
+                              <Label layoutX="67.0" layoutY="33.0" prefHeight="17.0" prefWidth="151.0" text="Wyszukaj pracownika po id:" />
+                              <TextField fx:id="szukajID1" layoutX="227.0" layoutY="29.0" prefHeight="25.0" prefWidth="131.0" />
+                              <JFXButton fx:id="wylogujP" layoutX="561.0" layoutY="17.0" onAction="#wyloguj" text="Wyloguj" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
                 <Tab text="Dodaj wypłate">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" 
-                                prefHeight="388.0" prefWidth="635.0">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="635.0">
                            <children>
-                              <TableView layoutX="282.0" layoutY="87.0"
-                                         prefHeight="253.0" prefWidth="349.0">
+                              <TableView layoutX="282.0" layoutY="100.0" prefHeight="253.0" prefWidth="349.0">
                                 <columns>
-                                  <TableColumn prefWidth="98.0" 
-                                               text="Id pracownika" />
+                                  <TableColumn prefWidth="98.0" text="Id pracownika" />
                                   <TableColumn prefWidth="94.0" text="Data" />
-                                    <TableColumn prefWidth="155.0" 
-                                                 text="Wynagrodzenie" />
+                                    <TableColumn prefWidth="155.0" text="Wynagrodzenie" />
                                 </columns>
                               </TableView>
-                              <Label layoutX="17.0" layoutY="108.0" 
-                                     prefHeight="17.0" prefWidth="81.0"
-                                     text="Id pracownika:" />
-                              <TextField fx:id="idP" layoutX="112.0" 
-                                         layoutY="104.0" />
-                              <DatePicker fx:id="data" layoutX="112.0" 
-                                          layoutY="154.0" prefHeight="25.0" 
-                                          prefWidth="150.0" />
-                              <Label layoutX="17.0" layoutY="158.0" 
-                                     prefHeight="17.0" prefWidth="43.0" 
-                                     text="Data:" />
-                              <Label layoutX="14.0" layoutY="205.0" 
-                                     text="Wynagrodzenie:" />
-                              <TextField fx:id="kwota" layoutX="112.0" layoutY=
-"201.0" />
-                              <Button layoutX="84.0" layoutY="261.0" 
-                                      mnemonicParsing="false" prefHeight="26.0"
-                                      prefWidth="142.0" 
-                                      text=" Dodaj wynagrodzenie" />
-                              <Label layoutX="282.0" layoutY="33.0" 
-                                     prefHeight="17.0" prefWidth="151.0" 
-                                     text="Wyszukaj pracownika po id:" />
-                              <TextField fx:id="szukajID" layoutX="441.0" 
-                                         layoutY="29.0" prefHeight="25.0"
-                                         prefWidth="131.0" />
+                              <Label layoutX="17.0" layoutY="108.0" prefHeight="17.0" prefWidth="81.0" text="Id pracownika:" />
+                              <TextField fx:id="idP" layoutX="112.0" layoutY="104.0" />
+                              <DatePicker fx:id="data" layoutX="112.0" layoutY="154.0" prefHeight="25.0" prefWidth="150.0" />
+                              <Label layoutX="17.0" layoutY="158.0" prefHeight="17.0" prefWidth="43.0" text="Data:" />
+                              <Label layoutX="14.0" layoutY="205.0" text="Wynagrodzenie:" />
+                              <TextField fx:id="kwota" layoutX="112.0" layoutY="201.0" />
+                              <Button layoutX="84.0" layoutY="261.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="142.0" text=" Dodaj wynagrodzenie" />
+                              <Label layoutX="282.0" layoutY="54.0" prefHeight="17.0" prefWidth="151.0" text="Wyszukaj pracownika po id:" />
+                              <TextField fx:id="szukajID" layoutX="440.0" layoutY="50.0" prefHeight="25.0" prefWidth="131.0" />
+                              <JFXButton fx:id="wylogujDW" layoutX="585.0" layoutY="8.0" onAction="#wyloguj" text="Wyloguj" />
                            </children>
                         </AnchorPane>
                   </content>
