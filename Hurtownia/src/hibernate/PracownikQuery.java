@@ -115,16 +115,13 @@ public class PracownikQuery {
         Produkty lastProduct = null;
         
         session = HibernateUtil.getSessionFactory().openSession();
-        
-        String lastProductQuery = 
-                "SELECT * FROM `produkty` WHERE `ProduktID` = "
-                + "(SELECT MAX(ProduktID) FROM produkty)";
-        
-        query = session.createSQLQuery(lastProductQuery);
+
+        String hql = "select p from Produkty p where ProduktID = (select max(pp.ProductID) from Produkty pp)";
+        query = session.createQuery(hql);
         lastProduct = (Produkty) query.uniqueResult();
         session.close();
         
-        
+        System.out.println(lastProduct.getProduktId());
 //        SELECT * FROM `produkty` WHERE `ProduktID` = (SELECT MAX(ProduktID) FROM produkty)
     }
 
