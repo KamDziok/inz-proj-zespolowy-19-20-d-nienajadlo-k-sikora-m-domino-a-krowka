@@ -98,25 +98,68 @@ public class KlientQuery {
 
         return k;
     }
+    
+    
+    
+    /*
+        changeAddress() - client field is required to change address
+    */
 
     public void changeAddress(Klient client, String country, String city, 
-            String street, String buildingNr, String localNumber, String email) throws Exception{
+            String street, String buildingNr, String localNumber, String email) 
+            throws Exception{
+ 
+        session = HibernateUtil.getSessionFactory().openSession();
+        
+        String query = "UPDATE `adresy` SET";
         
         if(client == null) {
             throw new Exception("Client cannot be empty!");
         }
         
-        try{
-            if(country.length() > 0){
-               
-            }
-        } catch(HibernateException error){
+        
+        if(country.length() > 0){
+            query = query + " `Kraj` = '" + country + "'";
+        }
             
+        if(city.length() > 0){
+            query = query+", `Miasto` = '" + city + "'";
+        }
+        
+        if(street.length() > 0){
+            query = query+", `Ulica` = '" + street + "'";
+        }
+        
+        if(buildingNr.length() > 0){
+            query = query + ", `NumerBudynku` = '" + buildingNr + "'";
+        }
+        
+        if(localNumber.length() > 0){
+            query = query + ", `NumerLokalu`= '" + localNumber + "'";
+        }
+        
+        if(email.length() > 0){
+            query = query + ", `email` = '"+email+"'";
+        }
+        
+        query = query + " WHERE " + " `KlientID` = " + client.getKlientId();
+        
+        
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
         }
         
         // QUERY TEMPLATE
-        // UPDATE `adresy` SET `KlientID`=[value-1],`Kraj`=[value-2],`Miasto`=[value-3],`Ulica`=[value-4],`NumerBudynku`=[value-5],`NumerLokalu`=[value-6],`AdresID`=[value-7],`Email`=[value-8] WHERE 1
-        
+        // UPDATE `adresy` SET `KlientID`=[value-1],`Kraj`=[value-2],
+        // `Miasto`=[value-3],`Ulica`=[value-4],`NumerBudynku`=[value-5],
+        // `NumerLokalu`=[value-6],`AdresID`=[value-7],`Email`=[value-8] WHERE 1
         
     }
     
