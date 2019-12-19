@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -111,7 +112,18 @@ public class PracownikQuery {
     }    
     
     public void addNewProduct()throws Exception {
+        Produkty lastProduct = null;
         
+        session = HibernateUtil.getSessionFactory().openSession();
+        
+        String lastProductQuery = 
+                "SELECT * FROM `produkty` WHERE `ProduktID` = "
+                + "(SELECT MAX(ProduktID) FROM produkty)";
+        
+        List items;
+        
+        
+//        SELECT * FROM `produkty` WHERE `ProduktID` = (SELECT MAX(ProduktID) FROM produkty)
     }
 
 }
