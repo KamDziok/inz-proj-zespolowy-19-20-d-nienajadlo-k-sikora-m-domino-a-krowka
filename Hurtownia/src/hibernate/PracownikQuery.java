@@ -120,7 +120,9 @@ public class PracownikQuery {
                 "SELECT * FROM `produkty` WHERE `ProduktID` = "
                 + "(SELECT MAX(ProduktID) FROM produkty)";
         
-        List items;
+        query = session.createSQLQuery(lastProductQuery);
+        lastProduct = (Produkty) query.uniqueResult();
+        session.close();
         
         
 //        SELECT * FROM `produkty` WHERE `ProduktID` = (SELECT MAX(ProduktID) FROM produkty)
