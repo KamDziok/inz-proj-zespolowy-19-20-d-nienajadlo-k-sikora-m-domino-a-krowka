@@ -92,29 +92,22 @@ public class PracownikQuery {
         String query = "UPDATE `magazyn` SET ";
         
         query = query + "`Ilosc` = " + quantity;
-        query = query + "WHERE `ProduktID` = " + productId;
+        query = query + " WHERE `ProduktID` = " + productId;
         query = query + " AND `HurtowniaID` = " + wholesaleId;
         query = query + " AND `MagazynID` = " + storageId;
         
-        System.out.println(query);
+        session = HibernateUtil.getSessionFactory().openSession();
 
-//        session = HibernateUtil.getSessionFactory().openSession();
-//
-//        try {
-//            session.getTransaction().begin();
-//            session.createSQLQuery(query).executeUpdate();
-//            session.getTransaction().commit();
-//            session.close();
-//        }
-//        catch (HibernateException error){
-//            session.getTransaction().rollback();
-//            session.close();
-//        }
-        
-//        QUERY TEMPLATE
-//        UPDATE `magazyn` SET `MagazynID`=[value-1],`Ilosc`=[value-2],
-//       `CenaSprzedazy`=[value-3],`ProduktID`=[value-4],`HurtowniaID`=[value-5] 
-//        WHERE 1
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
         
     }    
 
