@@ -108,7 +108,10 @@ public class PracownikQuery {
             session.getTransaction().rollback();
             session.close();
         }
-        
     }    
+    
+    public void addNewProduct()throws Exception {
+        
+    }
 
 }
