@@ -117,7 +117,6 @@ public class KlientQuery {
             throw new Exception("Client cannot be empty!");
         }
         
-        
         if(country.length() > 0){
             query = query + " `Kraj` = '" + country + "'";
         }
@@ -143,7 +142,6 @@ public class KlientQuery {
         }
         
         query = query + " WHERE " + " `KlientID` = " + client.getKlientId();
-        
         
         try {
             session.getTransaction().begin();
