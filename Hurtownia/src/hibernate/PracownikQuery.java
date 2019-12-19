@@ -85,5 +85,25 @@ public class PracownikQuery {
         session.close();
         return p;
     }
+    
+    public void changeAddress()throws Exception{
+            
+        String query;  
+
+        session = HibernateUtil.getSessionFactory().openSession();
+
+
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+    }    
 
 }
