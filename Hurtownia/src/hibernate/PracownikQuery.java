@@ -86,13 +86,15 @@ public class PracownikQuery {
         return p;
     }
     
-    public void changeProductQuantity() throws Exception{
+    public void changeProductQuantity(int storageId, int quantity, 
+            int productId, int wholesaleId) throws Exception{
             
-        String query;  
+        String query = "UPDATE `magazyn` SET ";
+        
+        query = query + "`MagazynID` = " + storageId;
+        
 
         session = HibernateUtil.getSessionFactory().openSession();
-
-
 
         try {
             session.getTransaction().begin();
@@ -104,6 +106,12 @@ public class PracownikQuery {
             session.getTransaction().rollback();
             session.close();
         }
+        
+//        QUERY TEMPLATE
+//        UPDATE `magazyn` SET `MagazynID`=[value-1],`Ilosc`=[value-2],
+//       `CenaSprzedazy`=[value-3],`ProduktID`=[value-4],`HurtowniaID`=[value-5] 
+//        WHERE 1
+        
     }    
 
 }
