@@ -47,28 +47,6 @@ public class KlientQuery {
         return k;
     }
 
-    public void changeAddress(Klient client, String country, String city,
-            String street, String buildingNumber, String localNumber,
-            String email) {
-
-        int clientId = client.getKlientId();
-
-        // SQL operations and variables
-        Klient clientAddress = null;
-        session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Klient where KlientID= '" + clientId;
-        query = session.createQuery(hql);
-        clientAddress = (Klient) query.uniqueResult();
-        session.close();
-
-        if (country.length() == 0) {
-            String query = "UPDATE `adresy ` SET Kraj=" + country
-                    + " WHERE AdresID = ";
-        }
-
-        System.out.println(clientAddress);
-
-    }
 
     public void rejestracja(String imie, String nazwisko, long telefon,
             String login, String haslo) {
@@ -121,4 +99,25 @@ public class KlientQuery {
         return k;
     }
 
+    public void changeAddress(Klient client, String country, String city, 
+            String street, String buildingNr, String localNumber, String email) throws Exception{
+        
+        if(client == null) {
+            throw new Exception("Client cannot be empty!");
+        }
+        
+        try{
+            if(country.length() > 0){
+               
+            }
+        } catch(HibernateException error){
+            
+        }
+        
+        // QUERY TEMPLATE
+        // UPDATE `adresy` SET `KlientID`=[value-1],`Kraj`=[value-2],`Miasto`=[value-3],`Ulica`=[value-4],`NumerBudynku`=[value-5],`NumerLokalu`=[value-6],`AdresID`=[value-7],`Email`=[value-8] WHERE 1
+        
+        
+    }
+    
 }
