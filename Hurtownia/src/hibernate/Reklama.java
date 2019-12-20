@@ -15,15 +15,17 @@ public class Reklama  implements java.io.Serializable {
      private Date data;
      private String opis;
      private String grafika;
+     private Integer ProduktID;
 
     public Reklama() {
     }
 
-    public Reklama(String tytul, Date data, String opis, String grafika) {
+    public Reklama(String tytul, Date data, String opis, String grafika, int ProduktId) {
        this.tytul = tytul;
        this.data = data;
        this.opis = opis;
        this.grafika = grafika;
+       this.ProduktID = ProduktId;
     }
    
     public Integer getReklamaId() {
@@ -53,6 +55,14 @@ public class Reklama  implements java.io.Serializable {
     
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    public Integer getProduktID() {
+        return ProduktID;
+    }
+
+    public void setProduktID(Integer ProduktID) {
+        this.ProduktID = ProduktID;
     }
     public String getGrafika() {
         return this.grafika;
