@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 10 Gru 2019, 19:47
+-- Czas generowania: 20 Gru 2019, 08:49
 -- Wersja serwera: 10.4.8-MariaDB
 -- Wersja PHP: 7.3.11
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `hurtowniap`
+-- Baza danych: `hurtowniap2`
 --
 
 -- --------------------------------------------------------
@@ -34,10 +34,19 @@ CREATE TABLE `adresy` (
   `Miasto` varchar(30) NOT NULL,
   `Ulica` varchar(30) NOT NULL,
   `NumerBudynku` varchar(30) NOT NULL,
-  `NumerLokalu` int(11) NOT NULL,
+  `NumerLokalu` int(11) DEFAULT NULL,
   `AdresID` int(11) NOT NULL,
   `Email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `adresy`
+--
+
+INSERT INTO `adresy` (`KlientID`, `Kraj`, `Miasto`, `Ulica`, `NumerBudynku`, `NumerLokalu`, `AdresID`, `Email`) VALUES
+(1, 'PL', 'Rzeszow', 'Pigonia', '1', 1, 3, 'ur@stud.pl'),
+(1, 'PL', 'Warszawa', 'Krakowska', '1c', 1, 4, 'test@ur.pl'),
+(1, 'PL', 'Warszawa', 'Krakowska', '1c', NULL, 6, 'tetst@ur.pl');
 
 -- --------------------------------------------------------
 
@@ -137,8 +146,7 @@ CREATE TABLE `pracownik` (
 
 INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES
 ('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
-('Mairan', 'Kowalski', 1200, 5, 'magazynier', 'login', 'haslo'),
-('Maiasdran', 'Kowalasdasdski', 1200, 6, 'magaasdzynier', NULL, NULL);
+('Mairan', 'Kowalski', 1200, 5, 'magazynier', 'login', 'haslo');
 
 -- --------------------------------------------------------
 
@@ -165,7 +173,8 @@ CREATE TABLE `reklama` (
   `Tytul` varchar(30) NOT NULL,
   `Data` date NOT NULL,
   `Opis` varchar(300) NOT NULL,
-  `Grafika` varchar(100) NOT NULL
+  `Grafika` varchar(100) NOT NULL,
+  `ProduktID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -271,7 +280,8 @@ ALTER TABLE `produkty`
 -- Indeksy dla tabeli `reklama`
 --
 ALTER TABLE `reklama`
-  ADD PRIMARY KEY (`ReklamaID`);
+  ADD PRIMARY KEY (`ReklamaID`),
+  ADD KEY `ProduktID` (`ProduktID`);
 
 --
 -- Indeksy dla tabeli `towaryzamowienie`
@@ -302,7 +312,7 @@ ALTER TABLE `zamowienie`
 -- AUTO_INCREMENT dla tabeli `adresy`
 --
 ALTER TABLE `adresy`
-  MODIFY `AdresID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `AdresID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `hurtownia`
@@ -350,7 +360,7 @@ ALTER TABLE `produkty`
 -- AUTO_INCREMENT dla tabeli `reklama`
 --
 ALTER TABLE `reklama`
-  MODIFY `ReklamaID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ReklamaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `towaryzamowienie`
@@ -404,6 +414,12 @@ ALTER TABLE `magazyn`
 --
 ALTER TABLE `produkty`
   ADD CONSTRAINT `kategorie_ibfk_1` FOREIGN KEY (`KategoriaID`) REFERENCES `kategorie` (`KategoriaID`);
+
+--
+-- Ograniczenia dla tabeli `reklama`
+--
+ALTER TABLE `reklama`
+  ADD CONSTRAINT `ProduktID` FOREIGN KEY (`ProduktID`) REFERENCES `produkty` (`ProduktID`);
 
 --
 -- Ograniczenia dla tabeli `towaryzamowienie`
