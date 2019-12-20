@@ -137,6 +137,52 @@ public class PracownikQuery {
         }
     }
     
+    public void addNewAdvert(int ReklamaID, String tytul, 
+            String data,String opis, String grafikaURL)
+            throws Exception {
+        
+        Produkty lastProduct = null;
+        
+        session = HibernateUtil.getSessionFactory().openSession();
+    
+        String query = "INSERT INTO `reklama`(`ReklamaID`, `Tytul`, "
+                + "`Data`, `Opis`, `Grafika`) VALUES (NULL"
+                + ",'"+tytul+"', "+data+","
+                + "'"+opis+"', "+grafikaURL+")";
+          
+        try {
+          session.getTransaction().begin();
+          session.createSQLQuery(query).executeUpdate();
+          session.getTransaction().commit();
+          session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+    }
+    
+    public void removeAdvert(int ReklamaID)
+            throws Exception {
+        
+        Produkty lastProduct = null;
+        
+        session = HibernateUtil.getSessionFactory().openSession();
+    
+        String query = "DELETE FROM `reklama` WHERE `reklama`.`ReklamaID` = " + ReklamaID;
+          
+        try {
+          session.getTransaction().begin();
+          session.createSQLQuery(query).executeUpdate();
+          session.getTransaction().commit();
+          session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+    }
+    
 
 }
 
