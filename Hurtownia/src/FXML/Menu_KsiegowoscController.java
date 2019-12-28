@@ -67,6 +67,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         
         String ksiegi = "/FXML/Login.fxml";
         wczytywanie(event, ksiegi);
+        ramka(event);
     }
     /**
      * Initializes the controller class.

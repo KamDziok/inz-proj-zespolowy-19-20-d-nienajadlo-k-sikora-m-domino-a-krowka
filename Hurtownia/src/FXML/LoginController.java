@@ -36,6 +36,10 @@ import javafx.stage.Stage;
  * @author monika
  */
 public class LoginController extends Logowanie implements Initializable {
+    
+   
+    Klient klientZ;
+    Parent home;
 
     @FXML
     private PasswordField passwd;
@@ -82,6 +86,7 @@ public class LoginController extends Logowanie implements Initializable {
                     
                     String kierownik = "/FXML/Menu_Kierownik.fxml";
                     wczytywanie(event, kierownik);
+                    ramka(event);
                     /*Stage PrimaryStage = new Stage();
                      Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                      + "/Menu_Kierownik.fxml"));
@@ -95,6 +100,7 @@ public class LoginController extends Logowanie implements Initializable {
                     
                     String ksiegowy = "/FXML/Menu_Ksiegowosc.fxml";
                     wczytywanie(event, ksiegowy);
+                    ramka(event);
                     /*Stage PrimaryStage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                             + "/Menu_Ksiegowosc.fxml"));
@@ -108,6 +114,7 @@ public class LoginController extends Logowanie implements Initializable {
                     
                     String magazynier = "/FXML/Magazyn_Menu.fxml";
                     wczytywanie(event, magazynier);
+                    ramka(event);
                     /* Stage PrimaryStage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                             + "/Magazyn_Menu.fxml"));
@@ -122,6 +129,7 @@ public class LoginController extends Logowanie implements Initializable {
 
                     String marketing = "/FXML/Menu_Marketing.fxml";
                     wczytywanie(event, marketing);
+                    ramka(event);
                   /*  Stage PrimaryStage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                             + "/Menu_Marketing.fxml"));
@@ -144,8 +152,16 @@ public class LoginController extends Logowanie implements Initializable {
             Klient logowanie = klient.selectByLoginandPassword(log, pass);
             if (logowanie != null) {
                 status.setText("Logowanie zakończone sukcesem!");
+                 klientZ = logowanie;
                 String adres = "/FXML/Menu_Klient.fxml";
                 wczytywanie(event, adres);
+                
+                Menu_KlientController menuKlient = wczytaj.getController();
+                menuKlient.odczyt(klientZ.getKlientId());
+                ramka(event);
+                menuKlient.daneOsobowe(klientZ.getImie(),
+                            klientZ.getNazwisko(), klientZ.getTelefon());
+                    
                 /*Stage PrimaryStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
                 Scene scene = new Scene(root, 800, 480);
@@ -164,6 +180,7 @@ public class LoginController extends Logowanie implements Initializable {
         
         String rejestracja ="/FXML/Rejestracja.fxml";
         wczytywanie(event, rejestracja);
+        ramka(event);
        /* Stage PrimaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                 + "/Rejestracja.fxml"));
@@ -178,6 +195,7 @@ public class LoginController extends Logowanie implements Initializable {
         
         String przypomnienieH = "/FXML/Przypomnienie.fxml";
         wczytywanie(event, przypomnienieH);
+        ramka(event);
        
         /*Stage PrimaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML"

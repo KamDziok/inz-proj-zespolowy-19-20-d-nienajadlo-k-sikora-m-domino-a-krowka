@@ -55,6 +55,7 @@ public class RejestracjaController extends Logowanie implements Initializable {
         
         String powrot = "/FXML/Login.fxml";
         wczytywanie(event, powrot);
+        ramka(event);
     }
 
     @Override
@@ -81,6 +82,7 @@ public class RejestracjaController extends Logowanie implements Initializable {
             status.setText("Rejestracja udana!");
              String alert = "/FXML/Alert.fxml";
             wczytywanie(event, alert);
+            ramka(event);
             
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());

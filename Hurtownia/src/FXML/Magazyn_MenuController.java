@@ -62,6 +62,7 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
          
         String wylogowanie = "/FXML/Login.fxml";
            wczytywanie(event, wylogowanie);
+           ramka(event);
     }
     
     

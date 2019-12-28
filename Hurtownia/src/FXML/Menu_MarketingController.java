@@ -48,6 +48,7 @@ public class Menu_MarketingController extends Logowanie implements
         
         String reklama = "/FXML/Login.fxml";
         wczytywanie(event, reklama);
+        ramka(event);
         
     }
     

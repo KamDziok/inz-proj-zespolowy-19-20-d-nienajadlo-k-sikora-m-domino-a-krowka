@@ -29,6 +29,7 @@ public class AlertController extends Logowanie implements Initializable {
     void logPrzejdz(ActionEvent event) {
         String logowanie = "/FXML/Login.fxml";
         wczytywanie(event, logowanie);
+        ramka(event);
 
     }
 

@@ -17,7 +17,7 @@ public class Adresy  implements java.io.Serializable {
      private String miasto;
      private String ulica;
      private String numerBudynku;
-     private int numerLokalu;
+     private String numerLokalu;
      private String email;
      private Set hurtownias = new HashSet(0);
 
@@ -26,7 +26,7 @@ public class Adresy  implements java.io.Serializable {
 
 	
     public Adresy(Klient klient, String kraj, String miasto, String ulica, 
-            String numerBudynku, int numerLokalu, String email) {
+            String numerBudynku, String numerLokalu, String email) {
         this.klient = klient;
         this.kraj = kraj;
         this.miasto = miasto;
@@ -36,7 +36,7 @@ public class Adresy  implements java.io.Serializable {
         this.email = email;
     }
     public Adresy(Klient klient, String kraj, String miasto, String ulica, 
-            String numerBudynku, int numerLokalu, String email, 
+            String numerBudynku, String numerLokalu, String email, 
             Set hurtownias) {
        this.klient = klient;
        this.kraj = kraj;
@@ -90,11 +90,11 @@ public class Adresy  implements java.io.Serializable {
     public void setNumerBudynku(String numerBudynku) {
         this.numerBudynku = numerBudynku;
     }
-    public int getNumerLokalu() {
+    public String getNumerLokalu() {
         return this.numerLokalu;
     }
     
-    public void setNumerLokalu(int numerLokalu) {
+    public void setNumerLokalu(String numerLokalu) {
         this.numerLokalu = numerLokalu;
     }
     public String getEmail() {

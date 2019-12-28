@@ -81,6 +81,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         
         String wylogowywanie = "/FXML/Login.fxml";
         wczytywanie(event, wylogowywanie);
+        ramka(event);
 
     }
 

@@ -108,6 +108,7 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
             klient.changePassword(login, nHaslo);
             String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
+            ramka(event);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -120,6 +121,7 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
             pracownik.changePassword(login, nHaslo);
             String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
+            ramka(event);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
