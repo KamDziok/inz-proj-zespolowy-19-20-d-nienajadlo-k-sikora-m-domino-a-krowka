@@ -126,7 +126,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="127.0" layoutY="326.0" text="Kraj:">
+                              <Label layoutX="52.0" layoutY="310.0" text="Kraj:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -146,6 +146,11 @@
                                     <Font name="Baskerville Old Face" size="15.0" />
                                  </font>
                               </Label>
+                              <Label fx:id="miastoL" layoutX="113.0" layoutY="242.0" prefHeight="17.0" prefWidth="120.0" />
+                              <Label fx:id="ulicaL" layoutX="99.0" layoutY="273.0" prefHeight="17.0" prefWidth="136.0" />
+                              <Label fx:id="nrBudL" layoutX="439.0" layoutY="242.0" prefHeight="17.0" prefWidth="140.0" />
+                              <Label fx:id="krajL" layoutX="98.0" layoutY="312.0" prefHeight="17.0" prefWidth="152.0" />
+                              <Label fx:id="nLokaLa" layoutX="430.0" layoutY="273.0" prefHeight="17.0" prefWidth="110.0" />
                            </children>
                         </AnchorPane>
                   </content>

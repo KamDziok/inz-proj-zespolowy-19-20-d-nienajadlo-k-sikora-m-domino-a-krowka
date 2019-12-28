@@ -9,6 +9,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
 import com.jfoenix.controls.JFXButton;
+import hibernate.Adresy;
+import hibernate.AdresyQuery;
 import hibernate.Klient;
 import hibernate.KlientQuery;
 import hibernate.Pracownik;
@@ -161,6 +163,13 @@ public class LoginController extends Logowanie implements Initializable {
                 ramka(event);
                 menuKlient.daneOsobowe(klientZ.getImie(),
                             klientZ.getNazwisko(), klientZ.getTelefon());
+                AdresyQuery a = new AdresyQuery();
+                    Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
+                    menuKlient.adresDostawy(adresZ.getUlica(), 
+                            adresZ.getMiasto(), adresZ.getKraj(), 
+                            adresZ.getNumerBudynku(), adresZ.getNumerLokalu(), 
+                            adresZ.getEmail());
+                
                     
                 /*Stage PrimaryStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));

@@ -60,6 +60,7 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
         
         String powrot = "/FXML/Login.fxml";
         wczytywanie(event, powrot);
+        ramka(event);
 
     }
 

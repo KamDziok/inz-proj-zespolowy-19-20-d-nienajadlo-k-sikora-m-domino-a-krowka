@@ -26,7 +26,7 @@ import javafx.scene.control.TableView;
  */
 public class Menu_KlientController extends Logowanie implements Initializable {
 
-      @FXML
+    @FXML
     private TableView<?> zamowieniaK;
 
     @FXML
@@ -43,6 +43,24 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
     private JFXTextField ulicaDA;
+
+    @FXML
+    private Label miastoL;
+
+    @FXML
+    private Label telefonL;
+
+    @FXML
+    private Label ulicaL;
+
+    @FXML
+    private Label nrBudL;
+
+    @FXML
+    private Label nLokaLa;
+
+    @FXML
+    private Label krajL;
 
     @FXML
     private JFXTextField krajAD;
@@ -69,12 +87,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private Label mailL;
 
     @FXML
-    private Label telefonL;
-
-    @FXML
     private JFXButton wylogujDO;
-
-
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -85,10 +98,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         String nB = numerBudynkuAD.getText();
         String nL = numerLokaluAD.getText();
         String email = emailAD.getText();
-        
+
         int id = Integer.parseInt(dane.getText());
-       
-        
 
         try {
             AdresyQuery adres = new AdresyQuery();
@@ -104,13 +115,25 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         dane.setText(Integer.toString(id));
         dane.setVisible(false);
     }
-    
-    public void daneOsobowe (String imie, String nazwisko, long telefon){
+
+    public void daneOsobowe(String imie, String nazwisko, long telefon) {
         imieL.setText(imie);
         nazwiskoL.setText(nazwisko);
         telefonL.setText(Long.toString(telefon));
     }
-    
+
+    public void adresDostawy(String ulica, String miasto, String kraj,
+            String numerB, String numerL, String email) {
+
+        ulicaL.setText(ulica);
+        miastoL.setText(miasto);
+        nrBudL.setText(numerB);
+        nLokaLa.setText(numerL);
+        krajL.setText(kraj);
+        mailL.setText(email);
+
+    }
+
     @FXML
     void wyloguj(ActionEvent event) {
 

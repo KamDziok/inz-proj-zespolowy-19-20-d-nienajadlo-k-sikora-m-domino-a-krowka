@@ -62,4 +62,14 @@ public class AdresyQuery {
         session.close();
        return a;
     }
+    
+     public Adresy wyswietlAdres(int klientID){
+        Adresy a = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+         String hql = "from Adresy where KlientID = '" + klientID +" '";
+        query = session.createQuery(hql);
+        a = (Adresy) query.uniqueResult();
+        session.close();
+        return a;
+     }
 }
