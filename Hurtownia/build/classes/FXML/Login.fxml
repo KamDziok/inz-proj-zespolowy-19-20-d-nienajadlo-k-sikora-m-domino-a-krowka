@@ -22,7 +22,12 @@
    <children>
       <Pane layoutX="4.0" prefHeight="418.0" prefWidth="391.0">
          <children>
-            
+            <PasswordField fx:id="passwd" layoutX="114.0" layoutY="170.0"
+                           prefHeight="30.0" prefWidth="203.0"
+                           promptText="Enter your password">
+               <font>
+                  <Font size="14.0" />
+               </font></PasswordField>
             <Label layoutX="21.0" layoutY="170.0" prefHeight="30.0" 
                    prefWidth="75.0" text="Hasło:">
                <font>
@@ -41,6 +46,12 @@
                   <Font size="23.0" />
                </font>
             </Label>
+            <Button fx:id="zalogujbtn" layoutX="71.0" layoutY="291.0" 
+                    mnemonicParsing="false" onAction="#LogInAction" 
+                    prefHeight="34.0" prefWidth="256.0" text="Zaloguj">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
             <Label fx:id="status" layoutX="78.0" layoutY="20.0" 
                    prefHeight="17.0" prefWidth="217.0" textFill="#d33010">
                <font>
@@ -54,12 +65,6 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwd" layoutX="114.0" layoutY="170.0"
-                           prefHeight="30.0" prefWidth="203.0"
-                           promptText="Enter your password">
-               <font>
-                  <Font size="14.0" />
-               </font></PasswordField>
             <ToggleButtonGroup fx:id="group" layoutX="103.0" layoutY="235.0" 
                                prefHeight="20.0" prefWidth="203.0" 
                                selectionType="SINGLE">
@@ -79,13 +84,6 @@
                   </RadioButton>
                 </toggles>
             </ToggleButtonGroup>
-              <Button fx:id="zalogujbtn" layoutX="71.0" layoutY="291.0" 
-                    mnemonicParsing="false" onAction="#LogInAction" 
-                    defaultButton="true" prefHeight="34.0" prefWidth="256.0" 
-                    text="Zaloguj">
-               <font>
-                  <Font size="13.0" />
-               </font></Button>
             <JFXButton fx:id="forgotPasswordBtn" layoutX="20.0" layoutY="364.0" 
                        onAction="#PrzypomnienieHaslaOnAction" prefHeight="32.0" 
                        prefWidth="153.0" text="Nie pamiętasz hasła?" />

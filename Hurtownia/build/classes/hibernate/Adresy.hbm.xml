@@ -24,7 +24,7 @@
         <property name="numerBudynku" type="string">
             <column name="NumerBudynku" length="30" not-null="true" />
         </property>
-        <property name="numerLokalu" type="string">
+        <property name="numerLokalu" type="int">
             <column name="NumerLokalu" not-null="true" />
         </property>
         <property name="email" type="string">
