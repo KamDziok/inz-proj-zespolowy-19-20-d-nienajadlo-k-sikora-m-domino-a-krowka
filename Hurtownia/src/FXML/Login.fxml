@@ -48,7 +48,8 @@
             </Label>
             <Button fx:id="zalogujbtn" layoutX="71.0" layoutY="291.0" 
                     mnemonicParsing="false" onAction="#LogInAction" 
-                    prefHeight="34.0" prefWidth="256.0" text="Zaloguj">
+                    defaultButton="true" prefHeight="34.0" prefWidth="256.0" 
+                    text="Zaloguj">
                <font>
                   <Font size="13.0" />
                </font></Button>
