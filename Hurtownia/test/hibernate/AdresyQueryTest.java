@@ -70,5 +70,20 @@ public class AdresyQueryTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of wyswietlAdres method, of class AdresyQuery.
+     */
+    @Test
+    public void testWyswietlAdres() {
+        System.out.println("wyswietlAdres");
+        int klientID = 0;
+        AdresyQuery instance = new AdresyQuery();
+        Adresy expResult = null;
+        Adresy result = instance.wyswietlAdres(klientID);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }
