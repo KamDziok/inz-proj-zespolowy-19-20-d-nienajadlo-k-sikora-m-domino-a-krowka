@@ -148,7 +148,23 @@
                   </Tab>
                   <Tab text="Zwolnij pracownika">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="pracownicyTableZ" layoutX="113.0" layoutY="89.0" prefHeight="328.0" prefWidth="535.0">
+                                 <columns>
+                                    <TableColumn fx:id="idZw" prefWidth="75.0" text="Id" />
+                                    <TableColumn fx:id="imieZw" prefWidth="139.0" text="Imie" />
+                                    <TableColumn fx:id="nazwiskoZ" prefWidth="100.0" text="Nazwisko" />
+                                    <TableColumn fx:id="stanowiskoZ" prefWidth="93.0" text="Stanowisko" />
+                                    <TableColumn fx:id="stawkaZ" prefWidth="127.0" text="Płaca" />
+                                 </columns>
+                              </TableView>
+                              <Label layoutX="147.0" layoutY="34.0" prefHeight="17.0" prefWidth="199.0" text="Zwolnij po ID pracownika:" />
+                              <TextField fx:id="IdUsuntxt" layoutX="312.0" layoutY="30.0" prefHeight="25.0" prefWidth="187.0" />
+                              <Button fx:id="zwolnijP" layoutX="531.0" layoutY="30.0" mnemonicParsing="false" onAction="#zwolnijPracownika" prefHeight="25.0" prefWidth="83.0" text="Zwolnij" />
+                              <JFXButton fx:id="wylogujKPr1" layoutX="673.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
+                              <Label fx:id="zwolnienieStatus" layoutX="174.0" layoutY="435.0" prefHeight="17.0" prefWidth="251.0" textFill="#e13a3a" />
+                           </children></AnchorPane>
                     </content>
                   </Tab>
               </tabs>

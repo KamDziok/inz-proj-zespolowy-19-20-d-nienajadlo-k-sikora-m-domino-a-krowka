@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.KierownikQuery;
 import hibernate.Pracownik;
+import hibernate.PracownikQuery;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -112,6 +113,26 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Label status_zatrudnienia;
     @FXML
     private Label pracownikLabel;
+    @FXML
+    private TableView<Pracownik> pracownicyTableZ;
+    @FXML
+    private TableColumn<Pracownik, Integer> idZw;
+    @FXML
+    private TableColumn<Pracownik, String> imieZw;
+    @FXML
+    private TableColumn<Pracownik, String> nazwiskoZ;
+    @FXML
+    private TableColumn<Pracownik, String> stanowiskoZ;
+    @FXML
+    private TableColumn<Pracownik, Float> stawkaZ;
+    @FXML
+    private TextField IdUsuntxt;
+    @FXML
+    private Button zwolnijP;
+    @FXML
+    private JFXButton wylogujKPr1;
+    @FXML
+    private Label zwolnienieStatus;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -125,7 +146,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        pracownicyTable(); // wyświetlenie wszystkich pracowników
+        pracownicyTable();
+        pracownicyTableZ(); // wyświetlenie wszystkich pracowników
     }    
     
     
@@ -174,15 +196,47 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     
     public void pracownicyTable(){
         
-        imieT.setCellValueFactory(new PropertyValueFactory<Pracownik, String> 
+        imieT.setCellValueFactory(new PropertyValueFactory<> 
         ("imie"));
-        nazwiskoT.setCellValueFactory(new PropertyValueFactory<Pracownik, 
-                String> ("nazwisko"));
-        stanowiskoT.setCellValueFactory(new PropertyValueFactory<Pracownik, 
-                String>("stanowisko"));
-        stawkaT.setCellValueFactory(new PropertyValueFactory<Pracownik, Float>
+        nazwiskoT.setCellValueFactory(new PropertyValueFactory<> ("nazwisko"));
+        stanowiskoT.setCellValueFactory(new PropertyValueFactory<>
+        ("stanowisko"));
+        stawkaT.setCellValueFactory(new PropertyValueFactory<>
         ("placa"));
         
         pracownicyTable.setItems(getPracownik());
+    }
+    
+      public void pracownicyTableZ(){
+        
+        idZw.setCellValueFactory(new PropertyValueFactory<> ("pracownikId"));
+        imieZw.setCellValueFactory(new PropertyValueFactory<> 
+        ("imie"));
+        nazwiskoZ.setCellValueFactory(new PropertyValueFactory<> ("nazwisko"));
+        stanowiskoZ.setCellValueFactory(new PropertyValueFactory<>
+        ("stanowisko"));
+        stawkaZ.setCellValueFactory(new PropertyValueFactory<>
+        ("placa"));
+        
+          
+        pracownicyTableZ.setItems(getPracownik());
+       
+    }
+
+    @FXML
+    private void zwolnijPracownika(ActionEvent event) {
+        
+        int id = Integer.parseInt(IdUsuntxt.getText());
+        
+        try{
+        KierownikQuery kierownik = new KierownikQuery();
+        kierownik.zwolnijPracownika(id);
+        zwolnienieStatus.setText("Pracownik został zwolniony!");
+        IdUsuntxt.setText(null);
+        pracownicyTableZ();
+    }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }

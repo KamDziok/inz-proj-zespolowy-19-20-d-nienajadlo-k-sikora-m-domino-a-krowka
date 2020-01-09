@@ -8,6 +8,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -39,4 +40,24 @@ catch (HibernateException error){
 }
     
     }
+    
+     public void zwolnijPracownika (Integer pracownikId){
+        session = HibernateUtil.getSessionFactory().openSession();
+         Transaction tx = null;
+         
+         try{
+             tx = session.beginTransaction();
+             Pracownik pracownik;
+            pracownik = (Pracownik)session.get(Pracownik.class, pracownikId);
+             session.delete(pracownik);
+             tx.commit();   
+         }catch(Exception e){
+             if(tx != null) tx.rollback();
+             e.printStackTrace();
+         } finally{
+             session.close();
+         }
+    }
+    
+   
 }
