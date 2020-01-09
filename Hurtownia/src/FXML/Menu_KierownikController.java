@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.KierownikQuery;
 import hibernate.Pracownik;
+import hibernate.PracownikConverter;
 import hibernate.PracownikQuery;
 import java.net.URL;
 import java.util.List;
@@ -98,7 +99,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TableColumn<Pracownik, Float> stawkaT;
     @FXML
-    private ComboBox<?> stanowiskoCombo;
+    private ComboBox<Pracownik> stanowiskoCombo;
     @FXML
     private JFXTextField imieDP;
     @FXML
@@ -148,7 +149,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         
         pracownicyTable();
         pracownicyTableZ(); // wyświetlenie wszystkich pracowników
-    }    
+        ComboBox();
+    }
     
     
      public ObservableList <Pracownik> getPracownik(){
@@ -238,5 +240,18 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+    
     }
+    
+    public void ComboBox(){
+            
+            PracownikQuery p = new PracownikQuery();
+            stanowiskoCombo.getItems().addAll(p.PracownikSelectAll());
+            stanowiskoCombo.setConverter(new PracownikConverter());
+            
+                    
+
 }
+    
+}
+  

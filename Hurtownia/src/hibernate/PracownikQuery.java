@@ -80,7 +80,7 @@ public class PracownikQuery {
         }
     }
 
-    public List<Pracownik> PracownikSelectAll() {
+     public List<Pracownik> PracownikSelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Pracownik.class);
         List<Pracownik> p = criteria.list();
@@ -121,7 +121,7 @@ public class PracownikQuery {
         session = HibernateUtil.getSessionFactory().openSession();
     
         String query = "INSERT INTO `produkty`(`ProduktID`, `Nazwa`, "
-                + "`CenaKupna`, `Opis`, `KategoriaID`) VALUES ("+productID+""
+                + "`CenaKupna`, `Opis`, `KategoriaID`) VALUES (NULL"
                 + ",'"+productName+"', "+productPrice+","
                 + "'"+productDescription+"', "+categoryID+")";
           
@@ -169,7 +169,8 @@ public class PracownikQuery {
         
         session = HibernateUtil.getSessionFactory().openSession();
     
-        String query = "DELETE FROM `reklama` WHERE `reklama`.`ReklamaID` = " + ReklamaID;
+        String query = "DELETE FROM `reklama` WHERE `reklama`.`ReklamaID` = "
+                + ReklamaID;
           
         try {
           session.getTransaction().begin();
