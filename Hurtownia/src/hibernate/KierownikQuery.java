@@ -58,6 +58,30 @@ catch (HibernateException error){
              session.close();
          }
     }
+     
+     
+     
+     
+     // Kategoria musi być pobrana jako ID
+     public void dodajProdukt(String Nazwa , float Cena, 
+            String Opis , String Kategoria){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "INSERT INTO `produkty` (`ProduktID`, `Nazwa`, `CenaKupna`, `Opis`, `KategoriaID`) "
+            + "VALUES (NULL, '" + Nazwa +"', '"+Cena+"', '"+Opis+"',"
+            +Kategoria+")";
+  try {
+    session.getTransaction().begin();
+    session.createSQLQuery(query).executeUpdate();
+    session.getTransaction().commit();
+    session.close();
+}
+catch (HibernateException error){
+    session.getTransaction().rollback();
+    session.close();
+}
+    
+    }
     
    
 }
