@@ -64,10 +64,11 @@ catch (HibernateException error){
      
      // Kategoria musi być pobrana jako ID
      public void dodajProdukt(String Nazwa , float Cena, 
-            String Opis , String Kategoria){
+            String Opis , int Kategoria){
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `produkty` (`ProduktID`, `Nazwa`, `CenaKupna`, `Opis`, `KategoriaID`) "
+    String query = "INSERT INTO `produkty` (`ProduktID`, `Nazwa`, `CenaKupna`, "
+            + "`Opis`, `KategoriaID`) "
             + "VALUES (NULL, '" + Nazwa +"', '"+Cena+"', '"+Opis+"',"
             +Kategoria+")";
   try {

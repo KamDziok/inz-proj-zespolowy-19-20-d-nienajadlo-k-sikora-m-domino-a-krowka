@@ -7,6 +7,10 @@ package FXML;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import hibernate.HibernateUtil;
+import hibernate.Kategorie;
+import hibernate.KategorieConverter;
+import hibernate.KategorieQuery;
 import hibernate.KierownikQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikConverter;
@@ -14,9 +18,13 @@ import hibernate.PracownikQuery;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,6 +35,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -36,7 +45,7 @@ import org.hibernate.Session;
  */
 public class Menu_KierownikController extends Logowanie implements Initializable {
 
-     @FXML
+    @FXML
     private TableView<?> zamowieniaTable;
 
     @FXML
@@ -66,8 +75,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TextArea opisP;
 
-    @FXML
-    private TextField iloscP;
 
     @FXML
     private TextField cenaP;
@@ -79,10 +86,10 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private TableView<?> produktyD;
 
     @FXML
-    private ComboBox<?> katDcombo;
+    private ComboBox<Kategorie> katDcombo;
 
     @FXML
-    private ComboBox<?> katCombo;
+    private ComboBox<Kategorie> katCombo;
 
     @FXML
     private JFXButton wylogujbtn;
@@ -134,10 +141,16 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private JFXButton wylogujKPr1;
     @FXML
     private Label zwolnienieStatus;
+    @FXML
+    private Label wyborCombo;
+    @FXML
+    private Label katWybor;
+    @FXML
+    private Label statusDodajP;
 
     @FXML
     void wyloguj(ActionEvent event) {
-        
+
         String wylogowywanie = "/FXML/Login.fxml";
         wczytywanie(event, wylogowywanie);
         ramka(event);
@@ -146,28 +159,29 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         pracownicyTable();
         pracownicyTableZ(); // wyświetlenie wszystkich pracowników
-        ComboBox();
+        comboBoxP();
+        comboBoxK();
+
     }
-    
-    
-     public ObservableList <Pracownik> getPracownik(){
+
+    public ObservableList<Pracownik> getPracownik() {
         ObservableList<Pracownik> listaPracownikow = FXCollections.
                 observableArrayList();
         Session session = hibernate.HibernateUtil.getSessionFactory().
                 openSession();
-        List <Pracownik> pList = session.createCriteria(Pracownik.class).list();
-        
-        for(Pracownik p: pList){
+        List<Pracownik> pList = session.createCriteria(Pracownik.class).list();
+
+        for (Pracownik p : pList) {
             listaPracownikow.add(p);
-            
+
         }
         return listaPracownikow;
     }
     
-   
+
     @FXML
     private void Dodaj_Pracownika(ActionEvent event) {
 
@@ -187,71 +201,139 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             System.out.println(e.getMessage());
         }
     }
-    
-    public void clearFields(){
+
+    public void clearFields() {
         imieDP.setText(null);
         nazwiskoDP.setText(null);
         wynagrodzenieDP.setText(null);
         stanowiskoDP.setText(null);
-    
+        cenaP.setText(null);
+        nazwaP.setText(null);
+        opisP.setText(null);
+
     }
-    
-    public void pracownicyTable(){
-        
-        imieT.setCellValueFactory(new PropertyValueFactory<> 
-        ("imie"));
-        nazwiskoT.setCellValueFactory(new PropertyValueFactory<> ("nazwisko"));
+
+    public void pracownicyTable() {
+
+        imieT.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        nazwiskoT.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         stanowiskoT.setCellValueFactory(new PropertyValueFactory<>
         ("stanowisko"));
-        stawkaT.setCellValueFactory(new PropertyValueFactory<>
-        ("placa"));
+        stawkaT.setCellValueFactory(new PropertyValueFactory<>("placa"));
         
-        pracownicyTable.setItems(getPracownik());
+        pracownicyTableZ.setItems(getPracownik());
+        
     }
-    
-      public void pracownicyTableZ(){
-        
-        idZw.setCellValueFactory(new PropertyValueFactory<> ("pracownikId"));
-        imieZw.setCellValueFactory(new PropertyValueFactory<> 
-        ("imie"));
-        nazwiskoZ.setCellValueFactory(new PropertyValueFactory<> ("nazwisko"));
+
+    public void pracownicyTableZ() {
+
+        idZw.setCellValueFactory(new PropertyValueFactory<>("pracownikId"));
+        imieZw.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        nazwiskoZ.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         stanowiskoZ.setCellValueFactory(new PropertyValueFactory<>
         ("stanowisko"));
-        stawkaZ.setCellValueFactory(new PropertyValueFactory<>
-        ("placa"));
-        
-          
+        stawkaZ.setCellValueFactory(new PropertyValueFactory<>("placa"));
+
         pracownicyTableZ.setItems(getPracownik());
-       
+
     }
 
     @FXML
     private void zwolnijPracownika(ActionEvent event) {
-        
+
         int id = Integer.parseInt(IdUsuntxt.getText());
-        
-        try{
-        KierownikQuery kierownik = new KierownikQuery();
-        kierownik.zwolnijPracownika(id);
-        zwolnienieStatus.setText("Pracownik został zwolniony!");
-        IdUsuntxt.setText(null);
-        pracownicyTableZ();
-    }
-        catch(Exception e){
+
+        try {
+            KierownikQuery kierownik = new KierownikQuery();
+            kierownik.zwolnijPracownika(id);
+            zwolnienieStatus.setText("Pracownik został zwolniony!");
+            IdUsuntxt.setText(null);
+            pracownicyTableZ();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    
+
+    }
+
+    public void comboBoxP() {
+
+        PracownikQuery p = new PracownikQuery();
+        stanowiskoCombo.getItems().addAll(p.PracownikSelectAll());
+        stanowiskoCombo.setConverter(new PracownikConverter());
+
+        stanowiskoCombo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueP(stanowiskoCombo);
+            }
+        });
+    }
+
+    public void comboValueP(ComboBox<Pracownik> stanowiskoCombo) {
+        Pracownik p = stanowiskoCombo.getValue();
+        String name = Integer.toString(p.getPracownikId());
+        wyborCombo.setText(name);
+        wyborCombo.setVisible(true);
+
     }
     
-    public void ComboBox(){
-            
-            PracownikQuery p = new PracownikQuery();
-            stanowiskoCombo.getItems().addAll(p.PracownikSelectAll());
-            stanowiskoCombo.setConverter(new PracownikConverter());
-            
-                    
+      public void comboValueK(ComboBox<Kategorie> katDcombo){
+
+       Kategorie k = katDcombo.getValue();
+       int idKat = k.getKategoriaId();
+       katWybor.setText(Integer.toString(idKat));
+       katWybor.setVisible(false);
+}
+
+    
+    public void comboBoxK() {
+        
+        KategorieQuery kategoria = new KategorieQuery();
+        katDcombo.getItems().addAll(kategoria.KategorieSelectAll());
+        katCombo.getItems().addAll(kategoria.KategorieSelectAll());
+        
+        katDcombo.setConverter(new KategorieConverter());
+        katCombo.setConverter(new KategorieConverter());
+        
+        katCombo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueK(katCombo);
+                
+            }
+        });
+        
+      katDcombo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueK(katDcombo);
+                
+            }
+        });
+    
 
 }
+    @FXML
+    private void dodajProdukt(ActionEvent event) {
+        
+        int idKategorii = Integer.parseInt(katWybor.getText());
+        String nazwa = nazwaP.getText();
+        float cena = Float.parseFloat(cenaP.getText());
+        String opis = opisP.getText();
+        
+        try{
+            KierownikQuery kierownik = new KierownikQuery();
+            kierownik.dodajProdukt(nazwa, cena, opis, idKategorii);
+            statusDodajP.setText("Produkt został dodany do danej kategorii");
+            clearFields();
+            
+        }catch (Exception e) {
+            
+            System.out.println(e.getMessage());
+            
+        }
+        
+    }
     
 }
-  
+

@@ -7,6 +7,8 @@ package hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -87,7 +89,8 @@ public class PracownikQuery {
         session.close();
         return p;
     }
-    
+     
+   
     public void changeProductQuantity(int storageId, int quantity, 
             int productId, int wholesaleId) throws Exception{
             
@@ -183,6 +186,22 @@ public class PracownikQuery {
             session.close();
         }
     }
+    
+   
+  public ObservableList<Pracownik> getPracownikID(int id) {
+        ObservableList<Pracownik> listaPracownikowID = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Pracownik> pList = session.createCriteria(Pracownik.class).list();
+       
+        for (Pracownik p : pList) {
+            listaPracownikowID.add(p.getPracownikId(), p);
+            }
+        
+        return listaPracownikowID;
+    }
+    
     
 
 }

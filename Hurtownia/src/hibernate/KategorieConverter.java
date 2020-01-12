@@ -11,19 +11,16 @@ import javafx.util.StringConverter;
  *
  * @author monika
  */
-public class PracownikConverter extends StringConverter<Pracownik> {
+public class KategorieConverter extends StringConverter<Kategorie>  {
 
     @Override
-    public String toString(Pracownik pracownik) {
-        return pracownik == null? null :  pracownik.getImie() + " " 
-                + pracownik.getNazwisko();
+    public String toString(Kategorie kat) {
+        return kat == null? null : kat.getNazwa();
     }
 
     @Override
-    public Pracownik fromString(String string) {
-       
+    public Kategorie fromString(String string) {
         return null;
+    }
     
-    
-}
 }
