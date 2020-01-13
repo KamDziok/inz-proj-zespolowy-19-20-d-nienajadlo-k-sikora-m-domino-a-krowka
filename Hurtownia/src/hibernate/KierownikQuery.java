@@ -83,6 +83,26 @@ catch (HibernateException error){
 }
     
     }
+     
+     public void dodajProduktNaMagazyn(int ilosc , float Cena, 
+            int ProduktID ){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "INSERT INTO `magazyn` (`MagazynID`, `Ilosc`, "
+            +"`CenaSprzedazy`, `ProduktID`, `HurtowniaID`)"
+            + "VALUES (NULL, '" + ilosc +"', '"+Cena+"', '"+ProduktID+"', '1')";
+  try {
+    session.getTransaction().begin();
+    session.createSQLQuery(query).executeUpdate();
+    session.getTransaction().commit();
+    session.close();
+}
+catch (HibernateException error){
+    session.getTransaction().rollback();
+    session.close();
+}
+    
+    }
     
    
 }
