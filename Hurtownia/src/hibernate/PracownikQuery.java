@@ -188,22 +188,8 @@ public class PracownikQuery {
     }
     
    
-  public ObservableList<Pracownik> getPracownikID(int id) {
-        ObservableList<Pracownik> listaPracownikowID = FXCollections.
-                observableArrayList();
-        Session session = hibernate.HibernateUtil.getSessionFactory().
-                openSession();
-        List<Pracownik> pList = session.createCriteria(Pracownik.class).list();
-       
-        for (Pracownik p : pList) {
-            listaPracownikowID.add(p.getPracownikId(), p);
-            }
-        
-        return listaPracownikowID;
-    }
-    
-    
 
+    
 }
 
 

@@ -22,6 +22,8 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -106,8 +108,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TableColumn<Pracownik, Float> stawkaT;
     @FXML
-    private ComboBox<Pracownik> stanowiskoCombo;
-    @FXML
     private JFXTextField imieDP;
     @FXML
     private JFXTextField nazwiskoDP;
@@ -147,6 +147,10 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Label katWybor;
     @FXML
     private Label statusDodajP;
+    @FXML
+    private TextField wyszukajField;
+    @FXML
+    private TextField wyszukajFileldZ;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -162,8 +166,9 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
         pracownicyTable();
         pracownicyTableZ(); // wyświetlenie wszystkich pracowników
-        comboBoxP();
         comboBoxK();
+        wyszukaj(getPracownik());
+        wyszukajZwolnienia(getPracownik());
 
     }
 
@@ -255,28 +260,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
     }
 
-    public void comboBoxP() {
-
-        PracownikQuery p = new PracownikQuery();
-        stanowiskoCombo.getItems().addAll(p.PracownikSelectAll());
-        stanowiskoCombo.setConverter(new PracownikConverter());
-
-        stanowiskoCombo.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueP(stanowiskoCombo);
-            }
-        });
-    }
-
-    public void comboValueP(ComboBox<Pracownik> stanowiskoCombo) {
-        Pracownik p = stanowiskoCombo.getValue();
-        String name = Integer.toString(p.getPracownikId());
-        wyborCombo.setText(name);
-        wyborCombo.setVisible(true);
-
-    }
-    
+  
       public void comboValueK(ComboBox<Kategorie> katDcombo){
 
        Kategorie k = katDcombo.getValue();
@@ -334,6 +318,61 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         }
         
     }
+
+    public void wyszukajZwolnienia (ObservableList<Pracownik> getPracownik){
+        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(), 
+        p -> true);
+        
+          wyszukajFileldZ.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrData.setPredicate(pracownik -> {
+               
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                
+                String lowerCaseFilter = newValue.toLowerCase();
+                
+                if (pracownik.getStanowisko().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; 
+                } 
+                  
+                return false; // Does not match.
+            });
+        });
+        
+        SortedList<Pracownik> sortedData = new SortedList<>(filtrData);
+     
+        sortedData.comparatorProperty().bind(pracownicyTableZ.comparatorProperty());
+       pracownicyTableZ.setItems(sortedData);
+    }
     
+    public void wyszukaj (ObservableList<Pracownik> getPracownik){
+        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(), 
+        p -> true);
+        
+          wyszukajField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filtrData.setPredicate(pracownik -> {
+               
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                
+                String lowerCaseFilter = newValue.toLowerCase();
+                
+                if (pracownik.getStanowisko().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; 
+                } 
+                  
+                return false; // Does not match.
+            });
+        });
+        
+        SortedList<Pracownik> sortedData = new SortedList<>(filtrData);
+     
+        sortedData.comparatorProperty().bind(pracownicyTable.comparatorProperty());
+       pracownicyTable.setItems(sortedData);
+    }
 }
+        
+    
 

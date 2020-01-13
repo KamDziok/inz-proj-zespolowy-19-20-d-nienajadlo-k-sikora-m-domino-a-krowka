@@ -128,8 +128,9 @@
                                           <TableColumn fx:id="stawkaT" prefWidth="98.0" text="Płaca" />
                                       </columns>
                                     </TableView>
-                                    <ComboBox fx:id="stanowiskoCombo" layoutX="137.0" layoutY="27.0" prefHeight="25.0" prefWidth="170.0" />
                                     <Label fx:id="wyborCombo" layoutX="137.0" layoutY="-6.0" prefHeight="17.0" prefWidth="122.0" />
+                                    <TextField fx:id="wyszukajField" layoutX="203.0" layoutY="41.0" prefHeight="25.0" prefWidth="165.0" />
+                                    <Label layoutX="17.0" layoutY="45.0" prefHeight="17.0" prefWidth="146.0" text="Wyszukaj po stanowisku:" />
                                  </children>
                               </Pane>
                               <JFXTextField fx:id="imieDP" layoutX="95.0" layoutY="94.0" prefHeight="25.0" prefWidth="168.0" />
@@ -147,7 +148,7 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="pracownicyTableZ" layoutX="113.0" layoutY="89.0" prefHeight="328.0" prefWidth="535.0">
+                              <TableView fx:id="pracownicyTableZ" layoutX="113.0" layoutY="80.0" prefHeight="328.0" prefWidth="535.0">
                                  <columns>
                                     <TableColumn fx:id="idZw" prefWidth="75.0" text="Id" />
                                     <TableColumn fx:id="imieZw" prefWidth="139.0" text="Imie" />
@@ -156,11 +157,13 @@
                                     <TableColumn fx:id="stawkaZ" prefWidth="127.0" text="Płaca" />
                                  </columns>
                               </TableView>
-                              <Label layoutX="147.0" layoutY="34.0" prefHeight="17.0" prefWidth="199.0" text="Zwolnij po ID pracownika:" />
-                              <TextField fx:id="IdUsuntxt" layoutX="312.0" layoutY="30.0" prefHeight="25.0" prefWidth="187.0" />
-                              <Button fx:id="zwolnijP" layoutX="531.0" layoutY="30.0" mnemonicParsing="false" onAction="#zwolnijPracownika" prefHeight="25.0" prefWidth="83.0" text="Zwolnij" />
+                              <Label layoutX="123.0" layoutY="444.0" prefHeight="17.0" prefWidth="199.0" text="Zwolnij po ID pracownika:" />
+                              <TextField fx:id="IdUsuntxt" layoutX="305.0" layoutY="440.0" prefHeight="25.0" prefWidth="193.0" />
+                              <Button fx:id="zwolnijP" layoutX="544.0" layoutY="440.0" mnemonicParsing="false" onAction="#zwolnijPracownika" prefHeight="25.0" prefWidth="83.0" text="Zwolnij" />
                               <JFXButton fx:id="wylogujKPr1" layoutX="673.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
-                              <Label fx:id="zwolnienieStatus" layoutX="174.0" layoutY="435.0" prefHeight="17.0" prefWidth="251.0" textFill="#e13a3a" />
+                              <Label fx:id="zwolnienieStatus" layoutX="255.0" layoutY="408.0" prefHeight="17.0" prefWidth="251.0" textFill="#e13a3a" />
+                              <TextField fx:id="wyszukajFileldZ" layoutX="363.0" layoutY="27.0" prefHeight="25.0" prefWidth="241.0" />
+                              <Label layoutX="166.0" layoutY="31.0" prefHeight="17.0" prefWidth="146.0" text="Wyszukaj po stanowisku:" />
                            </children></AnchorPane>
                     </content>
                   </Tab>
