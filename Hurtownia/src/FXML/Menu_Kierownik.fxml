@@ -73,9 +73,9 @@
                                     <Button fx:id="DodajBTN" layoutX="131.0" layoutY="383.0" mnemonicParsing="false" onAction="#dodajProdukt" text="Dodaj produkt" />
                                     <TableView fx:id="produktyD" layoutX="380.0" layoutY="99.0" prefHeight="336.0" prefWidth="355.0">
                                       <columns>
-                                        <TableColumn prefWidth="132.0" text="Nazwa produktu" />
-                                        <TableColumn prefWidth="126.0" text="Ilość" />
-                                          <TableColumn prefWidth="96.0" text="Cena za szt" />
+                                        <TableColumn fx:id="nazwaTD" prefWidth="123.0" text="nazwa produktu" />
+                                        <TableColumn fx:id="cenaTD" prefWidth="122.0" text="cena " />
+                                          <TableColumn fx:id="opisTD" prefWidth="109.0" text="opis" />
                                       </columns>
                                     </TableView>
                                     <ComboBox fx:id="katDcombo" layoutX="103.0" layoutY="32.0" prefHeight="25.0" prefWidth="226.0" />
@@ -84,10 +84,12 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="katCombo" layoutX="467.0" layoutY="42.0" prefHeight="25.0" prefWidth="226.0" />
+                                    <ComboBox fx:id="katCombo" layoutX="467.0" layoutY="42.0" prefHeight="25.0" prefWidth="163.0" />
                                     <JFXButton fx:id="wylogujbtn" layoutX="693.0" layoutY="7.0" onAction="#wyloguj" text="Wyloguj" />
                                     <Label fx:id="katWybor" layoutX="113.0" layoutY="59.0" prefHeight="17.0" prefWidth="173.0" />
                                     <Label fx:id="statusDodajP" layoutX="51.0" layoutY="435.0" prefHeight="17.0" prefWidth="276.0" />
+                                    <Button fx:id="wczytajBtn" layoutX="649.0" layoutY="42.0" mnemonicParsing="false" onAction="#wczytajDane" text="Wczytaj" />
+                                    <Label fx:id="wczytajLabel" layoutX="467.0" layoutY="76.0" prefHeight="17.0" prefWidth="141.0" />
                                  </children>
                               </AnchorPane>
                            </children></AnchorPane>
