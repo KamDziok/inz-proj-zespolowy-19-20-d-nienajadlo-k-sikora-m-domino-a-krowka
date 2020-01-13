@@ -39,6 +39,9 @@ public class Produkty  implements java.io.Serializable {
        this.magazyns = magazyns;
        this.towaryzamowienies = towaryzamowienies;
     }
+    
+    
+    
    
     public Integer getProduktId() {
         return this.produktId;
@@ -89,6 +92,8 @@ public class Produkty  implements java.io.Serializable {
     public void setTowaryzamowienies(Set towaryzamowienies) {
         this.towaryzamowienies = towaryzamowienies;
     }
+    
+   
 
 
 

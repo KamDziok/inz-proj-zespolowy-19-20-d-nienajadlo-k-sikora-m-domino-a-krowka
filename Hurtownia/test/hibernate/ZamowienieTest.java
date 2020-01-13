@@ -147,32 +147,7 @@ public class ZamowienieTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of getKoszt method, of class Zamowienie.
-     */
-    @Test
-    public void testGetKoszt() {
-        System.out.println("getKoszt");
-        Zamowienie instance = new Zamowienie();
-        float expResult = 0.0F;
-        float result = instance.getKoszt();
-        assertEquals(expResult, result, 0.0);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setKoszt method, of class Zamowienie.
-     */
-    @Test
-    public void testSetKoszt() {
-        System.out.println("setKoszt");
-        float koszt = 0.0F;
-        Zamowienie instance = new Zamowienie();
-        instance.setKoszt(koszt);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+   
 
     /**
      * Test of getTowaryzamowienies method, of class Zamowienie.

@@ -13,15 +13,18 @@ public class Towaryzamowienie  implements java.io.Serializable {
      private Produkty produkty;
      private Zamowienie zamowienie;
      private int ilosc;
+     private float koszt;
 
     public Towaryzamowienie() {
     }
 
     public Towaryzamowienie(Produkty produkty, Zamowienie zamowienie, 
-            int ilosc) {
+            int ilosc, 
+            float koszt) {
        this.produkty = produkty;
        this.zamowienie = zamowienie;
        this.ilosc = ilosc;
+        this.koszt = koszt;
     }
    
     public Integer getTowaryZamowienieId() {
@@ -51,6 +54,14 @@ public class Towaryzamowienie  implements java.io.Serializable {
     
     public void setIlosc(int ilosc) {
         this.ilosc = ilosc;
+    }
+    
+    public float getKoszt() {
+        return this.koszt;
+    }
+    
+    public void setKoszt(float koszt) {
+        this.koszt = koszt;
     }
 
 

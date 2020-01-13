@@ -21,5 +21,13 @@ public class ProduktQuery {
     Query query = null;
     Criteria criteria = null;
 
-    
+      public Produkty getProdukt( int ProduktID) {
+        Produkty p = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Produkty where ProduktID = '" + ProduktID + "'";
+        query = session.createQuery(hql);
+        p = (Produkty) query.uniqueResult();
+        session.close();
+        return p;
+    }
 }

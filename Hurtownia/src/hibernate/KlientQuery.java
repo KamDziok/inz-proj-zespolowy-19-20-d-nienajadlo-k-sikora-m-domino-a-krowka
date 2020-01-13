@@ -5,6 +5,8 @@
  */
 package hibernate;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -159,6 +161,42 @@ public class KlientQuery {
         // `Miasto`=[value-3],`Ulica`=[value-4],`NumerBudynku`=[value-5],
         // `NumerLokalu`=[value-6],`AdresID`=[value-7],`Email`=[value-8] WHERE 1
         
+    }
+    
+    
+    
+    
+    
+    public void zamowTowar(int ilosc, 
+            int ProduktID , int klientID  ){
+    Date date = new Date();
+    String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, `StatusZaplaty`, `StatusTransportu`, `Data`)"
+            + "VALUES ('"+date.getTime() + "', '" + klientID +"', 'nie zapłacone', ' przyjęte do realizacji', '"+data+"')";
+    
+         
+             Produkty produkt;
+            produkt = (Produkty)session.get(Produkty.class, ProduktID);
+            float cena =  produkt.getCenaKupna();
+            float koszt = cena*ilosc;
+        
+    
+    
+    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+            +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" + koszt +"')";
+  try {
+    session.getTransaction().begin();
+    session.createSQLQuery(query).executeUpdate();
+    session.createSQLQuery(query2).executeUpdate();
+    session.getTransaction().commit();
+    session.close();
+}
+catch (HibernateException error){
+    session.getTransaction().rollback();
+    session.close();
+}
+    
     }
     
 }

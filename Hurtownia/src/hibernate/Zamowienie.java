@@ -16,26 +16,22 @@ public class Zamowienie  implements java.io.Serializable {
      private String statusZaplaty;
      private String statusTransportu;
      private Date data;
-     private float koszt;
      private Set towaryzamowienies = new HashSet(0);
 
     public Zamowienie() {
     }
 
 	
-    public Zamowienie(String statusZaplaty, String statusTransportu, Date data, 
-            float koszt) {
+    public Zamowienie(String statusZaplaty, String statusTransportu, Date data) {
         this.statusZaplaty = statusZaplaty;
         this.statusTransportu = statusTransportu;
         this.data = data;
-        this.koszt = koszt;
     }
-    public Zamowienie(String statusZaplaty, String statusTransportu, Date data, 
-            float koszt, Set towaryzamowienies) {
+    public Zamowienie(String statusZaplaty, String statusTransportu, Date data,
+            Set towaryzamowienies) {
        this.statusZaplaty = statusZaplaty;
        this.statusTransportu = statusTransportu;
        this.data = data;
-       this.koszt = koszt;
        this.towaryzamowienies = towaryzamowienies;
     }
    
@@ -67,13 +63,7 @@ public class Zamowienie  implements java.io.Serializable {
     public void setData(Date data) {
         this.data = data;
     }
-    public float getKoszt() {
-        return this.koszt;
-    }
     
-    public void setKoszt(float koszt) {
-        this.koszt = koszt;
-    }
     public Set getTowaryzamowienies() {
         return this.towaryzamowienies;
     }
