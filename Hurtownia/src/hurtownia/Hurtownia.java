@@ -5,18 +5,11 @@
  */
 package hurtownia;
 
-import hibernate.Klient;
-import hibernate.KlientQuery;
-import hibernate.PracownikQuery;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +20,7 @@ public class Hurtownia extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        
           try{
            Parent root = FXMLLoader.load(getClass().getResource("/FXML/"
                    + "Login.fxml"));
@@ -43,6 +37,7 @@ public class Hurtownia extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+        
         launch(args);
     }
     
