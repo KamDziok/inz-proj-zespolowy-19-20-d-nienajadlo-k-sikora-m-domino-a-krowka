@@ -15,6 +15,8 @@ import hibernate.KierownikQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikConverter;
 import hibernate.PracownikQuery;
+import hibernate.ProduktQuery;
+import hibernate.Produkty;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,7 +47,8 @@ import org.hibernate.Session;
  *
  * @author monika
  */
-public class Menu_KierownikController extends Logowanie implements Initializable {
+public class Menu_KierownikController extends Logowanie implements Initializable
+{
 
     @FXML
     private TableView<?> zamowieniaTable;
@@ -77,7 +80,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TextArea opisP;
 
-
     @FXML
     private TextField cenaP;
 
@@ -85,7 +87,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Button DodajBTN;
 
     @FXML
-    private TableView<?> produktyD;
+    private TableView<Produkty> produktyD;
 
     @FXML
     private ComboBox<Kategorie> katDcombo;
@@ -151,6 +153,16 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private TextField wyszukajField;
     @FXML
     private TextField wyszukajFileldZ;
+    @FXML
+    private TableColumn<Produkty, String> nazwaTD;
+    @FXML
+    private TableColumn<Produkty, Float> cenaTD;
+    @FXML
+    private TableColumn<Produkty, String> opisTD;
+    @FXML
+    private Button wczytajBtn;
+    @FXML
+    private Label wczytajLabel;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -166,6 +178,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
         pracownicyTable();
         pracownicyTableZ(); // wyświetlenie wszystkich pracowników
+        produktyTable();
         comboBoxK();
         wyszukaj(getPracownik());
         wyszukajZwolnienia(getPracownik());
@@ -185,7 +198,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         }
         return listaPracownikow;
     }
-    
 
     @FXML
     private void Dodaj_Pracownika(ActionEvent event) {
@@ -222,12 +234,13 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
         imieT.setCellValueFactory(new PropertyValueFactory<>("imie"));
         nazwiskoT.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
-        stanowiskoT.setCellValueFactory(new PropertyValueFactory<>
-        ("stanowisko"));
+        stanowiskoT.setCellValueFactory(new PropertyValueFactory<>("stanowisko"));
         stawkaT.setCellValueFactory(new PropertyValueFactory<>("placa"));
-        
-        pracownicyTableZ.setItems(getPracownik());
-        
+
+        PracownikQuery pracownikA = new PracownikQuery();
+
+        pracownicyTableZ.getItems().setAll(pracownikA.PracownikSelectAll());
+
     }
 
     public void pracownicyTableZ() {
@@ -239,7 +252,21 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         ("stanowisko"));
         stawkaZ.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
-        pracownicyTableZ.setItems(getPracownik());
+        PracownikQuery pracownikA = new PracownikQuery();
+
+        pracownicyTableZ.getItems().setAll(pracownikA.PracownikSelectAll());
+
+    }
+
+    public void produktyTable() {
+
+        nazwaTD.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
+        cenaTD.setCellValueFactory(new PropertyValueFactory<>("cenaKupna"));
+        opisTD.setCellValueFactory(new PropertyValueFactory<>("opis"));
+
+        ProduktQuery produkt = new ProduktQuery();
+
+        produktyD.getItems().setAll(produkt.ProduktySelectAll());
 
     }
 
@@ -260,119 +287,142 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
     }
 
-  
-      public void comboValueK(ComboBox<Kategorie> katDcombo){
+    public void comboValueKD(ComboBox<Kategorie> katDcombo) {
 
-       Kategorie k = katDcombo.getValue();
-       int idKat = k.getKategoriaId();
-       katWybor.setText(Integer.toString(idKat));
-       katWybor.setVisible(false);
-}
+        Kategorie k = katDcombo.getValue();
+        int idKat = k.getKategoriaId();
+        katWybor.setText(Integer.toString(idKat));
+        katWybor.setVisible(false);
+    }
 
-    
+    public void comboValueK(ComboBox<Kategorie> katCombo) {
+
+        Kategorie k = katCombo.getValue();
+        int idKat = k.getKategoriaId();
+        wczytajLabel.setText(Integer.toString(idKat));
+        wczytajLabel.setVisible(false);
+    }
+
     public void comboBoxK() {
-        
+
         KategorieQuery kategoria = new KategorieQuery();
         katDcombo.getItems().addAll(kategoria.KategorieSelectAll());
         katCombo.getItems().addAll(kategoria.KategorieSelectAll());
-        
+
         katDcombo.setConverter(new KategorieConverter());
         katCombo.setConverter(new KategorieConverter());
-        
+
         katCombo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 comboValueK(katCombo);
-                
+
             }
         });
-        
-      katDcombo.setOnAction(new EventHandler<ActionEvent>() {
+
+        katDcombo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                comboValueK(katDcombo);
-                
+                comboValueKD(katDcombo);
+
             }
         });
-    
 
-}
+    }
+
     @FXML
     private void dodajProdukt(ActionEvent event) {
-        
+
         int idKategorii = Integer.parseInt(katWybor.getText());
         String nazwa = nazwaP.getText();
         float cena = Float.parseFloat(cenaP.getText());
         String opis = opisP.getText();
-        
-        try{
+
+        try {
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.dodajProdukt(nazwa, cena, opis, idKategorii);
             statusDodajP.setText("Produkt został dodany do danej kategorii");
             clearFields();
-            
-        }catch (Exception e) {
-            
+
+        } catch (Exception e) {
+
             System.out.println(e.getMessage());
-            
+
         }
-        
+
     }
 
-    public void wyszukajZwolnienia (ObservableList<Pracownik> getPracownik){
-        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(), 
-        p -> true);
-        
-          wyszukajFileldZ.textProperty().addListener((observable, oldValue, newValue) -> {
+    public void wyszukajZwolnienia(ObservableList<Pracownik> getPracownik) {
+        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(),
+                p -> true);
+
+        wyszukajFileldZ.textProperty().addListener((observable, oldValue,
+                newValue) -> {
             filtrData.setPredicate(pracownik -> {
-               
+
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                
+
                 String lowerCaseFilter = newValue.toLowerCase();
-                
-                if (pracownik.getStanowisko().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; 
-                } 
-                  
+
+                if (pracownik.getStanowisko().toLowerCase().
+                        contains(lowerCaseFilter)) {
+                    return true;
+                }
+
                 return false; // Does not match.
             });
         });
-        
+
         SortedList<Pracownik> sortedData = new SortedList<>(filtrData);
-     
-        sortedData.comparatorProperty().bind(pracownicyTableZ.comparatorProperty());
-       pracownicyTableZ.setItems(sortedData);
+
+        sortedData.comparatorProperty().bind(pracownicyTableZ.
+                comparatorProperty());
+        pracownicyTableZ.setItems(sortedData);
     }
-    
-    public void wyszukaj (ObservableList<Pracownik> getPracownik){
-        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(), 
-        p -> true);
-        
-          wyszukajField.textProperty().addListener((observable, oldValue, newValue) -> {
+
+    public void wyszukaj(ObservableList<Pracownik> getPracownik) {
+        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(),
+                p -> true);
+
+        wyszukajField.textProperty().addListener((observable, oldValue,
+                newValue) -> {
             filtrData.setPredicate(pracownik -> {
-               
+
                 if (newValue == null || newValue.isEmpty()) {
                     return true;
                 }
-                
+
                 String lowerCaseFilter = newValue.toLowerCase();
-                
-                if (pracownik.getStanowisko().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; 
-                } 
-                  
+
+                if (pracownik.getStanowisko().toLowerCase().
+                        contains(lowerCaseFilter)) {
+                    return true;
+                }
+
                 return false; // Does not match.
             });
         });
-        
+
         SortedList<Pracownik> sortedData = new SortedList<>(filtrData);
-     
-        sortedData.comparatorProperty().bind(pracownicyTable.comparatorProperty());
-       pracownicyTable.setItems(sortedData);
+
+        sortedData.comparatorProperty().bind(pracownicyTable.
+                comparatorProperty());
+        pracownicyTable.setItems(sortedData);
+    }
+
+    @FXML
+    private void wczytajDane(ActionEvent event) {
+
+        int idKat = Integer.parseInt(wczytajLabel.getText());
+
+        ProduktQuery produkt = new ProduktQuery();
+
+        try {
+            produktyD.getItems().setAll(produkt.produktySelectAllOnID(idKat));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
-        
-    
-

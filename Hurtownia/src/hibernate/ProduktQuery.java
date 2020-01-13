@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -22,4 +23,30 @@ public class ProduktQuery {
     Criteria criteria = null;
 
     
+      public List<Produkty> ProduktySelectAll() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        criteria = session.createCriteria(Produkty.class);
+        List<Produkty> produkt = criteria.list();
+        session.close();
+        return produkt;
+    }
+      
+       public List<Produkty> produktySelectAllOnID(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Produkty where KategoriaId = '" + id + "'";
+        Query query = session.createQuery(hql);
+        List <Produkty> produkty = query.list();
+        session.close();
+        int i = 0;
+        for(Produkty p : produkty){
+            if(p.getKategorie().getKategoriaId() != id){
+                produkty.remove(i);
+            }
+            i++;
+        }
+        return produkty;
+        
+      
+    }
+     
 }
