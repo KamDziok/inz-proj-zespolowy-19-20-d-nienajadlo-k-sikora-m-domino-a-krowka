@@ -17,6 +17,7 @@ import hibernate.PracownikConverter;
 import hibernate.PracownikQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
+import hibernate.ProduktyConverter;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -169,6 +170,20 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private ComboBox<Kategorie> katComboTM;
     @FXML
     private Label wczytKMCombo;
+    @FXML
+    private ComboBox<Produkty> produktyComboTM;
+    @FXML
+    private Button wczytajKat;
+    @FXML
+    private Label wczytP;
+    @FXML
+    private TextField cenaST;
+    @FXML
+    private TextField iloscT;
+    @FXML
+    private Button dodajMagazynbtn;
+    @FXML
+    private Label magazyn_status;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -293,11 +308,20 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
     }
     
+    public void comboValueProdukty (ComboBox<Produkty> produktyComboTM){
+        
+        Produkty p = produktyComboTM.getValue();
+        int idP = p.getProduktId();
+        wczytP.setText(Integer.toString(idP));
+        wczytP.setVisible(false);
+    }
+    
     public void comboValueKTM (ComboBox<Kategorie> katComboTM){
         
         Kategorie k = katComboTM.getValue();
         int idKat = k.getKategoriaId();
         wczytKMCombo.setText(Integer.toString(idKat));
+        wczytKMCombo.setVisible(false);
         
     }
 
@@ -316,6 +340,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         wczytajLabel.setText(Integer.toString(idKat));
         wczytajLabel.setVisible(false);
     }
+
 
     public void comboBoxK() {
 
@@ -446,6 +471,45 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         try {
             produktyD.getItems().setAll(produkt.produktySelectAllOnID(idKat));
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void wczytajProdukty(ActionEvent event) {
+        
+        int idKategoria = Integer.parseInt(wczytKMCombo.getText());
+        
+        ProduktQuery produkty = new ProduktQuery();
+        
+        produktyComboTM.getItems().addAll(produkty.
+                produktySelectAllOnID(idKategoria));
+        produktyComboTM.setConverter(new ProduktyConverter());
+        
+         produktyComboTM.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueProdukty(produktyComboTM);
+
+            }
+        });
+        
+        
+    }
+
+    @FXML
+    private void dodajNaMagazyn(ActionEvent event) {
+        
+        int idP = Integer.parseInt(wczytP.getText());
+        float cenaS = Float.parseFloat(cenaST.getText());
+        int ilosc = Integer.parseInt(iloscT.getText());
+        
+        try{
+            KierownikQuery kierownik = new KierownikQuery();
+            kierownik.dodajProduktNaMagazyn(ilosc, cenaS, idP);
+            magazyn_status.setText("Produkt został dodany na magazyn!");
+        }
+        catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
