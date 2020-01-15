@@ -6,12 +6,16 @@
 package FXML;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.HibernateUtil;
+import hibernate.Magazyn;
+import hibernate.MagazynQuery;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
 import hibernate.KierownikQuery;
+import hibernate.MagazynQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikConverter;
 import hibernate.PracownikQuery;
@@ -184,6 +188,24 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Button dodajMagazynbtn;
     @FXML
     private Label magazyn_status;
+    @FXML
+    private JFXComboBox<Produkty> PcomboT;
+    @FXML
+    private JFXButton wczytajTabela;
+    @FXML
+    private JFXButton wczytKategorie;
+    @FXML
+    private JFXComboBox<Kategorie> KcomboT;
+    @FXML
+    private Label kat;
+    @FXML
+    private Label pro;
+    @FXML
+    private TableView<Magazyn> towary;
+    @FXML
+    private TableColumn<Magazyn, Float> cenaSTable;
+    @FXML
+    private TableColumn<Magazyn, Integer> iloscTable;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -200,6 +222,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         pracownicyTable();
         pracownicyTableZ(); // wyświetlenie wszystkich pracowników
         produktyTable();
+        magazynTable();
         comboBoxK();
         wyszukaj(getPracownik());
         wyszukajZwolnienia(getPracownik());
@@ -285,10 +308,17 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         cenaTD.setCellValueFactory(new PropertyValueFactory<>("cenaKupna"));
         opisTD.setCellValueFactory(new PropertyValueFactory<>("opis"));
 
-        ProduktQuery produkt = new ProduktQuery();
+        
 
-        produktyD.getItems().setAll(produkt.ProduktySelectAll());
-
+    }
+    
+    public void magazynTable() {
+        
+        cenaSTable.setCellValueFactory(new PropertyValueFactory<>
+        ("cenaSprzedazy"));
+        iloscTable.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
+       
+       
     }
 
     @FXML
@@ -314,6 +344,23 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         int idP = p.getProduktId();
         wczytP.setText(Integer.toString(idP));
         wczytP.setVisible(false);
+    }
+    
+      public void comboValueProduktyK (ComboBox<Produkty> PcomboT){
+        
+        Produkty p = PcomboT.getValue();
+        int idPa = p.getProduktId();
+        pro.setText(Integer.toString(idPa));
+        pro.setVisible(false);
+    }
+    
+    public void comboValueKT (ComboBox<Kategorie> KcomboT){
+        
+        Kategorie k = KcomboT.getValue();
+        int idKat = k.getKategoriaId();
+        kat.setText(Integer.toString(idKat));
+        kat.setVisible(false);
+        
     }
     
     public void comboValueKTM (ComboBox<Kategorie> katComboTM){
@@ -345,13 +392,16 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     public void comboBoxK() {
 
         KategorieQuery kategoria = new KategorieQuery();
+        
         katDcombo.getItems().addAll(kategoria.KategorieSelectAll());
         katCombo.getItems().addAll(kategoria.KategorieSelectAll());
         katComboTM.getItems().addAll(kategoria.KategorieSelectAll());
+        KcomboT.getItems().addAll(kategoria.KategorieSelectAll());
 
         katDcombo.setConverter(new KategorieConverter());
         katCombo.setConverter(new KategorieConverter());
         katComboTM.setConverter(new KategorieConverter());
+        KcomboT.setConverter(new KategorieConverter());
 
         katCombo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -374,6 +424,13 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             public void handle(ActionEvent event) {
                  comboValueKTM(katComboTM);
 
+            }
+        });
+        
+        KcomboT.setOnAction(new EventHandler<ActionEvent> () {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueKT(KcomboT);
             }
         });
 
@@ -512,5 +569,38 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         catch(Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    @FXML
+    private void wczytajTabele(ActionEvent event) {
+        
+        int idP = Integer.parseInt(pro.getText());
+
+        MagazynQuery magazyn = new MagazynQuery();
+
+        try {
+            towary.getItems().setAll(magazyn.produktySelectAllOnID(idP));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML
+    private void wczytajKategorie(ActionEvent event) {
+        
+        int Kategoria = Integer.parseInt(kat.getText());
+        
+        ProduktQuery p = new ProduktQuery();
+        
+        PcomboT.getItems().addAll(p.produktySelectAllOnID(Kategoria));
+        PcomboT.setConverter(new ProduktyConverter());
+        
+        PcomboT.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueProduktyK(PcomboT);
+            }
+        });
+        
     }
 }
