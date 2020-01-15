@@ -168,7 +168,7 @@ CREATE TABLE `pracownik` (
 INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES
 ('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
 ('Janusz', 'Polakowski', 1234, 7, 'kierownik', 'kierownik', 'kierownik'),
-('Anna', 'Nowak', 2000, 8, 'księgowa', 'ksiegowa', 'ksiegowa');
+('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', 'ksiegowa');
 
 -- --------------------------------------------------------
 
