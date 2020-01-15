@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -21,8 +21,7 @@ public class Ksiegowosc  implements java.io.Serializable {
     public Ksiegowosc() {
     }
 
-    public Ksiegowosc(Hurtownia hurtownia, Date data, float przychody, 
-            float koszty, float aktywa, float pasywa) {
+    public Ksiegowosc(Hurtownia hurtownia, Date data, float przychody, float koszty, float aktywa, float pasywa) {
        this.hurtownia = hurtownia;
        this.data = data;
        this.przychody = przychody;

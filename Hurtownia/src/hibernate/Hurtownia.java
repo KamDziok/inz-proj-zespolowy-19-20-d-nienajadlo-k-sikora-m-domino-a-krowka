@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -25,8 +25,7 @@ public class Hurtownia  implements java.io.Serializable {
         this.adresy = adresy;
         this.telefon = telefon;
     }
-    public Hurtownia(Adresy adresy, long telefon, Set ksiegowoscs, 
-            Set magazyns) {
+    public Hurtownia(Adresy adresy, long telefon, Set ksiegowoscs, Set magazyns) {
        this.adresy = adresy;
        this.telefon = telefon;
        this.ksiegowoscs = ksiegowoscs;

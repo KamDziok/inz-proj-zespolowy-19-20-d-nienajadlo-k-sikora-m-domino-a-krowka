@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -13,6 +13,7 @@ public class Zamowienie  implements java.io.Serializable {
 
 
      private Integer zamowienieId;
+     private Klient klient;
      private String statusZaplaty;
      private String statusTransportu;
      private Date data;
@@ -22,13 +23,14 @@ public class Zamowienie  implements java.io.Serializable {
     }
 
 	
-    public Zamowienie(String statusZaplaty, String statusTransportu, Date data) {
+    public Zamowienie(Klient klient, String statusZaplaty, String statusTransportu, Date data) {
+        this.klient = klient;
         this.statusZaplaty = statusZaplaty;
         this.statusTransportu = statusTransportu;
         this.data = data;
     }
-    public Zamowienie(String statusZaplaty, String statusTransportu, Date data,
-            Set towaryzamowienies) {
+    public Zamowienie(Klient klient, String statusZaplaty, String statusTransportu, Date data, Set towaryzamowienies) {
+       this.klient = klient;
        this.statusZaplaty = statusZaplaty;
        this.statusTransportu = statusTransportu;
        this.data = data;
@@ -41,6 +43,13 @@ public class Zamowienie  implements java.io.Serializable {
     
     public void setZamowienieId(Integer zamowienieId) {
         this.zamowienieId = zamowienieId;
+    }
+    public Klient getKlient() {
+        return this.klient;
+    }
+    
+    public void setKlient(Klient klient) {
+        this.klient = klient;
     }
     public String getStatusZaplaty() {
         return this.statusZaplaty;
@@ -63,7 +72,6 @@ public class Zamowienie  implements java.io.Serializable {
     public void setData(Date data) {
         this.data = data;
     }
-    
     public Set getTowaryzamowienies() {
         return this.towaryzamowienies;
     }

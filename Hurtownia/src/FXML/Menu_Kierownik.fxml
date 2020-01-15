@@ -41,7 +41,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Dodaj produkt">
+                <Tab text="Zamów towar">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -95,6 +95,22 @@
                            </children></AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="Dodaj towar do magazynu">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <JFXButton fx:id="wylogujDTM" layoutX="660.0" layoutY="24.0" onAction="#wyloguj" text="Wyloguj" />
+                              <Label layoutX="34.0" layoutY="59.0" prefHeight="17.0" prefWidth="96.0" text="Kategoria:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <ComboBox fx:id="katComboTM" layoutX="114.0" layoutY="57.0" prefHeight="25.0" prefWidth="197.0" />
+                              <Label fx:id="wczytKMCombo" layoutX="116.0" layoutY="92.0" prefHeight="17.0" prefWidth="152.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
                   <Tab text="Zatrudnij pracownika">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">

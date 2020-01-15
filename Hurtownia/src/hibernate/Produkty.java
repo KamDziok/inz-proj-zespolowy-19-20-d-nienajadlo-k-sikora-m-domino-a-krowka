@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -16,6 +16,7 @@ public class Produkty  implements java.io.Serializable {
      private String nazwa;
      private float cenaKupna;
      private String opis;
+     private Set reklamas = new HashSet(0);
      private Set magazyns = new HashSet(0);
      private Set towaryzamowienies = new HashSet(0);
 
@@ -23,25 +24,21 @@ public class Produkty  implements java.io.Serializable {
     }
 
 	
-    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, 
-            String opis) {
+    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, String opis) {
         this.kategorie = kategorie;
         this.nazwa = nazwa;
         this.cenaKupna = cenaKupna;
         this.opis = opis;
     }
-    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, 
-            String opis, Set magazyns, Set towaryzamowienies) {
+    public Produkty(Kategorie kategorie, String nazwa, float cenaKupna, String opis, Set reklamas, Set magazyns, Set towaryzamowienies) {
        this.kategorie = kategorie;
        this.nazwa = nazwa;
        this.cenaKupna = cenaKupna;
        this.opis = opis;
+       this.reklamas = reklamas;
        this.magazyns = magazyns;
        this.towaryzamowienies = towaryzamowienies;
     }
-    
-    
-    
    
     public Integer getProduktId() {
         return this.produktId;
@@ -78,6 +75,13 @@ public class Produkty  implements java.io.Serializable {
     public void setOpis(String opis) {
         this.opis = opis;
     }
+    public Set getReklamas() {
+        return this.reklamas;
+    }
+    
+    public void setReklamas(Set reklamas) {
+        this.reklamas = reklamas;
+    }
     public Set getMagazyns() {
         return this.magazyns;
     }
@@ -92,8 +96,6 @@ public class Produkty  implements java.io.Serializable {
     public void setTowaryzamowienies(Set towaryzamowienies) {
         this.towaryzamowienies = towaryzamowienies;
     }
-    
-   
 
 
 

@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,21 +11,21 @@ public class Reklama  implements java.io.Serializable {
 
 
      private Integer reklamaId;
+     private Produkty produkty;
      private String tytul;
      private Date data;
      private String opis;
      private String grafika;
-     private Integer ProduktID;
 
     public Reklama() {
     }
 
-    public Reklama(String tytul, Date data, String opis, String grafika, int ProduktId) {
+    public Reklama(Produkty produkty, String tytul, Date data, String opis, String grafika) {
+       this.produkty = produkty;
        this.tytul = tytul;
        this.data = data;
        this.opis = opis;
        this.grafika = grafika;
-       this.ProduktID = ProduktId;
     }
    
     public Integer getReklamaId() {
@@ -34,6 +34,13 @@ public class Reklama  implements java.io.Serializable {
     
     public void setReklamaId(Integer reklamaId) {
         this.reklamaId = reklamaId;
+    }
+    public Produkty getProdukty() {
+        return this.produkty;
+    }
+    
+    public void setProdukty(Produkty produkty) {
+        this.produkty = produkty;
     }
     public String getTytul() {
         return this.tytul;
@@ -55,14 +62,6 @@ public class Reklama  implements java.io.Serializable {
     
     public void setOpis(String opis) {
         this.opis = opis;
-    }
-
-    public Integer getProduktID() {
-        return ProduktID;
-    }
-
-    public void setProduktID(Integer ProduktID) {
-        this.ProduktID = ProduktID;
     }
     public String getGrafika() {
         return this.grafika;

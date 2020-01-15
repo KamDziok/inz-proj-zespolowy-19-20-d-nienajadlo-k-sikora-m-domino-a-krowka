@@ -123,12 +123,12 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     }
 
     public void adresDostawy(String ulica, String miasto, String kraj,
-            String numerB, String numerL, String email) {
+            String numerB, int numerL, String email) {
 
         ulicaL.setText(ulica);
         miastoL.setText(miasto);
         nrBudL.setText(numerB);
-        nLokaLa.setText(numerL);
+        nLokaLa.setText(Integer.toString(numerL));
         krajL.setText(kraj);
         mailL.setText(email);
 

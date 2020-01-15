@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 
@@ -18,8 +18,7 @@ public class Magazyn  implements java.io.Serializable {
     public Magazyn() {
     }
 
-    public Magazyn(Hurtownia hurtownia, Produkty produkty, int ilosc,
-            float cenaSprzedazy) {
+    public Magazyn(Hurtownia hurtownia, Produkty produkty, int ilosc, float cenaSprzedazy) {
        this.hurtownia = hurtownia;
        this.produkty = produkty;
        this.ilosc = ilosc;

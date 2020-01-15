@@ -163,6 +163,12 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Button wczytajBtn;
     @FXML
     private Label wczytajLabel;
+    @FXML
+    private JFXButton wylogujDTM;
+    @FXML
+    private ComboBox<Kategorie> katComboTM;
+    @FXML
+    private Label wczytKMCombo;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -286,6 +292,14 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         }
 
     }
+    
+    public void comboValueKTM (ComboBox<Kategorie> katComboTM){
+        
+        Kategorie k = katComboTM.getValue();
+        int idKat = k.getKategoriaId();
+        wczytKMCombo.setText(Integer.toString(idKat));
+        
+    }
 
     public void comboValueKD(ComboBox<Kategorie> katDcombo) {
 
@@ -308,9 +322,11 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         KategorieQuery kategoria = new KategorieQuery();
         katDcombo.getItems().addAll(kategoria.KategorieSelectAll());
         katCombo.getItems().addAll(kategoria.KategorieSelectAll());
+        katComboTM.getItems().addAll(kategoria.KategorieSelectAll());
 
         katDcombo.setConverter(new KategorieConverter());
         katCombo.setConverter(new KategorieConverter());
+        katComboTM.setConverter(new KategorieConverter());
 
         katCombo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -324,6 +340,14 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             @Override
             public void handle(ActionEvent event) {
                 comboValueKD(katDcombo);
+
+            }
+        });
+        
+        katComboTM.setOnAction(new EventHandler<ActionEvent> () {
+             @Override
+            public void handle(ActionEvent event) {
+                 comboValueKTM(katComboTM);
 
             }
         });

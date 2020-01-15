@@ -1,5 +1,5 @@
 package hibernate;
-// Generated 2019-12-10 21:47:49 by Hibernate Tools 4.3.1
+// Generated 2020-01-15 16:13:33 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -17,7 +17,7 @@ public class Adresy  implements java.io.Serializable {
      private String miasto;
      private String ulica;
      private String numerBudynku;
-     private String numerLokalu;
+     private Integer numerLokalu;
      private String email;
      private Set hurtownias = new HashSet(0);
 
@@ -25,19 +25,15 @@ public class Adresy  implements java.io.Serializable {
     }
 
 	
-    public Adresy(Klient klient, String kraj, String miasto, String ulica, 
-            String numerBudynku, String numerLokalu, String email) {
+    public Adresy(Klient klient, String kraj, String miasto, String ulica, String numerBudynku, String email) {
         this.klient = klient;
         this.kraj = kraj;
         this.miasto = miasto;
         this.ulica = ulica;
         this.numerBudynku = numerBudynku;
-        this.numerLokalu = numerLokalu;
         this.email = email;
     }
-    public Adresy(Klient klient, String kraj, String miasto, String ulica, 
-            String numerBudynku, String numerLokalu, String email, 
-            Set hurtownias) {
+    public Adresy(Klient klient, String kraj, String miasto, String ulica, String numerBudynku, Integer numerLokalu, String email, Set hurtownias) {
        this.klient = klient;
        this.kraj = kraj;
        this.miasto = miasto;
@@ -90,11 +86,11 @@ public class Adresy  implements java.io.Serializable {
     public void setNumerBudynku(String numerBudynku) {
         this.numerBudynku = numerBudynku;
     }
-    public String getNumerLokalu() {
+    public Integer getNumerLokalu() {
         return this.numerLokalu;
     }
     
-    public void setNumerLokalu(String numerLokalu) {
+    public void setNumerLokalu(Integer numerLokalu) {
         this.numerLokalu = numerLokalu;
     }
     public String getEmail() {

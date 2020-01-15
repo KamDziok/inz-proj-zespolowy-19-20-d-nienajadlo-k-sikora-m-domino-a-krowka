@@ -207,8 +207,8 @@ public class AdresyTest {
     public void testGetNumerLokalu() {
         System.out.println("getNumerLokalu");
         Adresy instance = new Adresy();
-        String expResult = "";
-        String result = instance.getNumerLokalu();
+        int expResult = 0;
+        int result = instance.getNumerLokalu();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -220,7 +220,7 @@ public class AdresyTest {
     @Test
     public void testSetNumerLokalu() {
         System.out.println("setNumerLokalu");
-        String numerLokalu = "";
+        int numerLokalu = 0;
         Adresy instance = new Adresy();
         instance.setNumerLokalu(numerLokalu);
         // TODO review the generated test code and remove the default call to fail.

@@ -167,7 +167,7 @@ public class LoginController extends Logowanie implements Initializable {
                     Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
                     menuKlient.adresDostawy(adresZ.getUlica(), 
                             adresZ.getMiasto(), adresZ.getKraj(), 
-                            adresZ.getNumerBudynku(), adresZ.getNumerLokalu(), 
+                            adresZ.getNumerBudynku(), adresZ.getNumerLokalu(),
                             adresZ.getEmail());
                 
                     
