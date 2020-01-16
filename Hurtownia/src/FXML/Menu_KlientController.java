@@ -160,8 +160,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private void zamowTowar(ActionEvent event) {
         
-      
-        
-    }
+  
 
+}
 }

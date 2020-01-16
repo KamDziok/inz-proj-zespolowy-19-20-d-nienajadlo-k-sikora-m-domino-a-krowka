@@ -181,13 +181,14 @@ public class KlientQuery {
             float koszt = cena*ilosc;
         
     
-    
+
 /*
     String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
             + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
             +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" 
 */
     String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+
             +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')";
 
   try {
