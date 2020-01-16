@@ -9,14 +9,22 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Adresy;
 import hibernate.AdresyQuery;
+import hibernate.Kategorie;
+import hibernate.KategorieConverter;
+import hibernate.KategorieQuery;
 import hibernate.KlientQuery;
+import hibernate.ProduktQuery;
+import hibernate.Produkty;
+import hibernate.ProduktyConverter;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -94,9 +102,21 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private Button zamowBTN;
     @FXML
-    private TextField produktIDtxt;
-    @FXML
     private TextField ilosctxt;
+    @FXML
+    private ComboBox<Kategorie> kategoriaCombo;
+    @FXML
+    private Button wczytajbtn;
+    @FXML
+    private ComboBox<Produkty> produktyCombo;
+    @FXML
+    private JFXButton wylogujZT;
+    @FXML
+    private Label kat;
+    @FXML
+    private Label prod;
+    @FXML
+    private Label statusZamowienia;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -142,6 +162,33 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         mailL.setText(email);
 
     }
+    
+    public void comboValueKT (ComboBox<Kategorie> kategoriaCombo){
+        
+        Kategorie k = kategoriaCombo.getValue();
+        int idKat = k.getKategoriaId();
+        kat.setText(Integer.toString(idKat));
+        kat.setVisible(false);
+        
+    }
+    
+    public void ComboBoxK (){
+        
+        KategorieQuery kategoria = new KategorieQuery();
+        
+        kategoriaCombo.getItems().addAll(kategoria.KategorieSelectAll());
+        
+        kategoriaCombo.setConverter(new KategorieConverter());
+        
+         kategoriaCombo.setOnAction(new EventHandler<ActionEvent> () {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueKT(kategoriaCombo);
+            }
+        });
+        
+        
+    }
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -155,12 +202,58 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        ComboBoxK();
+        
     }
 
     @FXML
     private void zamowTowar(ActionEvent event) {
         
-  
+        int id = Integer.parseInt(dane.getText());
+        int idProdukt = Integer.parseInt(prod.getText());
+        int ilosc = Integer.parseInt(ilosctxt.getText());
+        
+        try{
+            KlientQuery klient = new KlientQuery();
+            klient.zamowTowar(ilosc, idProdukt, id);
+            statusZamowienia.setText("Towar został zamówiony!");
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
 
 }
+      public void comboValueProdukty (ComboBox<Produkty> produktyCombo){
+        
+        Produkty p = produktyCombo.getValue();
+        int idP = p.getProduktId();
+        prod.setText(Integer.toString(idP));
+        prod.setVisible(false);
+    }
+    
+
+    @FXML
+    private void wczytajKategorie(ActionEvent event) {
+        
+        int idKategoria = Integer.parseInt(kat.getText());
+        
+        ProduktQuery produkty = new ProduktQuery();
+        
+        produktyCombo.getItems().addAll(produkty.
+                produktySelectAllOnID(idKategoria));
+        produktyCombo.setConverter(new ProduktyConverter());
+        
+          produktyCombo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueProdukty(produktyCombo);
+
+            }
+        });
+        
+        
+        
+        
+    }
 }
