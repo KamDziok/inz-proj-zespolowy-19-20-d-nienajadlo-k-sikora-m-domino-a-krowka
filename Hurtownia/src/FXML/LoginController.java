@@ -187,8 +187,8 @@ public class LoginController extends Logowanie implements Initializable {
     @FXML
     void RejestracjaAction(ActionEvent event) throws IOException {
         
-        String rejestracja ="/FXML/Rejestracja.fxml";
-        wczytywanie(event, rejestracja);
+        String wybor ="/FXML/Wybor.fxml";
+        wczytywanie(event, wybor);
         ramka(event);
        /* Stage PrimaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML"

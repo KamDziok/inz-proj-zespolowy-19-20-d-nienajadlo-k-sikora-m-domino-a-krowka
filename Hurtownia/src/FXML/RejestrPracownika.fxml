@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="481.0" prefWidth="397.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="FXML.RejestrPracownikaController">
+   <children>
+      <Pane prefHeight="481.0" prefWidth="397.0">
+         <children>
+            <Label alignment="CENTER" layoutX="132.0" layoutY="40.0" prefHeight="20.0" prefWidth="109.0" text="WERYFIKACJA ">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Text layoutX="41.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sprawdź czy jesteś zatrudniony?" textAlignment="CENTER" wrappingWidth="291.13671875" />
+            <TextField fx:id="checkNazwisko" layoutX="47.0" layoutY="111.0" prefHeight="25.0" prefWidth="148.0" />
+            <Button fx:id="sprawdzW" layoutX="155.0" layoutY="157.0" mnemonicParsing="false" onAction="#sprawdzZatrudnienie" text="Sprawdź" />
+            <JFXButton fx:id="powrotW" layoutX="15.0" layoutY="28.0" onAction="#powrotLogowanie" text="Powrót" />
+            <Label fx:id="weryfikacja" layoutX="69.0" layoutY="204.0" prefHeight="17.0" prefWidth="269.0" />
+            <Label alignment="CENTER" layoutX="82.0" layoutY="241.0" prefHeight="17.0" prefWidth="207.0" text="ZAREJESTRUJ SIĘ W SYSTEMIE" textAlignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="IDweryf" layoutX="338.0" layoutY="115.0" />
+            <Label layoutX="42.0" layoutY="293.0" prefHeight="20.0" prefWidth="43.0" text="Login:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="loginR" layoutX="104.0" layoutY="291.0" prefHeight="25.0" prefWidth="201.0" />
+            <Label layoutX="46.0" layoutY="353.0" text="Hasło:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button fx:id="zarejestrujbtn" layoutX="143.0" layoutY="406.0" mnemonicParsing="false" onAction="#zarejestruj" text="ZAREJESTRUJ" />
+            <TextField fx:id="checkImie" layoutX="192.0" layoutY="111.0" prefHeight="25.0" prefWidth="140.0" />
+            <PasswordField fx:id="hasloR" layoutX="104.0" layoutY="351.0" prefHeight="25.0" prefWidth="201.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

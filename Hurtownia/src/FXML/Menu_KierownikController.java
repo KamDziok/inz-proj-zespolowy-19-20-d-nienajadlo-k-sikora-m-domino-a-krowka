@@ -296,10 +296,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         ("stanowisko"));
         stawkaZ.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
-        PracownikQuery pracownikA = new PracownikQuery();
-
-        pracownicyTableZ.getItems().setAll(pracownikA.PracownikSelectAll());
-
+     
     }
 
     public void produktyTable() {
@@ -307,7 +304,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         nazwaTD.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
         cenaTD.setCellValueFactory(new PropertyValueFactory<>("cenaKupna"));
         opisTD.setCellValueFactory(new PropertyValueFactory<>("opis"));
-
         
 
     }
@@ -331,7 +327,9 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             kierownik.zwolnijPracownika(id);
             zwolnienieStatus.setText("Pracownik został zwolniony!");
             IdUsuntxt.setText(null);
-            pracownicyTableZ();
+            PracownikQuery p = new PracownikQuery();
+            pracownicyTableZ.getItems().addAll(p.PracownikSelectAll());
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -449,6 +447,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             kierownik.dodajProdukt(nazwa, cena, opis, idKategorii);
             statusDodajP.setText("Produkt został dodany do danej kategorii");
             clearFields();
+            produktyTable();
 
         } catch (Exception e) {
 
@@ -565,6 +564,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.dodajProduktNaMagazyn(ilosc, cenaS, idP);
             magazyn_status.setText("Produkt został dodany na magazyn!");
+            cenaST.setText(null);
+            iloscT.setText(null);
         }
         catch(Exception e){
             System.out.println(e.getMessage());

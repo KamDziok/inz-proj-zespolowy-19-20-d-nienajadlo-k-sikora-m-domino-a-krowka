@@ -11,6 +11,7 @@ import hibernate.Adresy;
 import hibernate.AdresyQuery;
 import hibernate.KlientQuery;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
 /**
  * FXML Controller class
@@ -90,6 +92,13 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private JFXButton wylogujDO;
 
     @FXML
+    private Button zamowBTN;
+    @FXML
+    private TextField produktIDtxt;
+    @FXML
+    private TextField ilosctxt;
+
+    @FXML
     void DodajAdres(ActionEvent event) {
 
         String kraj = krajAD.getText();
@@ -145,7 +154,14 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+    }
+
+    @FXML
+    private void zamowTowar(ActionEvent event) {
+        
+      
+        
     }
 
 }

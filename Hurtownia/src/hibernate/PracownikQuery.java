@@ -61,6 +61,30 @@ public class PracownikQuery {
 
         return p;
     }
+    
+      public Pracownik wyszukiwanieID (int id) {
+        Pracownik p = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "From Pracownik WHERE PracownikID  = '" + id + "'" ;
+        query = session.createQuery(hql);
+        p = (Pracownik) query.uniqueResult();
+        session.close();
+
+        return p;
+    }
+    
+    public Pracownik wyszukanieZatrudnienie (String nazwisko, String imie){
+        Pracownik p = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+          String hql = "from Pracownik  WHERE nazwisko  = '" + nazwisko + "'"+ 
+                  "and imie = '" + imie + "'";
+          query = session.createQuery(hql);
+          p = (Pracownik) query.uniqueResult();
+          session.close();
+          
+          return p;
+    }
+    
 
     public void changePassword(String login, String password) {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -80,6 +104,28 @@ public class PracownikQuery {
         } finally {
             session.close();
         }
+    }
+    
+    public void dodanieDanych(String login, String password, int id){
+            session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Pracownik pracownik = new PracownikQuery().wyszukiwanieID(id);
+            pracownik.setLogin(login);
+            pracownik.setPassword(password);
+            session.update(pracownik);
+            tx.commit();
+
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    
     }
 
      public List<Pracownik> PracownikSelectAll() {

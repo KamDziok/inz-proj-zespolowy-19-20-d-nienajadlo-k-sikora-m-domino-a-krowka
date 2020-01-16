@@ -162,10 +162,7 @@ public class KlientQuery {
         // `NumerLokalu`=[value-6],`AdresID`=[value-7],`Email`=[value-8] WHERE 1
         
     }
-    
-    
-    
-    
+     
     
     public void zamowTowar(int ilosc, 
             int ProduktID , int klientID  ){
@@ -183,8 +180,10 @@ public class KlientQuery {
         
     
     
-    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
-            +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" + koszt +"')";
+    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
+            + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+            +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" 
+            + koszt +"')";
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();
