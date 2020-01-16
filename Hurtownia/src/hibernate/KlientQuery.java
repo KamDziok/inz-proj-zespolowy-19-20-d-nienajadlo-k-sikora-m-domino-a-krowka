@@ -168,9 +168,11 @@ public class KlientQuery {
             int ProduktID , int klientID  ){
     Date date = new Date();
     String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
+    
+    String dataID= new SimpleDateFormat("MMddHHmmss").format(date);
         session = HibernateUtil.getSessionFactory().openSession();
     String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, `StatusZaplaty`, `StatusTransportu`, `Data`)"
-            + "VALUES ('"+date.getTime() + "', '" + klientID +"', 'nie zapłacone', ' przyjęte do realizacji', '"+data+"')";
+            + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', ' przyjęte do realizacji', '"+data+"')";
     
          
              Produkty produkt;
@@ -180,10 +182,15 @@ public class KlientQuery {
         
     
     
+<<<<<<< HEAD
     String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
             + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
             +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" 
             + koszt +"')";
+=======
+    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+            +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')";
+>>>>>>> 912ef0f06cee9c8177699009fc36d21c933ec6fe
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();
