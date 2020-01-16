@@ -182,15 +182,9 @@ public class KlientQuery {
         
     
     
-<<<<<<< HEAD
-    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
-            + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
-            +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" 
-            + koszt +"')";
-=======
-    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+ String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
             +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')";
->>>>>>> 912ef0f06cee9c8177699009fc36d21c933ec6fe
+
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();
