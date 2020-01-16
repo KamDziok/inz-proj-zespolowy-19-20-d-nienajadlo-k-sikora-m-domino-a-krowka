@@ -42,11 +42,11 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="635.0">
                            <children>
-                              <TableView layoutX="282.0" layoutY="100.0" prefHeight="253.0" prefWidth="349.0">
+                              <TableView fx:id="payCheckTable" layoutX="282.0" layoutY="100.0" prefHeight="253.0" prefWidth="349.0">
                                 <columns>
-                                  <TableColumn prefWidth="98.0" text="Id pracownika" />
-                                  <TableColumn prefWidth="94.0" text="Data" />
-                                    <TableColumn prefWidth="155.0" text="Wynagrodzenie" />
+                                  <TableColumn fx:id="idPrac" prefWidth="98.0" text="Id pracownika" />
+                                  <TableColumn fx:id="payDate" prefWidth="94.0" text="Data" />
+                                  <TableColumn fx:id="payCheck" prefWidth="155.0" text="Wynagrodzenie" />
                                 </columns>
                               </TableView>
                               <Label layoutX="17.0" layoutY="108.0" prefHeight="17.0" prefWidth="81.0" text="Id pracownika:" />

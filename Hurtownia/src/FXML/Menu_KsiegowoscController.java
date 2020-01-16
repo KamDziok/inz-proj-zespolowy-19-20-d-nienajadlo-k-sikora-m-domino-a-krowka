@@ -8,7 +8,10 @@ package FXML;
 import com.jfoenix.controls.JFXButton;
 import hibernate.Pracownik;
 import hibernate.PracownikQuery;
+import hibernate.Wyplaty;
+import hibernate.WyplatyQuery;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -21,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -47,7 +51,19 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
 
     @FXML
     private TableColumn<Pracownik, Float> placa;
-
+    
+    @FXML
+    private TableView<Wyplaty> payCheckTable;
+    
+    @FXML
+    private TableColumn<Wyplaty, Float> payCheck;
+    
+    @FXML
+    private TableColumn<Wyplaty, Integer> idPrac;
+    
+    @FXML
+    private TableColumn<Wyplaty, Date> payDate;
+    
     @FXML
     private TextField szukajID1;
 
@@ -82,6 +98,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         pracownicyTableP();
+        payCheckTable();
     }    
     
         public ObservableList<Pracownik> getPracownik() {
@@ -91,11 +108,25 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
                 openSession();
         List<Pracownik> pList = session.createCriteria(Pracownik.class).list();
 
-        for (Pracownik p : pList) {
-            listaPracownikow.add(p);
+        for (Pracownik w : pList) {
+            listaPracownikow.add(w);
 
         }
         return listaPracownikow;
+    }
+        
+        public ObservableList<Wyplaty> getWyplaty() {
+        ObservableList<Wyplaty> listaWyplat = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Wyplaty> pList = session.createCriteria(Wyplaty.class).list();
+
+        for (Wyplaty w : pList) {
+            listaWyplat.add(w);
+
+        }
+        return listaWyplat;
     }
         
     public void pracownicyTableP() {
@@ -109,6 +140,17 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         
         PracownikQuery pracownik = new PracownikQuery();
         pracownicyTableP.getItems().setAll(pracownik.PracownikSelectAll());
+     
+    }
+    
+        public void payCheckTable() {
+
+        idPrac.setCellValueFactory(new PropertyValueFactory<>("pracownikID"));
+        payDate.setCellValueFactory(new PropertyValueFactory<>("data"));
+        payCheck.setCellValueFactory(new PropertyValueFactory<>("kwota"));
+        
+        WyplatyQuery wyplaty = new WyplatyQuery();
+        payCheckTable.getItems().setAll(wyplaty.WyplatySelectAll());
      
     }
 
