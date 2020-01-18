@@ -52,5 +52,49 @@ public class KierownikQueryTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of zwolnijPracownika method, of class KierownikQuery.
+     */
+    @Test
+    public void testZwolnijPracownika() {
+        System.out.println("zwolnijPracownika");
+        Integer pracownikId = null;
+        KierownikQuery instance = new KierownikQuery();
+        instance.zwolnijPracownika(pracownikId);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of dodajProdukt method, of class KierownikQuery.
+     */
+    @Test
+    public void testDodajProdukt() {
+        System.out.println("dodajProdukt");
+        String Nazwa = "";
+        float Cena = 0.0F;
+        String Opis = "";
+        int Kategoria = 0;
+        KierownikQuery instance = new KierownikQuery();
+        instance.dodajProdukt(Nazwa, Cena, Opis, Kategoria);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of dodajProduktNaMagazyn method, of class KierownikQuery.
+     */
+    @Test
+    public void testDodajProduktNaMagazyn() {
+        System.out.println("dodajProduktNaMagazyn");
+        int ilosc = 0;
+        float Cena = 0.0F;
+        int ProduktID = 0;
+        KierownikQuery instance = new KierownikQuery();
+        instance.dodajProduktNaMagazyn(ilosc, Cena, ProduktID);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }

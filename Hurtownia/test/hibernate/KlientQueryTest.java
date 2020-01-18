@@ -133,5 +133,20 @@ public class KlientQueryTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of zamowTowar method, of class KlientQuery.
+     */
+    @Test
+    public void testZamowTowar() {
+        System.out.println("zamowTowar");
+        int ilosc = 0;
+        int ProduktID = 0;
+        int klientID = 0;
+        KlientQuery instance = new KlientQuery();
+        instance.zamowTowar(ilosc, ProduktID, klientID);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }

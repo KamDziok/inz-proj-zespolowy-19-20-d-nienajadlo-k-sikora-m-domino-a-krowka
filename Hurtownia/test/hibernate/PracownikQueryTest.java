@@ -176,5 +176,51 @@ public class PracownikQueryTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of wyszukiwanieID method, of class PracownikQuery.
+     */
+    @Test
+    public void testWyszukiwanieID() {
+        System.out.println("wyszukiwanieID");
+        int id = 0;
+        PracownikQuery instance = new PracownikQuery();
+        Pracownik expResult = null;
+        Pracownik result = instance.wyszukiwanieID(id);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of wyszukanieZatrudnienie method, of class PracownikQuery.
+     */
+    @Test
+    public void testWyszukanieZatrudnienie() {
+        System.out.println("wyszukanieZatrudnienie");
+        String nazwisko = "";
+        String imie = "";
+        PracownikQuery instance = new PracownikQuery();
+        Pracownik expResult = null;
+        Pracownik result = instance.wyszukanieZatrudnienie(nazwisko, imie);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of dodanieDanych method, of class PracownikQuery.
+     */
+    @Test
+    public void testDodanieDanych() {
+        System.out.println("dodanieDanych");
+        String login = "";
+        String password = "";
+        int id = 0;
+        PracownikQuery instance = new PracownikQuery();
+        instance.dodanieDanych(login, password, id);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }
