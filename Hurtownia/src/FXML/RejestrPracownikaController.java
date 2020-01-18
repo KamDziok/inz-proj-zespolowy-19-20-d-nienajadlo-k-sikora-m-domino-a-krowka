@@ -53,8 +53,6 @@ public class RejestrPracownikaController extends Logowanie implements
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        
-        // TODO
     }
 
     @FXML
@@ -74,6 +72,7 @@ public class RejestrPracownikaController extends Logowanie implements
                         getPracownikId();
                 
                IDweryf.setText(Integer.toString(id));
+               IDweryf.setVisible(false);
                
             }
             else{

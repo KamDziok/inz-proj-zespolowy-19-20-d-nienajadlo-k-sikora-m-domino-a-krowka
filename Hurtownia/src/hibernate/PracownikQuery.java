@@ -186,7 +186,7 @@ public class PracownikQuery {
         }
     }
     
-    public void addNewAdvert(int ReklamaID, String tytul, 
+    public void addNewAdvert(int ReklamaID, int ProduktID, String tytul, 
             String data,String opis, String grafikaURL)
             throws Exception {
         
@@ -194,7 +194,7 @@ public class PracownikQuery {
         
         session = HibernateUtil.getSessionFactory().openSession();
     
-        String query = "INSERT INTO `reklama`(`ReklamaID`, `Tytul`, "
+        String query = "INSERT INTO `reklama`(`ReklamaID`, `ProduktID`, `Tytul`, "
                 + "`Data`, `Opis`, `Grafika`) VALUES (NULL"
                 + ",'"+tytul+"', "+data+","
                 + "'"+opis+"', "+grafikaURL+")";

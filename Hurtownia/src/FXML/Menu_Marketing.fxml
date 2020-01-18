@@ -36,6 +36,8 @@
                               <Label layoutX="24.0" layoutY="129.0" text="Grafika:" />                            
                               <Button fx:id="dodajbtn" layoutX="457.0" layoutY="292.0" mnemonicParsing="false" text="Dodaj" />
                               <JFXButton fx:id="wylogujDR" layoutX="524.0" layoutY="22.0" onAction="#wyloguj" text="Wyloguj" />
+                              <TextField fx:id="URLgrafiki" layoutX="75.0" layoutY="125.0" prefHeight="25.0" prefWidth="184.0" />
+                              <Button fx:id="loadBtn" layoutX="274.0" layoutY="125.0" mnemonicParsing="false" onAction="#wczytajGrafike" text="Load" />
                            </children>
                         </AnchorPane>
                   </content>

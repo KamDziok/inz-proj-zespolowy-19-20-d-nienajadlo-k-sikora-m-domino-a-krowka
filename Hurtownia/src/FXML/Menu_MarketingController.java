@@ -6,6 +6,8 @@
 package FXML;
 
 import com.jfoenix.controls.JFXButton;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -42,6 +45,10 @@ public class Menu_MarketingController extends Logowanie implements
     
     @FXML
     private JFXButton wylogujDR;
+    @FXML
+    private TextField URLgrafiki;
+    @FXML
+    private Button loadBtn;
     
     @FXML
     void wyloguj(ActionEvent event) {
@@ -56,5 +63,15 @@ public class Menu_MarketingController extends Logowanie implements
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void wczytajGrafike(ActionEvent event) throws FileNotFoundException {
+        
+        String adresURL = URLgrafiki.getText();
+        
+        Image image = new Image(new FileInputStream("E:/Monia/Psiaki/Psiunia.jpg"));
+        
+        grafika = new ImageView(image);
+    }
     
 }

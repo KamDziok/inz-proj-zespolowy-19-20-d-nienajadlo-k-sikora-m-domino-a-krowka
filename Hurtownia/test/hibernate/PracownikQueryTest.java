@@ -158,7 +158,8 @@ public class PracownikQueryTest {
         String opis = "";
         String grafikaURL = "";
         PracownikQuery instance = new PracownikQuery();
-        instance.addNewAdvert(ReklamaID, tytul, data, opis, grafikaURL);
+        int ProduktID = 0;
+        instance.addNewAdvert(ReklamaID,ProduktID, tytul, data, opis, grafikaURL);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
