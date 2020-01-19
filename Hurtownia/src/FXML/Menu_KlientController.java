@@ -153,7 +153,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
                 kl.changeAddress(id, kraj, miasto, ulica, nB, nL, email);
 
                 } 
-            catch (Exception e) { 
+            catch (Exception e) {  
                 System.out.println(e.getMessage());
             }
         }
