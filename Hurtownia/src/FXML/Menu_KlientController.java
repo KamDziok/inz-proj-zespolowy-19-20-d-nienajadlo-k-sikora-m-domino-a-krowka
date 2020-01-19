@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Adresy;
 import hibernate.AdresyQuery;
+import hibernate.HibernateUtil;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
@@ -28,6 +29,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -106,8 +110,6 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private ComboBox<Kategorie> kategoriaCombo;
     @FXML
-    private Button wczytajbtn;
-    @FXML
     private ComboBox<Produkty> produktyCombo;
     @FXML
     private JFXButton wylogujZT;
@@ -130,13 +132,43 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
         int id = Integer.parseInt(dane.getText());
 
-        try {
-            AdresyQuery adres = new AdresyQuery();
-            adres.dodajAdres(id, kraj, miasto, ulica, nB, nL, email);
+        AdresyQuery a = new AdresyQuery();
+        Adresy adresZ = a.wyswietlAdres(id);
+        System.out.println(id);
+        if (adresZ == null) {
+            try {
+                AdresyQuery adres = new AdresyQuery();
+                adres.dodajAdres(id, kraj, miasto, ulica, nB, nL, email);
+                dodajAdresBtn.setText("Zmień Adres");
+                    
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+                } 
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
+        else{
+            try {
+                KlientQuery kl = new KlientQuery();
+                kl.changeAddress(id, kraj, miasto, ulica, nB, nL, email);
+
+                } 
+            catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        adresZ = a.wyswietlAdres(id);
+                    if (adresZ != null) {
+                        this.adresDostawy(adresZ.getUlica(), 
+                            adresZ.getMiasto(), adresZ.getKraj(), 
+                            adresZ.getNumerBudynku(), adresZ.getNumerLokalu(),
+                            adresZ.getEmail());
+                            
+                }
+        
+        
+        
 
     }
 
@@ -153,7 +185,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     public void adresDostawy(String ulica, String miasto, String kraj,
             String numerB, int numerL, String email) {
-
+        
         ulicaL.setText(ulica);
         miastoL.setText(miasto);
         nrBudL.setText(numerB);
@@ -161,6 +193,11 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         krajL.setText(kraj);
         mailL.setText(email);
 
+    }
+    
+    
+    public void DodajAdresBTN(){
+        dodajAdresBtn.setText("Dodaj Adres");
     }
     
     public void comboValueKT (ComboBox<Kategorie> kategoriaCombo){
@@ -173,7 +210,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     }
     
     public void ComboBoxK (){
-        
+        kat.setText("");
         KategorieQuery kategoria = new KategorieQuery();
         
         kategoriaCombo.getItems().addAll(kategoria.KategorieSelectAll());
@@ -184,6 +221,27 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 comboValueKT(kategoriaCombo);
+            
+            
+            if (!kat.getText().equals("")) {
+            
+        int idKategoria = Integer.parseInt(kat.getText());
+            ProduktQuery produkty = new ProduktQuery();
+        produktyCombo.getItems().clear();
+        produktyCombo.getItems().addAll(produkty.
+                produktySelectAllOnID(idKategoria));
+        produktyCombo.setConverter(new ProduktyConverter());
+        
+          produktyCombo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueProdukty(produktyCombo);
+
+            }
+        });
+        }
+            
+            
             }
         });
         
@@ -233,27 +291,5 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     }
     
 
-    @FXML
-    private void wczytajKategorie(ActionEvent event) {
-        
-        int idKategoria = Integer.parseInt(kat.getText());
-        
-        ProduktQuery produkty = new ProduktQuery();
-        
-        produktyCombo.getItems().addAll(produkty.
-                produktySelectAllOnID(idKategoria));
-        produktyCombo.setConverter(new ProduktyConverter());
-        
-          produktyCombo.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueProdukty(produktyCombo);
 
-            }
-        });
-        
-        
-        
-        
-    }
 }
