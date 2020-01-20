@@ -26,6 +26,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
@@ -260,11 +262,23 @@ public class LoginController extends Logowanie implements Initializable {
            p = run.exec(cmd);
             p.waitFor();
             System.out.println(p.exitValue()); 
-            System.out.println("Skrypt run"); 
+            System.out.println("Skrypt run");
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Informacja");
+            alert.setHeaderText(null);
+            alert.setContentText("Skrypt uruchomiony poprawnie!");
+
+            alert.showAndWait();
         }  
         catch (IOException e) {  
             e.printStackTrace();  
             System.out.println("ERROR.RUNNING.CMD");  
+            Alert alert2 = new Alert(AlertType.WARNING);
+            alert2.setTitle("Informacja");
+            alert2.setHeaderText(null);
+            alert2.setContentText("Coś jest nie tak...");
+
+            alert2.showAndWait();
             p.destroy();  
         }  
         
