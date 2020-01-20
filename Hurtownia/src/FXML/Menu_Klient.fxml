@@ -58,7 +58,6 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="kategoriaCombo" layoutX="114.0" layoutY="44.0" prefWidth="150.0" />
-                              <Button fx:id="wczytajbtn" layoutX="280.0" layoutY="44.0" mnemonicParsing="false" onAction="#wczytajKategorie" text="Wczytaj" />
                               <Label layoutX="37.0" layoutY="112.0" text="Produkty:">
                                  <font>
                                     <Font size="14.0" />
@@ -103,7 +102,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="dodajAdresBtn" layoutX="477.0" layoutY="353.0" mnemonicParsing="false" onAction="#DodajAdres" text="Dodaj adres" />
+                              <Button fx:id="dodajAdresBtn" layoutX="477.0" layoutY="353.0" mnemonicParsing="false" onAction="#DodajAdres" text="Zmień adres" />
                               <JFXTextField fx:id="ulicaDA" layoutX="88.0" layoutY="176.0" prefHeight="25.0" prefWidth="204.0" />
                               <JFXTextField fx:id="krajAD" layoutX="91.0" layoutY="67.0" prefHeight="25.0" prefWidth="197.0" />
                               <JFXTextField fx:id="miastoAD" layoutX="97.0" layoutY="115.0" prefHeight="25.0" prefWidth="201.0" />

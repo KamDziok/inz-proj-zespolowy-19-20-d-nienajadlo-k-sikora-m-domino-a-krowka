@@ -38,8 +38,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -282,20 +285,52 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         stawkaT.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
         PracownikQuery pracownikA = new PracownikQuery();
-
+        
         pracownicyTableZ.getItems().setAll(pracownikA.PracownikSelectAll());
+        pracownicyTableZ.setRowFactory( tv -> {
+    TableRow<Pracownik> row = new TableRow<>();
+    row.getContextMenu();
+    
+    
+    
+    final ContextMenu contextMenu = new ContextMenu();
+            MenuItem del = new MenuItem("Usuń");
 
+            del.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            KierownikQuery kierownik = new KierownikQuery();
+            kierownik.zwolnijPracownika(row.getItem().getPracownikId());
+            
+            pracownicyTable();
+            pracownicyTableZ();
+            zwolnienieStatus.setText("Pracownik został zwolniony!");
+            IdUsuntxt.setText(null);
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+contextMenu.getItems().addAll(del);
+
+row.setContextMenu(contextMenu);
+    
+    return row ;
+});
     }
 
     public void pracownicyTableZ() {
-
+        
         idZw.setCellValueFactory(new PropertyValueFactory<>("pracownikId"));
         imieZw.setCellValueFactory(new PropertyValueFactory<>("imie"));
         nazwiskoZ.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         stanowiskoZ.setCellValueFactory(new PropertyValueFactory<>
         ("stanowisko"));
         stawkaZ.setCellValueFactory(new PropertyValueFactory<>("placa"));
-
+        
      
     }
 
@@ -329,7 +364,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             IdUsuntxt.setText(null);
             PracownikQuery p = new PracownikQuery();
             pracownicyTableZ.getItems().addAll(p.PracownikSelectAll());
-            
+                
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

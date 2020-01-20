@@ -17,6 +17,7 @@ import hibernate.Pracownik;
 import hibernate.PracownikQuery;
 import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,8 +25,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -72,6 +75,13 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
+        
+        
+        
+        
+        
+        
+        
         String log = login.getText();
         String pass = passwd.getText();
 
@@ -163,12 +173,24 @@ public class LoginController extends Logowanie implements Initializable {
                 ramka(event);
                 menuKlient.daneOsobowe(klientZ.getImie(),
                             klientZ.getNazwisko(), klientZ.getTelefon());
+                
                 AdresyQuery a = new AdresyQuery();
                     Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
-                    menuKlient.adresDostawy(adresZ.getUlica(), 
+                    if (adresZ != null) {
+                        menuKlient.adresDostawy(adresZ.getUlica(), 
                             adresZ.getMiasto(), adresZ.getKraj(), 
                             adresZ.getNumerBudynku(), adresZ.getNumerLokalu(),
                             adresZ.getEmail());
+                            
+                }
+                    else if (adresZ == null){
+                    menuKlient.DodajAdresBTN();
+                    }
+                    
+                    
+                    
+                    
+                
                 
                     
                 /*Stage PrimaryStage = new Stage();
