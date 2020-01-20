@@ -15,6 +15,8 @@ import hibernate.Klient;
 import hibernate.KlientQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikQuery;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,6 +53,9 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     private Button zalogujbtn;
+    
+    @FXML
+    private Button db_script;
 
     @FXML
     private Label status;
@@ -245,5 +250,25 @@ public class LoginController extends Logowanie implements Initializable {
         klientR.setToggleGroup(group);
         pracownikR.setToggleGroup(group);
     }
-
+    
+    @FXML
+    void DbCreate(ActionEvent event) throws IOException, InterruptedException {
+         Runtime run = Runtime.getRuntime();  
+   Process p = null;  
+        String cmd = "db_create.cmd";  
+        try {  
+           p = run.exec(cmd);
+            p.waitFor();
+            System.out.println(p.exitValue()); 
+            System.out.println("Skrypt run"); 
+        }  
+        catch (IOException e) {  
+            e.printStackTrace();  
+            System.out.println("ERROR.RUNNING.CMD");  
+            p.destroy();  
+        }  
+        
+        
+    
+    }
 }
