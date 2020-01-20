@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -99,6 +101,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     public void initialize(URL url, ResourceBundle rb) {
         pracownicyTableP();
         payCheckTable();
+        wyszukajPracownika(getPracownik());
     }    
     
         public ObservableList<Pracownik> getPracownik() {
@@ -152,6 +155,37 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         WyplatyQuery wyplaty = new WyplatyQuery();
         payCheckTable.getItems().setAll(wyplaty.WyplatySelectAll());
      
+    }
+        
+    public void wyszukajPracownika(ObservableList<Pracownik> getPracownik) {
+        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(),
+                p -> true);
+
+        szukajID1.textProperty().addListener((observable, oldValue,
+                newValue) -> {
+            filtrData.setPredicate(pracownik -> {
+
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+              String lowerCaseFilter = newValue.toLowerCase();
+
+                if (pracownik.getPracownikId().toString().
+                        contains(lowerCaseFilter)) {
+                    return true;
+                }
+
+                
+                return false; // Does not match.
+            });
+        });
+
+        SortedList<Pracownik> sortedData = new SortedList<>(filtrData);
+
+        sortedData.comparatorProperty().bind(pracownicyTableP.
+                comparatorProperty());
+        pracownicyTableP.setItems(sortedData);
     }
 
     
