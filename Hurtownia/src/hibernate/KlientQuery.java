@@ -107,7 +107,7 @@ public class KlientQuery {
         changeAddress() - client field is required to change address
     */
 
-    public void changeAddress(Klient client, String country, String city, 
+    public void changeAddress(int clientID, String country, String city, 
             String street, String buildingNr, String localNumber, String email) 
             throws Exception{
  
@@ -115,35 +115,48 @@ public class KlientQuery {
         
         String query = "UPDATE `adresy` SET";
         
-        if(client == null) {
+        if(clientID == 0) {
             throw new Exception("Client cannot be empty!");
         }
+        
+        if(!query.equals("UPDATE `adresy` SET"))
+            query+=",";
         
         if(country.length() > 0){
             query = query + " `Kraj` = '" + country + "'";
         }
             
         if(city.length() > 0){
-            query = query+", `Miasto` = '" + city + "'";
+        if(!query.equals("UPDATE `adresy` SET"))
+            query+=",";
+            query = query+" `Miasto` = '" + city + "'";
         }
         
         if(street.length() > 0){
-            query = query+", `Ulica` = '" + street + "'";
+        if(!query.equals("UPDATE `adresy` SET"))
+            query+=",";
+            query = query+" `Ulica` = '" + street + "'";
         }
         
         if(buildingNr.length() > 0){
-            query = query + ", `NumerBudynku` = '" + buildingNr + "'";
+        if(!query.equals("UPDATE `adresy` SET"))
+            query+=",";
+            query = query + " `NumerBudynku` = '" + buildingNr + "'";
         }
         
         if(localNumber.length() > 0){
-            query = query + ", `NumerLokalu`= '" + localNumber + "'";
+        if(!query.equals("UPDATE `adresy` SET"))
+            query+=",";
+            query = query + " `NumerLokalu`= '" + localNumber + "'";
         }
         
         if(email.length() > 0){
-            query = query + ", `email` = '"+email+"'";
+        if(!query.equals("UPDATE `adresy` SET"))
+            query+=",";
+            query = query + " `email` = '"+email+"'";
         }
         
-        query = query + " WHERE " + " `KlientID` = " + client.getKlientId();
+        query = query + " WHERE " + " `KlientID` = " + clientID;
         
         try {
             session.getTransaction().begin();
