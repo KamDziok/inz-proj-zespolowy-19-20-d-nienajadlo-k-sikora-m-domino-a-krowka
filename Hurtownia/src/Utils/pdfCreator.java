@@ -4,6 +4,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.PdfWriter;
+import hibernate.Klient;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -26,18 +27,29 @@ public class pdfCreator {
     private static DecimalFormat df = new DecimalFormat("#.##");
     static Date dateToInvoice = new Date();
     static Calendar calendarToInvoice = Calendar.getInstance();
+    static String initDay = calendarToInvoice.get(Calendar.DAY_OF_MONTH) < 10 ? "0"+calendarToInvoice.get(Calendar.DAY_OF_MONTH) : ""+calendarToInvoice.get(Calendar.DAY_OF_MONTH);
+    static String initMonth = calendarToInvoice.get(Calendar.MONTH)+1 < 10 ? ""+calendarToInvoice.get(Calendar.MONTH)+1 : ""+calendarToInvoice.get(Calendar.MONTH)+1;
+    static String initYear = ""+calendarToInvoice.get(Calendar.YEAR);
     
-    public static void createInvoice(String invoiceNumber, int VAT, String currency) throws FileNotFoundException, DocumentException, IOException{
+    public static void createInvoice(String invoiceNumber, int VAT, String currency, Klient k, String[][] products) throws FileNotFoundException, DocumentException, IOException{
         File fileHTML = new File(appPath.get() + "\\invoices\\invoice_nr." + invoiceNumber + ".pdf");
+        
+        String table = readHtml("br")
+                + "<p>Wystawiono dla:</p>"
+                +"<p>"+k.getImie()+" "+k.getNazwisko()+"</p>"
+                + "<p>Dnia "+initDay+"."+initMonth+"."+initYear+"r.</p>"+readHtml("br")+readHtml("br");
+
         
         calendarToInvoice.setTime(dateToInvoice);
         calendarToInvoice.add(Calendar.DATE, 14);
         dateToInvoice = calendarToInvoice.getTime();
+        String day = calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1 < 10 ? "0"+calendarToInvoice.get(Calendar.DAY_OF_MONTH) : ""+calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1;
+        String month = calendarToInvoice.get(Calendar.MONTH) < 10 ? "0"+calendarToInvoice.get(Calendar.MONTH) : ""+calendarToInvoice.get(Calendar.MONTH);
+        String year = ""+calendarToInvoice.get(Calendar.YEAR);
         
-        String[][] products = {{"Ziemniaki", "5", "10"},{"Piwo", "15", "2"},{"Wódka", "2", "25"}};
         Double totalPrice = 0.00;
         
-        String table = "<table>"
+         table += "<table>"
                     + "<tr> "
                         +"<th>Produkt</th>"
                         +"<th>Ilosc</th>"
@@ -112,12 +124,14 @@ public class pdfCreator {
                 + "<h4>W sumie do zapłaty: "+df.format(totalPrice)+" "+currency+"</h4>"
                 + readHtml("br")
                 + "<h4>"
-                    + "Termin płatności: 14 dni, upływa: "
-                    +dateToInvoice.getDate()
-                    +dateToInvoice.getMonth()
-                    +dateToInvoice.getYear()
-                +"</h4>"
-                + readHtml("br")
+                    + "Termin platnosci: 14 dni, upływa: "
+                    +day
+                    + "."
+                    + month
+                    + "."
+                    +year
+                +"r.</h4>"
+                + readHtml("br") 
                 + readHtml("br")
                 + readHtml("br")
                 + "<p>Wygenerowano automatycznie przez system hurtowni.</p>";
