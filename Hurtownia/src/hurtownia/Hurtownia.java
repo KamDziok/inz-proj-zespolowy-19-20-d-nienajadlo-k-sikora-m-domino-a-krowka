@@ -5,6 +5,7 @@
  */
 package hurtownia;
 
+import Utils.pdfCreator;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +38,9 @@ public class Hurtownia extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        launch(args);
+        pdfCreator pdf = new pdfCreator();
+        pdf.createInvoice("123",23);
+//        launch(args);
     }
     
 }
