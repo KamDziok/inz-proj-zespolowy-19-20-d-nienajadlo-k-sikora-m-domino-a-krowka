@@ -9,8 +9,9 @@ import java.nio.file.Paths;
  *
  * @author dawid
  */
+
 public class pdfCreator {
-    
+    PathFinder appPath = new PathFinder();
     
     public static String readHtml(String path) throws FileNotFoundException, IOException{
         String contents = new String(Files.readAllBytes(Paths.get("C:\\Users\\dawid\\Documents\\NetBeansProjects\\pdfCreator\\src\\pdfcreator\\"+path)));

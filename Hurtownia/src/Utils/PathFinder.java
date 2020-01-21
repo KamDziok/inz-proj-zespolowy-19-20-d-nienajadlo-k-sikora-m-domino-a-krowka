@@ -5,7 +5,7 @@ import java.io.IOException;
  * @author dawid
  */
 public class PathFinder {
-    public static String pathFinder(){
+    public static String get(){
         try{
             String path = new java.io.File(".").getCanonicalPath();
             return path;
