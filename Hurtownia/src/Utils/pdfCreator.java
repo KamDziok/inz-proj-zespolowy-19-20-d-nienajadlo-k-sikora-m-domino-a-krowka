@@ -11,10 +11,12 @@ import java.nio.file.Paths;
  */
 
 public class pdfCreator {
-    PathFinder appPath = new PathFinder();
+    private static PathFinder appPath = new PathFinder();
     
-    public static String readHtml(String path) throws FileNotFoundException, IOException{
-        String contents = new String(Files.readAllBytes(Paths.get("C:\\Users\\dawid\\Documents\\NetBeansProjects\\pdfCreator\\src\\pdfcreator\\"+path)));
+    public String readHtml(String path) throws FileNotFoundException, IOException{
+        String contents = new String(Files.readAllBytes(
+                Paths.get(appPath.get()+"\\src\\Utils\\html_templates\\"+ path+".html")));
+
         return contents;
     }
 }

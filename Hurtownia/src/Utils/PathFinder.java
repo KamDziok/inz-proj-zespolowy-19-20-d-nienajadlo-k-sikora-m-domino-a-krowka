@@ -5,6 +5,7 @@ import java.io.IOException;
  * @author dawid
  */
 public class PathFinder {
+    // this method returns path to Hurtownia main directory
     public static String get(){
         try{
             String path = new java.io.File(".").getCanonicalPath();
