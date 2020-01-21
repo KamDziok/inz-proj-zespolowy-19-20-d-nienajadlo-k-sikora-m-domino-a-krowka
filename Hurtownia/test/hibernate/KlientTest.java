@@ -99,7 +99,7 @@ public class KlientTest {
     public void testGetNazwisko() {
         System.out.println("getNazwisko");
         Klient instance = new Klient();
-        String expResult = "";
+        String expResult = "Nowak";
         String result = instance.getNazwisko();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -112,7 +112,7 @@ public class KlientTest {
     @Test
     public void testSetNazwisko() {
         System.out.println("setNazwisko");
-        String nazwisko = "";
+        String nazwisko = "Nowak";
         Klient instance = new Klient();
         instance.setNazwisko(nazwisko);
         // TODO review the generated test code and remove the default call to fail.
