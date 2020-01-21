@@ -13,6 +13,8 @@ import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -22,11 +24,17 @@ import java.text.DecimalFormat;
 public class pdfCreator {
     private static PathFinder appPath = new PathFinder();
     private static DecimalFormat df = new DecimalFormat("#.##");
+    static Date dateToInvoice = new Date();
+    static Calendar calendarToInvoice = Calendar.getInstance();
     
     public static void createInvoice(String invoiceNumber, int VAT, String currency) throws FileNotFoundException, DocumentException, IOException{
         File fileHTML = new File(appPath.get() + "\\invoices\\invoice_nr." + invoiceNumber + ".pdf");
         
-//        String[][] products = {{"Ziemniaki", "5", "10"},{"Piwo", "15", "2"},{"Wódka", "2", "25"}};
+        calendarToInvoice.setTime(dateToInvoice);
+        calendarToInvoice.add(Calendar.DATE, 14);
+        dateToInvoice = calendarToInvoice.getTime();
+        
+        String[][] products = {{"Ziemniaki", "5", "10"},{"Piwo", "15", "2"},{"Wódka", "2", "25"}};
         Double totalPrice = 0.00;
         
         String table = "<table>"
@@ -49,7 +57,7 @@ public class pdfCreator {
             Double bruttoPrice = nettoPrice + singleVAT;
             Double summaryPrice = Double.parseDouble(invoiceElement[1]) * bruttoPrice;
             
-            totalPrice += nettoPrice;
+            totalPrice += summaryPrice;
             
             table += "<table>"
                         +"<tr>"
@@ -75,6 +83,8 @@ public class pdfCreator {
                     + "</table>";
         }
         
+  
+        
         table += readHtml("line")
                 + "<table>"
                 + "<tr>"
@@ -99,7 +109,18 @@ public class pdfCreator {
                 + "</table>" 
                 + readHtml("br")
                 + readHtml("br")
-                + "<h3>W sumie do zapłaty: "+df.format(totalPrice)+" "+currency+"</h3>";
+                + "<h4>W sumie do zapłaty: "+df.format(totalPrice)+" "+currency+"</h4>"
+                + readHtml("br")
+                + "<h4>"
+                    + "Termin płatności: 14 dni, upływa: "
+                    +dateToInvoice.getDate()
+                    +dateToInvoice.getMonth()
+                    +dateToInvoice.getYear()
+                +"</h4>"
+                + readHtml("br")
+                + readHtml("br")
+                + readHtml("br")
+                + "<p>Wygenerowano automatycznie przez system hurtowni.</p>";
         
         try {
             String page = readHtml("header") + "<h1>Faktura nr."
