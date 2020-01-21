@@ -84,12 +84,7 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
-        
-        
-        
-        
-        
-        
+      
         
         String log = login.getText();
         String pass = passwd.getText();
@@ -160,12 +155,15 @@ public class LoginController extends Logowanie implements Initializable {
                     PrimaryStage.setResizable(false); */
                 }
 
-            }
+            
+        }
+            
 
         } else {
             status.setText("Logowanie się nie powiodło!");
         }
-
+        
+       
         //}
         if (klientR.isSelected()) {
             // if (login.getText().equals("klient") && passwd.getText().equals("test")) {
@@ -291,8 +289,11 @@ public class LoginController extends Logowanie implements Initializable {
     @FXML
     private void przejdzAdministrator(ActionEvent event) {
         
-        String admin ="/FXML/LogowanieAdmin.fxml";
-        wczytywanie(event, admin);
-        ramka(event);
+        if (login.getText().equals("admin") && passwd.getText().
+                equals("admin")) {
+            String admin = "/FXML/PanelAdministratora.fxml";
+            wczytywanie(event, admin);
+            ramka(event);
+        }
     }
 }
