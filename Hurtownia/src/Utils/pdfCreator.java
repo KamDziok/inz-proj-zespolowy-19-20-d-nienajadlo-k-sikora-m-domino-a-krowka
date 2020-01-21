@@ -22,6 +22,12 @@ import java.util.Date;
  * @author dawid
  */
 
+// do not try to read this code for your personal safety
+
+// HOW TO USE?
+// pdfCreator.createInvoice(String numerZamówienia, int stawkaVAT, Klient k, String[][] produkty w zamówieniu)
+// pozdrawiam
+
 public class pdfCreator {
     private static PathFinder appPath = new PathFinder();
     private static DecimalFormat df = new DecimalFormat("#.##");
