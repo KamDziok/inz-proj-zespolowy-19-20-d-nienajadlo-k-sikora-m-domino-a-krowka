@@ -50,7 +50,7 @@ public class pdfCreator {
         calendarToInvoice.add(Calendar.DATE, 14);
         dateToInvoice = calendarToInvoice.getTime();
         String day = calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1 < 10 ? "0"+calendarToInvoice.get(Calendar.DAY_OF_MONTH) : ""+calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1;
-        String month = calendarToInvoice.get(Calendar.MONTH) < 10 ? "0"+calendarToInvoice.get(Calendar.MONTH) : ""+calendarToInvoice.get(Calendar.MONTH);
+        String month = calendarToInvoice.get(Calendar.MONTH)+1 < 10 ? "0"+(calendarToInvoice.get(Calendar.MONTH)+1) : ""+(calendarToInvoice.get(Calendar.MONTH)+1);
         String year = ""+calendarToInvoice.get(Calendar.YEAR);
         
         Double totalPrice = 0.00;
