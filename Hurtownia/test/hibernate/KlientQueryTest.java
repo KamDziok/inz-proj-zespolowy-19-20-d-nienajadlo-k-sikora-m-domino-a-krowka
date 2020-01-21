@@ -121,7 +121,7 @@ public class KlientQueryTest {
     @Test
     public void testChangeAddress() throws Exception {
         System.out.println("changeAddress");
-        Klient client = null;
+       int id = 0;
         String country = "";
         String city = "";
         String street = "";
@@ -129,7 +129,7 @@ public class KlientQueryTest {
         String localNumber = "";
         String email = "";
         KlientQuery instance = new KlientQuery();
-        instance.changeAddress(client, country, city, street, buildingNr, localNumber, email);
+        instance.changeAddress(id, country, city, street, buildingNr, localNumber, email);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

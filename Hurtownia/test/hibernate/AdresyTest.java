@@ -99,7 +99,7 @@ public class AdresyTest {
     public void testGetKraj() {
         System.out.println("getKraj");
         Adresy instance = new Adresy();
-        String expResult = "";
+        String expResult = "Polska";
         String result = instance.getKraj();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -112,7 +112,7 @@ public class AdresyTest {
     @Test
     public void testSetKraj() {
         System.out.println("setKraj");
-        String kraj = "";
+        String kraj = "Polska";
         Adresy instance = new Adresy();
         instance.setKraj(kraj);
         // TODO review the generated test code and remove the default call to fail.
@@ -157,7 +157,7 @@ public class AdresyTest {
         String result = instance.getUlica();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -166,7 +166,7 @@ public class AdresyTest {
     @Test
     public void testSetUlica() {
         System.out.println("setUlica");
-        String ulica = "";
+        String ulica = "Kwiatkowskiego";
         Adresy instance = new Adresy();
         instance.setUlica(ulica);
         // TODO review the generated test code and remove the default call to fail.
@@ -278,7 +278,7 @@ public class AdresyTest {
         Adresy instance = new Adresy();
         instance.setHurtownias(hurtownias);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
     
 }

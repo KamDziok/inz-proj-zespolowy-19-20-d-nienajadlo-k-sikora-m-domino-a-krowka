@@ -79,6 +79,8 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     private JFXButton rejestracjaH;
+    @FXML
+    private JFXButton adminBTN;
 
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
@@ -284,5 +286,13 @@ public class LoginController extends Logowanie implements Initializable {
         
         
     
+    }
+
+    @FXML
+    private void przejdzAdministrator(ActionEvent event) {
+        
+        String admin ="/FXML/LogowanieAdmin.fxml";
+        wczytywanie(event, admin);
+        ramka(event);
     }
 }

@@ -53,7 +53,7 @@ public class AdresyQueryTest {
         AdresyQuery instance = new AdresyQuery();
         instance.dodajAdres(klientID, kraj, miasto, ulica, numerBudynku, numerLokalu, email);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -68,7 +68,7 @@ public class AdresyQueryTest {
         Adresy result = instance.wyszukanie(email);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       
     }
 
     /**
@@ -83,7 +83,6 @@ public class AdresyQueryTest {
         Adresy result = instance.wyswietlAdres(klientID);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
