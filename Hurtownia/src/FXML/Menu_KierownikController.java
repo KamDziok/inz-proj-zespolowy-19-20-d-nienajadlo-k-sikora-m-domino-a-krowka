@@ -22,7 +22,9 @@ import hibernate.PracownikQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
+import hibernate.Zamowienie;
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
@@ -59,25 +61,11 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 {
 
     @FXML
-    private TableView<?> zamowieniaTable;
+    private TableView<Zamowienie> zamowieniaTable;
 
     @FXML
-    private TableColumn<?, ?> id;
+    private TableColumn<Zamowienie, Integer> id;
 
-    @FXML
-    private TableColumn<?, ?> dane;
-
-    @FXML
-    private TableColumn<?, ?> kategoria;
-
-    @FXML
-    private TableColumn<?, ?> produkt;
-
-    @FXML
-    private TableColumn<?, ?> ilosc;
-
-    @FXML
-    private TableColumn<?, ?> cena;
 
     @FXML
     private JFXButton wylogujZA;
@@ -144,10 +132,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TableColumn<Pracownik, Float> stawkaZ;
     @FXML
-    private TextField IdUsuntxt;
-    @FXML
-    private Button zwolnijP;
-    @FXML
     private JFXButton wylogujKPr1;
     @FXML
     private Label zwolnienieStatus;
@@ -180,8 +164,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private ComboBox<Produkty> produktyComboTM;
     @FXML
-    private Button wczytajKat;
-    @FXML
     private Label wczytP;
     @FXML
     private TextField cenaST;
@@ -209,6 +191,13 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private TableColumn<Magazyn, Float> cenaSTable;
     @FXML
     private TableColumn<Magazyn, Integer> iloscTable;
+    @FXML
+    private TableColumn<Zamowienie, Date> data;
+   
+    @FXML
+    private TableColumn<Zamowienie, String> zaplata;
+    @FXML
+    private TableColumn<Zamowienie, String> transport;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -227,6 +216,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         produktyTable();
         magazynTable();
         comboBoxK();
+        zamowieniaStatusTable();
         wyszukaj(getPracownik());
         wyszukajZwolnienia(getPracownik());
 
@@ -245,6 +235,21 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         }
         return listaPracownikow;
     }
+    
+    public ObservableList<Zamowienie> zamowienia() {
+        ObservableList<Zamowienie> zamowieniaK = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Zamowienie> zList = session.createCriteria(Zamowienie.class).
+                list();
+
+        for (Zamowienie z : zList) {
+            zamowieniaK.add(z);
+
+        }
+        return zamowieniaK;
+    }
 
     @FXML
     private void Dodaj_Pracownika(ActionEvent event) {
@@ -259,8 +264,9 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             kierownik.dodajPracownika(imie, nazwisko, wyplata, posada);
             clearFields();
             status_zatrudnienia.setText("Pracownik został zatrudniony!");
-            pracownicyTable();
-
+            pracownicyTable.setItems(getPracownik());
+            
+            
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -286,7 +292,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
         PracownikQuery pracownikA = new PracownikQuery();
         
-        pracownicyTableZ.getItems().setAll(pracownikA.PracownikSelectAll());
+        pracownicyTableZ.getItems().setAll(getPracownik());
         pracownicyTableZ.setRowFactory( tv -> {
     TableRow<Pracownik> row = new TableRow<>();
     row.getContextMenu();
@@ -303,11 +309,9 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.zwolnijPracownika(row.getItem().getPracownikId());
             
-            pracownicyTable();
-            pracownicyTableZ();
+          pracownicyTableZ.setItems(getPracownik());
             zwolnienieStatus.setText("Pracownik został zwolniony!");
-            IdUsuntxt.setText(null);
-            
+             
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -348,28 +352,23 @@ row.setContextMenu(contextMenu);
         cenaSTable.setCellValueFactory(new PropertyValueFactory<>
         ("cenaSprzedazy"));
         iloscTable.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
-       
-       
+      
+    }
+    
+    public void zamowieniaStatusTable (){
+        
+        id.setCellValueFactory(new PropertyValueFactory<> ("zamowienieId"));
+        data.setCellValueFactory(new PropertyValueFactory<> ("Data"));
+        zaplata.setCellValueFactory(new PropertyValueFactory<> 
+        ("statusZaplaty"));
+        transport.setCellValueFactory(new PropertyValueFactory<> 
+        ("statusTransportu"));
+        
+        zamowieniaTable.setItems(zamowienia());
+        
     }
 
-    @FXML
-    private void zwolnijPracownika(ActionEvent event) {
 
-        int id = Integer.parseInt(IdUsuntxt.getText());
-
-        try {
-            KierownikQuery kierownik = new KierownikQuery();
-            kierownik.zwolnijPracownika(id);
-            zwolnienieStatus.setText("Pracownik został zwolniony!");
-            IdUsuntxt.setText(null);
-            PracownikQuery p = new PracownikQuery();
-            pracownicyTableZ.getItems().addAll(p.PracownikSelectAll());
-                
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-
-    }
     
     public void comboValueProdukty (ComboBox<Produkty> produktyComboTM){
         
@@ -456,7 +455,22 @@ row.setContextMenu(contextMenu);
              @Override
             public void handle(ActionEvent event) {
                  comboValueKTM(katComboTM);
+                 
+                 if(!wczytKMCombo.equals("")){
+                     int idKategoria = Integer.parseInt(wczytKMCombo.getText());
+                      ProduktQuery produkty = new ProduktQuery();
+        produktyComboTM.getItems().clear();
+        produktyComboTM.getItems().addAll(produkty.
+                produktySelectAllOnID(idKategoria));
+        produktyComboTM.setConverter(new ProduktyConverter());
+         produktyComboTM.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueProdukty(produktyComboTM);
 
+                 }
+                });
+            }
             }
         });
         
@@ -565,29 +579,7 @@ row.setContextMenu(contextMenu);
             System.out.println(e.getMessage());
         }
     }
-
-    @FXML
-    private void wczytajProdukty(ActionEvent event) {
-        
-        int idKategoria = Integer.parseInt(wczytKMCombo.getText());
-        
-        ProduktQuery produkty = new ProduktQuery();
-        
-        produktyComboTM.getItems().addAll(produkty.
-                produktySelectAllOnID(idKategoria));
-        produktyComboTM.setConverter(new ProduktyConverter());
-        
-         produktyComboTM.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueProdukty(produktyComboTM);
-
-            }
-        });
-        
-        
-    }
-
+    
     @FXML
     private void dodajNaMagazyn(ActionEvent event) {
         

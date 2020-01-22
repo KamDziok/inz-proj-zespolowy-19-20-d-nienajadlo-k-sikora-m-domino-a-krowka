@@ -22,19 +22,16 @@
          <children>
             <TabPane prefHeight="517.0" prefWidth="760.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Zamówienia">
+                <Tab text="Zamówienia ">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="730.0">
                            <children>
                               <TableView fx:id="zamowieniaTable" layoutX="28.0" layoutY="55.0" prefHeight="396.0" prefWidth="704.0">
                                 <columns>
-                                  <TableColumn fx:id="id" prefWidth="57.0" text="id" />
-                                  <TableColumn fx:id="dane" prefWidth="161.0" text="dane zamawiającego" />
-                                    <TableColumn fx:id="kategoria" prefWidth="101.0" text="kategoria" />
-                                    <TableColumn fx:id="produkt" prefWidth="137.0" text="nazwa produktu" />
-                                    <TableColumn fx:id="ilosc" prefWidth="84.0" text="ilość" />
-                                    <TableColumn fx:id="cena" prefWidth="60.0" text="cena" />
-                                <TableColumn prefWidth="109.0" text="status" />
+                                  <TableColumn fx:id="id" prefWidth="128.0" text="Id zamowienia" />
+                                  <TableColumn fx:id="data" prefWidth="176.0" text="Data" />
+                                    <TableColumn fx:id="zaplata" prefWidth="177.0" text="status zaplaty" />
+                                    <TableColumn fx:id="transport" prefWidth="222.0" text="status transportu" />
                                 </columns>
                               </TableView>
                               <JFXButton fx:id="wylogujZA" layoutX="686.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
@@ -114,23 +111,22 @@
                                  </font>
                               </Label>
                               <ComboBox fx:id="produktyComboTM" layoutX="114.0" layoutY="126.0" prefHeight="25.0" prefWidth="157.0" />
-                              <Button fx:id="wczytajKat" layoutX="284.0" layoutY="57.0" mnemonicParsing="false" onAction="#wczytajProdukty" text="Wczytaj" />
                               <Label fx:id="wczytP" layoutX="116.0" layoutY="168.0" prefHeight="17.0" prefWidth="197.0" />
-                              <Label layoutX="34.0" layoutY="203.0" prefHeight="20.0" prefWidth="125.0" text="Cena sprzedaży:">
+                              <Label layoutX="28.0" layoutY="204.0" prefHeight="20.0" prefWidth="102.0" text="Cena sprzedaży:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="cenaST" layoutX="152.0" layoutY="201.0" prefHeight="25.0" prefWidth="153.0" />
-                              <Label layoutX="34.0" layoutY="275.0" prefHeight="17.0" prefWidth="117.0" text="Ilość:">
+                              <TextField fx:id="cenaST" layoutX="137.0" layoutY="201.0" prefHeight="25.0" prefWidth="131.0" />
+                              <Label layoutX="28.0" layoutY="266.0" prefHeight="20.0" prefWidth="62.0" text="Ilość:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="iloscT" layoutX="123.0" layoutY="273.0" prefHeight="25.0" prefWidth="180.0" />
+                              <TextField fx:id="iloscT" layoutX="137.0" layoutY="263.0" prefHeight="25.0" prefWidth="131.0" />
                               <Button fx:id="dodajMagazynbtn" layoutX="121.0" layoutY="350.0" mnemonicParsing="false" onAction="#dodajNaMagazyn" prefHeight="34.0" prefWidth="119.0" text="Dodaj na magazyn" />
                               <Label fx:id="magazyn_status" layoutX="83.0" layoutY="409.0" prefHeight="17.0" prefWidth="256.0" />
-                              <TableView fx:id="towary" layoutX="377.0" layoutY="177.0" prefHeight="65.0" prefWidth="348.0">
+                              <TableView fx:id="towary" layoutX="377.0" layoutY="177.0" prefHeight="112.0" prefWidth="348.0">
                                 <columns>
                                   <TableColumn fx:id="cenaSTable" prefWidth="181.0" text="Cena sprzedaży" />
                                     <TableColumn fx:id="iloscTable" prefWidth="166.0" text="Ilość" />
@@ -220,11 +216,11 @@
                                     <TableColumn fx:id="stawkaZ" prefWidth="127.0" text="Płaca" />
                                  </columns>
                               </TableView>
-                              <Label layoutX="123.0" layoutY="444.0" prefHeight="17.0" prefWidth="199.0" text="Zwolnij po ID pracownika:" />
-                              <TextField fx:id="IdUsuntxt" layoutX="305.0" layoutY="440.0" prefHeight="25.0" prefWidth="193.0" />
-                              <Button fx:id="zwolnijP" layoutX="544.0" layoutY="440.0" mnemonicParsing="false" onAction="#zwolnijPracownika" prefHeight="25.0" prefWidth="83.0" text="Zwolnij" />
                               <JFXButton fx:id="wylogujKPr1" layoutX="673.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
-                              <Label fx:id="zwolnienieStatus" layoutX="255.0" layoutY="408.0" prefHeight="17.0" prefWidth="251.0" textFill="#e13a3a" />
+                              <Label fx:id="zwolnienieStatus" layoutX="255.0" layoutY="430.0" prefHeight="17.0" prefWidth="251.0" textFill="#e13a3a">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font></Label>
                               <TextField fx:id="wyszukajFileldZ" layoutX="363.0" layoutY="27.0" prefHeight="25.0" prefWidth="241.0" />
                               <Label layoutX="166.0" layoutY="31.0" prefHeight="17.0" prefWidth="146.0" text="Wyszukaj po stanowisku:" />
                            </children></AnchorPane>

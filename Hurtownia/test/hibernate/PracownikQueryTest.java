@@ -149,20 +149,7 @@ public class PracownikQueryTest {
     /**
      * Test of addNewAdvert method, of class PracownikQuery.
      */
-    @Test
-    public void testAddNewAdvert() throws Exception {
-        System.out.println("addNewAdvert");
-        int ReklamaID = 0;
-        String tytul = "";
-        String data = "";
-        String opis = "";
-        String grafikaURL = "";
-        PracownikQuery instance = new PracownikQuery();
-        int ProduktID = 0;
-        instance.addNewAdvert(ReklamaID,ProduktID, tytul, data, opis, grafikaURL);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+ 
 
     /**
      * Test of removeAdvert method, of class PracownikQuery.
