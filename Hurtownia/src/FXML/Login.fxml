@@ -65,11 +65,6 @@
             <JFXButton fx:id="forgotPasswordBtn" layoutX="20.0" layoutY="364.0" onAction="#PrzypomnienieHaslaOnAction" prefHeight="32.0" prefWidth="153.0" text="Nie pamiętasz hasła?" />
             <JFXButton fx:id="rejestracjaH" layoutX="223.0" layoutY="364.0" onAction="#RejestracjaAction" prefHeight="32.0" prefWidth="159.0" text="Zarejestruj się teraz!" />
             <Button fx:id="db_script" layoutX="155.0" layoutY="339.0" mnemonicParsing="false" onAction="#DbCreate" text="Utwórz bazę" />
-            <JFXButton fx:id="adminBTN" layoutX="276.0" layoutY="18.0" onAction="#przejdzAdministrator" prefHeight="25.0" prefWidth="103.0" text="Administrator">
-               <font>
-                  <Font size="13.0" />
-               </font>
-            </JFXButton>
          </children>
       </Pane>
    </children>

@@ -40,7 +40,7 @@ public class PanelAdministratoraController extends Logowanie implements Initiali
     @FXML
     private void wyloguj(ActionEvent event) {
         
-        String admin = "/FXML/LogowanieAdmin.fxml";
+        String admin = "/FXML/Login.fxml";
             wczytywanie(event, admin);
             ramka(event);
     }

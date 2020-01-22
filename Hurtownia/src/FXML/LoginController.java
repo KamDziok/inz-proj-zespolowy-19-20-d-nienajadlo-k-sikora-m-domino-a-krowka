@@ -79,8 +79,6 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     private JFXButton rejestracjaH;
-    @FXML
-    private JFXButton adminBTN;
 
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
@@ -88,6 +86,13 @@ public class LoginController extends Logowanie implements Initializable {
         
         String log = login.getText();
         String pass = passwd.getText();
+        
+        if (login.getText().equals("admin") && passwd.getText().
+                equals("admin")) {
+            String admin = "/FXML/PanelAdministratora.fxml";
+            wczytywanie(event, admin);
+            ramka(event);
+        }
 
         if (pracownikR.isSelected()) {
 
@@ -286,14 +291,4 @@ public class LoginController extends Logowanie implements Initializable {
     
     }
 
-    @FXML
-    private void przejdzAdministrator(ActionEvent event) {
-        
-        if (login.getText().equals("admin") && passwd.getText().
-                equals("admin")) {
-            String admin = "/FXML/PanelAdministratora.fxml";
-            wczytywanie(event, admin);
-            ramka(event);
-        }
-    }
 }
