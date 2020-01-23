@@ -69,12 +69,12 @@
                               <JFXButton fx:id="wylogujZT" layoutX="572.0" layoutY="21.0" onAction="#wyloguj" text="Wyloguj" />
                               <Label fx:id="kat" layoutX="114.0" layoutY="81.0" prefHeight="17.0" prefWidth="136.0" />
                               <Label fx:id="prod" layoutX="114.0" layoutY="145.0" prefHeight="17.0" prefWidth="150.0" />
-                              <Label fx:id="statusZamowienia" layoutX="34.0" layoutY="238.0" prefHeight="17.0" prefWidth="241.0" />
+                              <Label fx:id="statusZamowienia" layoutX="49.0" layoutY="312.0" prefHeight="17.0" prefWidth="241.0" />
                               <ImageView fx:id="grafikaReklamy" fitHeight="150.0" fitWidth="200.0" layoutX="402.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                  <effect>
                                     <Shadow />
                                  </effect></ImageView>
-                              <Button fx:id="reklamaBtn" layoutX="471.0" layoutY="354.0" mnemonicParsing="false" onAction="#zobaczReklame" prefHeight="25.0" prefWidth="118.0" text="Zobacz produkt" />
+                              <Button fx:id="reklamaBtn" layoutX="416.0" layoutY="354.0" mnemonicParsing="false" onAction="#zobaczReklame" prefHeight="25.0" prefWidth="173.0" text="Zobacz produkt" />
                               <Text fx:id="opisReklamy" layoutX="419.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="197.13671875" />
                               <Label layoutX="356.0" layoutY="289.0" text="Opis:" />
                            </children>

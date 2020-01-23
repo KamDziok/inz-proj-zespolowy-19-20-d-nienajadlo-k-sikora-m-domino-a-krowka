@@ -116,19 +116,7 @@ public class PracownikQueryTest {
     /**
      * Test of changeProductQuantity method, of class PracownikQuery.
      */
-    @Test
-    public void testChangeProductQuantity() throws Exception {
-        System.out.println("changeProductQuantity");
-        int storageId = 0;
-        int quantity = 0;
-        int productId = 0;
-        int wholesaleId = 0;
-        PracownikQuery instance = new PracownikQuery();
-        instance.changeProductQuantity(storageId, quantity, productId, wholesaleId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   
     /**
      * Test of addNewProduct method, of class PracownikQuery.
      */
