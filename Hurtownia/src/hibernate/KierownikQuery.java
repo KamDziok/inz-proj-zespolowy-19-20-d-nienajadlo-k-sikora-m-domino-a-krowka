@@ -28,16 +28,19 @@ public class KierownikQuery {
             + " `PracownikID`, `Stanowisko`, `login`, `password`) "
             + "VALUES ('" + imie +"', '"+nazwisko+"', '"+placa+"',"
             + " NULL, '"+stanowisko+"', NULL, NULL)";
-  try {
-    session.getTransaction().begin();
-    session.createSQLQuery(query).executeUpdate();
-    session.getTransaction().commit();
-    session.close();
-}
-catch (HibernateException error){
-    session.getTransaction().rollback();
-    session.close();
-}
+    
+            try {
+                session.getTransaction().begin();
+                session.createSQLQuery(query).executeUpdate();
+                session.getTransaction().commit();
+                session.close();
+            }
+            catch (HibernateException error){
+                session.getTransaction().rollback();
+                session.close();
+            }
+       
+  
     
     }
     

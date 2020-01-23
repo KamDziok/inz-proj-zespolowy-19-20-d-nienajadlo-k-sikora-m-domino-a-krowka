@@ -36,6 +36,16 @@ public class Towaryzamowienie  implements java.io.Serializable {
         return this.produkty;
     }
     
+    public String getProduktName() {
+        return this.produkty.getNazwa();
+    }    
+    
+    public int getProduktID() {
+        return this.produkty.getProduktId();
+    }
+    public float getProduktCost() {
+        return this.produkty.getCenaKupna();
+    }
     public void setProdukty(Produkty produkty) {
         this.produkty = produkty;
     }
@@ -60,9 +70,9 @@ public class Towaryzamowienie  implements java.io.Serializable {
     public void setKoszt(float koszt) {
         this.koszt = koszt;
     }
-
-
-
+    
+    
+    
 
 }
 

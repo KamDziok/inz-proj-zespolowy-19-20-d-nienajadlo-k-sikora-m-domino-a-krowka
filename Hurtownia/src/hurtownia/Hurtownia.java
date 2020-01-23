@@ -5,8 +5,8 @@
  */
 package hurtownia;
 
-import Utils.pdfCreator;
 import hibernate.Klient;
+import hibernate.KlientQuery;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +39,9 @@ public class Hurtownia extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
+         
+       
+        launch(args);
         
         launch();
         

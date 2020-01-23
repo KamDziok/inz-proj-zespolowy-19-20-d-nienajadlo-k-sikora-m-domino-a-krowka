@@ -47,7 +47,9 @@ public class Zamowienie  implements java.io.Serializable {
     public Klient getKlient() {
         return this.klient;
     }
-    
+    public int getKlientID() {
+        return this.klient.getKlientId();
+    }
     public void setKlient(Klient klient) {
         this.klient = klient;
     }
