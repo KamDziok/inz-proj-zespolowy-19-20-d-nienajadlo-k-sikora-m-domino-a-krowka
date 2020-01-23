@@ -5,8 +5,8 @@
  */
 package hurtownia;
 
-import Utils.pdfCreator;
 import hibernate.Klient;
+import hibernate.KlientQuery;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,16 +39,8 @@ public class Hurtownia extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        
-//        INSTRUKCJA DO PDF 
-        pdfCreator pdf = new pdfCreator();
-        Klient k = new Klient();
-        k.setImie("Janusz");
-        k.setNazwisko("Nosacz");
-        String[][] products = {{"Ziemniaki", "5", "10"},{"Woda", "15", "2"},{"Mandarynki", "2", "25"},{"Cebula", "35", "2"},{"Majonez", "3", "8"}};
-        pdf.createInvoice("123",23, "PLN", k, products);
-//        
-        
+         
+       
         launch(args);
     }
     
