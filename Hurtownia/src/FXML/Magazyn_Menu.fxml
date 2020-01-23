@@ -23,10 +23,9 @@
                      <children>
                         <TableView fx:id="produkty" layoutX="67.0" layoutY="88.0" prefHeight="270.0" prefWidth="489.0">
                           <columns>
-                            <TableColumn fx:id="IdProdukt" prefWidth="75.0" text="Id" />
-                            <TableColumn fx:id="nazwaP" prefWidth="126.0" text="Nazwa produktu" />
-                              <TableColumn fx:id="iloscP" prefWidth="158.0" text="Ilość w magazynie" />
-                              <TableColumn fx:id="cenaP" prefWidth="129.0" text="Cena za szt" />
+                            <TableColumn fx:id="IdProdukt" prefWidth="146.0" text="MagazynId" />
+                              <TableColumn fx:id="iloscP" prefWidth="202.0" text="Ilość w magazynie" />
+                              <TableColumn fx:id="cenaP" prefWidth="138.0" text="Cena za szt" />
                           </columns>
                         </TableView>
                         <JFXComboBox fx:id="kategoriaCombo" layoutX="197.0" layoutY="35.0" prefHeight="25.0" prefWidth="265.0" />

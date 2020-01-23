@@ -14,10 +14,13 @@ import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
 import hibernate.KlientQuery;
+import hibernate.KsiegowoscQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
 import hibernate.ReklamaQuery;
+import hibernate.Zamowienie;
+import hibernate.ZamowienieQuery;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.URL;
@@ -32,8 +35,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -50,7 +55,7 @@ import org.hibernate.Session;
 public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
-    private TableView<?> zamowieniaK;
+    private TableView<Zamowienie> zamowieniaK;
 
     @FXML
     private JFXButton wylogujTZ;
@@ -134,6 +139,18 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private Text opisReklamy;
     @FXML
     private Button reklamaBtn;
+    @FXML
+    private TableColumn<Zamowienie, Integer> id;
+    @FXML
+    private TableColumn<Zamowienie, Date> dataZamowienia;
+    @FXML
+    private TableColumn<Zamowienie, String> statusZaplaty;
+    @FXML
+    private TableColumn<Zamowienie, String> statusTransportu;
+    @FXML
+    private Label tabelaId;
+    @FXML
+    private Button wczytajBtn;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -183,7 +200,6 @@ public class Menu_KlientController extends Logowanie implements Initializable {
                 }
         
         
-        
 
     }
 
@@ -227,7 +243,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
     }
     
-    public void ComboBoxK (){
+    public void ComboBoxK  (){
         kat.setText("");
         KategorieQuery kategoria = new KategorieQuery();
         
@@ -279,6 +295,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         ComboBoxK();
+        zamowieniaTable();
         
     }
 
@@ -320,10 +337,37 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
        grafikaReklamy.setImage(image);
        
-       opisReklamy.setText(reklama.wyszukiwanieID(idProdukt).getOpis().toString());
-        
+       opisReklamy.setText(reklama.wyszukiwanieID(idProdukt).getOpis().
+               toString());
+      
     }
     
+    public void zamowieniaTable(){
+        
+        id.setCellValueFactory(new PropertyValueFactory<> ("zamowienieId"));
+        dataZamowienia.setCellValueFactory(new PropertyValueFactory<> ("Data"));
+        statusZaplaty.setCellValueFactory(new PropertyValueFactory<> 
+        ("statusZaplaty"));
+        statusTransportu.setCellValueFactory(new PropertyValueFactory<> 
+        ("statusTransportu"));
+       
+    }
+
+    
+    public void wczytDoTabeli(int id){
+        
+        tabelaId.setText(Integer.toString(id));
+        tabelaId.setVisible(false);
+        
+}
+
+    @FXML
+    private void wczytajDane(ActionEvent event) {
+        int id = Integer.parseInt(tabelaId.getText());
+        ZamowienieQuery zamow = new ZamowienieQuery();
+        zamowieniaK.getItems().addAll(zamow.zamowieniaID(id));
+      
+    }
 
 
 }

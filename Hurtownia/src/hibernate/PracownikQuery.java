@@ -138,13 +138,13 @@ public class PracownikQuery {
      
    
     public void changeProductQuantity(int storageId, int quantity, 
-            int productId, int wholesaleId) throws Exception{
+            int productId) throws Exception{
             
         String query = "UPDATE `magazyn` SET ";
         
         query = query + "`Ilosc` = " + quantity;
         query = query + " WHERE `ProduktID` = " + productId;
-        query = query + " AND `HurtowniaID` = " + wholesaleId;
+        query = query + " AND `HurtowniaID` =  1 ";
         query = query + " AND `MagazynID` = " + storageId;
         
         session = HibernateUtil.getSessionFactory().openSession();

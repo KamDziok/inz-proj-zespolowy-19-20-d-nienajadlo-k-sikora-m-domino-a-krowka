@@ -185,7 +185,7 @@ public class LoginController extends Logowanie implements Initializable {
                 ramka(event);
                 menuKlient.daneOsobowe(klientZ.getImie(),
                             klientZ.getNazwisko(), klientZ.getTelefon());
-                
+                menuKlient.wczytDoTabeli(klientZ.getKlientId());
                 AdresyQuery a = new AdresyQuery();
                     Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
                     if (adresZ != null) {

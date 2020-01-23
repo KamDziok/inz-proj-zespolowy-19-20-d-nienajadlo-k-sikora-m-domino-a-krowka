@@ -224,7 +224,7 @@ catch (HibernateException error){
     
     
     
-   public void pobierzFakture(String zamowienieID , int vat , String waluta ) 
+   public void pobierzFakture(String zamowienieID) 
            throws DocumentException, IOException{
         
        
@@ -275,6 +275,8 @@ catch (HibernateException error){
        
        
        //        INSTRUKCJA DO PDF 
+       int vat = 0;
+       String waluta = "PLN";
         pdfCreator pdf = new pdfCreator();
         pdf.createInvoice(zamowienieID,vat, waluta, k, productss);
 //     

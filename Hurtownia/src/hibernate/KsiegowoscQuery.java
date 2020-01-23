@@ -22,7 +22,7 @@ public class KsiegowoscQuery {
     Query query = null;
     Criteria criteria = null;
     
-       public void pobierzFakture(String zamowienieID , int vat , String waluta ) 
+       public void pobierzFakture(String zamowienieID) 
            throws DocumentException, IOException{
         
        
@@ -44,13 +44,12 @@ public class KsiegowoscQuery {
         
         List<Towaryzamowienie> towary = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql3 = "From Towaryzamowienie WHERE ZamowienieID  = '" + zamowienieID + "'";
+        String hql3 = "From Towaryzamowienie WHERE ZamowienieID  = '"
+                + zamowienieID + "'";
         query = session.createQuery(hql3);
         towary = query.list();
         session.close();
        String[][] productss =  new String[towary.size()][3];
-       
-       
        
        
        
@@ -60,7 +59,8 @@ public class KsiegowoscQuery {
            
            Produkty p = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql4 = "From Produkty WHERE ProduktID  = '" + towary.get(i).getProduktID() + "'";
+        String hql4 = "From Produkty WHERE ProduktID  = '" + towary.get(i)
+                .getProduktID() + "'";
         query = session.createQuery(hql4);
         p = (Produkty) query.uniqueResult();
         session.close();
@@ -73,6 +73,8 @@ public class KsiegowoscQuery {
        
        
        //        INSTRUKCJA DO PDF 
+       int vat = 0;
+       String waluta = "PLN";
         pdfCreator pdf = new pdfCreator();
         pdf.createInvoice(zamowienieID,vat, waluta, k, productss);
 //     
