@@ -131,7 +131,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private ImageView grafikaReklamy;
     @FXML
-    private TextFlow opisReklamy;
+    private Text opisReklamy;
     @FXML
     private Button reklamaBtn;
 
@@ -314,13 +314,13 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         int idProdukt = Integer.parseInt(prod.getText());
         
         ReklamaQuery reklama = new ReklamaQuery();
-        
-  
-        
-        
-       Image image = new Image(new FileInputStream(reklama.wyszukiwanieID(idProdukt).getGrafika().toString()));
+       
+       Image image = new Image(new FileInputStream(reklama.wyszukiwanieID
+        (idProdukt).getGrafika().toString()));
         
        grafikaReklamy.setImage(image);
+       
+       opisReklamy.setText(reklama.wyszukiwanieID(idProdukt).getOpis().toString());
         
     }
     

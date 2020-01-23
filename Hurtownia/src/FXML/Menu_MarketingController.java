@@ -20,6 +20,7 @@ import hibernate.ReklamaQuery;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -125,6 +126,7 @@ public class Menu_MarketingController extends Logowanie implements
     public void initialize(URL url, ResourceBundle rb) {
         ComboBoxK ();
         reklamyTable();
+        
     }    
 
     @FXML
@@ -133,12 +135,15 @@ public class Menu_MarketingController extends Logowanie implements
       
       try{
           FileChooser fc = new FileChooser();
-          fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter
+          fc.setInitialDirectory(new File("../Hurtownia/obrazki"));
+          fc.getExtensionFilters().addAll(new FileChooser.
+                  ExtensionFilter
         ("Image Files", "*.png", "*.jpg", "*.gif"));
           File selectedFile = fc.showOpenDialog(stage);
-          URLgrafiki.setText(selectedFile.toString());
+          URLgrafiki.setText(selectedFile.getAbsolutePath());
            String adresURL = URLgrafiki.getText();
                Image image = new Image(new FileInputStream(adresURL));
+               
         
         grafika.setImage(image);
           
@@ -148,7 +153,7 @@ public class Menu_MarketingController extends Logowanie implements
     }
 
     @FXML
-    private void dodajReklame(ActionEvent event) {
+    private void dodajReklame(ActionEvent event) throws MalformedURLException {
       
         int ProduktId = Integer.parseInt(prod.getText());
         String tytul = tytulD.getText();
@@ -161,7 +166,7 @@ public class Menu_MarketingController extends Logowanie implements
             clearField();
             reklamy.getItems().setAll(getReklama());
             statusDodania.setText("Reklama została stworzona");
-            
+    
             
         }catch(Exception e){
             System.out.println(e.getMessage());
