@@ -80,4 +80,15 @@ public class ReklamaQuery {
         session.close();
         return reklama;
     }
+         
+               public Reklama wyszukiwanieID (int id) {
+        Reklama r = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Reklama where ProduktId ='" + id + "'" ;
+        query = session.createQuery(hql);
+        r = (Reklama) query.uniqueResult();
+        session.close();
+
+        return r;
+    }
 }

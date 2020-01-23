@@ -17,6 +17,9 @@ import hibernate.KlientQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
+import hibernate.ReklamaQuery;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -31,6 +34,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -121,6 +128,12 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private Label prod;
     @FXML
     private Label statusZamowienia;
+    @FXML
+    private ImageView grafikaReklamy;
+    @FXML
+    private TextFlow opisReklamy;
+    @FXML
+    private Button reklamaBtn;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -293,6 +306,22 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         int idP = p.getProduktId();
         prod.setText(Integer.toString(idP));
         prod.setVisible(false);
+    }
+
+    @FXML
+    private void zobaczReklame(ActionEvent event) throws FileNotFoundException {
+        
+        int idProdukt = Integer.parseInt(prod.getText());
+        
+        ReklamaQuery reklama = new ReklamaQuery();
+        
+  
+        
+        
+       Image image = new Image(new FileInputStream(reklama.wyszukiwanieID(idProdukt).getGrafika().toString()));
+        
+       grafikaReklamy.setImage(image);
+        
     }
     
 

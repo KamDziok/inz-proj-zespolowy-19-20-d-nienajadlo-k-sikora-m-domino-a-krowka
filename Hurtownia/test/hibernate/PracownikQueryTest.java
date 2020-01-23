@@ -154,16 +154,7 @@ public class PracownikQueryTest {
     /**
      * Test of removeAdvert method, of class PracownikQuery.
      */
-    @Test
-    public void testRemoveAdvert() throws Exception {
-        System.out.println("removeAdvert");
-        int ReklamaID = 0;
-        PracownikQuery instance = new PracownikQuery();
-        instance.removeAdvert(ReklamaID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+ 
     /**
      * Test of wyszukiwanieID method, of class PracownikQuery.
      */
