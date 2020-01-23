@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hibernate;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -45,4 +46,29 @@ public class WyplatyQuery {
         return wyplaty;
      
 }
+         public void dodajPracownika(Date dataSql , float kwotaSql, 
+            float placa,int idPrac){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`,"
+            + " `PracownikID`) "
+            + "VALUES (NULL '"+dataSql+"', '"+kwotaSql+"',"
+            + " '"+idPrac+"')";
+    
+            try {
+                session.getTransaction().begin();
+                session.createSQLQuery(query).executeUpdate();
+                session.getTransaction().commit();
+                session.close();
+            }
+            catch (HibernateException error){
+                session.getTransaction().rollback();
+                session.close();
+            }
+       
+  
+    //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
+    }
+    
+     
 }
