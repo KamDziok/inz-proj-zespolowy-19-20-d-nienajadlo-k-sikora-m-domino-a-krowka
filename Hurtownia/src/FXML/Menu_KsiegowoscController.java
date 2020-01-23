@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -95,6 +96,15 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     private ComboBox<Pracownik> pracownikCombo;
     @FXML
     private Label idPracownika;
+    
+    @FXML
+    private Label labelID;
+    
+    @FXML
+    private Label labelDate;
+    
+    @FXML
+    private Button dodajWyplate;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -249,6 +259,28 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+    
+    @FXML
+    private void dodajWyplate(ActionEvent event){
+ //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
+      float wyplata = 1599;
+      int id=7;
+      Date dataSql = new Date(2020,01,12);
+        try {
+            WyplatyQuery wyplaty = new WyplatyQuery();
+           wyplaty.dodajWyplate(dataSql, wyplata, id);
+           
+         
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+           
+        }
+        
+        
+        
+        
     }
 
     

@@ -46,13 +46,12 @@ public class WyplatyQuery {
         return wyplaty;
      
 }
-         public void dodajPracownika(Date dataSql , float kwotaSql, 
-            float placa,int idPrac){
+         public void dodajWyplate(Date dataSql , float kwotaSql, int idPrac){
     
         session = HibernateUtil.getSessionFactory().openSession();
     String query = "INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`,"
             + " `PracownikID`) "
-            + "VALUES (NULL '"+dataSql+"', '"+kwotaSql+"',"
+            + "VALUES (NULL, '"+dataSql+"', '"+kwotaSql+"',"
             + " '"+idPrac+"')";
     
             try {
