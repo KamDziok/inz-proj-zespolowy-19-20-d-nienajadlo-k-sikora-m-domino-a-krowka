@@ -42,6 +42,7 @@ public class Hurtownia extends Application {
          
        
         launch(args);
+        
     }
     
 }

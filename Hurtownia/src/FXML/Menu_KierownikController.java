@@ -265,6 +265,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             clearFields();
             status_zatrudnienia.setText("Pracownik został zatrudniony!");
             pracownicyTable.setItems(getPracownik());
+             pracownicyTableZ.setItems(getPracownik());
             
             
         } catch (Exception e) {
@@ -310,6 +311,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             kierownik.zwolnijPracownika(row.getItem().getPracownikId());
             
           pracownicyTableZ.setItems(getPracownik());
+          pracownicyTable.setItems(getPracownik());
             zwolnienieStatus.setText("Pracownik został zwolniony!");
              
         } catch (Exception e) {
@@ -324,6 +326,7 @@ row.setContextMenu(contextMenu);
     
     return row ;
 });
+        
     }
 
     public void pracownicyTableZ() {
