@@ -9,9 +9,13 @@ import com.jfoenix.controls.JFXButton;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
+import hibernate.KierownikQuery;
+import hibernate.Pracownik;
+import hibernate.PracownikQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
+import hibernate.Reklama;
 import hibernate.ReklamaQuery;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,22 +23,32 @@ import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -76,6 +90,18 @@ public class Menu_MarketingController extends Logowanie implements
     private Label kat;
     @FXML
     private Label statusDodania;
+    @FXML
+    private JFXButton wylogujDR1;
+    @FXML
+    private TableView<Reklama> reklamy;
+    @FXML
+    private TableColumn<Reklama, Integer> IdReklamy;
+    @FXML
+    private TableColumn<Reklama, String> TytulReklamy;
+    @FXML
+    private TableColumn<Reklama, String> OpisReklamy;
+    @FXML
+    private Label status;
 
     
     @FXML
@@ -91,12 +117,14 @@ public class Menu_MarketingController extends Logowanie implements
         tytulD.setText(null);
         URLgrafiki.setText(null);
         opisD.setText(null);
+        grafika.setImage(null);
 }
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ComboBoxK ();
+        reklamyTable();
     }    
 
     @FXML
@@ -131,7 +159,9 @@ public class Menu_MarketingController extends Logowanie implements
             ReklamaQuery r = new ReklamaQuery();
             r.addNewAdvert(ProduktId, tytul, opis, obrazek);
             clearField();
+            reklamy.getItems().setAll(getReklama());
             statusDodania.setText("Reklama została stworzona");
+            
             
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -194,5 +224,59 @@ public class Menu_MarketingController extends Logowanie implements
         prod.setText(Integer.toString(idP));
         prod.setVisible(false);
     }
+     
+     public ObservableList<Reklama> getReklama() {
+        ObservableList<Reklama> listaReklam = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Reklama> pList = session.createCriteria(Reklama.class).list();
+
+        for (Reklama r : pList) {
+            listaReklam.add(r);
+
+        }
+        return listaReklam;
+    }
+     
+     public void reklamyTable(){
+         IdReklamy.setCellValueFactory(new PropertyValueFactory<>("ReklamaId"));
+         TytulReklamy.setCellValueFactory(new PropertyValueFactory<>("Tytul"));
+         OpisReklamy.setCellValueFactory(new PropertyValueFactory<>("Opis"));
+         
+         ReklamaQuery reklama = new ReklamaQuery();
+         
+         reklamy.getItems().setAll(getReklama());
+         reklamy.setRowFactory( tv -> {
+    TableRow<Reklama> row = new TableRow<>();
+    row.getContextMenu();
+    
+         final ContextMenu contextMenu = new ContextMenu();
+            MenuItem del = new MenuItem("Usuń");
+
+            del.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            
+            reklama.removeAdvert(row.getItem().getReklamaId());
+            
+         reklamy.getItems().setAll(getReklama());
+           status.setText("Reklama została usunięta");
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+contextMenu.getItems().addAll(del);
+
+row.setContextMenu(contextMenu);
+    
+    return row ;
+});
+    
+     }
     
 }

@@ -7,6 +7,7 @@ package hibernate;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -49,4 +50,34 @@ public class ReklamaQuery {
         }
         
 }
+     
+        public void removeAdvert(int ReklamaID)
+            throws Exception {
+        
+        Produkty lastProduct = null;
+        
+        session = HibernateUtil.getSessionFactory().openSession();
+    
+        String query = "DELETE FROM `reklama` WHERE `reklama`.`ReklamaID` = "
+                + ReklamaID;
+          
+        try {
+          session.getTransaction().begin();
+          session.createSQLQuery(query).executeUpdate();
+          session.getTransaction().commit();
+          session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+    }
+        
+         public List<Reklama> ReklamaSelectAll() {
+        session = HibernateUtil.getSessionFactory().openSession();
+        criteria = session.createCriteria(Reklama.class);
+        List<Reklama> reklama = criteria.list();
+        session.close();
+        return reklama;
+    }
 }
