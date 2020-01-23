@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `adresy`
 --
 
-DROP DATABASE IF EXISTS hurtownia;
+DROP DATABASE IF EXISTS hurtowniap2;
 
 
-CREATE DATABASE IF NOT EXISTS hurtownia;
+CREATE DATABASE IF NOT EXISTS hurtowniap2;
 
-USE hurtownia;
+USE hurtowniap2;
 
 
 CREATE TABLE `adresy` (
