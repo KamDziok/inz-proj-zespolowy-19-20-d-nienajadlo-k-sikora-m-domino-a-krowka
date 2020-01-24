@@ -169,6 +169,7 @@ INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko
 ('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
 ('Janusz', 'Polakowski', 1234, 7, 'kierownik', 'kierownik', 'kierownik'),
 ('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', 'ksiegowa');
+('Marek', 'Nowakowski', '3000', 10, 'marketing', 'reklama', 'reklama');
 
 -- --------------------------------------------------------
 
@@ -203,7 +204,7 @@ CREATE TABLE `reklama` (
   `Tytul` varchar(30) NOT NULL,
   `Data` date NOT NULL,
   `Opis` varchar(300) NOT NULL,
-  `Grafika` varchar(100) NOT NULL,
+  `Grafika` varchar(300) NOT NULL,
   `ProduktID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
