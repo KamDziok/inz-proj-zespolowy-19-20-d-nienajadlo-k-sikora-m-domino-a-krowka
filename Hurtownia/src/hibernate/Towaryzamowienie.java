@@ -52,6 +52,9 @@ public class Towaryzamowienie  implements java.io.Serializable {
     public Zamowienie getZamowienie() {
         return this.zamowienie;
     }
+    public int getZamowienieID(){
+        return this.zamowienie.getZamowienieId();
+    }
     
     public void setZamowienie(Zamowienie zamowienie) {
         this.zamowienie = zamowienie;

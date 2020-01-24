@@ -6,11 +6,14 @@
 package FXML;
 
 import com.jfoenix.controls.JFXButton;
+import hibernate.KsiegowoscQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikConverter;
 import hibernate.PracownikQuery;
+import hibernate.Towaryzamowienie;
 import hibernate.Wyplaty;
 import hibernate.WyplatyQuery;
+import hibernate.Zamowienie;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -26,9 +29,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -105,6 +111,16 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     
     @FXML
     private Button dodajWyplate;
+    @FXML
+    private TableColumn<Integer, Towaryzamowienie> idZamowienia;
+    @FXML
+    private TableColumn<Integer, Towaryzamowienie> ilosc;
+    @FXML
+    private TableColumn<Float, Towaryzamowienie> koszt;
+    @FXML
+    private JFXButton wylogujDW1;
+    @FXML
+    private TableView<Towaryzamowienie> zamowienieFaktura;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -122,6 +138,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         payCheckTable();
         wyszukajPracownika(getPracownik());
         comboPracownik();
+        fakturyTable();
     }    
     
         public ObservableList<Pracownik> getPracownik() {
@@ -152,6 +169,22 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         return listaWyplat;
     }
         
+        public ObservableList<Towaryzamowienie> getTowary() {
+        ObservableList<Towaryzamowienie> listaZamowienia = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Towaryzamowienie> pList = session.
+                createCriteria(Towaryzamowienie.class).list();
+
+        for (Towaryzamowienie t : pList) {
+            listaZamowienia.add(t);
+
+        }
+        return listaZamowienia;
+    }
+        
+         
     public void pracownicyTableP() {
 
         id.setCellValueFactory(new PropertyValueFactory<>("pracownikId"));
@@ -165,6 +198,46 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         pracownicyTableP.getItems().setAll(pracownik.PracownikSelectAll());
      
     }
+    
+      public void fakturyTable() {
+
+        idZamowienia.setCellValueFactory(new PropertyValueFactory<>("zamowienieID"));
+        ilosc.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
+        koszt.setCellValueFactory(new PropertyValueFactory<>("koszt"));
+        
+        zamowienieFaktura.getItems().setAll(getTowary());
+        zamowienieFaktura.setRowFactory(tv -> {
+            TableRow<Towaryzamowienie> row = new TableRow<>();
+            row.getContextMenu();
+            
+              final ContextMenu contextMenu = new ContextMenu();
+            MenuItem faktura = new MenuItem("Wystaw fakture");
+
+            faktura.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            KsiegowoscQuery ksiegowosc = new KsiegowoscQuery();
+            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().getZamowienieID()));
+            
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+        });
+            contextMenu.getItems().addAll(faktura);
+
+row.setContextMenu(contextMenu);
+    
+            return row;
+                
+        });
+    
+                }
+    
+      
     
         public void payCheckTable() {
         payDate.setCellValueFactory(new PropertyValueFactory<>("data"));
@@ -261,7 +334,6 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         }
     }
     
-    @FXML
     private void dodajWyplate(ActionEvent event){
  //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
       float wyplata = 1599;

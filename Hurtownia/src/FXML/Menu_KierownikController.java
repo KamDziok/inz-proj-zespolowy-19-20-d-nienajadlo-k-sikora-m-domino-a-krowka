@@ -291,7 +291,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         stanowiskoT.setCellValueFactory(new PropertyValueFactory<>("stanowisko"));
         stawkaT.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
-        PracownikQuery pracownikA = new PracownikQuery();
         
         pracownicyTableZ.getItems().setAll(getPracownik());
         pracownicyTableZ.setRowFactory( tv -> {

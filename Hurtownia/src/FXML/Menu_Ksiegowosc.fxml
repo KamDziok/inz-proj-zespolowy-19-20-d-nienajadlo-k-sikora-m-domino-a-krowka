@@ -76,6 +76,22 @@
                         </AnchorPane>
                   </content>
                 </Tab>
+                  <Tab text="Wydaj fakture">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="zamowienieFaktura" layoutX="54.0" layoutY="53.0" prefHeight="248.0" prefWidth="467.0">
+                                <columns>
+                                  <TableColumn fx:id="idZamowienia" prefWidth="147.0" text="Id zamowienia" />
+                                  <TableColumn fx:id="ilosc" prefWidth="161.0" text="Ilość" />
+                                    <TableColumn fx:id="koszt" prefWidth="158.0" text="Koszt" />
+                                </columns>
+                              </TableView>
+                              <JFXButton fx:id="wylogujDW1" layoutX="570.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
               </tabs>
             </TabPane>
          </children>
