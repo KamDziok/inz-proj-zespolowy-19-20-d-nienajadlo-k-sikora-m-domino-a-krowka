@@ -45,8 +45,7 @@ import javafx.stage.Stage;
  * @author monika
  */
 public class LoginController extends Logowanie implements Initializable {
-    
-   
+
     Klient klientZ;
     Parent home;
 
@@ -55,7 +54,7 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     private Button zalogujbtn;
-    
+
     @FXML
     private Button db_script;
 
@@ -82,11 +81,10 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     void LogInAction(ActionEvent event) throws IOException {
-      
-        
+
         String log = login.getText();
         String pass = passwd.getText();
-        
+
         if (login.getText().equals("admin") && passwd.getText().
                 equals("admin")) {
             String admin = "/FXML/PanelAdministratora.fxml";
@@ -104,7 +102,7 @@ public class LoginController extends Logowanie implements Initializable {
                 status.setText("Logowanie zakończone sukcesem!");
 
                 if (logowanie.getStanowisko().equals("kierownik")) {
-                    
+
                     String kierownik = "/FXML/Menu_Kierownik.fxml";
                     wczytywanie(event, kierownik);
                     ramka(event);
@@ -118,7 +116,7 @@ public class LoginController extends Logowanie implements Initializable {
                 }
 
                 if (logowanie.getStanowisko().equals("ksiegowa")) {
-                    
+
                     String ksiegowy = "/FXML/Menu_Ksiegowosc.fxml";
                     wczytywanie(event, ksiegowy);
                     ramka(event);
@@ -132,7 +130,7 @@ public class LoginController extends Logowanie implements Initializable {
                 }
 
                 if (logowanie.getStanowisko().equals("magazynier")) {
-                    
+
                     String magazynier = "/FXML/Magazyn_Menu.fxml";
                     wczytywanie(event, magazynier);
                     ramka(event);
@@ -143,7 +141,7 @@ public class LoginController extends Logowanie implements Initializable {
                     PrimaryStage.setScene(scene);
                     PrimaryStage.show();
                     PrimaryStage.setResizable(false); */
-                            
+
                 }
 
                 if (logowanie.getStanowisko().equals("marketing")) {
@@ -151,7 +149,7 @@ public class LoginController extends Logowanie implements Initializable {
                     String marketing = "/FXML/Menu_Marketing.fxml";
                     wczytywanie(event, marketing);
                     ramka(event);
-                  /*  Stage PrimaryStage = new Stage();
+                    /*  Stage PrimaryStage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                             + "/Menu_Marketing.fxml"));
                     Scene scene = new Scene(root, 900, 700);
@@ -159,16 +157,13 @@ public class LoginController extends Logowanie implements Initializable {
                     PrimaryStage.show();
                     PrimaryStage.setResizable(false); */
                 }
-
-            
-        }
-            
+               
+            }
 
         } else {
-            status.setText("Logowanie się nie powiodło!");
+            status.setText("Sprawdź poprawność logowania");
         }
-        
-       
+
         //}
         if (klientR.isSelected()) {
             // if (login.getText().equals("klient") && passwd.getText().equals("test")) {
@@ -176,55 +171,48 @@ public class LoginController extends Logowanie implements Initializable {
             Klient logowanie = klient.selectByLoginandPassword(log, pass);
             if (logowanie != null) {
                 status.setText("Logowanie zakończone sukcesem!");
-                 klientZ = logowanie;
+                klientZ = logowanie;
                 String adres = "/FXML/Menu_Klient.fxml";
                 wczytywanie(event, adres);
-                
+
                 Menu_KlientController menuKlient = wczytaj.getController();
                 menuKlient.odczyt(klientZ.getKlientId());
                 ramka(event);
                 menuKlient.daneOsobowe(klientZ.getImie(),
-                            klientZ.getNazwisko(), klientZ.getTelefon());
+                        klientZ.getNazwisko(), klientZ.getTelefon());
                 menuKlient.wczytDoTabeli(klientZ.getKlientId());
                 AdresyQuery a = new AdresyQuery();
-                    Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
-                    if (adresZ != null) {
-                        menuKlient.adresDostawy(adresZ.getUlica(), 
-                            adresZ.getMiasto(), adresZ.getKraj(), 
+                Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
+                if (adresZ != null) {
+                    menuKlient.adresDostawy(adresZ.getUlica(),
+                            adresZ.getMiasto(), adresZ.getKraj(),
                             adresZ.getNumerBudynku(), adresZ.getNumerLokalu(),
                             adresZ.getEmail());
-                            
-                }
-                    else if (adresZ == null){
+
+                } else if (adresZ == null) {
                     menuKlient.DodajAdresBTN();
-                    }
-                    
-                    
-                    
-                    
-                
-                
-                    
+                }
+
                 /*Stage PrimaryStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
                 Scene scene = new Scene(root, 800, 480);
                 PrimaryStage.setScene(scene);
                 PrimaryStage.show();
                 PrimaryStage.setResizable(false); */
-                
             } else {
-                status.setText("Logowanie się nie powiodło!");
+                status.setText("Sprawdź poprawność logowania");
             }
         }
+
     }
 
     @FXML
     void RejestracjaAction(ActionEvent event) throws IOException {
-        
-        String wybor ="/FXML/Wybor.fxml";
+
+        String wybor = "/FXML/Wybor.fxml";
         wczytywanie(event, wybor);
         ramka(event);
-       /* Stage PrimaryStage = new Stage();
+        /* Stage PrimaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                 + "/Rejestracja.fxml"));
         Scene scene = new Scene(root, 500, 600);
@@ -235,11 +223,11 @@ public class LoginController extends Logowanie implements Initializable {
 
     @FXML
     void PrzypomnienieHaslaOnAction(ActionEvent event) throws IOException {
-        
+
         String przypomnienieH = "/FXML/Przypomnienie.fxml";
         wczytywanie(event, przypomnienieH);
         ramka(event);
-       
+
         /*Stage PrimaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                 + "/Przypomnienie.fxml"));
@@ -247,7 +235,6 @@ public class LoginController extends Logowanie implements Initializable {
         PrimaryStage.setScene(scene);
         PrimaryStage.show();
         PrimaryStage.setResizable(false); */
-
     }
 
     @Override
@@ -257,16 +244,16 @@ public class LoginController extends Logowanie implements Initializable {
         klientR.setToggleGroup(group);
         pracownikR.setToggleGroup(group);
     }
-    
+
     @FXML
     void DbCreate(ActionEvent event) throws IOException, InterruptedException {
-         Runtime run = Runtime.getRuntime();  
-   Process p = null;  
-        String cmd = "db_create.cmd";  
-        try {  
-           p = run.exec(cmd);
+        Runtime run = Runtime.getRuntime();
+        Process p = null;
+        String cmd = "db_create.cmd";
+        try {
+            p = run.exec(cmd);
             p.waitFor();
-            System.out.println(p.exitValue()); 
+            System.out.println(p.exitValue());
             System.out.println("Skrypt run");
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Informacja");
@@ -274,21 +261,18 @@ public class LoginController extends Logowanie implements Initializable {
             alert.setContentText("Skrypt uruchomiony poprawnie!");
 
             alert.showAndWait();
-        }  
-        catch (IOException e) {  
-            e.printStackTrace();  
-            System.out.println("ERROR.RUNNING.CMD");  
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("ERROR.RUNNING.CMD");
             Alert alert2 = new Alert(AlertType.WARNING);
             alert2.setTitle("Informacja");
             alert2.setHeaderText(null);
             alert2.setContentText("Coś jest nie tak...");
 
             alert2.showAndWait();
-            p.destroy();  
-        }  
-        
-        
-    
+            p.destroy();
+        }
+
     }
 
 }

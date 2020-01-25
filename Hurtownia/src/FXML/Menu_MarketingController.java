@@ -44,6 +44,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
@@ -103,6 +104,16 @@ public class Menu_MarketingController extends Logowanie implements
     private TableColumn<Reklama, String> OpisReklamy;
     @FXML
     private Label status;
+    @FXML
+    private TableView<Reklama> reklamyZ;
+    @FXML
+    private TableColumn<Reklama, Integer> idReklamyZ;
+    @FXML
+    private TableColumn<Reklama, String> TytulReklamyZ;
+    @FXML
+    private TableColumn<Reklama, String> OpisReklamyZ;
+    @FXML
+    private JFXButton wylogujDR11;
 
     
     @FXML
@@ -126,6 +137,7 @@ public class Menu_MarketingController extends Logowanie implements
     public void initialize(URL url, ResourceBundle rb) {
         ComboBoxK ();
         reklamyTable();
+        reklamyTableZ();
         
     }    
 
@@ -166,6 +178,7 @@ public class Menu_MarketingController extends Logowanie implements
             clearField();
             reklamy.getItems().setAll(getReklama());
             statusDodania.setText("Reklama została stworzona");
+             reklamy.getItems().setAll(getReklama());
     
             
         }catch(Exception e){
@@ -175,6 +188,25 @@ public class Menu_MarketingController extends Logowanie implements
         
     }
     
+     public void reklamyTableZ(){
+         idReklamyZ.setCellValueFactory(new PropertyValueFactory<>("ReklamaId"));
+         TytulReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Tytul"));
+         OpisReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Opis"));
+         
+         reklamyZ.getItems().addAll(getReklama());
+        reklamyZ.setEditable(true);
+       
+         
+         
+     }
+     
+     public void editTable(){
+           TytulReklamyZ.setCellFactory(TextFieldTableCell.forTableColumn());
+           TytulReklamy.setOnEditCommit(e ->{
+               e.getTableView().getItems().get(e.getTablePosition().getRow()).setTytul(e.getNewValue());
+           });
+     }
+     
     public void comboValueKT (ComboBox<Kategorie> katDcomo){
         
         Kategorie k = katDcomo.getValue();
@@ -283,5 +315,5 @@ row.setContextMenu(contextMenu);
 });
     
      }
-    
+
 }

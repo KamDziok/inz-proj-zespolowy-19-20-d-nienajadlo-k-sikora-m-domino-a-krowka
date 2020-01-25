@@ -332,8 +332,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
         ReklamaQuery reklama = new ReklamaQuery();
        
-       Image image = new Image(new FileInputStream(reklama.wyszukiwanieID
-        (idProdukt).getGrafika().toString()));
+        String adres = reklama.wyszukiwanieID
+        (idProdukt).getGrafika();
+       Image image = new Image(new FileInputStream(adres));
         
        grafikaReklamy.setImage(image);
        
