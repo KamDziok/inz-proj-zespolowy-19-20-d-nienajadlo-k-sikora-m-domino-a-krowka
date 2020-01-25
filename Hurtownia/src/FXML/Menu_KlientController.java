@@ -364,6 +364,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
     private void wczytajDane(ActionEvent event) {
+        zamowieniaK.getItems().clear();
         int id = Integer.parseInt(tabelaId.getText());
         ZamowienieQuery zamow = new ZamowienieQuery();
         zamowieniaK.getItems().addAll(zamow.zamowieniaID(id));
