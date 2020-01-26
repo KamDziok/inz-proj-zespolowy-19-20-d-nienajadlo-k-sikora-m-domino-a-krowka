@@ -20,6 +20,12 @@ public class ZamowienieQuery {
     Query query = null;
     Criteria criteria = null;
     
+    /**
+     * 
+     * @param id - client identifier
+     * @return returns all client orders
+     */
+    
     public List<Zamowienie> zamowieniaID(int id){
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Zamowienie where KlientId = '" + id + "'";

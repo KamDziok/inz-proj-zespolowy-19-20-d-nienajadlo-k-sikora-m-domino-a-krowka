@@ -23,6 +23,12 @@ public class ProduktQuery {
     Criteria criteria = null;
 
 
+    /**
+     * 
+     * @param ProduktID - product identifier
+     * @return product entity from db selected by id
+     */
+    
       public Produkty getProdukt( int ProduktID) {
         Produkty p = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -33,6 +39,10 @@ public class ProduktQuery {
         return p;
     }
 
+      /**
+       * 
+       * @return all avaiable products from db 
+       */
     
       public List<Produkty> ProduktySelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -41,6 +51,12 @@ public class ProduktQuery {
         session.close();
         return produkt;
     }
+      
+      /**
+       * 
+       * @param id - category identifier
+       * @return  all avaiable products from db selected by category id
+       */
       
        public List<Produkty> produktySelectAllOnID(int id){
         session = HibernateUtil.getSessionFactory().openSession();

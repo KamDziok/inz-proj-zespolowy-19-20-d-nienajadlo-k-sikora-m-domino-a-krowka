@@ -22,6 +22,11 @@ public class WyplatyQuery {
     Query query = null;
     Criteria criteria = null;
     
+    /**
+     * 
+     * @return all salars from database 
+     */
+    
     public List<Wyplaty> WyplatySelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Wyplaty.class);
@@ -29,6 +34,12 @@ public class WyplatyQuery {
         session.close();
         return w;
     }
+    
+    /**
+     * 
+     * @param id - user id to get salary
+     * @return salary selected by id
+     */
     
      public List<Wyplaty> wyplatyID(int id){
         session = HibernateUtil.getSessionFactory().openSession();
@@ -46,6 +57,16 @@ public class WyplatyQuery {
         return wyplaty;
      
 }
+     
+     /**
+      * 
+      * @param dataSql - date to salary update
+      * @param kwotaSql - new salary in global currency
+      * @param idPrac - pracownik identifier
+      * 
+      * use this method to add new salary for worker
+      * 
+      */
          public void dodajWyplate(Date dataSql , float kwotaSql, int idPrac){
     
         session = HibernateUtil.getSessionFactory().openSession();

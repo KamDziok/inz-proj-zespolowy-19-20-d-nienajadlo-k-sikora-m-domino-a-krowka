@@ -20,6 +20,17 @@ public class KierownikQuery {
     Query query = null;
     Criteria criteria = null;
     
+    /**
+     * 
+     * @param imie - first name of user
+     * @param nazwisko - last name of user
+     * @param placa - worker salary
+     * @param stanowisko - worker position on company
+     * 
+     * Method for adding new worker to database
+     * 
+     */
+    
     public void dodajPracownika(String imie , String nazwisko, 
             float placa,String stanowisko){
     
@@ -44,6 +55,14 @@ public class KierownikQuery {
     
     }
     
+    /**
+     * 
+     * @param pracownikId - worder ID param
+     * 
+     * method created fot getting fired worker from company
+     * 
+     */
+    
      public void zwolnijPracownika (Integer pracownikId){
         session = HibernateUtil.getSessionFactory().openSession();
          Transaction tx = null;
@@ -63,6 +82,16 @@ public class KierownikQuery {
     }
      
      
+     /**
+      * 
+      * @param Nazwa - name of new product
+      * @param Cena - price of new product
+      * @param Opis - description of new product
+      * @param Kategoria - category of new product
+      * 
+      * use this method to add new product into database
+      * 
+      */
      
      
      // Kategoria musi być pobrana jako ID
@@ -86,6 +115,16 @@ catch (HibernateException error){
 }
     
     }
+     
+     /**
+      * 
+      * @param ilosc - quantity of product
+      * @param Cena - procuct's price
+      * @param ProduktID - product's identifier
+      * 
+      * use this method to add product into store
+      * 
+      */
      
      public void dodajProduktNaMagazyn(int ilosc , float Cena, 
             int ProduktID ){

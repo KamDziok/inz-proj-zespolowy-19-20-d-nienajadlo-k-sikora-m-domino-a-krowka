@@ -20,13 +20,10 @@ import java.util.Date;
 /**
  *
  * @author dawid
+ * class pdfCreator is class to crate invoices for project
  */
 
-// do not try to read this code for your personal safety
 
-// HOW TO USE?
-// pdfCreator.createInvoice(String numerZamówienia, int stawkaVAT, Klient k, String[][] produkty w zamówieniu)
-// pozdrawiam
 
 public class pdfCreator {
     private static PathFinder appPath = new PathFinder();
@@ -36,6 +33,19 @@ public class pdfCreator {
     static String initDay = calendarToInvoice.get(Calendar.DAY_OF_MONTH) < 10 ? "0"+calendarToInvoice.get(Calendar.DAY_OF_MONTH) : ""+calendarToInvoice.get(Calendar.DAY_OF_MONTH);
     static String initMonth = calendarToInvoice.get(Calendar.MONTH)+1 < 10 ? ""+calendarToInvoice.get(Calendar.MONTH)+1 : ""+calendarToInvoice.get(Calendar.MONTH)+1;
     static String initYear = ""+calendarToInvoice.get(Calendar.YEAR);
+    
+    
+     /**
+     *
+     * ready method to creating invoices for project in pdf format
+     * with dynamicly VAT calculation
+     * 
+     * @param invoiceNumber - it's a invoice number on ready pdf document
+     * @param currency - currency on invoice
+     * @param Klient k - instance of kKlient class
+     * @param VAT - VAT % in invoice - dynamicly calculated before generating pdf
+     * @param products[][] two-dimensional array of products in invoice 
+     */
     
     public static void createInvoice(String invoiceNumber, int VAT, String currency, Klient k, String[][] products) throws FileNotFoundException, DocumentException, IOException{
         File fileHTML = new File(appPath.get() + "\\invoices\\invoice_nr." + invoiceNumber + ".pdf");
