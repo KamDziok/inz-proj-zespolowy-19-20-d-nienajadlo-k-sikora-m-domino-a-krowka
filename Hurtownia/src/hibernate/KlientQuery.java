@@ -9,8 +9,10 @@ import Utils.pdfCreator;
 import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -22,7 +24,6 @@ import org.hibernate.Transaction;
  * @author monika
  */
 public class KlientQuery {
-
     Session session = null;
     Query query = null;
     Criteria criteria = null;
@@ -181,12 +182,17 @@ public class KlientQuery {
     }
      
     
+    
+    
+    
     public void zamowTowar(int ilosc, 
-            int ProduktID , int klientID  ){
-    Date date = new Date();
+            int ProduktID , int klientID  , ArrayList towary , Date date){
+        
+        
+        System.out.println(towary.size());
     String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
     
-    String dataID= new SimpleDateFormat("MMddHHmmss").format(date);
+    String dataID= new SimpleDateFormat("HHmmssSSS").format(date);
         session = HibernateUtil.getSessionFactory().openSession();
     String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, `StatusZaplaty`, `StatusTransportu`, `Data`)"
             + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', ' przyjęte do realizacji', '"+data+"')";
@@ -199,17 +205,14 @@ public class KlientQuery {
         
     
 
-/*
-    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
-            + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
-            +ilosc + "', '" + ProduktID +"', '" + date.getTime() +"', '" 
-*/
+
     String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
 
             +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')";
 
   try {
     session.getTransaction().begin();
+      if (towary.size() == 0) 
     session.createSQLQuery(query).executeUpdate();
     session.createSQLQuery(query2).executeUpdate();
     session.getTransaction().commit();
@@ -220,6 +223,7 @@ catch (HibernateException error){
     session.close();
 }
     
+        towary.add("");
     }
     
     
