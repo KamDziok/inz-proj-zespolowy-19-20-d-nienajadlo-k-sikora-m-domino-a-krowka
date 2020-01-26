@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 13 Sty 2020, 22:43
--- Wersja serwera: 10.4.8-MariaDB
--- Wersja PHP: 7.3.11
+-- Czas generowania: 26 Sty 2020, 20:53
+-- Wersja serwera: 10.4.11-MariaDB
+-- Wersja PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -22,19 +22,22 @@ SET time_zone = "+00:00";
 -- Baza danych: `hurtowniap2`
 --
 
+DELIMITER $$
+--
+-- Procedury
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `dodajWyplate` (IN `Kwota` FLOAT, IN `PracownikID` INT(11))  BEGIN
+
+ INSERT INTO wyplaty VALUES(NULL,CURRENT_DATE, Kwota, PracownikID);
+ END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Struktura tabeli dla tabeli `adresy`
 --
-
-DROP DATABASE IF EXISTS hurtowniap2;
-
-
-CREATE DATABASE IF NOT EXISTS hurtowniap2;
-
-USE hurtowniap2;
-
 
 CREATE TABLE `adresy` (
   `KlientID` int(11) NOT NULL,
@@ -114,7 +117,10 @@ CREATE TABLE `klient` (
 
 INSERT INTO `klient` (`KlientID`, `Imie`, `Nazwisko`, `Telefon`, `login`, `password`) VALUES
 (1, 'Jan', 'Kowalski', '123123123', 'jankowalski', 'jankowalski'),
-(2, 'Hurtownia', 'Hurtownia', '123456789', '1231234324123', '1231321231232123');
+(2, 'Hurtownia', 'Hurtownia', '123456789', '1231234324123', '1231321231232123'),
+(3, '', '', '0', '', ''),
+(4, '', '', '0', '', ''),
+(5, '', '', '0', '', '');
 
 -- --------------------------------------------------------
 
@@ -176,7 +182,8 @@ CREATE TABLE `pracownik` (
 INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES
 ('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
 ('Janusz', 'Polakowski', 1234, 7, 'kierownik', 'kierownik', 'kierownik'),
-('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', 'ksiegowa');
+('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', 'ksiegowa'),
+('Asdf', 'Zxcv', 1500, 9, 'kierownik', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -248,6 +255,15 @@ CREATE TABLE `wyplaty` (
   `Kwota` float NOT NULL,
   `PracownikID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Zrzut danych tabeli `wyplaty`
+--
+
+INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES
+(1, '2020-01-21', 1299, 3),
+(4, '2020-01-26', 1500, 7),
+(5, '2020-01-26', 1500, 8);
 
 -- --------------------------------------------------------
 
@@ -359,14 +375,14 @@ ALTER TABLE `zamowienie`
   ADD KEY `klient_ID` (`KlientID`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT dla tabel zrzutów
 --
 
 --
 -- AUTO_INCREMENT dla tabeli `adresy`
 --
 ALTER TABLE `adresy`
-  MODIFY `AdresID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `AdresID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `hurtownia`
@@ -384,7 +400,7 @@ ALTER TABLE `kategorie`
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `ksiegowosc`
@@ -396,19 +412,19 @@ ALTER TABLE `ksiegowosc`
 -- AUTO_INCREMENT dla tabeli `magazyn`
 --
 ALTER TABLE `magazyn`
-  MODIFY `MagazynID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MagazynID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `pracownik`
 --
 ALTER TABLE `pracownik`
-  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkty`
 --
 ALTER TABLE `produkty`
-  MODIFY `ProduktID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ProduktID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `reklama`
@@ -426,7 +442,7 @@ ALTER TABLE `towaryzamowienie`
 -- AUTO_INCREMENT dla tabeli `wyplaty`
 --
 ALTER TABLE `wyplaty`
-  MODIFY `WyplataID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `WyplataID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `zamowienie`
