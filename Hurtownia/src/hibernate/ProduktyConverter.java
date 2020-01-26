@@ -13,6 +13,12 @@ import javafx.util.StringConverter;
  */
 public class ProduktyConverter extends StringConverter<Produkty>{
 
+    
+    /**
+     * 
+     * @param produkty to convert 
+     * @return product converted to string
+     */
     @Override
     public String toString(Produkty produkty) {
        return produkty == null ? null: produkty.getNazwa();

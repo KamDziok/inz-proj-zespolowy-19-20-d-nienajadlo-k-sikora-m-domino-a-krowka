@@ -13,6 +13,13 @@ import javafx.util.StringConverter;
  */
 public class PracownikConverter extends StringConverter<Pracownik> {
 
+    /**
+     * 
+     * @param pracownik - Pracownik class instance to convert
+     * @return converted pracownik instance to string 
+     * 
+     */
+    
     @Override
     public String toString(Pracownik pracownik) {
         return pracownik == null? null :  pracownik.getImie() + " " 

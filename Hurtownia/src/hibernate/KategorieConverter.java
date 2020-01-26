@@ -13,6 +13,12 @@ import javafx.util.StringConverter;
  */
 public class KategorieConverter extends StringConverter<Kategorie>  {
 
+    /**
+     * 
+     * @param kat - instance of category to convert
+     * @return category converted to string
+     */
+    
     @Override
     public String toString(Kategorie kat) {
         return kat == null? null : kat.getNazwa();

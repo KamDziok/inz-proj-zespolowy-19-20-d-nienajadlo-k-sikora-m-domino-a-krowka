@@ -16,9 +16,15 @@ import org.hibernate.Session;
  */
 public class MagazynQuery {
     
-       Session session = null;
+    Session session = null;
     Query query = null;
     Criteria criteria = null;
+    
+    /**
+     * 
+     * @param id - products identifier
+     * @return all products from database selected by id
+     */
     
      public List<Magazyn> produktySelectAllOnID(int id){
         session = HibernateUtil.getSessionFactory().openSession();
@@ -38,6 +44,12 @@ public class MagazynQuery {
       
     }
      
+     
+     /**
+      * use this method to get all avaiable stores from DB
+      * 
+      * @return all avaiables stores from database 
+      */
      
       public List<Magazyn> MagazynSelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
