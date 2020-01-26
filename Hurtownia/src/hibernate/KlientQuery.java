@@ -279,7 +279,7 @@ catch (HibernateException error){
        
        
        //        INSTRUKCJA DO PDF 
-       int vat = 0;
+       int vat = 23;
        String waluta = "PLN";
         pdfCreator pdf = new pdfCreator();
         pdf.createInvoice(zamowienieID,vat, waluta, k, productss);

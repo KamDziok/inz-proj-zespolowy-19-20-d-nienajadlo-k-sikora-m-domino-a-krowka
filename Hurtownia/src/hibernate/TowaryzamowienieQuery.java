@@ -6,29 +6,24 @@
 package hibernate;
 
 import java.util.List;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
  *
- * @author monika
+ * @author Zosia
  */
-public class ZamowienieQuery {
+public class TowaryzamowienieQuery {
     
-    Session session = null;
-    Query query = null;
-    Criteria criteria = null;
-    
-    public List<Zamowienie> zamowieniaID(int id){
-        session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Zamowienie where KlientId = '" + id + "'";
+     public List<Towaryzamowienie> zamowieniaID(int id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Towaryzamowienie where ZamowienieId = '" + id + "'";
         Query query = session.createQuery(hql);
-        List <Zamowienie> zamow = query.list();
+        List <Towaryzamowienie> zamow = query.list();
         session.close();
         int i = 0;
-        for(Zamowienie z : zamow){
-            if(z.getKlientID() != id){
+        for(Towaryzamowienie tz: zamow){
+            if(tz.getZamowienieID() != id){
                 zamow.remove(i);
             }
             i++;

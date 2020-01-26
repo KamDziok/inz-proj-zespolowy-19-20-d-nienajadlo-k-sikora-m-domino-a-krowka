@@ -17,6 +17,7 @@ import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
 import hibernate.Towaryzamowienie;
+import hibernate.TowaryzamowienieQuery;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
 import java.net.URL;
@@ -162,7 +163,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private Button wczytajBtn;
     @FXML
-    private TableView<?> zamowieniaZT;
+    private TableView<Towaryzamowienie> zamowieniaZT;
     @FXML
     private TableColumn<Towaryzamowienie, String> nazwaZT;
     @FXML
@@ -319,7 +320,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
         ComboBoxK();
         zamowieniaTable();
-        
+        towaryDoZamowieniaTable();
     }
 
     @FXML
@@ -334,6 +335,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             if (towary.size() == 0)
             zamID.setZamID(new Date());
             klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
+            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
+                    parseInt(zamID.getZamID())));
             statusZamowienia.setText("Towar dodany do zamówienia!");
             
         }catch(Exception e){
@@ -387,6 +391,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             if (towary.size() == 0)
             zamID.setZamID(new Date());
             klient.anulujZamowienie(zamID.getZamID());
+            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
+                    parseInt(zamID.getZamID())));
+            
             statusZamowienia.setText("Zamowienie zostało anulowane");
             
         }catch(Exception e){
@@ -403,6 +411,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             if (towary.size() == 0)
             zamID.setZamID(new Date());
             klient.zatwierdzZamowienie(zamID.getZamID());
+            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
+                    parseInt(zamID.getZamID())));
             statusZamowienia.setText("Zamowienie zostało potwierdzone");
             
         }catch(Exception e){
@@ -412,10 +423,15 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     }
     
     
-    @FXML
-    private void towaryDoZamowieniaTable(ActionEvent event) {
+ 
+    private void towaryDoZamowieniaTable() {
 
-
+       
+        nazwaZT.setCellValueFactory(new PropertyValueFactory<> ("ProduktName"));
+       iloscZT.setCellValueFactory(new PropertyValueFactory<> ("ilosc"));
+        kosztZT.setCellValueFactory(new PropertyValueFactory<> 
+        ("koszt"));
+        
     }
 
 
