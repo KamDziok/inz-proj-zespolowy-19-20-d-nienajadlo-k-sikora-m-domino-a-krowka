@@ -346,7 +346,9 @@ row.setContextMenu(contextMenu);
  int id = Integer.parseInt(idPracownika.getText());
       WyplatyQuery wyplataa = new WyplatyQuery();
        wyplataa.dodajWyplate(wyplataKwota, id);
-        
+       
+        System.out.println("Wyplata run");
+     
         
     }
 
