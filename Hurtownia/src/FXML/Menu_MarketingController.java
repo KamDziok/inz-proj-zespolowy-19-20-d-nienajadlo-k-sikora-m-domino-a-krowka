@@ -123,6 +123,8 @@ public class Menu_MarketingController extends Logowanie implements
     private Button zmianaDanychR;
     @FXML
     private TextField opisModyfikacja;
+    @FXML
+    private Label zmianaStatus;
 
     
     @FXML
@@ -188,7 +190,8 @@ public class Menu_MarketingController extends Logowanie implements
             clearField();
             reklamy.getItems().setAll(getReklama());
             statusDodania.setText("Reklama została stworzona");
-             reklamy.getItems().setAll(getReklama());
+             reklamy.setItems(getReklama());
+             reklamyZ.setItems(getReklama());
     
             
         }catch(Exception e){
@@ -203,7 +206,9 @@ public class Menu_MarketingController extends Logowanie implements
          TytulReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Tytul"));
         OpisReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Opis"));
          
-         reklamyZ.getItems().addAll(getReklama());
+         reklamyZ.setItems(getReklama());
+         
+         
          
      }
      
@@ -298,7 +303,9 @@ public class Menu_MarketingController extends Logowanie implements
             
             reklama.removeAdvert(row.getItem().getReklamaId());
             
-         reklamy.getItems().setAll(getReklama());
+            
+         reklamy.setItems(getReklama());
+         reklamyZ.setItems(getReklama());
            status.setText("Reklama została usunięta");
              
         } catch (Exception e) {
@@ -319,6 +326,7 @@ row.setContextMenu(contextMenu);
     @FXML
     private void modyfikacjaReklamy(ActionEvent event) {
         
+        
         int id = Integer.parseInt(idZ.getText());
         String tytul = tytulModyfikacja.getText();
         String opis = opisModyfikacja.getText();
@@ -326,13 +334,23 @@ row.setContextMenu(contextMenu);
         try{
             ReklamaQuery zmianaR = new ReklamaQuery();
             zmianaR.changeAdvert(id, tytul, opis);
+             
+           reklamyZ.setItems(getReklama());
+           reklamy.setItems(getReklama());
+           
+            tytulModyfikacja.setText(null);
+            opisModyfikacja.setText(null);
+            
+            zmianaStatus.setText("Reklama została modyfikowana!");
+           
+            
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
         
     }
     
-    private void setCellValueFromTableToTextField(){
+ private void setCellValueFromTableToTextField(){
         reklamyZ.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent event) {
@@ -340,11 +358,12 @@ row.setContextMenu(contextMenu);
                         .getSelectedIndex());
                 idZ.setText(Integer.toString(r.getReklamaId()));
                 idZ.setVisible(false);
-                tytulModyfikacja.setText(r.getTytul());
-                opisModyfikacja.setText(r.getOpis());
+               // tytulModyfikacja.setText(r.getTytul());
+                //opisModyfikacja.setText(r.getOpis());
             
             }  
     });
 
 }
+    
 }

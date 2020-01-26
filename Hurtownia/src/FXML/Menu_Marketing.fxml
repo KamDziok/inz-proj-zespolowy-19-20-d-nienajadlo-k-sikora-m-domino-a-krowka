@@ -54,13 +54,6 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="reklamyZ" layoutX="50.0" layoutY="78.0" prefHeight="193.0" prefWidth="427.0">
-                                 <columns>
-                                    <TableColumn fx:id="idReklamyZ" prefWidth="129.0" text="Id reklamy" />
-                                    <TableColumn fx:id="TytulReklamyZ" prefWidth="152.0" text="Tytuł" />
-                                    <TableColumn fx:id="OpisReklamyZ" prefWidth="144.0" text="Opis" />
-                                 </columns>
-                              </TableView>
                               <JFXButton fx:id="wylogujDR11" layoutX="514.0" layoutY="20.0" onAction="#wyloguj" text="Wyloguj" />
                               <Label layoutX="50.0" layoutY="312.0" text="Tytuł:">
                                  <font>
@@ -76,6 +69,18 @@
                               <TextField fx:id="opisModyfikacja" layoutX="358.0" layoutY="309.0" promptText="Wpisz nowy opis" />
                               <Label fx:id="idZ" layoutX="264.0" layoutY="281.0" />
                               <Button fx:id="zmianaDanychR" layoutX="518.0" layoutY="310.0" mnemonicParsing="false" onAction="#modyfikacjaReklamy" text="Zmiana" />
+                              <Label fx:id="zmianaStatus" layoutX="119.0" layoutY="23.0" prefHeight="17.0" prefWidth="314.0">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="reklamyZ" layoutX="86.0" layoutY="73.0" prefHeight="201.0" prefWidth="402.0">
+                                <columns>
+                                  <TableColumn fx:id="idReklamyZ" prefWidth="115.0" text="Id reklamy" />
+                                  <TableColumn fx:id="TytulReklamyZ" prefWidth="166.0" text="Tytuł" />
+                                    <TableColumn fx:id="OpisReklamyZ" prefWidth="124.0" text="Opis" />
+                                </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                     </content>

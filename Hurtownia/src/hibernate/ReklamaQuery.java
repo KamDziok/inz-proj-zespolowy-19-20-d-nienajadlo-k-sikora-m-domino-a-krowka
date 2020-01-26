@@ -13,6 +13,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import hibernate.Reklama;
 
 /**
  *
@@ -82,7 +83,7 @@ public class ReklamaQuery {
         return reklama;
     }
          
-               public Reklama wyszukiwanieID (int id) {
+        public Reklama wyszukiwanieID (int id) {
         Reklama r = null;
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Reklama where ProduktId ='" + id + "'" ;
@@ -93,12 +94,22 @@ public class ReklamaQuery {
         return r;
     }
                
-            public void changeAdvert(int id, String tytul, String opis) {
+        public Reklama wyszukiwanieIDR (int id) {
+        Reklama r = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Reklama where ReklamaId ='" + id + "'" ;
+        query = session.createQuery(hql);
+        r = (Reklama) query.uniqueResult();
+        session.close();
+
+        return r;
+    }
+             public void changeAdvert(int id, String tytul, String opis) {
         session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Reklama reklam= new ReklamaQuery().wyszukiwanieID(id);
+            Reklama reklam= new ReklamaQuery().wyszukiwanieIDR(id);
             reklam.setTytul(tytul);
             reklam.setOpis(opis);
             session.update(reklam);
