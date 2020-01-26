@@ -4,6 +4,11 @@ import java.io.IOException;
  *
  * @author dawid
  */
+
+/**
+ * Returns canonical path of project
+ *  Use PathFinder.get() to get path
+ */
 public class PathFinder {
     // this method returns path to Hurtownia main directory
     public static String get(){
