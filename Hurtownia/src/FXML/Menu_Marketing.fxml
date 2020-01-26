@@ -55,18 +55,18 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <JFXButton fx:id="wylogujDR11" layoutX="514.0" layoutY="20.0" onAction="#wyloguj" text="Wyloguj" />
-                              <Label layoutX="50.0" layoutY="312.0" text="Tytuł:">
+                              <Label layoutX="25.0" layoutY="312.0" text="Tytuł:">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="tytulModyfikacja" layoutX="96.0" layoutY="309.0" promptText="Wpisz nowy tytuł" />
-                              <Label layoutX="312.0" layoutY="313.0" text="Opis:">
+                              <TextField fx:id="tytulModyfikacja" layoutX="64.0" layoutY="309.0" prefHeight="25.0" prefWidth="157.0" promptText="Wpisz nowy tytuł" />
+                              <Label layoutX="273.0" layoutY="312.0" text="Opis:">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="opisModyfikacja" layoutX="358.0" layoutY="309.0" promptText="Wpisz nowy opis" />
+                              <TextField fx:id="opisModyfikacja" layoutX="307.0" layoutY="309.0" prefHeight="25.0" prefWidth="200.0" promptText="Wpisz nowy opis" />
                               <Label fx:id="idZ" layoutX="264.0" layoutY="281.0" />
                               <Button fx:id="zmianaDanychR" layoutX="518.0" layoutY="310.0" mnemonicParsing="false" onAction="#modyfikacjaReklamy" text="Zmiana" />
                               <Label fx:id="zmianaStatus" layoutX="119.0" layoutY="23.0" prefHeight="17.0" prefWidth="314.0">

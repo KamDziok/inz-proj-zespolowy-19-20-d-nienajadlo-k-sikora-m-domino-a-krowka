@@ -149,8 +149,7 @@ public class Menu_MarketingController extends Logowanie implements
         ComboBoxK ();
         reklamyTable();
         reklamyTableZ();
-        setCellValueFromTableToTextField();
-        
+     
     }    
 
     @FXML
@@ -208,7 +207,19 @@ public class Menu_MarketingController extends Logowanie implements
          
          reklamyZ.setItems(getReklama());
          
-         
+           reklamyZ.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                Reklama r = reklamyZ.getItems().get(reklamyZ.getSelectionModel()
+                        .getSelectedIndex());
+                idZ.setText(Integer.toString(r.getReklamaId()));
+                idZ.setVisible(false);
+               // tytulModyfikacja.setText(r.getTytul());
+                //opisModyfikacja.setText(r.getOpis());
+            
+            }  
+    });
+
          
      }
      
@@ -350,20 +361,6 @@ row.setContextMenu(contextMenu);
         
     }
     
- private void setCellValueFromTableToTextField(){
-        reklamyZ.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                Reklama r = reklamyZ.getItems().get(reklamyZ.getSelectionModel()
-                        .getSelectedIndex());
-                idZ.setText(Integer.toString(r.getReklamaId()));
-                idZ.setVisible(false);
-               // tytulModyfikacja.setText(r.getTytul());
-                //opisModyfikacja.setText(r.getOpis());
-            
-            }  
-    });
 
-}
     
 }

@@ -106,25 +106,28 @@ public class ReklamaQuery {
     }
              public void changeAdvert(int id, String tytul, String opis) {
         session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = null;
+      
         try {
-            tx = session.beginTransaction();
-            Reklama reklam= new ReklamaQuery().wyszukiwanieIDR(id);
+           session = HibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            Reklama reklam= (Reklama)session.get(Reklama.class, id);
             reklam.setTytul(tytul);
             reklam.setOpis(opis);
-            session.update(reklam);
+           
            session.getTransaction().commit();
-            
+           
 
-
-        } catch (HibernateException e) {
-            if (tx != null) {
-                tx.rollback();
+        } catch(Exception sqlException) {
+            if(null != session.getTransaction()) {
+                System.out.println("\n.......Transaction Is Being Rolled Back.......");
+                session.getTransaction().rollback();
             }
-            e.printStackTrace();
+            sqlException.printStackTrace();
         } finally {
-            session.close();
-        }
-    }
+            if(session != null) {
+                session.close();
+            }
     
+}
+             }
 }
