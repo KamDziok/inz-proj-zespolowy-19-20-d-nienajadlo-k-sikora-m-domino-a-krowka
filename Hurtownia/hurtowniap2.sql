@@ -22,6 +22,12 @@ SET time_zone = "+00:00";
 -- Baza danych: `hurtowniap2`
 --
 
+DROP DATABASE IF EXISTS hurtowniap2;
+
+CREATE DATABASE IF NOT EXISTS hurtowniap2;
+
+USE hurtowniap2;
+
 DELIMITER $$
 --
 -- Procedury
