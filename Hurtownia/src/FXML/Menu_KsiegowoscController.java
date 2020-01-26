@@ -345,10 +345,23 @@ row.setContextMenu(contextMenu);
  float wyplataKwota = Float.parseFloat(kwota.getText());
  int id = Integer.parseInt(idPracownika.getText());
       WyplatyQuery wyplataa = new WyplatyQuery();
+      try{
        wyplataa.dodajWyplate(wyplataKwota, id);
-       
-        System.out.println("Wyplata run");
-     
+       System.out.println("Wyplata run");
+       Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Informacja");
+            alert.setHeaderText(null);
+            alert.setContentText("Wyplata dodana!");
+            alert.showAndWait();
+      }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("Wyplata error!");
+            Alert alert2 = new Alert(Alert.AlertType.WARNING);
+            alert2.setTitle("Informacja");
+            alert2.setHeaderText(null);
+            alert2.setContentText("Coś jest nie tak...");
+            alert2.showAndWait();
+               }
         
     }
 
