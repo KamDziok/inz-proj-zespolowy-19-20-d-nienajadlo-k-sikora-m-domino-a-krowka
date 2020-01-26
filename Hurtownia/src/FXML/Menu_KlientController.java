@@ -19,6 +19,7 @@ import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
 import hibernate.ReklamaQuery;
+import hibernate.Towaryzamowienie;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
 import java.io.FileInputStream;
@@ -134,12 +135,6 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private Label statusZamowienia;
     @FXML
-    private ImageView grafikaReklamy;
-    @FXML
-    private Text opisReklamy;
-    @FXML
-    private Button reklamaBtn;
-    @FXML
     private TableColumn<Zamowienie, Integer> id;
     @FXML
     private TableColumn<Zamowienie, Date> dataZamowienia;
@@ -151,6 +146,16 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private Label tabelaId;
     @FXML
     private Button wczytajBtn;
+    @FXML
+    private TableView<?> zamowieniaZT;
+    @FXML
+    private TableColumn<Towaryzamowienie, String> nazwaZT;
+    @FXML
+    private TableColumn<Towaryzamowienie, Integer> iloscZT;
+    @FXML
+    private TableColumn<Towaryzamowienie, Float> kosztZT;
+    @FXML
+    private Button ButtonAnuluj;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -325,24 +330,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         prod.setVisible(false);
     }
 
-    @FXML
-    private void zobaczReklame(ActionEvent event) throws FileNotFoundException {
-        
-        int idProdukt = Integer.parseInt(prod.getText());
-        
-        ReklamaQuery reklama = new ReklamaQuery();
-       
-        String adres = reklama.wyszukiwanieID
-        (idProdukt).getGrafika();
-       Image image = new Image(new FileInputStream(adres));
-        
-       grafikaReklamy.setImage(image);
-       
-       opisReklamy.setText(reklama.wyszukiwanieID(idProdukt).getOpis().
-               toString());
-      
-    }
-    
+ 
     public void zamowieniaTable(){
         
         id.setCellValueFactory(new PropertyValueFactory<> ("zamowienieId"));
@@ -369,6 +357,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         ZamowienieQuery zamow = new ZamowienieQuery();
         zamowieniaK.getItems().addAll(zamow.zamowieniaID(id));
       
+    }
+
+    @FXML
+    private void anuluj(ActionEvent event) {
     }
 
 

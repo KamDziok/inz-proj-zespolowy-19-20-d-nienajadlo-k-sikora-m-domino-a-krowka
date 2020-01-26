@@ -47,6 +47,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -114,6 +115,14 @@ public class Menu_MarketingController extends Logowanie implements
     private TableColumn<Reklama, String> OpisReklamyZ;
     @FXML
     private JFXButton wylogujDR11;
+    @FXML
+    private TextField tytulModyfikacja;
+    @FXML
+    private Label idZ;
+    @FXML
+    private Button zmianaDanychR;
+    @FXML
+    private TextField opisModyfikacja;
 
     
     @FXML
@@ -138,6 +147,7 @@ public class Menu_MarketingController extends Logowanie implements
         ComboBoxK ();
         reklamyTable();
         reklamyTableZ();
+        setCellValueFromTableToTextField();
         
     }    
 
@@ -191,20 +201,10 @@ public class Menu_MarketingController extends Logowanie implements
      public void reklamyTableZ(){
          idReklamyZ.setCellValueFactory(new PropertyValueFactory<>("ReklamaId"));
          TytulReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Tytul"));
-         OpisReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Opis"));
+        OpisReklamyZ.setCellValueFactory(new PropertyValueFactory<>("Opis"));
          
          reklamyZ.getItems().addAll(getReklama());
-        reklamyZ.setEditable(true);
-       
          
-         
-     }
-     
-     public void editTable(){
-           TytulReklamyZ.setCellFactory(TextFieldTableCell.forTableColumn());
-           TytulReklamy.setOnEditCommit(e ->{
-               e.getTableView().getItems().get(e.getTablePosition().getRow()).setTytul(e.getNewValue());
-           });
      }
      
     public void comboValueKT (ComboBox<Kategorie> katDcomo){
@@ -316,4 +316,35 @@ row.setContextMenu(contextMenu);
     
      }
 
+    @FXML
+    private void modyfikacjaReklamy(ActionEvent event) {
+        
+        int id = Integer.parseInt(idZ.getText());
+        String tytul = tytulModyfikacja.getText();
+        String opis = opisModyfikacja.getText();
+        
+        try{
+            ReklamaQuery zmianaR = new ReklamaQuery();
+            zmianaR.changeAdvert(id, tytul, opis);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        
+    }
+    
+    private void setCellValueFromTableToTextField(){
+        reklamyZ.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent event) {
+                Reklama r = reklamyZ.getItems().get(reklamyZ.getSelectionModel()
+                        .getSelectedIndex());
+                idZ.setText(Integer.toString(r.getReklamaId()));
+                idZ.setVisible(false);
+                tytulModyfikacja.setText(r.getTytul());
+                opisModyfikacja.setText(r.getOpis());
+            
+            }  
+    });
+
+}
 }

@@ -93,15 +93,17 @@ public class ReklamaQuery {
         return r;
     }
                
-            public void changeAdvert(String tytul) {
+            public void changeAdvert(int id, String tytul, String opis) {
         session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Reklama r= new Reklama();
-            r.setTytul(tytul);
-            session.update(r);
+            Reklama reklam= new ReklamaQuery().wyszukiwanieID(id);
+            reklam.setTytul(tytul);
+            reklam.setOpis(opis);
+            session.update(reklam);
             tx.commit();
+
 
         } catch (HibernateException e) {
             if (tx != null) {
