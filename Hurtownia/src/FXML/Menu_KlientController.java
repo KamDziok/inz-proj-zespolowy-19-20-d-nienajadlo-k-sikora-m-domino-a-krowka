@@ -363,5 +363,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private void anuluj(ActionEvent event) {
     }
 
+    @FXML
+    private void zatwierdz(ActionEvent event) {
+    }
+
 
 }
