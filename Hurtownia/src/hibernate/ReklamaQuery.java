@@ -113,7 +113,8 @@ public class ReklamaQuery {
             reklam.setTytul(tytul);
             reklam.setOpis(opis);
             session.update(reklam);
-            tx.commit();
+           session.getTransaction().commit();
+            
 
 
         } catch (HibernateException e) {
