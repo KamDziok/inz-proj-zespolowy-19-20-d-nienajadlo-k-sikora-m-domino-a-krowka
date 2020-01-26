@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package hibernate;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -11,6 +14,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jdbc.Work;
 
 /**
  *
@@ -89,6 +93,25 @@ public class WyplatyQuery {
   
     //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
     }
+         
+              public void dodajWyplate(float kwota,int idPrac){
+          Session session = HibernateUtil.getSessionFactory().openSession();
+          Transaction transaction = session.beginTransaction();
+          session.doWork(new Work() {
+
+              @Override
+              public void execute(Connection conn) throws SQLException {
+                  CallableStatement cs = conn.prepareCall("{call dodajWyplate(?,?)}");
+                  cs.setFloat(1,kwota);
+                  cs.setInt(2, idPrac);
+                  cs.execute();
+       
+          
+      } 
+          });
+           transaction.commit();
+           session.close();
+     }
     
      
 }

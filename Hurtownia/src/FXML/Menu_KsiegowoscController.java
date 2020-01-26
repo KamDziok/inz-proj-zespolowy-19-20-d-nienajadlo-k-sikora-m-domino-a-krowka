@@ -38,6 +38,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -128,6 +129,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         String ksiegi = "/FXML/Login.fxml";
         wczytywanie(event, ksiegi);
         ramka(event);
+        
     }
     /**
      * Initializes the controller class.
@@ -319,6 +321,7 @@ row.setContextMenu(contextMenu);
         int PracownikId = p.getPracownikId();
         idPracownika.setText(Integer.toString(PracownikId));
         idPracownika.setVisible(false);
+        labelID.setText(Integer.toString(PracownikId));
     }
 
     @FXML
@@ -332,25 +335,17 @@ row.setContextMenu(contextMenu);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+        
     }
-    
+    @FXML
     private void dodajWyplate(ActionEvent event){
  //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
-      float wyplata = 1599;
-      int id=7;
-      Date dataSql = new Date(2020,01,12);
-        try {
-            WyplatyQuery wyplaty = new WyplatyQuery();
-           wyplaty.dodajWyplate(dataSql, wyplata, id);
-           
-         
-            
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-           
-        }
+ //SET @p0='1500'; SET @p1='3'; CALL `dodajWyplate`(@p0, @p1);
         
-        
+ float wyplataKwota = Float.parseFloat(kwota.getText());
+ int id = Integer.parseInt(idPracownika.getText());
+      WyplatyQuery wyplataa = new WyplatyQuery();
+       wyplataa.dodajWyplate(wyplataKwota, id);
         
         
     }
