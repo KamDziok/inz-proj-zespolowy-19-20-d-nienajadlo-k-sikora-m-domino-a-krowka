@@ -9,22 +9,19 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Adresy;
 import hibernate.AdresyQuery;
-import hibernate.HibernateUtil;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
 import hibernate.KlientQuery;
-import hibernate.KsiegowoscQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
-import hibernate.ReklamaQuery;
 import hibernate.Towaryzamowienie;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -33,26 +30,44 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
 
 /**
  * FXML Controller class
  *
  * @author monika
  */
+
+ class ZamowienieID {
+    Date zamID;
+    
+    ZamowienieID(Date zam) {
+        this.zamID = zam;
+    }
+
+    public Date getZamIDDate() {
+        return zamID;
+    }
+    
+    
+
+    public String getZamID() {
+        
+    return new SimpleDateFormat("HHmmssSSS").format(zamID);
+    }
+
+    public void setZamID(Date zamID) {
+        this.zamID = zamID;
+    }
+    
+    
+    
+}
+
 public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
@@ -156,6 +171,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private TableColumn<Towaryzamowienie, Float> kosztZT;
     @FXML
     private Button ButtonAnuluj;
+    
+    ArrayList<String> towary = new ArrayList<String>();
+    ZamowienieID zamID = new ZamowienieID(new Date());
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -313,8 +331,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
         try{
             KlientQuery klient = new KlientQuery();
-            klient.zamowTowar(ilosc, idProdukt, id);
-            statusZamowienia.setText("Towar został zamówiony!");
+            if (towary.size() == 0)
+            zamID.setZamID(new Date());
+            klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
+            statusZamowienia.setText("Towar dodany do zamówienia!");
             
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -361,10 +381,41 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
     private void anuluj(ActionEvent event) {
+        
+        try{
+            KlientQuery klient = new KlientQuery();
+            if (towary.size() == 0)
+            zamID.setZamID(new Date());
+            klient.anulujZamowienie(zamID.getZamID());
+            statusZamowienia.setText("Zamowienie zostało anulowane");
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        towary.clear();
     }
 
     @FXML
     private void zatwierdz(ActionEvent event) {
+        
+        try{
+            KlientQuery klient = new KlientQuery();
+            if (towary.size() == 0)
+            zamID.setZamID(new Date());
+            klient.zatwierdzZamowienie(zamID.getZamID());
+            statusZamowienia.setText("Zamowienie zostało potwierdzone");
+            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        towary.clear();
+    }
+    
+    
+    @FXML
+    private void towaryDoZamowieniaTable(ActionEvent event) {
+
+
     }
 
 

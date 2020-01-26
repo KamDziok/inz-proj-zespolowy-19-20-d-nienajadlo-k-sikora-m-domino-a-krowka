@@ -20,6 +20,20 @@ public class AdresyQuery {
     Session session = null;
     Query query = null;
     Criteria criteria = null;
+    
+    /**
+     * dodajAdres - method to adding adress of client 
+     * @param klientID - target of method 
+     * @param kraj - address param
+     * @param miasto - address param
+     * @param ulica - address param
+     * @param numerBudynku - address param
+     * @param numnerLokalu - address param
+     * @param email - adddress param
+     * 
+     * all params are required to use method
+     * 
+    */
 
     public void dodajAdres(int klientID, String kraj, String miasto,
             String ulica, String numerBudynku, String numerLokalu, String email) {
@@ -51,6 +65,12 @@ public class AdresyQuery {
         }
 
     }
+    
+    /**
+     * 
+     * @param email
+     * @return returns address selected by email address of user
+     */
 
     public Adresy wyszukanie(String email) {
         Adresy a = null;
@@ -62,6 +82,12 @@ public class AdresyQuery {
         session.close();
        return a;
     }
+    
+    /**
+     * 
+     * @param klientID - select param
+     * @return address of client selected by klientID
+     */
     
      public Adresy wyswietlAdres(int klientID){
         Adresy a = null;

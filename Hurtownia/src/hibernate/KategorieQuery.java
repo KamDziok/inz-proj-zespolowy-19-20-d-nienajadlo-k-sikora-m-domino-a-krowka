@@ -18,6 +18,11 @@ public class KategorieQuery {
     Session session = null;
     Criteria criteria = null;
     
+    /**
+     * 
+     * @return all categories of products from database 
+     */
+    
      public List<Kategorie> KategorieSelectAll() {
         session = HibernateUtil.getSessionFactory().openSession();
         criteria = session.createCriteria(Kategorie.class);

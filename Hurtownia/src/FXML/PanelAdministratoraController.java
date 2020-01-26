@@ -18,12 +18,12 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  * FXML Controller class
  *
  * @author monika
+ * 
  */
 public class PanelAdministratoraController extends Logowanie implements Initializable {
 
@@ -44,7 +44,6 @@ public class PanelAdministratoraController extends Logowanie implements Initiali
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
     }    
 
     @FXML

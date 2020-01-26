@@ -22,6 +22,16 @@ public class KsiegowoscQuery {
     Query query = null;
     Criteria criteria = null;
     
+        /**
+         * 
+         * @param zamowienieID - order identifier
+         * @throws DocumentException 
+         * @throws IOException 
+         * 
+         * use this method to create invoice to order by order id
+         * 
+         */
+    
        public void pobierzFakture(String zamowienieID) 
            throws DocumentException, IOException{
         
