@@ -177,6 +177,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     ZamowienieID zamID = new ZamowienieID(new Date());
     @FXML
     private Button zatwierdzBTN;
+    @FXML
+    private Button zmiania;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -440,6 +442,14 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private void displayTowary() {
         TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
             zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+    }
+
+    @FXML
+    private void zmianaOkna(ActionEvent event) {
+        
+        String adres = "/FXML/Tabela.fxml";
+        wczytywanie(event, adres);
+        ramka(event);
     }
 
 
