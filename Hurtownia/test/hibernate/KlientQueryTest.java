@@ -43,14 +43,14 @@ public class KlientQueryTest {
     @Test
     public void testSelecyByLoginandPassword() {
         System.out.println("selecyByLoginandPassword");
-        String login = "";
-        String password = "";
+        String login = "jankowalski";
+        String password = "jankowalski";
         KlientQuery instance = new KlientQuery();
-        boolean expResult = false;
+        boolean expResult = true;
         boolean result = instance.selecyByLoginandPassword(login, password);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -66,7 +66,7 @@ public class KlientQueryTest {
         Klient result = instance.selectByLoginandPassword(login, password);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -121,7 +121,7 @@ public class KlientQueryTest {
     @Test
     public void testChangeAddress() throws Exception {
         System.out.println("changeAddress");
-       int id = 0;
+        int id = 0;
         String country = "";
         String city = "";
         String street = "";
@@ -144,7 +144,7 @@ public class KlientQueryTest {
         int ProduktID = 0;
         int klientID = 0;
         KlientQuery instance = new KlientQuery();
-        instance.zamowTowar(ilosc, ProduktID, klientID);
+//        instance.zamowTowar(ilosc, ProduktID, klientID);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
