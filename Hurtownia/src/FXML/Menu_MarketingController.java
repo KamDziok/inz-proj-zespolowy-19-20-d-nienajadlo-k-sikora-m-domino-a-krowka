@@ -345,12 +345,12 @@ row.setContextMenu(contextMenu);
         try{
             ReklamaQuery zmianaR = new ReklamaQuery();
             zmianaR.changeAdvert(id, tytul, opis);
-             
-           reklamyZ.setItems(getReklama());
-           reklamy.setItems(getReklama());
            
             tytulModyfikacja.setText(null);
             opisModyfikacja.setText(null);
+            
+            reklamyZ.setItems(getReklama());
+           reklamy.setItems(getReklama());
             
             zmianaStatus.setText("Reklama została modyfikowana!");
            

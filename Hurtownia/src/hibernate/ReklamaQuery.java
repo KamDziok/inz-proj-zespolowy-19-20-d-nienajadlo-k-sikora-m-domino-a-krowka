@@ -107,7 +107,33 @@ public class ReklamaQuery {
              public void changeAdvert(int id, String tytul, String opis) {
         session = HibernateUtil.getSessionFactory().openSession();
       
-        try {
+            String query = "UPDATE `reklama` SET";
+            
+            if(!query.equals("UPDATE `reklama` SET"))
+            query+=",";
+            
+            if(tytul.length() > 0) {
+                query = query + " `Tytul` = '" + tytul + "'";
+            }
+            
+             if(opis.length() > 0){
+        if(!query.equals("UPDATE `reklama` SET"))
+            query+=",";
+            query = query+" `Opis` = '" + opis + "'";
+        }
+             
+             query = query + " WHERE " + " `ReklamaId` = " + id;
+              try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+       /* try {
            session = HibernateUtil.getSessionFactory().openSession();
             session.beginTransaction();
             Reklama reklam= (Reklama)session.get(Reklama.class, id);
@@ -127,6 +153,6 @@ public class ReklamaQuery {
                 session.close();
             }
     
-}
+} */
              }
 }

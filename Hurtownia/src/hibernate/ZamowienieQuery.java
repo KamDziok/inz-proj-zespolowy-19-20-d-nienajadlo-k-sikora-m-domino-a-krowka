@@ -48,7 +48,7 @@ public class ZamowienieQuery {
             query+=",";
             
             if(statusZ.length() > 0) {
-                query = query + " `StatuZaplaty` = '" + statusZ + "'";
+                query = query + " `StatusZaplaty` = '" + statusZ + "'";
             }
             
              if(statusT.length() > 0){
