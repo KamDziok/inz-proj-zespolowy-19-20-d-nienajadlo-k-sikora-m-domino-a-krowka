@@ -39,6 +39,7 @@ public class AdresyQueryTest {
 
     /**
      * Test of dodajAdres method, of class AdresyQuery.
+     * @author Karol
      */
     @Test
     public void testDodajAdres() {
@@ -52,37 +53,32 @@ public class AdresyQueryTest {
         String email = "email@wp.pl";
         AdresyQuery instance = new AdresyQuery();
         instance.dodajAdres(klientID, kraj, miasto, ulica, numerBudynku, numerLokalu, email);
-        // TODO review the generated test code and remove the default call to fail.
-       
     }
 
     /**
      * Test of wyszukanie method, of class AdresyQuery.
+     * @author Dawid
      */
     @Test
     public void testWyszukanie() {
         System.out.println("wyszukanie");
-        String email = "email@wp.pl";
+        String email = "myHurt@gmail.com";
         AdresyQuery instance = new AdresyQuery();
-        Adresy expResult = null;
         Adresy result = instance.wyszukanie(email);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       
+        assertEquals(result.getEmail(), email);
     }
 
     /**
      * Test of wyswietlAdres method, of class AdresyQuery.
+     * @author Dawid
      */
     @Test
     public void testWyswietlAdres() {
         System.out.println("wyswietlAdres");
-        int klientID = 0;
+        int klientID = 2;
         AdresyQuery instance = new AdresyQuery();
-        Adresy expResult = null;
         Adresy result = instance.wyswietlAdres(klientID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+        assertEquals("myHurt@gmail.com", result.getEmail());
     }
     
 }

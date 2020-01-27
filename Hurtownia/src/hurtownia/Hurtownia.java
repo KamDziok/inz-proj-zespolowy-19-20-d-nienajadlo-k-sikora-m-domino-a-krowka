@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 /**
  *
  * @author monika
+ * 
  */
 public class Hurtownia extends Application {
     
@@ -37,6 +38,7 @@ public class Hurtownia extends Application {
 
     /**
      * @param args the command line arguments
+     * @throws Exception exception
      */
     public static void main(String[] args) throws Exception {
          

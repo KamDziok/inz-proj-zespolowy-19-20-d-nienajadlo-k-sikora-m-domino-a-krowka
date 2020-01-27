@@ -7,6 +7,7 @@ package hibernate;
 
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -58,5 +59,41 @@ public class MagazynQuery {
         session.close();
         return magazyn;
     }
-    
+      
+      public void zmianaIlosci (int id, int ilosc){
+          session = HibernateUtil.getSessionFactory().openSession();
+      
+            String query = "UPDATE `magazyn` SET";
+            
+            if(!query.equals("UPDATE `magazyn` SET"))
+            query+=",";
+            
+             if(ilosc > 0){
+        if(!query.equals("UPDATE `magazyn` SET"))
+            query+=",";
+         
+           Magazyn magazyn;
+            magazyn = (Magazyn)session.get(Magazyn.class, id);
+         
+             int iloscS = magazyn.getIlosc();
+             int iloscZ = iloscS - ilosc;
+        
+            
+            query = query+" `Ilosc` = '" + iloscZ + "'";
+            
+        }
+             
+             query = query + " WHERE `ProduktId` = " + id;
+              try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+      }
+      
 }

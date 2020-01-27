@@ -37,7 +37,7 @@ public class Towaryzamowienie  implements java.io.Serializable {
     }
     
     public String getProduktName() {
-        return this.produkty.getNazwa();
+        return produkty.getNazwa();
     }    
     
     public int getProduktID() {

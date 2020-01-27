@@ -175,6 +175,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     
     ArrayList<String> towary = new ArrayList<String>();
     ZamowienieID zamID = new ZamowienieID(new Date());
+    @FXML
+    private Button zatwierdzBTN;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -337,6 +339,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
         System.out.println(towar.zamowieniaID(zamID.getZamID()).size());
             zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+
             statusZamowienia.setText("Towar dodany do zamówienia!");
             
         }catch(Exception e){
@@ -380,6 +383,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         ZamowienieQuery zamow = new ZamowienieQuery();
         zamowieniaK.getItems().addAll(zamow.zamowieniaID(id));
       
+        
+        
     }
 
     @FXML
@@ -424,7 +429,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private void towaryDoZamowieniaTable() {
 
        
-        nazwaZT.setCellValueFactory(new PropertyValueFactory<> ("ProduktName"));
+        nazwaZT.setCellValueFactory(new PropertyValueFactory<> ("produktName"));
        iloscZT.setCellValueFactory(new PropertyValueFactory<> ("ilosc"));
         kosztZT.setCellValueFactory(new PropertyValueFactory<> 
         ("koszt"));

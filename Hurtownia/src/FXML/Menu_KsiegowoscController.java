@@ -220,7 +220,8 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     public void handle(ActionEvent event) {
         try {
             KsiegowoscQuery ksiegowosc = new KsiegowoscQuery();
-            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().getZamowienieID()));
+            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().
+                    getZamowienieID()));
             
              
         } catch (Exception e) {
@@ -321,7 +322,8 @@ row.setContextMenu(contextMenu);
         int PracownikId = p.getPracownikId();
         idPracownika.setText(Integer.toString(PracownikId));
         idPracownika.setVisible(false);
-        labelID.setText(Integer.toString(PracownikId));
+       labelID.setText(Integer.toString(PracownikId));
+       labelID.setVisible(false);
     }
 
     @FXML
@@ -341,8 +343,8 @@ row.setContextMenu(contextMenu);
     private void dodajWyplate(ActionEvent event){
  //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
  //SET @p0='1500'; SET @p1='3'; CALL `dodajWyplate`(@p0, @p1);
-        
- float wyplataKwota = Float.parseFloat(kwota.getText());
+//valueStr = valueStr.replace(',', '.');        
+ float wyplataKwota = Float.parseFloat(kwota.getText().replace(',', '.'));
  int id = Integer.parseInt(idPracownika.getText());
       WyplatyQuery wyplataa = new WyplatyQuery();
       try{
