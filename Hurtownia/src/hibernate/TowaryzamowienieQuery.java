@@ -25,6 +25,7 @@ public class TowaryzamowienieQuery {
         for(Towaryzamowienie tz: zamow){
             if(tz.getZamowienieID() != id){
                 zamow.remove(i);
+                i--;
             }
             i++;
         }
