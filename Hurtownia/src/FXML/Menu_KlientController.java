@@ -22,6 +22,7 @@ import hibernate.Towaryzamowienie;
 import hibernate.TowaryzamowienieQuery;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
+import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,7 +31,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -41,6 +45,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -477,11 +482,16 @@ row.setContextMenu(contextMenu);
     }
 
     @FXML
-    private void zmianaOkna(ActionEvent event) {
+    private void zmianaOkna(ActionEvent event) throws IOException {
         
-        String adres = "/FXML/Tabela.fxml";
-        wczytywanie(event, adres);
-        ramka(event);
+       
+         Stage PrimaryStage = new Stage();
+                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                     + "/Tabela.fxml"));
+                     Scene scene = new Scene(root, 750, 600);
+                     PrimaryStage.setScene(scene);
+                     PrimaryStage.show();
+                     PrimaryStage.setResizable(false);
     }
 
 
