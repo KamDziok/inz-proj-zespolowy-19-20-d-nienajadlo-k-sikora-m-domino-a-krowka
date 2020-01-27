@@ -42,9 +42,12 @@ public class pdfCreator {
      * 
      * @param invoiceNumber - it's a invoice number on ready pdf document
      * @param currency - currency on invoice
-     * @param Klient k - instance of kKlient class
+     * @param k - instance of kKlient class
      * @param VAT - VAT % in invoice - dynamicly calculated before generating pdf
      * @param products[][] two-dimensional array of products in invoice 
+     * @throws FileNotFoundException default exception
+     * @throws DocumentException default exception
+     * @throws IOException default exception
      */
     
     public static void createInvoice(String invoiceNumber, int VAT, String currency, Klient k, String[][] products) throws FileNotFoundException, DocumentException, IOException{

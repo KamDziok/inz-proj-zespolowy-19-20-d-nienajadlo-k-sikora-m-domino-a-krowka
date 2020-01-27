@@ -40,16 +40,14 @@ public class KategorieQueryTest {
 
     /**
      * Test of KategorieSelectAll method, of class KategorieQuery.
+     * @author Dawid
      */
     @Test
     public void testKategorieSelectAll() {
         System.out.println("KategorieSelectAll");
         KategorieQuery instance = new KategorieQuery();
-        List<Kategorie> expResult = null;
         List<Kategorie> result = instance.KategorieSelectAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
     
 }

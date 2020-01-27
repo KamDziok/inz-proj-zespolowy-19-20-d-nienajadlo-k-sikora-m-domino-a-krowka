@@ -5,9 +5,9 @@
  */
 package hibernate;
 
+import java.util.ArrayList;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -64,10 +64,9 @@ public class KlientQueryTest {
      */
     
     @After
-    public void cleanDatabaseAfterTesting(){
+    public void cleanDatabaseAfterTesting() throws Exception{
           
         Session session = null;
-        Criteria criteria = null;
         
         String query = "DELETE FROM `klient` WHERE `Imie` = \"Test\" "
                 + "AND `Nazwisko` = \"Test\"";
@@ -82,6 +81,9 @@ public class KlientQueryTest {
               session.getTransaction().rollback();
               session.close();
           }
+          
+          KlientQuery k = new KlientQuery();
+          k.changeAddress(1, "PL", "Rzeszów", "Pigonia", "1", "1", "ur@stud.pl");
     }
     
      /**
@@ -99,8 +101,6 @@ public class KlientQueryTest {
         boolean expResult = true;
         boolean result = instance.selecyByLoginandPassword(login, password);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
     /**
@@ -122,12 +122,11 @@ public class KlientQueryTest {
         Klient expResult = k;
         Klient result = instance.selectByLoginandPassword(login, password);
         assertEquals(expResult.getLogin(), result.getLogin());
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
     /**
      * Test of rejestracja method, of class KlientQuery.
+     * @author Dawid
      */
     @Test
     public void testRejestracja() {
@@ -138,19 +137,14 @@ public class KlientQueryTest {
         long telefon = 0L;
         String login = "testuser";
         String haslo = "testuser";
-        
         instance.rejestracja(imie, nazwisko, telefon, login, haslo);
-        
         boolean result = instance.selecyByLoginandPassword(login, haslo);
-        
         assertTrue(result);
-        
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
     /**
      * Test of changePassword method, of class KlientQuery.
+     * @author Dawid
      */
     @Test
     public void testChangePassword() {
@@ -161,57 +155,43 @@ public class KlientQueryTest {
         instance.changePassword(login, password);
         boolean result = instance.selecyByLoginandPassword(login, password);
         assertTrue(result);
-        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
     }
 
     /**
      * Test of wyszukiwanie method, of class KlientQuery.
+     * @author Dawid
      */
     @Test
     public void testWyszukiwanie() {
         System.out.println("wyszukiwanie");
-        String login = "";
+        String login = "jankowalski";
         KlientQuery instance = new KlientQuery();
-        Klient expResult = null;
         Klient result = instance.wyszukiwanie(login);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.wyszukiwanie(login).getLogin(), login);
     }
 
     /**
      * Test of changeAddress method, of class KlientQuery.
+     * @author Dawid
      */
     @Test
     public void testChangeAddress() throws Exception {
         System.out.println("changeAddress");
-        int id = 0;
-        String country = "";
-        String city = "";
-        String street = "";
-        String buildingNr = "";
-        String localNumber = "";
-        String email = "";
+        int id = 1;
+        String country = "Russia";
+        String city = "Novosybirsk";
+        String street = "Gogol Street";
+        String buildingNr = "1";
+        String localNumber = "2";
+        String email = "test@test.com";
         KlientQuery instance = new KlientQuery();
         instance.changeAddress(id, country, city, street, buildingNr, localNumber, email);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of zamowTowar method, of class KlientQuery.
-     */
-    @Test
-    public void testZamowTowar() {
-        System.out.println("zamowTowar");
-        int ilosc = 0;
-        int ProduktID = 0;
-        int klientID = 0;
-        KlientQuery instance = new KlientQuery();
-//        instance.zamowTowar(ilosc, ProduktID, klientID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        AdresyQuery a = new AdresyQuery();
+        String addressFromDB = a.wyswietlAdres(id).getKraj() + "," 
+                + a.wyswietlAdres(id).getMiasto();
+        String testAddress = country + "," + city;
+        
+        assertEquals(addressFromDB, testAddress);
     }
     
 }

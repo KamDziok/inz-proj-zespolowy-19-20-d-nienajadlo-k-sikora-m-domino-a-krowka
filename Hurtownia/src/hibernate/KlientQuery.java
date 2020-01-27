@@ -285,8 +285,8 @@ catch (HibernateException error){
     /**
      * 
      * @param zamowienieID - order identifier
-     * @throws DocumentException 
-     * @throws IOException 
+     * @throws DocumentException default exception
+     * @throws IOException default exception
      * 
      * Use this method to take invoice as pdf.
      * 

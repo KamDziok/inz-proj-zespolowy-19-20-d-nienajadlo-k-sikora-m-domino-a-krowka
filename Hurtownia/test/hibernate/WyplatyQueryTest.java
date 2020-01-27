@@ -40,16 +40,14 @@ public class WyplatyQueryTest {
 
     /**
      * Test of WyplatySelectAll method, of class WyplatyQuery.
+     * @author Dawid
      */
     @Test
     public void testWyplatySelectAll() {
         System.out.println("WyplatySelectAll");
         WyplatyQuery instance = new WyplatyQuery();
-        List<Wyplaty> expResult = null;
         List<Wyplaty> result = instance.WyplatySelectAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNull(result);
     }
     
 }
