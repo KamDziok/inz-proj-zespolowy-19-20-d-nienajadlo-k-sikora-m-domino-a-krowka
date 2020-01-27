@@ -220,7 +220,8 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     public void handle(ActionEvent event) {
         try {
             KsiegowoscQuery ksiegowosc = new KsiegowoscQuery();
-            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().getZamowienieID()));
+            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().
+                    getZamowienieID()));
             
              
         } catch (Exception e) {
@@ -321,7 +322,8 @@ row.setContextMenu(contextMenu);
         int PracownikId = p.getPracownikId();
         idPracownika.setText(Integer.toString(PracownikId));
         idPracownika.setVisible(false);
-        labelID.setText(Integer.toString(PracownikId));
+       labelID.setText(Integer.toString(PracownikId));
+       labelID.setVisible(false);
     }
 
     @FXML

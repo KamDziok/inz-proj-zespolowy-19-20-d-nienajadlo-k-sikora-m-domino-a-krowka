@@ -43,6 +43,18 @@ public class Magazyn  implements java.io.Serializable {
         return this.produkty;
     }
     
+     public Integer getProductId(){
+        return produkty.getProduktId();
+    }
+     
+    public String getProduktName(){
+        return produkty.getNazwa();
+    }
+    
+    public Integer getKategoriaId(){
+        return produkty.getKategorie().getKategoriaId();
+    }
+     
     public void setProdukty(Produkty produkty) {
         this.produkty = produkty;
     }

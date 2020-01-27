@@ -11,7 +11,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author Zosia
+ * @author Monika
  */
 public class TowaryzamowienieQuery {
     

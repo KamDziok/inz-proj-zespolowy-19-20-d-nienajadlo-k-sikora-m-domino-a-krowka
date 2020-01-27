@@ -7,6 +7,7 @@ package hibernate;
 
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -58,5 +59,50 @@ public class MagazynQuery {
         session.close();
         return magazyn;
     }
-    
+      
+      public void zmianaIlosci (int id, int ilosc){
+          session = HibernateUtil.getSessionFactory().openSession();
+      
+            String query = "UPDATE `magazyn` SET";
+            
+            if(!query.equals("UPDATE `magazyn` SET"))
+            query+=",";
+            
+             if(ilosc > 0){
+        if(!query.equals("UPDATE `magazyn` SET"))
+            query+=",";
+            query = query+" `Ilosc` = '" + ilosc + "'";
+        }
+             
+             query = query + " WHERE " + " `ProduktId` = " + id;
+              try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+      }
+      
+      public List<Magazyn> SelectAllOnIDKategorii(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Magazyn where KategoriaId = '" + id + "'";
+        Query query = session.createQuery(hql);
+        List <Magazyn> produkt = query.list();
+        session.close();
+        int i = 0;
+        for(Magazyn m : produkt){
+            if(m.getProdukty().getKategorie().getKategoriaId() != id){
+                produkt.remove(i);
+            }
+            i++;
+        }
+        return produkt;
+        
+      
+    }
+      
 }

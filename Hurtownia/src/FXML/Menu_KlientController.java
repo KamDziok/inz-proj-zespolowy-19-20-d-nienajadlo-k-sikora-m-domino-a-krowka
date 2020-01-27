@@ -175,6 +175,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     
     ArrayList<String> towary = new ArrayList<String>();
     ZamowienieID zamID = new ZamowienieID(new Date());
+    @FXML
+    private Button zatwierdzBTN;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -335,9 +337,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             if (towary.size() == 0)
             zamID.setZamID(new Date());
             klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
-//            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-//            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
-//                    parseInt(zamID.getZamID())));
+          TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+        zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
+                parseInt(zamID.getZamID())));
             statusZamowienia.setText("Towar dodany do zamówienia!");
             
         }catch(Exception e){
@@ -427,7 +429,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private void towaryDoZamowieniaTable() {
 
        
-        nazwaZT.setCellValueFactory(new PropertyValueFactory<> ("ProduktName"));
+        nazwaZT.setCellValueFactory(new PropertyValueFactory<> ("produktName"));
        iloscZT.setCellValueFactory(new PropertyValueFactory<> ("ilosc"));
         kosztZT.setCellValueFactory(new PropertyValueFactory<> 
         ("koszt"));
