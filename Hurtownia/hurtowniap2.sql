@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 26 Sty 2020, 20:53
--- Wersja serwera: 10.4.11-MariaDB
--- Wersja PHP: 7.4.1
+-- Czas generowania: 27 Sty 2020, 22:17
+-- Wersja serwera: 10.1.37-MariaDB
+-- Wersja PHP: 7.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -189,7 +189,7 @@ INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko
 ('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
 ('Janusz', 'Polakowski', 1234, 7, 'kierownik', 'kierownik', 'kierownik'),
 ('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', 'ksiegowa'),
-('Asdf', 'Zxcv', 1500, 9, 'kierownik', NULL, NULL);
+('Marek', 'Nowak', 3444, 10, 'marketing', 'reklama', 'reklama');
 
 -- --------------------------------------------------------
 
@@ -224,7 +224,7 @@ CREATE TABLE `reklama` (
   `Tytul` varchar(30) NOT NULL,
   `Data` date NOT NULL,
   `Opis` varchar(300) NOT NULL,
-  `Grafika` varchar(100) NOT NULL,
+  `Grafika` varchar(300) NOT NULL,
   `ProduktID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -381,7 +381,7 @@ ALTER TABLE `zamowienie`
   ADD KEY `klient_ID` (`KlientID`);
 
 --
--- AUTO_INCREMENT dla tabel zrzutów
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
@@ -424,7 +424,7 @@ ALTER TABLE `magazyn`
 -- AUTO_INCREMENT dla tabeli `pracownik`
 --
 ALTER TABLE `pracownik`
-  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkty`
@@ -454,7 +454,7 @@ ALTER TABLE `wyplaty`
 -- AUTO_INCREMENT dla tabeli `zamowienie`
 --
 ALTER TABLE `zamowienie`
-  MODIFY `ZamowienieID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483648;
+  MODIFY `ZamowienieID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483647;
 
 --
 -- Ograniczenia dla zrzutów tabel
