@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Zamowienie;
+import hibernate.ZamowienieQuery;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,6 +34,7 @@ import org.hibernate.Session;
  * @author monika
  */
 public class Magazyn_MenuController extends Logowanie implements Initializable {
+
     @FXML
     private TableView<?> produktyW;
     @FXML
@@ -88,44 +90,39 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     @FXML
     private Label idZa;
 
-       @FXML
+    @FXML
     void wyloguj(ActionEvent event) {
-         
+
         String wylogowanie = "/FXML/Login.fxml";
-           wczytywanie(event, wylogowanie);
-           ramka(event);
+        wczytywanie(event, wylogowanie);
+        ramka(event);
     }
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         statusZamowienTable();
-    }    
+    }
 
-    public void statusZamowienTable(){
-        
-          idZamowienia.setCellValueFactory(new PropertyValueFactory<>
-        ("ZamowienieId"));
-         statusZaplaty.setCellValueFactory(new PropertyValueFactory<>
-        ("statusZaplaty"));
-       statusTransportu.setCellValueFactory(new PropertyValueFactory<>
-        ("statusTransportu"));
-         
-         zamowienia.setItems(getZamowienie());
-         
-           zamowienia.setOnMouseClicked(new EventHandler<MouseEvent>(){
+    public void statusZamowienTable() {
+
+        idZamowienia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
+        statusZaplaty.setCellValueFactory(new PropertyValueFactory<>("statusZaplaty"));
+        statusTransportu.setCellValueFactory(new PropertyValueFactory<>("statusTransportu"));
+
+        zamowienia.setItems(getZamowienie());
+
+        zamowienia.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-               Zamowienie z = zamowienia.getItems().get(zamowienia.
-                       getSelectionModel().getSelectedIndex());
+                Zamowienie z = zamowienia.getItems().get(zamowienia.
+                        getSelectionModel().getSelectedIndex());
                 idZa.setText(Integer.toString(z.getZamowienieId()));
                 idZa.setVisible(false);
-            }  
-    });
+            }
+        });
 
-         
     }
-    
+
     public ObservableList<Zamowienie> getZamowienie() {
         ObservableList<Zamowienie> listaZamowien = FXCollections.
                 observableArrayList();
@@ -139,14 +136,27 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
         }
         return listaZamowien;
     }
-    
+
     @FXML
     private void zmianaStatusu(ActionEvent event) {
-        
+
         int id = Integer.parseInt(idZa.getText());
-        
+
         String statusT = zmianaST.getText();
         String statusZap = zmianaSZ.getText();
+
+        try {
+            ZamowienieQuery zamow = new ZamowienieQuery();
+            Zamowienie zam = new Zamowienie();
+
+            zamow.changeStatus(id,statusZap, statusT);
+
+            zamowienia.setItems(getZamowienie());
+            zmianaST.setText(null);
+            zmianaSZ.setText(null);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-    
+
 }

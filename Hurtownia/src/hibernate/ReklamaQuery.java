@@ -119,7 +119,6 @@ public class ReklamaQuery {
 
         } catch(Exception sqlException) {
             if(null != session.getTransaction()) {
-                System.out.println("\n.......Transaction Is Being Rolled Back.......");
                 session.getTransaction().rollback();
             }
             sqlException.printStackTrace();

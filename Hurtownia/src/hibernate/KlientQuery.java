@@ -194,8 +194,10 @@ public class KlientQuery {
     
     String dataID= new SimpleDateFormat("HHmmssSSS").format(date);
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, `StatusZaplaty`, `StatusTransportu`, `Data`)"
-            + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', ' przyjęte do realizacji', '"+data+"')";
+    String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, "
+            + "`StatusZaplaty`, `StatusTransportu`, `Data`)"
+            + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', "
+            + "' przyjęte do realizacji', '"+data+"')";
     
          
              Produkty produkt;
@@ -206,7 +208,8 @@ public class KlientQuery {
     
 
 
-    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
+            + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
 
             +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')";
 
@@ -250,7 +253,8 @@ catch (HibernateException error){
         
         List<Towaryzamowienie> towary = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql3 = "From Towaryzamowienie WHERE ZamowienieID  = '" + zamowienieID + "'";
+        String hql3 = "From Towaryzamowienie WHERE ZamowienieID  = '" + 
+                zamowienieID + "'";
         query = session.createQuery(hql3);
         towary = query.list();
         session.close();
@@ -266,7 +270,8 @@ catch (HibernateException error){
            
            Produkty p = null;
         session = HibernateUtil.getSessionFactory().openSession();
-        String hql4 = "From Produkty WHERE ProduktID  = '" + towary.get(i).getProduktID() + "'";
+        String hql4 = "From Produkty WHERE ProduktID  = '" + towary.get(i).
+                getProduktID() + "'";
         query = session.createQuery(hql4);
         p = (Produkty) query.uniqueResult();
         session.close();
