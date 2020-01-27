@@ -53,7 +53,7 @@ public class KlientQuery {
      * 
      * @param login - user login
      * @param password - user password
-     * @return all users with login and password equals to params.
+     * @return all users with login and password equals to params (one unique entity).
      */
 
     public Klient selectByLoginandPassword(String login, String password) {

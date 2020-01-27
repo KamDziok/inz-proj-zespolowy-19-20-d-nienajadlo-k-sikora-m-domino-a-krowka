@@ -5,6 +5,10 @@
  */
 package hibernate;
 
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -38,8 +42,54 @@ public class KlientQueryTest {
     }
 
     /**
-     * Test of selecyByLoginandPassword method, of class KlientQuery.
+     * Setup before tests
+     * 
+     * @author Dawid
+     * 
      */
+   
+    @Before
+    public void changeTestPasswordToDefaultValue(){
+        KlientQuery instance = new KlientQuery();
+        String login = "jankowalski";
+        String password = "jankowalski";
+        instance.changePassword(login, password);
+    }
+    
+    /**
+     * @author Dawid
+     * 
+     * This method remove useless test user from database created in rejestracja test
+     * 
+     */
+    
+    @After
+    public void cleanDatabaseAfterTesting(){
+          
+        Session session = null;
+        Criteria criteria = null;
+        
+        String query = "DELETE FROM `klient` WHERE `Imie` = \"Test\" "
+                + "AND `Nazwisko` = \"Test\"";
+        session = HibernateUtil.getSessionFactory().openSession();
+          
+          try {
+              session.getTransaction().begin();
+              session.createSQLQuery(query).executeUpdate();
+              session.getTransaction().commit();
+              session.close();
+          } catch (HibernateException error) {
+              session.getTransaction().rollback();
+              session.close();
+          }
+    }
+    
+     /**
+     * Test of selecyByLoginandPassword method, of class KlientQuery.
+     * @author Dawid
+     */
+    
+    
     @Test
     public void testSelecyByLoginandPassword() {
         System.out.println("selecyByLoginandPassword");
@@ -55,16 +105,23 @@ public class KlientQueryTest {
 
     /**
      * Test of selectByLoginandPassword method, of class KlientQuery.
+     * @author Dawid
      */
     @Test
     public void testSelectByLoginandPassword() {
         System.out.println("selectByLoginandPassword");
-        String login = "";
-        String password = "";
+        
+        Klient k = new Klient();
+        k.setLogin("jankowalski");
+        k.setPassword("jankowalski");
+        
+        String login = "jankowalski";
+        String password = "jankowalski";
+        
         KlientQuery instance = new KlientQuery();
-        Klient expResult = null;
+        Klient expResult = k;
         Klient result = instance.selectByLoginandPassword(login, password);
-        assertEquals(expResult, result);
+        assertEquals(expResult.getLogin(), result.getLogin());
         // TODO review the generated test code and remove the default call to fail.
 //        fail("The test case is a prototype.");
     }
@@ -75,15 +132,21 @@ public class KlientQueryTest {
     @Test
     public void testRejestracja() {
         System.out.println("rejestracja");
-        String imie = "";
-        String nazwisko = "";
-        long telefon = 0L;
-        String login = "";
-        String haslo = "";
         KlientQuery instance = new KlientQuery();
+        String imie = "Test";
+        String nazwisko = "Test";
+        long telefon = 0L;
+        String login = "testuser";
+        String haslo = "testuser";
+        
         instance.rejestracja(imie, nazwisko, telefon, login, haslo);
+        
+        boolean result = instance.selecyByLoginandPassword(login, haslo);
+        
+        assertTrue(result);
+        
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -92,12 +155,14 @@ public class KlientQueryTest {
     @Test
     public void testChangePassword() {
         System.out.println("changePassword");
-        String login = "";
-        String password = "";
+        String login = "jankowalski";
+        String password = "jankowalski1";
         KlientQuery instance = new KlientQuery();
         instance.changePassword(login, password);
+        boolean result = instance.selecyByLoginandPassword(login, password);
+        assertTrue(result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
 
     /**
