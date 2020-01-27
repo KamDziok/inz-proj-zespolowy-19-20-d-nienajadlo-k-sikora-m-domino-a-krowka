@@ -126,10 +126,11 @@
                               <TextField fx:id="iloscT" layoutX="137.0" layoutY="263.0" prefHeight="25.0" prefWidth="131.0" />
                               <Button fx:id="dodajMagazynbtn" layoutX="121.0" layoutY="350.0" mnemonicParsing="false" onAction="#dodajNaMagazyn" prefHeight="34.0" prefWidth="119.0" text="Dodaj na magazyn" />
                               <Label fx:id="magazyn_status" layoutX="83.0" layoutY="409.0" prefHeight="17.0" prefWidth="256.0" />
-                              <TableView fx:id="towary" layoutX="377.0" layoutY="177.0" prefHeight="112.0" prefWidth="348.0">
+                              <TableView fx:id="towary" layoutX="377.0" layoutY="177.0" prefHeight="131.0" prefWidth="348.0">
                                 <columns>
-                                  <TableColumn fx:id="cenaSTable" prefWidth="181.0" text="Cena sprzedaży" />
-                                    <TableColumn fx:id="iloscTable" prefWidth="166.0" text="Ilość" />
+                                    <TableColumn fx:id="nazwaProduktu" prefWidth="151.0" text="Nazwa produktu" />
+                                  <TableColumn fx:id="cenaSTable" prefWidth="106.0" text="Cena sprzedaży" />
+                                    <TableColumn fx:id="iloscTable" prefWidth="90.0" text="Ilość" />
                                 </columns>
                               </TableView>
                               <JFXComboBox fx:id="PcomboT" layoutX="466.0" layoutY="109.0" prefHeight="25.0" prefWidth="168.0" />
@@ -139,7 +140,6 @@
                                  </font>
                               </Label>
                               <JFXButton fx:id="wczytajTabela" layoutX="650.0" layoutY="109.0" onAction="#wczytajTabele" text="Tabela" />
-                              <JFXButton fx:id="wczytKategorie" layoutX="647.0" layoutY="74.0" onAction="#wczytajKategorie" text="Wczytaj" />
                               <Label layoutX="391.0" layoutY="86.0" prefHeight="17.0" prefWidth="97.0" text="Kategoria:">
                                  <font>
                                     <Font size="13.0" />

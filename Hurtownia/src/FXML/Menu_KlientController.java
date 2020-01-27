@@ -383,6 +383,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         ZamowienieQuery zamow = new ZamowienieQuery();
         zamowieniaK.getItems().addAll(zamow.zamowieniaID(id));
       
+        
+        
     }
 
     @FXML

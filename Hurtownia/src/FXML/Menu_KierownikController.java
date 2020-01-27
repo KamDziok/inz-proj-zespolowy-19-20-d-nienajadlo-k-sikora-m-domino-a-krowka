@@ -178,8 +178,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private JFXButton wczytajTabela;
     @FXML
-    private JFXButton wczytKategorie;
-    @FXML
     private JFXComboBox<Kategorie> KcomboT;
     @FXML
     private Label kat;
@@ -198,6 +196,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private TableColumn<Zamowienie, String> zaplata;
     @FXML
     private TableColumn<Zamowienie, String> transport;
+    @FXML
+    private TableColumn<Magazyn, String> nazwaProduktu;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -351,6 +351,8 @@ row.setContextMenu(contextMenu);
     
     public void magazynTable() {
         
+        nazwaProduktu.setCellValueFactory(new PropertyValueFactory<>
+        ("ProduktName"));
         cenaSTable.setCellValueFactory(new PropertyValueFactory<>
         ("cenaSprzedazy"));
         iloscTable.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
@@ -480,8 +482,24 @@ row.setContextMenu(contextMenu);
             @Override
             public void handle(ActionEvent event) {
                 comboValueKT(KcomboT);
+                
+             if(!kat.equals("")){   
+          int Kategoria = Integer.parseInt(kat.getText());        
+        ProduktQuery p = new ProduktQuery();
+        
+        PcomboT.getItems().addAll(p.produktySelectAllOnID(Kategoria));
+        PcomboT.setConverter(new ProduktyConverter());
+        
+        PcomboT.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueProduktyK(PcomboT);
+          }
+                });
+            }
             }
         });
+        
 
     }
 
@@ -615,22 +633,4 @@ row.setContextMenu(contextMenu);
         }
     }
 
-    @FXML
-    private void wczytajKategorie(ActionEvent event) {
-        
-        int Kategoria = Integer.parseInt(kat.getText());
-        
-        ProduktQuery p = new ProduktQuery();
-        
-        PcomboT.getItems().addAll(p.produktySelectAllOnID(Kategoria));
-        PcomboT.setConverter(new ProduktyConverter());
-        
-        PcomboT.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueProduktyK(PcomboT);
-            }
-        });
-        
-    }
 }
