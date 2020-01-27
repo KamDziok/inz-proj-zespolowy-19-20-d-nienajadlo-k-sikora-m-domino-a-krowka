@@ -5,9 +5,9 @@
  */
 package hibernate;
 
+import java.util.ArrayList;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -67,7 +67,6 @@ public class KlientQueryTest {
     public void cleanDatabaseAfterTesting() throws Exception{
           
         Session session = null;
-        Criteria criteria = null;
         
         String query = "DELETE FROM `klient` WHERE `Imie` = \"Test\" "
                 + "AND `Nazwisko` = \"Test\"";
@@ -193,21 +192,6 @@ public class KlientQueryTest {
         String testAddress = country + "," + city;
         
         assertEquals(addressFromDB, testAddress);
-    }
-
-    /**
-     * Test of zamowTowar method, of class KlientQuery.
-     */
-    @Test
-    public void testZamowTowar() {
-        System.out.println("zamowTowar");
-        int ilosc = 0;
-        int ProduktID = 0;
-        int klientID = 0;
-        KlientQuery instance = new KlientQuery();
-//        instance.zamowTowar(ilosc, ProduktID, klientID);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
