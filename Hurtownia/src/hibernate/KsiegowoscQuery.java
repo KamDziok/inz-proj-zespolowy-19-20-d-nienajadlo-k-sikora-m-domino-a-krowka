@@ -25,8 +25,8 @@ public class KsiegowoscQuery {
         /**
          * 
          * @param zamowienieID - order identifier
-         * @throws DocumentException 
-         * @throws IOException 
+         * @throws DocumentException default documentException
+         * @throws IOException default IOException
          * 
          * use this method to create invoice to order by order id
          * 

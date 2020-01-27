@@ -28,7 +28,7 @@ public class AdresyQuery {
      * @param miasto - address param
      * @param ulica - address param
      * @param numerBudynku - address param
-     * @param numnerLokalu - address param
+     * @param numerLokalu - address param
      * @param email - adddress param
      * 
      * all params are required to use method
@@ -68,8 +68,8 @@ public class AdresyQuery {
     
     /**
      * 
-     * @param email
-     * @return returns address selected by email address of user
+     * @param email - email address
+     * @return address selected by email address of user
      */
 
     public Adresy wyszukanie(String email) {
