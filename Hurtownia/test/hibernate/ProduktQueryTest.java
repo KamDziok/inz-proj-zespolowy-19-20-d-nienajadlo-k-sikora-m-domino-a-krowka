@@ -38,54 +38,42 @@ public class ProduktQueryTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
     /**
      * Test of getProdukt method, of class ProduktQuery.
+     * @author Dawid
      */
     @Test
     public void testGetProdukt() {
         System.out.println("getProdukt");
-        int ProduktID = 0;
+        int ProduktID = 2;
         ProduktQuery instance = new ProduktQuery();
-        Produkty expResult = null;
         Produkty result = instance.getProdukt(ProduktID);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals("Ziemniaki", result.getNazwa());
     }
 
     /**
      * Test of ProduktySelectAll method, of class ProduktQuery.
+     * @author Dawid
      */
     @Test
     public void testProduktySelectAll() {
         System.out.println("ProduktySelectAll");
         ProduktQuery instance = new ProduktQuery();
-        List<Produkty> expResult = null;
         List<Produkty> result = instance.ProduktySelectAll();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
 
     /**
      * Test of produktySelectAllOnID method, of class ProduktQuery.
+     * @author Dawid
      */
     @Test
     public void testProduktySelectAllOnID() {
         System.out.println("produktySelectAllOnID");
-        int id = 0;
+        int id = 2;
         ProduktQuery instance = new ProduktQuery();
-        List<Produkty> expResult = null;
         List<Produkty> result = instance.produktySelectAllOnID(id);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
     }
     
 }
