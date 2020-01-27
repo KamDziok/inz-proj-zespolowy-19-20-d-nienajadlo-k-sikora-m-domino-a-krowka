@@ -343,8 +343,8 @@ row.setContextMenu(contextMenu);
     private void dodajWyplate(ActionEvent event){
  //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
  //SET @p0='1500'; SET @p1='3'; CALL `dodajWyplate`(@p0, @p1);
-        
- float wyplataKwota = Float.parseFloat(kwota.getText());
+//valueStr = valueStr.replace(',', '.');        
+ float wyplataKwota = Float.parseFloat(kwota.getText().replace(',', '.'));
  int id = Integer.parseInt(idPracownika.getText());
       WyplatyQuery wyplataa = new WyplatyQuery();
       try{
