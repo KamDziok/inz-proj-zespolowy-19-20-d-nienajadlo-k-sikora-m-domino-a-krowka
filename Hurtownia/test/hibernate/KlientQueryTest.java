@@ -160,17 +160,15 @@ public class KlientQueryTest {
 
     /**
      * Test of wyszukiwanie method, of class KlientQuery.
+     * @author Dawid
      */
     @Test
     public void testWyszukiwanie() {
         System.out.println("wyszukiwanie");
-        String login = "";
+        String login = "jankowalski";
         KlientQuery instance = new KlientQuery();
-        Klient expResult = null;
         Klient result = instance.wyszukiwanie(login);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(instance.wyszukiwanie(login).getLogin(), login);
     }
 
     /**
