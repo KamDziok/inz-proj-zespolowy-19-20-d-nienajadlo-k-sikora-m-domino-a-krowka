@@ -16,6 +16,7 @@ import hibernate.MagazynQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
+import hibernate.Towaryzamowienie;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
 import java.net.URL;
@@ -46,17 +47,11 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
 
     @FXML
     private TableView<Magazyn> produktyW;
-    @FXML
-    private TableColumn<?, ?> IdProdukt;
-    @FXML
-    private TableColumn<?, ?> cenaP;
  
     @FXML
     private Button wylogujBtnP;
     @FXML
-    private TableView<?> produkty;
-    @FXML
-    private TableColumn<?, ?> iloscP;
+    private TableColumn<Towaryzamowienie, Integer> iloscP;
     @FXML
     private TableView<Zamowienie> zamowienia;
     @FXML
@@ -101,6 +96,14 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     private JFXComboBox<Produkty> produktyDcombo;
     @FXML
     private Label produktyId;
+    @FXML
+    private Label ZmianaIloscStatus;
+    @FXML
+    private TableView<Towaryzamowienie> produktyZamowione;
+    @FXML
+    private TableColumn<Zamowienie, Integer> idZamoweinia;
+    @FXML
+    private TableColumn<Zamowienie, Integer> cenaP;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -115,6 +118,7 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
         statusZamowienTable();
          ProduktyIlosc ();
          KategoriaCombo ();
+         zamowieniaPodsumowanie();
     }
     
      public ObservableList<Kategorie> getKategoria() {
@@ -129,6 +133,21 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
 
         }
         return kategorie;
+    }
+     
+      
+     public ObservableList<Magazyn> getMagazyn() {
+        ObservableList<Magazyn> maga = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Magazyn> pList = session.createCriteria(Magazyn.class).list();
+
+        for (Magazyn m : pList) {
+            maga.add(m);
+
+        }
+        return maga;
     }
 
     public void statusZamowienTable() {
@@ -210,7 +229,7 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     
     public void ProduktyIlosc (){
         
-        idProduktuZI.setCellValueFactory(new PropertyValueFactory<>("ProduktId"));
+        idProduktuZI.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
         nazwaZI.setCellValueFactory(new PropertyValueFactory<>("ProduktName"));
         iloscZI.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
         
@@ -237,6 +256,21 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
 
         for (Zamowienie z : pList) {
             listaZamowien.add(z);
+
+        }
+        return listaZamowien;
+    }
+    
+       public ObservableList<Towaryzamowienie> getTowarZamowienie() {
+        ObservableList<Towaryzamowienie> listaZamowien = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Towaryzamowienie> pList = session.createCriteria(
+                Towaryzamowienie.class).list();
+
+        for (Towaryzamowienie tz : pList) {
+            listaZamowien.add(tz);
 
         }
         return listaZamowien;
@@ -272,8 +306,13 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
             int id = Integer.parseInt(idZI.getText());
             int ilosc = Integer.parseInt(iloscZmiana.getText());
             maga.zmianaIlosci(id, ilosc);
+            produktyW.setItems(getMagazyn());
+            ZmianaIloscStatus.setText("Ilość towaru na stanie została"
+                    + " zaaktualizowana");
+            iloscZmiana.setText(null);
+            
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            System.out.println(e.getLocalizedMessage());
         }
     }
 
@@ -291,6 +330,28 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
             System.out.println(e.getMessage());
         }
         
+        
+    }
+    
+    public void zamowieniaTable(){
+        
+        idZamowienia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
+        nazwaZI.setCellValueFactory(new PropertyValueFactory<>("ProduktName"));
+        iloscZI.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
+        
+        
+    }
+    
+    
+    
+    
+    public void zamowieniaPodsumowanie(){
+        
+        idZamoweinia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieID"));
+        iloscP.setCellValueFactory(new PropertyValueFactory<>("ProduktName"));
+        cenaP.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
+        
+        produktyZamowione.setItems(getTowarZamowienie());
         
     }
 

@@ -16,22 +16,17 @@
    <children>
       <TabPane prefHeight="472.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Produkty">
+          <Tab text="Zamowienia">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="produkty" layoutX="67.0" layoutY="88.0" prefHeight="270.0" prefWidth="489.0">
+                        <TableView fx:id="produktyZamowione" layoutX="67.0" layoutY="88.0" prefHeight="270.0" prefWidth="489.0">
                           <columns>
-                            <TableColumn fx:id="IdProdukt" prefWidth="146.0" text="MagazynId" />
-                              <TableColumn fx:id="iloscP" prefWidth="202.0" text="Ilość w magazynie" />
-                              <TableColumn fx:id="cenaP" prefWidth="138.0" text="Cena za szt" />
+                            <TableColumn fx:id="idZamoweinia" prefWidth="146.0" text="Id zamówienia" />
+                              <TableColumn fx:id="iloscP" prefWidth="202.0" text="Nazwa produktu" />
+                              <TableColumn fx:id="cenaP" prefWidth="138.0" text="Ilość" />
                           </columns>
                         </TableView>
-                        <Label layoutX="67.0" layoutY="39.0" prefHeight="17.0" prefWidth="89.0" text="Kategoria:">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
                         <Button fx:id="wylogujBtnP" layoutX="625.0" layoutY="14.0" mnemonicParsing="false" onAction="#wyloguj" text="Wyloguj" />
                      </children>
                   </AnchorPane>
@@ -58,7 +53,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="nazwaProduktuL" layoutX="29.0" layoutY="179.0" prefHeight="20.0" prefWidth="156.0">
+                        <Label fx:id="nazwaProduktuL" layoutX="38.0" layoutY="179.0" prefHeight="20.0" prefWidth="141.0">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -81,6 +76,11 @@
                            </font>
                         </Label>
                         <Label fx:id="produktyId" layoutX="571.0" layoutY="105.0" />
+                        <Label fx:id="ZmianaIloscStatus" alignment="CENTER" layoutX="237.0" layoutY="362.0" prefHeight="17.0" prefWidth="413.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>

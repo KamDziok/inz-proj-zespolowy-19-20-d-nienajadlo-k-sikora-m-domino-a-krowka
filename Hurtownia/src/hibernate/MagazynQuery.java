@@ -71,10 +71,19 @@ public class MagazynQuery {
              if(ilosc > 0){
         if(!query.equals("UPDATE `magazyn` SET"))
             query+=",";
-            query = query+" `Ilosc` = '" + ilosc + "'";
+         
+           Magazyn magazyn;
+            magazyn = (Magazyn)session.get(Magazyn.class, id);
+         
+             int iloscS = magazyn.getIlosc();
+             int iloscZ = iloscS - ilosc;
+        
+            
+            query = query+" `Ilosc` = '" + iloscZ + "'";
+            
         }
              
-             query = query + " WHERE " + " `ProduktId` = " + id;
+             query = query + " WHERE `ProduktId` = " + id;
               try {
             session.getTransaction().begin();
             session.createSQLQuery(query).executeUpdate();
@@ -86,23 +95,5 @@ public class MagazynQuery {
             session.close();
         }
       }
-      
-      public List<Magazyn> SelectAllOnIDKategorii(int id){
-        session = HibernateUtil.getSessionFactory().openSession();
-        String hql = "from Magazyn where KategoriaId = '" + id + "'";
-        Query query = session.createQuery(hql);
-        List <Magazyn> produkt = query.list();
-        session.close();
-        int i = 0;
-        for(Magazyn m : produkt){
-            if(m.getProdukty().getKategorie().getKategoriaId() != id){
-                produkt.remove(i);
-            }
-            i++;
-        }
-        return produkt;
-        
-      
-    }
       
 }
