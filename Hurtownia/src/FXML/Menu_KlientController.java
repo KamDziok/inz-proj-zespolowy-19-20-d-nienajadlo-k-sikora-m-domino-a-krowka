@@ -335,9 +335,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             if (towary.size() == 0)
             zamID.setZamID(new Date());
             klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
-            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
-                    parseInt(zamID.getZamID())));
+//            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+//            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
+//                    parseInt(zamID.getZamID())));
             statusZamowienia.setText("Towar dodany do zamówienia!");
             
         }catch(Exception e){
@@ -390,7 +390,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             KlientQuery klient = new KlientQuery();
             if (towary.size() == 0)
             zamID.setZamID(new Date());
-        //    klient.anulujZamowienie(zamID.getZamID());
+            klient.anulujZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
             zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
                     parseInt(zamID.getZamID())));
@@ -405,12 +405,12 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
     private void zatwierdz(ActionEvent event) {
-        
         try{
             KlientQuery klient = new KlientQuery();
             if (towary.size() == 0)
             zamID.setZamID(new Date());
-        //    klient.zatwierdzZamowienie(zamID.getZamID());
+            
+            klient.zatwierdzZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
             zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
                     parseInt(zamID.getZamID())));

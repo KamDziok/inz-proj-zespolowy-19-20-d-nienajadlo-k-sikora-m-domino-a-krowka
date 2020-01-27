@@ -243,7 +243,6 @@ public class KlientQuery {
             int ProduktID , int klientID  , ArrayList towary , Date date){
         
         
-    System.out.println(towary.size());
     String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
     
     String dataID= new SimpleDateFormat("HHmmssSSS").format(date);
@@ -352,5 +351,40 @@ catch (HibernateException error){
         pdf.createInvoice(zamowienieID,vat, waluta, k, productss);
 //     
     }
+   
+   public void zatwierdzZamowienie(String ID){
     
+        session = HibernateUtil.getSessionFactory().openSession();
+        String query = "UPDATE `zamowienie` SET `StatusTransportu`=' "
+                +"w trakcie realizacji' WHERE `ZamowienieID` = " + ID;
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
+    }
+   public void anulujZamowienie(String ID){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "DELETE FROM `towaryzamowienie` WHERE `ZamowienieID` =  " + ID;
+    String query2 = "DELETE FROM `zamowienie` WHERE `ZamowienieID` =  " + ID;
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.createSQLQuery(query2).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
+    }
 }
