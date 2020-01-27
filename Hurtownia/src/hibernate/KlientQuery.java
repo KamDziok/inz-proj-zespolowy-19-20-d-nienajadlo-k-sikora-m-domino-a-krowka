@@ -27,6 +27,13 @@ public class KlientQuery {
     Session session = null;
     Query query = null;
     Criteria criteria = null;
+    
+    /**
+     * 
+     * @param login - user login
+     * @param password - user password
+     * @return all users with login and password equals to params.
+     */
 
     public boolean selecyByLoginandPassword(String login, String password) {
         Klient k = null;
@@ -41,6 +48,13 @@ public class KlientQuery {
         }
         return false;
     }
+    
+      /**
+     * 
+     * @param login - user login
+     * @param password - user password
+     * @return all users with login and password equals to params.
+     */
 
     public Klient selectByLoginandPassword(String login, String password) {
         Klient k = null;
@@ -53,6 +67,19 @@ public class KlientQuery {
         session.close();
         return k;
     }
+    
+    
+    /**
+     * 
+     * @param imie - first name of new user
+     * @param nazwisko - last name of new user
+     * @param telefon - cell phone number
+     * @param login - username
+     * @param haslo - password
+     * 
+     * use this method to register new user.
+     * 
+     */
 
 
     public void rejestracja(String imie, String nazwisko, long telefon,
@@ -74,6 +101,16 @@ public class KlientQuery {
         }
 
     }
+    
+    /**
+     * 
+     * @param login - user login
+     * @param password - new user password
+     * 
+     * Use this method to change user password.
+     * 
+     */
+    
 
     public void changePassword(String login, String password) {
         session = HibernateUtil.getSessionFactory().openSession();
@@ -94,6 +131,13 @@ public class KlientQuery {
             session.close();
         }
     }
+    
+    /**
+     * 
+     * @param login - user name in db
+     * @return unique client  entity from DB selected by login.
+     */
+    
 
     public Klient wyszukiwanie(String login) {
         Klient k = null;
@@ -182,14 +226,24 @@ public class KlientQuery {
     }
      
     
-    
+    /**
+     * 
+     * @param ilosc - quantity of products in order
+     * @param ProduktID - product identifier 
+     * @param klientID - client identifier
+     * @param towary - order prodcuts
+     * @param date - order date
+     * 
+     * Use this method to order products.
+     * 
+     */
     
     
     public void zamowTowar(int ilosc, 
             int ProduktID , int klientID  , ArrayList towary , Date date){
         
         
-        System.out.println(towary.size());
+    System.out.println(towary.size());
     String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
     
     String dataID= new SimpleDateFormat("HHmmssSSS").format(date);
@@ -229,7 +283,15 @@ catch (HibernateException error){
         towary.add("");
     }
     
-    
+    /**
+     * 
+     * @param zamowienieID - order identifier
+     * @throws DocumentException 
+     * @throws IOException 
+     * 
+     * Use this method to take invoice as pdf.
+     * 
+     */
     
    public void pobierzFakture(String zamowienieID) 
            throws DocumentException, IOException{
