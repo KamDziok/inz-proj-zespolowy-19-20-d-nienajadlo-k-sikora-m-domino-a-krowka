@@ -55,8 +55,6 @@ public class LoginController extends Logowanie implements Initializable {
     @FXML
     private Button zalogujbtn;
 
-    @FXML
-    private Button db_script;
 
     @FXML
     private Label status;
@@ -244,35 +242,4 @@ public class LoginController extends Logowanie implements Initializable {
         klientR.setToggleGroup(group);
         pracownikR.setToggleGroup(group);
     }
-
-    @FXML
-    void DbCreate(ActionEvent event) throws IOException, InterruptedException {
-        Runtime run = Runtime.getRuntime();
-        Process p = null;
-        String cmd = "db_create.cmd";
-        try {
-            p = run.exec(cmd);
-            p.waitFor();
-            System.out.println(p.exitValue());
-            System.out.println("Skrypt run");
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Informacja");
-            alert.setHeaderText(null);
-            alert.setContentText("Skrypt uruchomiony poprawnie!");
-
-            alert.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("ERROR.RUNNING.CMD");
-            Alert alert2 = new Alert(AlertType.WARNING);
-            alert2.setTitle("Informacja");
-            alert2.setHeaderText(null);
-            alert2.setContentText("Coś jest nie tak...");
-
-            alert2.showAndWait();
-            p.destroy();
-        }
-
-    }
-
 }

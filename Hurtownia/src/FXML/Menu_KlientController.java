@@ -327,7 +327,6 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @FXML
     private void zamowTowar(ActionEvent event) {
-        
         int id = Integer.parseInt(dane.getText());
         int idProdukt = Integer.parseInt(prod.getText());
         int ilosc = Integer.parseInt(ilosctxt.getText());
@@ -337,9 +336,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             if (towary.size() == 0)
             zamID.setZamID(new Date());
             klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
-          TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-        zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
-                parseInt(zamID.getZamID())));
+            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+        System.out.println(towar.zamowieniaID(zamID.getZamID()).size());
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+
             statusZamowienia.setText("Towar dodany do zamówienia!");
             
         }catch(Exception e){
@@ -396,8 +396,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             zamID.setZamID(new Date());
             klient.anulujZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
-                    parseInt(zamID.getZamID())));
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
             
             statusZamowienia.setText("Zamowienie zostało anulowane");
             
@@ -416,8 +415,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             
             klient.zatwierdzZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-            zamowieniaZT.getItems().setAll(towar.zamowieniaID(Integer.
-                    parseInt(zamID.getZamID())));
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
             statusZamowienia.setText("Zamowienie zostało potwierdzone");
             
         }catch(Exception e){
@@ -436,6 +434,12 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         kosztZT.setCellValueFactory(new PropertyValueFactory<> 
         ("koszt"));
         
+    }
+    
+    
+    private void displayTowary() {
+        TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
     }
 
 

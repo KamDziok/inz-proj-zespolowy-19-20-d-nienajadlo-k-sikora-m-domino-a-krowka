@@ -15,22 +15,15 @@ import org.hibernate.Session;
  */
 public class TowaryzamowienieQuery {
     
-     public List<Towaryzamowienie> zamowieniaID(int id){
+     public List<Towaryzamowienie> zamowieniaID(String id){
         Session session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Towaryzamowienie where ZamowienieId = '" + id + "'";
         Query query = session.createQuery(hql);
         List <Towaryzamowienie> zamow = query.list();
         session.close();
-        int i = 0;
-        for(Towaryzamowienie tz: zamow){
-            if(tz.getZamowienieID() != id){
-                zamow.remove(i);
-                i--;
-            }
-            i++;
-        }
+        
         return zamow;
     
 }
-    
+
 }
