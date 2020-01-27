@@ -8,7 +8,6 @@
             <column name="TowaryZamowienieID" />
             <generator class="identity" />
         </id>
-        <many-to-one name="produkty" class="hibernate.Produkty" lazy="false" fetch="select" >
         <many-to-one name="produkty" class="hibernate.Produkty" lazy ="false" 
                      fetch="select">
             <column name="ProduktID" not-null="true" />

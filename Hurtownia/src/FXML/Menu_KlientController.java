@@ -12,7 +12,9 @@ import hibernate.AdresyQuery;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
+import hibernate.KierownikQuery;
 import hibernate.KlientQuery;
+import hibernate.Pracownik;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
@@ -31,8 +33,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -340,7 +345,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
         System.out.println(towar.zamowieniaID(zamID.getZamID()).size());
-            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+            displayTowary();
 
             statusZamowienia.setText("Towar dodany do zamówienia!");
             
@@ -398,7 +403,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             zamID.setZamID(new Date());
             klient.anulujZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+            displayTowary();
             
             statusZamowienia.setText("Zamowienie zostało anulowane");
             
@@ -417,7 +422,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             
             klient.zatwierdzZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-            zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+            displayTowary();
             statusZamowienia.setText("Zamowienie zostało potwierdzone");
             
         }catch(Exception e){
@@ -442,6 +447,33 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     private void displayTowary() {
         TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
             zamowieniaZT.getItems().setAll(towar.zamowieniaID(zamID.getZamID()));
+            
+            zamowieniaZT.setRowFactory( tv -> {
+    TableRow<Towaryzamowienie> row = new TableRow<>();
+    row.getContextMenu();
+    
+    
+    
+    final ContextMenu contextMenu = new ContextMenu();
+            MenuItem del = new MenuItem("Usuń");
+
+            del.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+             System.out.println("usunięto");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+contextMenu.getItems().addAll(del);
+
+row.setContextMenu(contextMenu);
+    
+    return row ;
+});
     }
 
     @FXML
