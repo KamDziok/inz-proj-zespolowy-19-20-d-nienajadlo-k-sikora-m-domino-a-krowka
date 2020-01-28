@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020-01-15 16:13:39 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hibernate.Adresy" table="adresy" catalog="hurtowniap2" optimistic-lock="version">
+        <id name="adresId" type="java.lang.Integer">
+            <column name="AdresID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="klient" class="hibernate.Klient" fetch="select">
+            <column name="KlientID" not-null="true" />
+        </many-to-one>
+        <property name="kraj" type="string">
+            <column name="Kraj" length="30" not-null="true" />
+        </property>
+        <property name="miasto" type="string">
+            <column name="Miasto" length="30" not-null="true" />
+        </property>
+        <property name="ulica" type="string">
+            <column name="Ulica" length="30" not-null="true" />
+        </property>
+        <property name="numerBudynku" type="string">
+            <column name="NumerBudynku" length="30" not-null="true" />
+        </property>
+        <property name="numerLokalu" type="java.lang.Integer">
+            <column name="NumerLokalu" />
+        </property>
+        <property name="email" type="string">
+            <column name="Email" length="50" not-null="true" unique="true" />
+        </property>
+        <set name="hurtownias" table="hurtownia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AdresID" not-null="true" />
+            </key>
+            <one-to-many class="hibernate.Hurtownia" />
+        </set>
+    </class>
+</hibernate-mapping>
