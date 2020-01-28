@@ -67,18 +67,21 @@ public class KierownikQuery {
         session = HibernateUtil.getSessionFactory().openSession();
          Transaction tx = null;
          
-         try{
-             tx = session.beginTransaction();
-             Pracownik pracownik;
-            pracownik = (Pracownik)session.get(Pracownik.class, pracownikId);
-             session.delete(pracownik);
-             tx.commit();   
-         }catch(Exception e){
-             if(tx != null) tx.rollback();
-             e.printStackTrace();
-         } finally{
-             session.close();
-         }
+       session = HibernateUtil.getSessionFactory().openSession();
+    
+        String query = "DELETE FROM Pracownik WHERE pracownikId = "
+                + pracownikId;
+          
+        try {
+          session.getTransaction().begin();
+          session.createSQLQuery(query).executeUpdate();
+          session.getTransaction().commit();
+          session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
     }
      
      
@@ -145,6 +148,8 @@ catch (HibernateException error){
 }
     
     }
+     
+     
     
    
 }

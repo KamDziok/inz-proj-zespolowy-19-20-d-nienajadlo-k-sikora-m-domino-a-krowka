@@ -8,6 +8,7 @@ package FXML;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import hibernate.StanowiskoConverter;
 import hibernate.HibernateUtil;
 import hibernate.Magazyn;
 import hibernate.MagazynQuery;
@@ -49,8 +50,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 /**
  * FXML Controller class
@@ -110,8 +113,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private JFXTextField nazwiskoDP;
     @FXML
-    private JFXTextField stanowiskoDP;
-    @FXML
     private JFXTextField wynagrodzenieDP;
     @FXML
     private Button DodajP;
@@ -120,22 +121,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private Label pracownikLabel;
     @FXML
-    private TableView<Pracownik> pracownicyTableZ;
-    @FXML
-    private TableColumn<Pracownik, Integer> idZw;
-    @FXML
-    private TableColumn<Pracownik, String> imieZw;
-    @FXML
-    private TableColumn<Pracownik, String> nazwiskoZ;
-    @FXML
-    private TableColumn<Pracownik, String> stanowiskoZ;
-    @FXML
-    private TableColumn<Pracownik, Float> stawkaZ;
-    @FXML
-    private JFXButton wylogujKPr1;
-    @FXML
-    private Label zwolnienieStatus;
-    @FXML
     private Label wyborCombo;
     @FXML
     private Label katWybor;
@@ -143,7 +128,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Label statusDodajP;
     @FXML
     private TextField wyszukajField;
-    @FXML
     private TextField wyszukajFileldZ;
     @FXML
     private TableColumn<Produkty, String> nazwaTD;
@@ -198,6 +182,12 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private TableColumn<Zamowienie, String> transport;
     @FXML
     private TableColumn<Magazyn, String> nazwaProduktu;
+    @FXML
+    private Label zwolnieniaStatus;
+    @FXML
+    private Label wyborStanowiska;
+    @FXML
+    private ComboBox<Pracownik> stanowiskoCombo;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -212,13 +202,13 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
 
         pracownicyTable();
-        pracownicyTableZ(); // wyświetlenie wszystkich pracowników
         produktyTable();
         magazynTable();
         comboBoxK();
+        comboStanowisko();
         zamowieniaStatusTable();
         wyszukaj(getPracownik());
-        wyszukajZwolnienia(getPracownik());
+        
 
     }
 
@@ -251,13 +241,30 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         return zamowieniaK;
     }
 
+     public ObservableList<Pracownik> stanowisko() {
+        ObservableList<Pracownik> stanowiskoP = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        Criteria crit = (Criteria)session.createCriteria(Pracownik.class).
+                setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
+        List <Pracownik> stanowisko = crit.list();
+                
+       
+        for (Pracownik s : stanowisko) {
+            stanowiskoP.add(s);
+
+        }
+        return stanowiskoP;
+    }
+    
     @FXML
     private void Dodaj_Pracownika(ActionEvent event) {
 
         String imie = imieDP.getText();
         String nazwisko = nazwiskoDP.getText();
         float wyplata = Float.parseFloat(wynagrodzenieDP.getText());
-        String posada = stanowiskoDP.getText();
+        String posada = wyborStanowiska.getText();
 
         try {
             KierownikQuery kierownik = new KierownikQuery();
@@ -265,7 +272,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             clearFields();
             status_zatrudnienia.setText("Pracownik został zatrudniony!");
             pracownicyTable.setItems(getPracownik());
-             pracownicyTableZ.setItems(getPracownik());
             
             
         } catch (Exception e) {
@@ -277,7 +283,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         imieDP.setText(null);
         nazwiskoDP.setText(null);
         wynagrodzenieDP.setText(null);
-        stanowiskoDP.setText(null);
         cenaP.setText(null);
         nazwaP.setText(null);
         opisP.setText(null);
@@ -292,8 +297,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         stawkaT.setCellValueFactory(new PropertyValueFactory<>("placa"));
 
         
-        pracownicyTableZ.getItems().setAll(getPracownik());
-        pracownicyTableZ.setRowFactory( tv -> {
+        pracownicyTable.getItems().setAll(getPracownik());
+        pracownicyTable.setRowFactory( tv -> {
     TableRow<Pracownik> row = new TableRow<>();
     row.getContextMenu();
     
@@ -309,9 +314,9 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.zwolnijPracownika(row.getItem().getPracownikId());
             
-          pracownicyTableZ.setItems(getPracownik());
+          //pracownicyTableZ.setItems(getPracownik());
           pracownicyTable.setItems(getPracownik());
-            zwolnienieStatus.setText("Pracownik został zwolniony!");
+            zwolnieniaStatus.setText("Pracownik został zwolniony!");
              
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -328,17 +333,7 @@ row.setContextMenu(contextMenu);
         
     }
 
-    public void pracownicyTableZ() {
-        
-        idZw.setCellValueFactory(new PropertyValueFactory<>("pracownikId"));
-        imieZw.setCellValueFactory(new PropertyValueFactory<>("imie"));
-        nazwiskoZ.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
-        stanowiskoZ.setCellValueFactory(new PropertyValueFactory<>
-        ("stanowisko"));
-        stawkaZ.setCellValueFactory(new PropertyValueFactory<>("placa"));
-        
-     
-    }
+
 
     public void produktyTable() {
 
@@ -423,7 +418,29 @@ row.setContextMenu(contextMenu);
         wczytajLabel.setText(Integer.toString(idKat));
         wczytajLabel.setVisible(false);
     }
-
+    
+    public void comboValueS (ComboBox<Pracownik> stanowiskoCombo){
+        Pracownik sp = stanowiskoCombo.getValue();
+        String stanowisko = sp.getStanowisko();
+        wyborStanowiska.setText(stanowisko);
+        wyborStanowiska.setVisible(false);
+    }
+    
+    public void comboStanowisko(){
+        
+        stanowiskoCombo.setItems(stanowisko());
+        stanowiskoCombo.setConverter(new StanowiskoConverter());
+        
+        stanowiskoCombo.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                comboValueS(stanowiskoCombo);
+            }
+        });
+        
+        
+        
+    }
 
     public void comboBoxK() {
 
@@ -526,35 +543,6 @@ row.setContextMenu(contextMenu);
 
     }
 
-    public void wyszukajZwolnienia(ObservableList<Pracownik> getPracownik) {
-        FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(),
-                p -> true);
-
-        wyszukajFileldZ.textProperty().addListener((observable, oldValue,
-                newValue) -> {
-            filtrData.setPredicate(pracownik -> {
-
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                if (pracownik.getStanowisko().toLowerCase().
-                        contains(lowerCaseFilter)) {
-                    return true;
-                }
-
-                return false; // Does not match.
-            });
-        });
-
-        SortedList<Pracownik> sortedData = new SortedList<>(filtrData);
-
-        sortedData.comparatorProperty().bind(pracownicyTableZ.
-                comparatorProperty());
-        pracownicyTableZ.setItems(sortedData);
-    }
 
     public void wyszukaj(ObservableList<Pracownik> getPracownik) {
         FilteredList<Pracownik> filtrData = new FilteredList<>(getPracownik(),
