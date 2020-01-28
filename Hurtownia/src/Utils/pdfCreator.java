@@ -51,7 +51,7 @@ public class pdfCreator {
      */
     
     public static void createInvoice(String invoiceNumber, int VAT, String currency, Klient k, String[][] products) throws FileNotFoundException, DocumentException, IOException{
-        File fileHTML = new File(appPath.get() + "\\invoices\\invoice_nr." + invoiceNumber + ".pdf");
+        File fileHTML = new File(appPath.get() + "\\invoices\\invoice_nr" + invoiceNumber + ".pdf");
         
         String table = readHtml("br")
                 + "<p>Wystawiono dla:</p>"

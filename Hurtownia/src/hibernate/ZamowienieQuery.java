@@ -37,6 +37,23 @@ public class ZamowienieQuery {
         return zamow;
     
 }
+    public List<Zamowienie> zamowieniaIDBezOczekujace(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Zamowienie where KlientId = '" + id 
+                + "' AND StatusTransportu != 'oczekujące'";
+        Query query = session.createQuery(hql);
+        List <Zamowienie> zamow = query.list();
+        session.close();
+        int i = 0;
+        for(Zamowienie z : zamow){
+            if(z.getKlientID() != id){
+                zamow.remove(i);
+            }
+            i++;
+        }
+        return zamow;
+    
+}
       public void changeStatus(int id, String statusZ, String statusT) {
         session = HibernateUtil.getSessionFactory().openSession();
       

@@ -190,7 +190,8 @@ public class LoginController extends Logowanie implements Initializable {
                 } else if (adresZ == null) {
                     menuKlient.DodajAdresBTN();
                 }
-
+                
+                menuKlient.wczytajDane();
                 /*Stage PrimaryStage = new Stage();
                 Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
                 Scene scene = new Scene(root, 800, 480);

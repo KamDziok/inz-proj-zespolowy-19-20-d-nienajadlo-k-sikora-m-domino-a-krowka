@@ -250,7 +250,7 @@ public class KlientQuery {
     String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, "
             + "`StatusZaplaty`, `StatusTransportu`, `Data`)"
             + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', "
-            + "' przyjęte do realizacji', '"+data+"')";
+            + "'oczekujące', '"+data+"')";
     
          
              Produkty produkt;
@@ -379,6 +379,39 @@ catch (HibernateException error){
             session.getTransaction().begin();
             session.createSQLQuery(query).executeUpdate();
             session.createSQLQuery(query2).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
+    }
+   public void usunProdukt(int ID){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "DELETE FROM `towaryzamowienie` WHERE `TowaryZamowienieID` =  " + ID;
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
+    }
+   
+   public void usunNieZapZam(){
+    
+        session = HibernateUtil.getSessionFactory().openSession();
+    String query = "DELETE FROM `zamowienie` WHERE `StatusTransportu` = 'oczekujące'";
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
             session.getTransaction().commit();
             session.close();
 }

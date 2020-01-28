@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import static FXML.TabelaController.ID;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Adresy;
@@ -12,9 +13,7 @@ import hibernate.AdresyQuery;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
-import hibernate.KierownikQuery;
 import hibernate.KlientQuery;
-import hibernate.Pracownik;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
@@ -22,11 +21,11 @@ import hibernate.Towaryzamowienie;
 import hibernate.TowaryzamowienieQuery;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
-import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -171,8 +170,6 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private Label tabelaId;
     @FXML
-    private Button wczytajBtn;
-    @FXML
     private TableView<Towaryzamowienie> zamowieniaZT;
     @FXML
     private TableColumn<Towaryzamowienie, String> nazwaZT;
@@ -183,12 +180,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private Button ButtonAnuluj;
     
-    ArrayList<String> towary = new ArrayList<String>();
+    ArrayList<String> towary = new ArrayList<>();
     ZamowienieID zamID = new ZamowienieID(new Date());
     @FXML
     private Button zatwierdzBTN;
-    @FXML
-    private Button zmiania;
 
     @FXML
     void DodajAdres(ActionEvent event) {
@@ -388,12 +383,62 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
 }
 
-    @FXML
-    private void wczytajDane(ActionEvent event) {
+    public void wczytajDane() {
         zamowieniaK.getItems().clear();
         int id = Integer.parseInt(tabelaId.getText());
         ZamowienieQuery zamow = new ZamowienieQuery();
-        zamowieniaK.getItems().addAll(zamow.zamowieniaID(id));
+        zamowieniaK.getItems().addAll(zamow.zamowieniaIDBezOczekujace(id));
+        
+        zamowieniaK.setRowFactory( tv -> {
+    TableRow<Zamowienie> row = new TableRow<>();
+    row.getContextMenu();
+    
+    
+    
+    final ContextMenu contextMenu = new ContextMenu();
+            MenuItem tow = new MenuItem("Wyświetl dane");
+            MenuItem faktura = new MenuItem("faktura");
+
+            tow.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            TabelaController.ID = String.valueOf(row.getItem().getZamowienieId());
+            Stage PrimaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                + "/Tabela.fxml"));
+            Scene scene = new Scene(root);
+            PrimaryStage.setScene(scene);
+            PrimaryStage.show();
+            PrimaryStage.setResizable(true);
+            
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+            faktura.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            KlientQuery klient = new KlientQuery();
+            klient.pobierzFakture( "" +row.getItem().getZamowienieId());
+            
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+contextMenu.getItems().addAll(tow , faktura);
+
+row.setContextMenu(contextMenu);
+    
+    return row ;
+});
       
         
         
@@ -466,7 +511,15 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @Override
     public void handle(ActionEvent event) {
         try {
-             System.out.println("usunięto");
+            KlientQuery klient = new KlientQuery();
+            
+            klient.usunProdukt(row.getItem().getTowaryZamowienieId());
+            
+            statusZamowienia.setText("Produkt "+ row.getItem().getProduktName() 
+                    + " został usunięty!");
+             
+            displayTowary();
+             
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -479,20 +532,13 @@ row.setContextMenu(contextMenu);
     
     return row ;
 });
+            wczytajDane();
     }
+    
+    
+ 
 
-    @FXML
-    private void zmianaOkna(ActionEvent event) throws IOException {
-        
-       
-         Stage PrimaryStage = new Stage();
-                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                     + "/Tabela.fxml"));
-                     Scene scene = new Scene(root, 750, 600);
-                     PrimaryStage.setScene(scene);
-                     PrimaryStage.show();
-                     PrimaryStage.setResizable(false);
-    }
+  
 
 
 }
