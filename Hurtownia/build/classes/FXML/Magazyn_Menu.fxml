@@ -16,11 +16,11 @@
    <children>
       <TabPane prefHeight="472.0" prefWidth="710.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Zamowienia">
+          <Tab text="Towary na magazynie">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="produktyZamowione" layoutX="67.0" layoutY="88.0" prefHeight="270.0" prefWidth="489.0">
+                        <TableView fx:id="towaryMagazyn" layoutX="67.0" layoutY="88.0" prefHeight="270.0" prefWidth="489.0">
                           <columns>
                             <TableColumn fx:id="idZamoweinia" prefWidth="146.0" text="Id zamówienia" />
                               <TableColumn fx:id="iloscP" prefWidth="202.0" text="Nazwa produktu" />
@@ -32,85 +32,17 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Zmień ilość">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="407.0" prefWidth="642.0">
-                     <children>
-                        <TableView fx:id="produktyW" layoutX="237.0" layoutY="130.0" prefHeight="211.0" prefWidth="415.0">
-                          <columns>
-                              <TableColumn fx:id="idProduktuZI" prefWidth="126.0" text="Id produktu" />
-                            <TableColumn fx:id="nazwaZI" prefWidth="200.0" text="Nazwa produktu" />
-                              <TableColumn fx:id="iloscZI" prefWidth="88.0" text="Ilość" />
-                          </columns>
-                        </TableView>
-                        <Label layoutX="247.0" layoutY="38.0" prefHeight="22.0" prefWidth="72.0" text="Kategoria:">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                        <JFXButton fx:id="wylogujBtn1" layoutX="616.0" layoutY="22.0" onAction="#wyloguj" text="Wyloguj" />
-                        <Label layoutX="38.0" layoutY="140.0" text="Nazwa produktu:">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="nazwaProduktuL" layoutX="38.0" layoutY="179.0" prefHeight="20.0" prefWidth="141.0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="68.0" layoutY="236.0" text="Ilość:">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="iloscZmiana" layoutX="24.0" layoutY="261.0" />
-                        <Button fx:id="zmianaIloBTN" layoutX="58.0" layoutY="316.0" mnemonicParsing="false" onAction="#zmianaIlosci" text="Zmień ilość" />
-                        <JFXButton fx:id="wczytajBTN" layoutX="571.0" layoutY="80.0" onAction="#wczytajProdukty" text="Wczytaj" />
-                        <Label fx:id="idZI" layoutX="283.0" layoutY="361.0" />
-                        <Label fx:id="idKategorii" layoutX="494.0" layoutY="370.0" prefHeight="17.0" prefWidth="0.0" />
-                        <JFXComboBox fx:id="kategorieCOmbo" layoutX="325.0" layoutY="36.0" prefHeight="25.0" prefWidth="207.0" />
-                        <JFXComboBox fx:id="produktyDcombo" layoutX="327.0" layoutY="80.0" prefHeight="25.0" prefWidth="209.0" />
-                        <Label layoutX="247.0" layoutY="82.0" prefHeight="22.0" prefWidth="72.0" text="Produkty:">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="produktyId" layoutX="571.0" layoutY="105.0" />
-                        <Label fx:id="ZmianaIloscStatus" alignment="CENTER" layoutX="237.0" layoutY="362.0" prefHeight="17.0" prefWidth="413.0">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Zmiana statusu zamowień">
+            <Tab text="Wyślij ">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="zamowienia" layoutX="69.0" layoutY="63.0" prefHeight="263.0" prefWidth="478.0">
+                        <TableView fx:id="zamowienia" layoutX="69.0" layoutY="63.0" prefHeight="263.0" prefWidth="500.0">
                           <columns>
-                            <TableColumn fx:id="idZamowienia" prefWidth="167.0" text="Id zamówienia" />
-                            <TableColumn fx:id="statusZaplaty" minWidth="0.0" prefWidth="156.0" text="Status zapłaty" />
-                              <TableColumn fx:id="statusTransportu" prefWidth="154.0" text="Status transportu" />
+                            <TableColumn fx:id="idZamowienia" prefWidth="200.0" text="Id zamówienia" />
+                              <TableColumn fx:id="statusTransportu" prefWidth="300.0" text="Status transportu" />
                           </columns>
                         </TableView>
                         <JFXButton fx:id="wylogujBtn" layoutX="621.0" layoutY="24.0" onAction="#wyloguj" text="Wyloguj" />
-                        <Button fx:id="zmianaSbtn" layoutX="589.0" layoutY="360.0" mnemonicParsing="false" onAction="#zmianaStatusu" text="Zmiana statusu " />
-                        <Label layoutX="21.0" layoutY="363.0" text="Status zapłaty:">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="zmianaSZ" layoutX="112.0" layoutY="360.0" prefHeight="25.0" prefWidth="152.0" />
-                        <Label layoutX="294.0" layoutY="364.0" text="Status transportu:">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="zmianaST" layoutX="398.0" layoutY="361.0" prefHeight="25.0" prefWidth="168.0" />
-                        <Label fx:id="idZa" layoutX="266.0" layoutY="335.0" />
                      </children>
                   </AnchorPane>
               </content>

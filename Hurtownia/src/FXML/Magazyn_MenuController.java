@@ -6,19 +6,10 @@
 package FXML;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
 import hibernate.Kategorie;
-import hibernate.KategorieConverter;
-import hibernate.KategorieQuery;
 import hibernate.Magazyn;
-import hibernate.MagazynQuery;
-import hibernate.ProduktQuery;
-import hibernate.Produkty;
-import hibernate.ProduktyConverter;
 import hibernate.Towaryzamowienie;
 import hibernate.Zamowienie;
-import hibernate.ZamowienieQuery;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -27,15 +18,18 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.hibernate.Session;
 
 /**
@@ -45,8 +39,6 @@ import org.hibernate.Session;
  */
 public class Magazyn_MenuController extends Logowanie implements Initializable {
 
-    @FXML
-    private TableView<Magazyn> produktyW;
  
     @FXML
     private Button wylogujBtnP;
@@ -57,53 +49,9 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     @FXML
     private TableColumn<Zamowienie, Integer> idZamowienia;
     @FXML
-    private TableColumn<Zamowienie, String> statusZaplaty;
-    @FXML
     private TableColumn<Zamowienie, String> statusTransportu;
     @FXML
     private JFXButton wylogujBtn;
-    @FXML
-    private Button zmianaSbtn;
-    @FXML
-    private TextField zmianaSZ;
-    @FXML
-    private TextField zmianaST;
-    @FXML
-    private Label idZa;
-    @FXML
-    private TableColumn<Magazyn, String> idProduktuZI;
-    @FXML
-    private TableColumn<Magazyn, String> nazwaZI;
-    @FXML
-    private TableColumn<Magazyn, Integer> iloscZI;
-    @FXML
-    private JFXButton wylogujBtn1;
-    @FXML
-    private Label nazwaProduktuL;
-    @FXML
-    private TextField iloscZmiana;
-    @FXML
-    private Button zmianaIloBTN;
-    @FXML
-    private JFXButton wczytajBTN;
-    @FXML
-    private Label idZI;
-    @FXML
-    private Label idKategorii;
-    @FXML
-    private JFXComboBox<Kategorie> kategorieCOmbo;
-    @FXML
-    private JFXComboBox<Produkty> produktyDcombo;
-    @FXML
-    private Label produktyId;
-    @FXML
-    private Label ZmianaIloscStatus;
-    @FXML
-    private TableView<Towaryzamowienie> produktyZamowione;
-    @FXML
-    private TableColumn<Zamowienie, Integer> idZamoweinia;
-    @FXML
-    private TableColumn<Zamowienie, Integer> cenaP;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -116,9 +64,6 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         statusZamowienTable();
-         ProduktyIlosc ();
-         KategoriaCombo ();
-         zamowieniaPodsumowanie();
     }
     
      public ObservableList<Kategorie> getKategoria() {
@@ -153,100 +98,60 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     public void statusZamowienTable() {
 
         idZamowienia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
-        statusZaplaty.setCellValueFactory(new PropertyValueFactory<>("statusZaplaty"));
         statusTransportu.setCellValueFactory(new PropertyValueFactory<>("statusTransportu"));
 
         zamowienia.setItems(getZamowienie());
 
-        zamowienia.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Zamowienie z = zamowienia.getItems().get(zamowienia.
-                        getSelectionModel().getSelectedIndex());
-                idZa.setText(Integer.toString(z.getZamowienieId()));
-                idZa.setVisible(false);
-            }
-        });
+                zamowienia.setRowFactory( tv -> {
+            TableRow<Zamowienie> row = new TableRow<>();
+            row.getContextMenu();
 
-    }
-    
-       public void comboValueKT (ComboBox<Kategorie> kategorieCOmbo){
-        
-        Kategorie k = kategorieCOmbo.getValue();
-        int idKat = k.getKategoriaId();
-        idKategorii.setText(Integer.toString(idKat));
-        idKategorii.setVisible(false);
-        
-    }
-    
-    public void KategoriaCombo (){
-        
-         idKategorii.setText("");
-         
-          kategorieCOmbo.setItems(getKategoria());
-        kategorieCOmbo.setConverter(new KategorieConverter());
-        
-        kategorieCOmbo.setOnAction(new EventHandler<ActionEvent>() {
+            final ContextMenu contextMenu = new ContextMenu();
+                    MenuItem tow = new MenuItem("Wyświetl dane");
+                    MenuItem faktura = new MenuItem("Wyślij towar");
+
+                    tow.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                comboValueKT(kategorieCOmbo);
-            
-           
-            if (!idKategorii.getText().equals("")) {
-            
-        int idKategoria = Integer.parseInt(idKategorii.getText());
-            ProduktQuery produkty = new ProduktQuery();
-        produktyDcombo.getItems().clear();
-        produktyDcombo.getItems().addAll(produkty.
-                produktySelectAllOnID(idKategoria));
-     
-       
-      produktyDcombo.setConverter(new ProduktyConverter());
-        
-          produktyDcombo.setOnAction(new EventHandler<ActionEvent>() {
+                try {
+                    TabelaController.ID = String.valueOf(row.getItem().getZamowienieId());
+                    Stage PrimaryStage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                        + "/Tabela.fxml"));
+                    Scene scene = new Scene(root);
+                    PrimaryStage.setScene(scene);
+                    PrimaryStage.show();
+                    PrimaryStage.setResizable(true);
+
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+
+            }
+        });
+                    faktura.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                comboValueProdukty(produktyDcombo);
+                try {
+                    // Wysyłanie towaru
+
+
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
 
             }
         });
-        }
-            
-            
-            }
-        });
-        
-        
-    }
-    
-     public void comboValueProdukty (ComboBox<Produkty>  produktyDcombo){
-        
-        Produkty p =  produktyDcombo.getValue();
-        int idP = p.getProduktId();
-        produktyId.setText(Integer.toString(idP));
-        produktyId.setVisible(false);
-    }
-    
-    public void ProduktyIlosc (){
-        
-        idProduktuZI.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
-        nazwaZI.setCellValueFactory(new PropertyValueFactory<>("ProduktName"));
-        iloscZI.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
-        
-        produktyW.setOnMouseClicked(new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent event) {
-                Magazyn m = produktyW.getItems().get(produktyW.
-                        getSelectionModel().getSelectedIndex());
-                idZI.setText(Integer.toString(m.getProductId()));
-                idZI.setVisible(false);
-                nazwaProduktuL.setText(m.getProduktName());
-            }
-            
-        });
-        
-    }
+        contextMenu.getItems().addAll(tow , faktura);
 
+        row.setContextMenu(contextMenu);
+
+            return row ;
+        });
+
+    }
+    
     public ObservableList<Zamowienie> getZamowienie() {
         ObservableList<Zamowienie> listaZamowien = FXCollections.
                 observableArrayList();
@@ -274,85 +179,6 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
 
         }
         return listaZamowien;
-    }
-
-    @FXML
-    private void zmianaStatusu(ActionEvent event) {
-
-        int id = Integer.parseInt(idZa.getText());
-
-        String statusT = zmianaST.getText();
-        String statusZap = zmianaSZ.getText();
-
-        try {
-            ZamowienieQuery zamow = new ZamowienieQuery();
-            Zamowienie zam = new Zamowienie();
-
-//            zamow.changeStatus(id,statusZap, statusT);
-
-            zamowienia.setItems(getZamowienie());
-            zmianaST.setText(null);
-            zmianaSZ.setText(null);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @FXML
-    private void zmianaIlosci(ActionEvent event) {
-        
-        try{
-            MagazynQuery maga = new MagazynQuery();
-            int id = Integer.parseInt(idZI.getText());
-            int ilosc = Integer.parseInt(iloscZmiana.getText());
-            maga.zmianaIlosci(id, ilosc);
-            produktyW.setItems(getMagazyn());
-            ZmianaIloscStatus.setText("Ilość towaru na stanie została"
-                    + " zaaktualizowana");
-            iloscZmiana.setText(null);
-            
-        }catch(Exception e){
-            System.out.println(e.getLocalizedMessage());
-        }
-    }
-
-    @FXML
-    private void wczytajProdukty(ActionEvent event) {
-        
-        int idProduktu = Integer.parseInt(produktyId.getText());
-        
-        MagazynQuery magazyn = new MagazynQuery();
-        
-        try{
-            produktyW.getItems().addAll(magazyn.produktySelectAllOnID(idProduktu));
-            
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        
-        
-    }
-    
-    public void zamowieniaTable(){
-        
-        idZamowienia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
-        nazwaZI.setCellValueFactory(new PropertyValueFactory<>("ProduktName"));
-        iloscZI.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
-        
-        
-    }
-    
-    
-    
-    
-    public void zamowieniaPodsumowanie(){
-        
-        idZamoweinia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieID"));
-        iloscP.setCellValueFactory(new PropertyValueFactory<>("ProduktName"));
-        cenaP.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
-        
-        produktyZamowione.setItems(getTowarZamowienie());
-        
     }
 
 }
