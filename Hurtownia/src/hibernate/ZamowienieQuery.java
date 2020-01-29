@@ -54,6 +54,26 @@ public class ZamowienieQuery {
         return zamow;
     
 }
+    
+    public List<Zamowienie> zamowienaPrzedWyslaniem(){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Zamowienie where StatusTransportu = 'oczekujące' OR StatusTransportu = 'w trakcie realizacji'";
+        Query query = session.createQuery(hql);
+        List <Zamowienie> zamow = query.list();
+        session.close();
+        return zamow;
+    
+}
+    
+    public List<Zamowienie> wszystkieZamowienia(){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Zamowienie";
+        Query query = session.createQuery(hql);
+        List <Zamowienie> zamow = query.list();
+        session.close();
+        return zamow;
+    
+}
       public void changeStatus(int id, String statusZ) {
         session = HibernateUtil.getSessionFactory().openSession();
       

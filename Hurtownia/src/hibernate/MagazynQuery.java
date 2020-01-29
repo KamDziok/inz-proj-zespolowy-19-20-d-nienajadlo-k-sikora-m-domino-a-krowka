@@ -60,6 +60,7 @@ public class MagazynQuery {
         return magazyn;
     }
       
+  
       public void wyslijZamowienie (int id){
       
         TowaryzamowienieQuery tz = new TowaryzamowienieQuery();  
@@ -69,7 +70,6 @@ public class MagazynQuery {
                     towar.getIlosc()+" WHERE `ProduktID` = " 
                     + towar.getProduktID();
             try {
-                
             session = HibernateUtil.getSessionFactory().openSession();
             session.getTransaction().begin();
             session.createSQLQuery(query).executeUpdate();
@@ -96,6 +96,35 @@ public class MagazynQuery {
             session.getTransaction().rollback();
             session.close();
         }
+      }
+      
+      
+      public int dostepneTowary(int id) {
+          int avible = 0;
+            List<Zamowienie> zamowienia = new ZamowienieQuery().zamowienaPrzedWyslaniem();
+            TowaryzamowienieQuery towZamQ = new TowaryzamowienieQuery();
+            for (Zamowienie zam : zamowienia) {
+                List<Towaryzamowienie> towZam = towZamQ.zamowieniaID(String.valueOf(zam.getZamowienieId()));
+                for (Towaryzamowienie towar : towZam) {
+                    if (towar.getProduktID() == id) {
+                        avible += towar.getIlosc();
+                    }
+                }
+            }
+            
+           
+                
+          return getTowar(id) - avible;
+      }
+      
+      
+      public int getTowar(int id){
+         session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Magazyn where ProduktID = '" + id + "'";
+        Query query = session.createQuery(hql);
+        Magazyn zamow = (Magazyn) query.uniqueResult();
+        session.close();
+        return zamow.getIlosc();
       }
       
 }

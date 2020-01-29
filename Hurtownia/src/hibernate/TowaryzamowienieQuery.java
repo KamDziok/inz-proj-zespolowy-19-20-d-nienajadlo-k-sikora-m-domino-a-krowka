@@ -25,5 +25,6 @@ public class TowaryzamowienieQuery {
         return zamow;
     
 }
+     
 
 }
