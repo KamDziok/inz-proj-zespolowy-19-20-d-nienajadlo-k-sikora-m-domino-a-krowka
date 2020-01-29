@@ -124,6 +124,8 @@ public class MagazynQuery {
         Query query = session.createQuery(hql);
         Magazyn zamow = (Magazyn) query.uniqueResult();
         session.close();
+          if(zamow == null )
+              return 0;
         return zamow.getIlosc();
       }
       

@@ -295,8 +295,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         int idKategoria = Integer.parseInt(kat.getText());
             ProduktQuery produkty = new ProduktQuery();
         produktyCombo.getItems().clear();
-        produktyCombo.getItems().addAll(produkty.
-                produktySelectAllOnID(idKategoria));
+        produktyCombo.getItems().addAll(produkty.produktySelectAvailable(idKategoria));
         produktyCombo.setConverter(new ProduktyConverter());
         
           produktyCombo.setOnAction(new EventHandler<ActionEvent>() {

@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -72,6 +73,24 @@ public class ProduktQuery {
             i++;
         }
         return produkty;
+        
+      
+    }
+       
+       public List<Produkty> produktySelectAvailable(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Produkty where KategoriaId = '" + id + "'";
+        Query query = session.createQuery(hql);
+        List <Produkty> produkty = query.list();
+        session.close();
+        MagazynQuery mg = new MagazynQuery();
+        List <Produkty> produkty2 = new ArrayList<Produkty>();
+        for(Produkty p : produkty){
+            if(mg.dostepneTowary(p.getProduktId()) > 0){
+                produkty2.add(p);
+            }
+        }
+        return produkty2;
         
       
     }
