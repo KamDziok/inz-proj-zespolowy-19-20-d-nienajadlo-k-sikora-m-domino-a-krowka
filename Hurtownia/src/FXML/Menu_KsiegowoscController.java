@@ -14,6 +14,7 @@ import hibernate.Towaryzamowienie;
 import hibernate.Wyplaty;
 import hibernate.WyplatyQuery;
 import hibernate.Zamowienie;
+import hibernate.ZamowienieQuery;
 import java.net.URL;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import static javafx.scene.input.KeyCode.S;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -108,11 +111,6 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     private Label labelID;
     
     @FXML
-    private Label labelDate;
-    
-    @FXML
-    private Button dodajWyplate;
-    @FXML
     private TableColumn<Integer, Towaryzamowienie> idZamowienia;
     @FXML
     private TableColumn<Integer, Towaryzamowienie> ilosc;
@@ -122,6 +120,14 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     private JFXButton wylogujDW1;
     @FXML
     private TableView<Towaryzamowienie> zamowienieFaktura;
+    @FXML
+    private TableView<Zamowienie> zaplateTable;
+    @FXML
+    private TableColumn<Zamowienie, String> statusZaplaty;
+    @FXML
+    private JFXButton wylogujDW11;
+    @FXML
+    private TableColumn<Zamowienie, Integer> idZam;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -140,6 +146,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         payCheckTable();
         wyszukajPracownika(getPracownik());
         comboPracownik();
+        statusZaplaty ();
         fakturyTable();
     }    
     
@@ -170,6 +177,21 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         }
         return listaWyplat;
     }
+        
+         public ObservableList<Zamowienie> zaplata() {
+        ObservableList<Zamowienie> zam = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Zamowienie> pList = session.createCriteria(Zamowienie.class).list();
+
+        for (Zamowienie z : pList) {
+            zam.add(z);
+
+        }
+        return zam;
+    }
+       
         
         public ObservableList<Towaryzamowienie> getTowary() {
         ObservableList<Towaryzamowienie> listaZamowienia = FXCollections.
@@ -365,6 +387,56 @@ row.setContextMenu(contextMenu);
             alert2.showAndWait();
                }
         
+    }
+    
+    public void statusZaplaty (){
+        
+        idZam.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
+        statusZaplaty.setCellValueFactory
+       (new PropertyValueFactory<>("statusZaplaty"));
+         zaplateTable.getItems().setAll(zaplata());
+         
+           zaplateTable.setEditable(true);
+           statusZaplaty.setCellFactory(TextFieldTableCell.forTableColumn());
+           zaplateTable.setRowFactory( tv -> {
+    TableRow<Zamowienie> row = new TableRow<>();
+    row.getContextMenu();
+    
+    
+    
+    final ContextMenu contextMenu = new ContextMenu();
+            MenuItem change = new MenuItem("Zmien status");
+
+           change.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            ZamowienieQuery zamow = new ZamowienieQuery();
+            zamow.changeStatus(row.getItem().getZamowienieId(), row.getItem().getStatusZaplaty());
+            
+            zaplateTable.setItems(zaplata());
+        
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+contextMenu.getItems().addAll(change);
+
+row.setContextMenu(contextMenu);
+    
+    return row ;
+});
+        
+        
+    }
+
+    @FXML
+    private void onEditChange(TableColumn.CellEditEvent<Zamowienie, String> event) {
+        Zamowienie zam = zaplateTable.getSelectionModel().getSelectedItem();
+        zam.setStatusZaplaty(event.getNewValue());
     }
 
     

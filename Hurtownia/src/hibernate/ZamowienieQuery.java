@@ -54,57 +54,31 @@ public class ZamowienieQuery {
         return zamow;
     
 }
-      public void changeStatus(int id, String statusZ, String statusT) {
+      public void changeStatus(int id, String statusZ) {
         session = HibernateUtil.getSessionFactory().openSession();
       
-       
-           session = HibernateUtil.getSessionFactory().openSession();
-            String query = "UPDATE `zamowienie` SET";
-            
-            if(!query.equals("UPDATE `zamowienie` SET"))
-            query+=",";
-            
-            if(statusZ.length() > 0) {
-                query = query + " `StatusZaplaty` = '" + statusZ + "'";
-            }
-            
-             if(statusT.length() > 0){
-        if(!query.equals("UPDATE `zamowienie` SET"))
-            query+=",";
-            query = query+" `StatusTransportu` = '" + statusT + "'";
-        }
-             
-             query = query + " WHERE " + " `ZamowienieId` = " + id;
-              try {
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-        }
-        catch (HibernateException error){
-            session.getTransaction().rollback();
-            session.close();
-        }
+       try{
         
-           // session.beginTransaction();
-            //Zamowienie zamowienia = (Zamowienie)session.get(Zamowienie.class, id);
-            //zamowienia.setStatusZaplaty(statusZ);
+            session.beginTransaction();
+           Zamowienie zamowienia = (Zamowienie)session.get(Zamowienie.class, id);
+           zamowienia.setStatusZaplaty(statusZ);
             //zamowienia.setStatusTransportu(statusT);
            
-           //session.getTransaction().commit();
+          session.getTransaction().commit();
            
 
-      //  } catch(Exception sqlException) {
-           // if(null != session.getTransaction()) {
-            //    session.getTransaction().rollback();
-         ///   }
-          //  sqlException.printStackTrace();
-     //   } finally {
-           // if(session != null) {
-             //   session.close();
-           // }
+      } catch(Exception sqlException) {
+           if(null != session.getTransaction()) {
+               session.getTransaction().rollback();
+          }
+          sqlException.printStackTrace();
+ } finally {
+         if(session != null) {
+             session.close();
+            }
     
 }
              }
+}
     
 

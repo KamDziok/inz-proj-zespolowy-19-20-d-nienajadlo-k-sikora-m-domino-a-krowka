@@ -288,7 +288,7 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
             ZamowienieQuery zamow = new ZamowienieQuery();
             Zamowienie zam = new Zamowienie();
 
-            zamow.changeStatus(id,statusZap, statusT);
+//            zamow.changeStatus(id,statusZap, statusT);
 
             zamowienia.setItems(getZamowienie());
             zmianaST.setText(null);
