@@ -47,7 +47,7 @@ public class Magazyn  implements java.io.Serializable {
         return produkty.getProduktId();
     }
      
-    public String getProduktName(){
+    public String getProductName(){
         return produkty.getNazwa();
     }
     

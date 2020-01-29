@@ -22,12 +22,12 @@
                      <children>
                         <TableView fx:id="towaryMagazyn" layoutX="67.0" layoutY="88.0" prefHeight="270.0" prefWidth="489.0">
                           <columns>
-                            <TableColumn fx:id="idZamoweinia" prefWidth="146.0" text="Id zamówienia" />
-                              <TableColumn fx:id="iloscP" prefWidth="202.0" text="Nazwa produktu" />
-                              <TableColumn fx:id="cenaP" prefWidth="138.0" text="Ilość" />
+                                <TableColumn fx:id="produktNazwa" prefWidth="138.0" text="Nazwa" />
+                                <TableColumn fx:id="produktID" prefWidth="146.0" text="Id Produktu" />
+                                <TableColumn fx:id="iloscProdukt" prefWidth="202.0" text="Ilość na magazynie" />
                           </columns>
                         </TableView>
-                        <Button fx:id="wylogujBtnP" layoutX="625.0" layoutY="14.0" mnemonicParsing="false" onAction="#wyloguj" text="Wyloguj" />
+                        <JFXButton fx:id="wylogujBtn" layoutX="621.0" layoutY="24.0" onAction="#wyloguj" text="Wyloguj" />
                      </children>
                   </AnchorPane>
             </content>
@@ -42,7 +42,7 @@
                               <TableColumn fx:id="statusTransportu" prefWidth="300.0" text="Status transportu" />
                           </columns>
                         </TableView>
-                        <JFXButton fx:id="wylogujBtn" layoutX="621.0" layoutY="24.0" onAction="#wyloguj" text="Wyloguj" />
+                        <JFXButton fx:id="wylogujBtn2" layoutX="621.0" layoutY="24.0" onAction="#wyloguj" text="Wyloguj" />
                      </children>
                   </AnchorPane>
               </content>

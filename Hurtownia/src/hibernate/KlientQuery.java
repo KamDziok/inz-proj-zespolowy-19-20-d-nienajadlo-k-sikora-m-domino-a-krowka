@@ -355,7 +355,7 @@ catch (HibernateException error){
    public void zatwierdzZamowienie(String ID){
     
         session = HibernateUtil.getSessionFactory().openSession();
-        String query = "UPDATE `zamowienie` SET `StatusTransportu`=' "
+        String query = "UPDATE `zamowienie` SET `StatusTransportu`='"
                 +"w trakcie realizacji' WHERE `ZamowienieID` = " + ID;
 
         try {

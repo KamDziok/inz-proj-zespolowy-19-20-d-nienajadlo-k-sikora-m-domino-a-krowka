@@ -5,9 +5,9 @@
  */
 package FXML;
 
-import com.jfoenix.controls.JFXButton;
 import hibernate.Kategorie;
 import hibernate.Magazyn;
+import hibernate.MagazynQuery;
 import hibernate.Towaryzamowienie;
 import hibernate.Zamowienie;
 import java.net.URL;
@@ -40,18 +40,30 @@ import org.hibernate.Session;
 public class Magazyn_MenuController extends Logowanie implements Initializable {
 
  
+    
+    
+    // Zakładka produktów na magazynie
     @FXML
-    private Button wylogujBtnP;
+    private TableView<Magazyn> towaryMagazyn;
     @FXML
-    private TableColumn<Towaryzamowienie, Integer> iloscP;
+    private TableColumn<Magazyn, Integer> produktID;
+    @FXML
+    private TableColumn<Magazyn, Integer> iloscProdukt;
+    @FXML
+    private TableColumn<Magazyn, String> produktNazwa;
+    
+    
+    
+    
+    // Zakładka Wyślij Towar
     @FXML
     private TableView<Zamowienie> zamowienia;
     @FXML
     private TableColumn<Zamowienie, Integer> idZamowienia;
     @FXML
     private TableColumn<Zamowienie, String> statusTransportu;
-    @FXML
-    private JFXButton wylogujBtn;
+    
+    
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -64,23 +76,9 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         statusZamowienTable();
+        setTowaryMagazynTable();
     }
     
-     public ObservableList<Kategorie> getKategoria() {
-        ObservableList<Kategorie> kategorie = FXCollections.
-                observableArrayList();
-        Session session = hibernate.HibernateUtil.getSessionFactory().
-                openSession();
-        List<Kategorie> pList = session.createCriteria(Kategorie.class).list();
-
-        for (Kategorie k : pList) {
-            kategorie.add(k);
-
-        }
-        return kategorie;
-    }
-     
-      
      public ObservableList<Magazyn> getMagazyn() {
         ObservableList<Magazyn> maga = FXCollections.
                 observableArrayList();
@@ -94,65 +92,75 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
         }
         return maga;
     }
-
+     
+     
+     
+    public void setTowaryMagazynTable() {
+        produktID.setCellValueFactory(new PropertyValueFactory<>("ProductId"));
+        iloscProdukt.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
+        produktNazwa.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
+        towaryMagazyn.setItems(getMagazyn());
+    } 
+     
+     
+    
     public void statusZamowienTable() {
 
         idZamowienia.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
         statusTransportu.setCellValueFactory(new PropertyValueFactory<>("statusTransportu"));
 
-        zamowienia.setItems(getZamowienie());
-
-                zamowienia.setRowFactory( tv -> {
+        zamowienia.setItems(getNieWyslaneZamowienia());
+        zamowienia.setRowFactory( tv -> {
             TableRow<Zamowienie> row = new TableRow<>();
             row.getContextMenu();
-
             final ContextMenu contextMenu = new ContextMenu();
                     MenuItem tow = new MenuItem("Wyświetl dane");
-                    MenuItem faktura = new MenuItem("Wyślij towar");
+                    MenuItem send = new MenuItem("Wyślij towar");
+            tow.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        TabelaController.ID = String.valueOf(row.getItem().getZamowienieId());
+                        Stage PrimaryStage = new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                            + "/Tabela.fxml"));
+                        Scene scene = new Scene(root);
+                        PrimaryStage.setScene(scene);
+                        PrimaryStage.show();
+                        PrimaryStage.setResizable(true);
 
-                    tow.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    TabelaController.ID = String.valueOf(row.getItem().getZamowienieId());
-                    Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                        + "/Tabela.fxml"));
-                    Scene scene = new Scene(root);
-                    PrimaryStage.setScene(scene);
-                    PrimaryStage.show();
-                    PrimaryStage.setResizable(true);
 
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
-
-            }
-        });
-                    faktura.setOnAction(new EventHandler<ActionEvent>() {
+            });
+            send.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
-                try {
-                    // Wysyłanie towaru
+                public void handle(ActionEvent event) {
+                    try {
+                        MagazynQuery mg = new MagazynQuery();
+                        mg.wyslijZamowienie(row.getItem().getZamowienieId());
+                        statusZamowienTable();
+                        setTowaryMagazynTable();
 
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
 
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
-
-            }
-        });
-        contextMenu.getItems().addAll(tow , faktura);
-
-        row.setContextMenu(contextMenu);
-
+            });
+                contextMenu.getItems().addAll(tow , send);
+                
+                
+            row.setContextMenu(contextMenu);
             return row ;
         });
 
     }
     
-    public ObservableList<Zamowienie> getZamowienie() {
+    public ObservableList<Zamowienie> getNieWyslaneZamowienia() {
         ObservableList<Zamowienie> listaZamowien = FXCollections.
                 observableArrayList();
         Session session = hibernate.HibernateUtil.getSessionFactory().
@@ -160,25 +168,12 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
         List<Zamowienie> pList = session.createCriteria(Zamowienie.class).list();
 
         for (Zamowienie z : pList) {
+            if(z.getStatusTransportu().equals("w trakcie realizacji"))
             listaZamowien.add(z);
 
         }
         return listaZamowien;
     }
     
-       public ObservableList<Towaryzamowienie> getTowarZamowienie() {
-        ObservableList<Towaryzamowienie> listaZamowien = FXCollections.
-                observableArrayList();
-        Session session = hibernate.HibernateUtil.getSessionFactory().
-                openSession();
-        List<Towaryzamowienie> pList = session.createCriteria(
-                Towaryzamowienie.class).list();
-
-        for (Towaryzamowienie tz : pList) {
-            listaZamowien.add(tz);
-
-        }
-        return listaZamowien;
-    }
 
 }

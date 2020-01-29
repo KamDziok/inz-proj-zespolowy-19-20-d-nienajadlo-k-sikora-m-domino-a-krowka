@@ -60,31 +60,33 @@ public class MagazynQuery {
         return magazyn;
     }
       
-      public void zmianaIlosci (int id, int ilosc){
-          session = HibernateUtil.getSessionFactory().openSession();
+      public void wyslijZamowienie (int id){
       
-            String query = "UPDATE `magazyn` SET";
-            
-            if(!query.equals("UPDATE `magazyn` SET"))
-            query+=",";
-            
-             if(ilosc > 0){
-        if(!query.equals("UPDATE `magazyn` SET"))
-            query+=",";
-         
-           Magazyn magazyn;
-            magazyn = (Magazyn)session.get(Magazyn.class, id);
-         
-             int iloscS = magazyn.getIlosc();
-             int iloscZ = iloscS - ilosc;
-        
-            
-            query = query+" `Ilosc` = '" + iloscZ + "'";
-            
+        TowaryzamowienieQuery tz = new TowaryzamowienieQuery();  
+          List<Towaryzamowienie> tzTable = tz.zamowieniaID(String.valueOf(id));
+          for (Towaryzamowienie towar : tzTable) {
+            String query = "UPDATE `magazyn` SET `Ilosc`= `Ilosc` - "+
+                    towar.getIlosc()+" WHERE `ProduktID` = " 
+                    + towar.getProduktID();
+            try {
+                
+            session = HibernateUtil.getSessionFactory().openSession();
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
         }
-             
-             query = query + " WHERE `ProduktId` = " + id;
-              try {
+            catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+        }
+          
+          session = HibernateUtil.getSessionFactory().openSession();
+        String query = "UPDATE `zamowienie` SET `StatusTransportu` "
+            +"='wysłano' WHERE `ZamowienieID` = " + id;
+            
+        try {
             session.getTransaction().begin();
             session.createSQLQuery(query).executeUpdate();
             session.getTransaction().commit();
