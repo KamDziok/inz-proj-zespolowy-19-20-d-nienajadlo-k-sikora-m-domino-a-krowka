@@ -53,6 +53,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 /**
@@ -246,8 +248,10 @@ public class Menu_KierownikController extends Logowanie implements Initializable
                 observableArrayList();
         Session session = hibernate.HibernateUtil.getSessionFactory().
                 openSession();
-        Criteria crit = (Criteria)session.createCriteria(Pracownik.class).
-                setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
+        Criteria crit = (Criteria)session.createCriteria(Pracownik.class);
+        //Criterion price = Restrictions.gt("stanowisko",new String());
+        crit.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
+        
         List <Pracownik> stanowisko = crit.list();
                 
        
@@ -286,6 +290,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         cenaP.setText(null);
         nazwaP.setText(null);
         opisP.setText(null);
+      //  stanowiskoCombo.getItems().clear();
+        
 
     }
 
