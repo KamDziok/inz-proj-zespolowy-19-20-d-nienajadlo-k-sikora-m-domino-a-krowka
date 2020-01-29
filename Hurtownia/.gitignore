@@ -40,5 +40,7 @@ nbproject/private/
 nbactions.xml
 nb-configuration.xml
 
+dist/run*
+
 #itext
 invoices/*.pdf
