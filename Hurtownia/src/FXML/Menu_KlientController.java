@@ -14,6 +14,7 @@ import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
 import hibernate.KlientQuery;
+import hibernate.MagazynQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
@@ -44,6 +45,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -79,6 +81,10 @@ import javafx.stage.Stage;
 }
 
 public class Menu_KlientController extends Logowanie implements Initializable {
+    
+    @FXML
+    private Label dostepne;
+    
 
     @FXML
     private TableView<Zamowienie> zamowieniaK;
@@ -302,6 +308,9 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 comboValueProdukty(produktyCombo);
+                
+                int p =  new MagazynQuery().dostepneTowary(produktyCombo.getValue().getProduktId());
+                dostepne.setText("Dostępne:    " + p);
 
             }
         });
@@ -341,12 +350,18 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             KlientQuery klient = new KlientQuery();
             if (towary.size() == 0)
             zamID.setZamID(new Date());
-            klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
-            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-        System.out.println(towar.zamowieniaID(zamID.getZamID()).size());
-            displayTowary();
-
-            statusZamowienia.setText("Towar dodany do zamówienia!");
+            
+            if (new MagazynQuery().dostepneTowary(idProdukt) >= ilosc) {
+                klient.zamowTowar(ilosc, idProdukt, id , towary , zamID.getZamIDDate());
+                TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+                displayTowary();
+                statusZamowienia.setText("Towar dodany do zamówienia!");
+                int p =  new MagazynQuery().dostepneTowary(produktyCombo.getValue().getProduktId());
+                dostepne.setText("Dostępne:    " + p);
+            }
+            else{
+                statusZamowienia.setText("Zbyt mało towaru na magazynie");
+            }
             
         }catch(Exception e){
             System.out.println(e.getMessage());
