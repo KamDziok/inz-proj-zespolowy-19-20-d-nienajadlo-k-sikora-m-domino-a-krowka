@@ -4,7 +4,10 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.html.simpleparser.HTMLWorker;
 import com.itextpdf.text.pdf.PdfWriter;
+import hibernate.Adresy;
+import hibernate.AdresyQuery;
 import hibernate.Klient;
+import hibernate.ZamowienieQuery;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,6 +17,8 @@ import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -50,19 +55,36 @@ public class pdfCreator {
      * @throws IOException default exception
      */
     
-    public static void createInvoice(String invoiceNumber, int VAT, String currency, Klient k, String[][] products) throws FileNotFoundException, DocumentException, IOException{
+    public static void createInvoice(String invoiceNumber, int VAT, String currency, Klient k, String[][] products) throws FileNotFoundException, DocumentException, IOException, ParseException{
         File fileHTML = new File(appPath.get() + "\\invoices\\invoice_nr" + invoiceNumber + ".pdf");
+        AdresyQuery aq = new AdresyQuery();
+        Adresy a = aq.wyswietlAdres(k.getKlientId());
+        ZamowienieQuery zamowienie = new ZamowienieQuery();
+        Date dateOfOrder = zamowienie.getOrderDate(Integer.parseInt(invoiceNumber));
+        Calendar finishCalendar = Calendar.getInstance();
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        finishCalendar.setTime(formatDate.parse(dateOfOrder.toString()));
+        finishCalendar.add(Calendar.DAY_OF_MONTH, 14);
+        String finishDateAsString = formatDate.format(finishCalendar.getTime()); 
+        
+        Date dateToday = new Date();
+        String dateTodayString = formatDate.format(dateToday);
         
         String table = readHtml("br")
                 + "<p>Wystawiono dla:</p>"
                 +"<p>"+k.getImie()+" "+k.getNazwisko()+"</p>"
-                + "<p>Dnia "+initDay+"."+initMonth+"."+initYear+"r.</p>"+readHtml("br")+readHtml("br");
+                +"<p>"+a.getMiasto()+" "+a.getUlica()+" "+a.getNumerBudynku()+"</p>"
+                +"<p>"+a.getEmail()+"</p>"
+                +"<p>"+k.getTelefon()+"</p>"
+                + "<p>Data zamówienia: "+ dateOfOrder +"</p>"
+                + "<p>Wystawiono dnia:"+dateTodayString+"</p>"
+                +readHtml("br")+readHtml("br");
 
         
         calendarToInvoice.setTime(dateToInvoice);
         calendarToInvoice.add(Calendar.DATE, 14);
         dateToInvoice = calendarToInvoice.getTime();
-        String day = calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1 < 10 ? "0"+calendarToInvoice.get(Calendar.DAY_OF_MONTH) : ""+calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1;
+        String day = calendarToInvoice.get(Calendar.DAY_OF_MONTH)+1 < 10 ? "0"+calendarToInvoice.get(Calendar.DAY_OF_MONTH) : ""+calendarToInvoice.get(Calendar.DAY_OF_MONTH);
         String month = calendarToInvoice.get(Calendar.MONTH)+1 < 10 ? "0"+(calendarToInvoice.get(Calendar.MONTH)+1) : ""+(calendarToInvoice.get(Calendar.MONTH)+1);
         String year = ""+calendarToInvoice.get(Calendar.YEAR);
         
@@ -143,13 +165,9 @@ public class pdfCreator {
                 + "<h4>W sumie do zapłaty: "+df.format(totalPrice)+" "+currency+"</h4>"
                 + readHtml("br")
                 + "<h4>"
-                    + "Termin platnosci: 14 dni, upływa: "
-                    +day
-                    + "."
-                    + month
-                    + "."
-                    +year
-                +"r.</h4>"
+                    + "Termin platnosci: 14 dni, uplywa: "
+                    +finishDateAsString
+                +"</h4>"
                 + readHtml("br") 
                 + readHtml("br")
                 + readHtml("br")

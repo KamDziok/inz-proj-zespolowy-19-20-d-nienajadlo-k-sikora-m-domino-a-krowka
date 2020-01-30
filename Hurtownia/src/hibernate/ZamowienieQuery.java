@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -35,8 +36,21 @@ public class ZamowienieQuery {
             i++;
         }
         return zamow;
+    }
     
-}
+    
+      public Date getOrderDate(int id){
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "from Zamowienie where ZamowienieId = '" + id + "'";
+        Query query = session.createQuery(hql);
+        List <Zamowienie> zamow = query.list();
+        session.close();
+        int i = 0;
+        Date date = zamow.get(0).getData();
+        return date;
+    }
+    
+    
     public List<Zamowienie> zamowieniaIDBezOczekujace(int id){
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Zamowienie where KlientId = '" + id 
