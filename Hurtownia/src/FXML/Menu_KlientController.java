@@ -6,6 +6,7 @@
 package FXML;
 
 import static FXML.TabelaController.ID;
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Adresy;
@@ -37,6 +38,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -61,6 +63,7 @@ import org.hibernate.Session;
 
  class ZamowienieID {
     Date zamID;
+    Popup Popup = new Popup();
     
     ZamowienieID(Date zam) {
         this.zamID = zam;
@@ -452,7 +455,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     
     final ContextMenu contextMenu = new ContextMenu();
             MenuItem tow = new MenuItem("Wyświetl dane");
-            MenuItem faktura = new MenuItem("faktura");
+            MenuItem faktura = new MenuItem("Generuj fakturę");
             MenuItem zwrot = new MenuItem("Zwróć zamówienie");
             MenuItem zaplac = new MenuItem("Zapłać");
             
@@ -477,47 +480,53 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
     }
 });
-            faktura.setOnAction(new EventHandler<ActionEvent>() {
+    
+faktura.setOnAction(new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent event) {
+        
         try {
             KlientQuery klient = new KlientQuery();
-            klient.pobierzFakture( "" +row.getItem().getZamowienieId());
-            
-             
+            klient.pobierzFakture( "" +row.getItem().getZamowienieId());   
+            Popup.show("Wygenerowano fakturę w katalogu Invoices.");
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Popup.show("Nie udało się wygenerować faktury");
+            System.err.println(e.getMessage());
         }
         
     }
 });
             
-            zwrot.setOnAction(new EventHandler<ActionEvent>() {
+zwrot.setOnAction(new EventHandler<ActionEvent>() {
     @Override
-    public void handle(ActionEvent event) {
-        new KlientQuery().zwrocTowar(row.getItem());
-        wczytajDane();
-        
-    }
-});            
-            zaplac.setOnAction(new EventHandler<ActionEvent>() {
-    @Override
-    public void handle(ActionEvent event) {
-        new KlientQuery().zaplac(row.getItem());
-        wczytajDane();
-        
-    }
-});
-contextMenu.getItems().addAll(tow , faktura , zwrot , zaplac);
+        public void handle(ActionEvent event) {
+            new KlientQuery().zwrocTowar(row.getItem());
+            wczytajDane();
 
-row.setContextMenu(contextMenu);
-    
-    return row ;
-});
+ }
+    });            
+
+
+    zaplac.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            new KlientQuery().zaplac(row.getItem());
+            wczytajDane();
+        }
+    });
+
+
+    contextMenu.getItems().addAll(tow , faktura , zwrot , zaplac);
+
+    row.setContextMenu(contextMenu);
+
+        return row ;
+    });
+}
       
         
         
-    }
+    
     
      @FXML
     private void aktywneSelect(ActionEvent event) {
@@ -533,6 +542,7 @@ row.setContextMenu(contextMenu);
     }
     
 
+   
     @FXML
     private void anuluj(ActionEvent event) {
         
