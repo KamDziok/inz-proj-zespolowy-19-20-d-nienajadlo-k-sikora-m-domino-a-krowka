@@ -400,6 +400,17 @@ public class KlientQuery {
         
     }
     
+    
+    public void zaplac(Zamowienie zam){
+        if (zam.getStatusZaplaty().equals("nie zapłacone")){
+    executeUpdate("UPDATE `zamowienie` SET `StatusZaplaty`='zapłacone'"
+                    +" WHERE `ZamowienieID` = "+ zam.getZamowienieId());
+    
+    executeUpdate("UPDATE `ksiegowosc` SET`Przychody`= `Przychody` + "+
+            zam.getKoszt() +" WHERE `HurtowniaID` = 1");
+        }
+    }
+    
     public void executeUpdate(String query){
     session = HibernateUtil.getSessionFactory().openSession();
 

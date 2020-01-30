@@ -433,6 +433,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             MenuItem tow = new MenuItem("Wyświetl dane");
             MenuItem faktura = new MenuItem("faktura");
             MenuItem zwrot = new MenuItem("Zwróć zamówienie");
+            MenuItem zaplac = new MenuItem("Zapłać");
             
 
             tow.setOnAction(new EventHandler<ActionEvent>() {
@@ -475,11 +476,18 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     public void handle(ActionEvent event) {
         new KlientQuery().zwrocTowar(row.getItem());
         wczytajDane();
-        System.out.println("Zwróć towar");
+        
+    }
+});            
+            zaplac.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        new KlientQuery().zaplac(row.getItem());
+        wczytajDane();
         
     }
 });
-contextMenu.getItems().addAll(tow , faktura , zwrot);
+contextMenu.getItems().addAll(tow , faktura , zwrot , zaplac);
 
 row.setContextMenu(contextMenu);
     
