@@ -7,6 +7,7 @@ package hibernate;
 
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
 /**
@@ -30,4 +31,25 @@ public class KategorieQuery {
         session.close();
         return kat;
     }
+     
+     public void nowaKategoria(String nazwa,String opis){
+         String query= "INSERT INTO `kategorie` (`Nazwa`, `KategoriaID`,"
+                 +" `Opis`) VALUES ('"+nazwa+"', NULL, '"+opis+"');";
+     
+     
+     try {
+         
+                session = HibernateUtil.getSessionFactory().openSession();
+                session.getTransaction().begin();
+                session.createSQLQuery(query).executeUpdate();
+                session.getTransaction().commit();
+                session.close();
+            }
+            catch (HibernateException error){
+                session.getTransaction().rollback();
+                session.close();
+            }
+     
+     
+     }
 }

@@ -45,30 +45,34 @@
                            <children>
                               <AnchorPane layoutY="1.0" prefHeight="486.0" prefWidth="760.0">
                                  <children>
-                                    <Label layoutX="14.0" layoutY="35.0" prefHeight="17.0" prefWidth="72.0" text="Kategoria:">
+                                     
+                                    <ComboBox fx:id="katDcombo" layoutX="120.0" layoutY="20.0" prefHeight="25.0" prefWidth="220.0" />
+                                    
+                                    <Label layoutX="10.0" layoutY="20.0" prefHeight="17.0" prefWidth="72.0" text="Kategoria:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="10.0" layoutY="99.0" prefHeight="19.0" prefWidth="109.0" text="Nazwa produktu:">
+                                    <Label layoutX="10.0" layoutY="60.0" prefHeight="19.0" prefWidth="109.0" text="Nazwa produktu:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="nazwaP" layoutX="122.0" layoutY="96.0" prefHeight="25.0" prefWidth="219.0" />
-                                    <Label layoutX="15.0" layoutY="234.0" prefHeight="17.0" prefWidth="98.0" text="Opis:">
+                                    <TextField fx:id="nazwaP" layoutX="120.0" layoutY="60.0" prefHeight="25.0" prefWidth="220.0" />
+                                    <Label layoutX="10.0" layoutY="100.0" text="Cena za szt:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextArea fx:id="opisP" layoutX="72.0" layoutY="234.0" prefHeight="106.0" prefWidth="265.0" />
-                                    <Label layoutX="30.0" layoutY="162.0" text="Cena za szt:">
+                                    <TextField fx:id="cenaP" layoutX="120.0" layoutY="100.0" prefHeight="25.0" prefWidth="220.0" />
+                                    <Label layoutX="10.0" layoutY="140.0" prefHeight="17.0" prefWidth="98.0" text="Opis:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="cenaP" layoutX="124.0" layoutY="159.0" prefHeight="25.0" prefWidth="215.0" />
-                                    <Button fx:id="DodajBTN" layoutX="131.0" layoutY="383.0" mnemonicParsing="false" onAction="#dodajProdukt" text="Dodaj produkt" />
+                                    <TextArea fx:id="opisP" layoutX="120.0" layoutY="140.0" prefHeight="100.0" prefWidth="220.0" />
+                                    
+                                    <Button fx:id="DodajBTN" layoutX="240.0" prefWidth="100.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajProdukt" text="Dodaj produkt" />
                                     <TableView fx:id="produktyD" layoutX="380.0" layoutY="99.0" prefHeight="336.0" prefWidth="355.0">
                                       <columns>
                                         <TableColumn fx:id="nazwaTD" prefWidth="123.0" text="nazwa produktu" />
@@ -76,17 +80,22 @@
                                           <TableColumn fx:id="opisTD" prefWidth="109.0" text="opis" />
                                       </columns>
                                     </TableView>
-                                    <ComboBox fx:id="katDcombo" layoutX="103.0" layoutY="32.0" prefHeight="25.0" prefWidth="226.0" />
-                                    <Label layoutX="380.0" layoutY="45.0" prefHeight="17.0" prefWidth="72.0" text="Kategoria:">
+                                    <Label layoutX="10.0" layoutY="300.0" prefHeight="17.0" prefWidth="72.0" text="Kategoria:">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ComboBox fx:id="katCombo" layoutX="467.0" layoutY="42.0" prefHeight="25.0" prefWidth="163.0" />
+                                    <TextField fx:id="nowaKategoria" layoutX="120.0" layoutY="300.0" prefHeight="25.0" prefWidth="220.0" />
+                                    <Label layoutX="10.0" layoutY="340.0" prefHeight="17.0" prefWidth="98.0" text="Opis:">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextArea fx:id="kategoriaOpis" layoutX="120.0" layoutY="340.0" prefHeight="100.0" prefWidth="220.0" />
+                                    <Button fx:id="wczytajBtn" layoutX="200.0" prefWidth="140.0" layoutY="450.0" mnemonicParsing="false" onAction="#dodajKategorie" text="Dodaj Kategorie" />
                                     <JFXButton fx:id="wylogujbtn" layoutX="693.0" layoutY="7.0" onAction="#wyloguj" text="Wyloguj" />
                                     <Label fx:id="katWybor" layoutX="113.0" layoutY="59.0" prefHeight="17.0" prefWidth="173.0" />
-                                    <Label fx:id="statusDodajP" layoutX="51.0" layoutY="435.0" prefHeight="17.0" prefWidth="276.0" />
-                                    <Button fx:id="wczytajBtn" layoutX="649.0" layoutY="42.0" mnemonicParsing="false" onAction="#wczytajDane" text="Wczytaj" />
+                                    <Label fx:id="statusDodajP" layoutX="380.0" layoutY="435.0" prefHeight="17.0" prefWidth="276.0" />
                                     <Label fx:id="wczytajLabel" layoutX="467.0" layoutY="76.0" prefHeight="17.0" prefWidth="141.0" />
                                  </children>
                               </AnchorPane>

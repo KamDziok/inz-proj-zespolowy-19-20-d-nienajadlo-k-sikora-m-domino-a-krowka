@@ -80,6 +80,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
     @FXML
     private TextArea opisP;
+    
+    
 
     @FXML
     private TextField cenaP;
@@ -93,8 +95,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private ComboBox<Kategorie> katDcombo;
 
-    @FXML
-    private ComboBox<Kategorie> katCombo;
+//    @FXML
+//    private ComboBox<Kategorie> katCombo;
 
     @FXML
     private JFXButton wylogujbtn;
@@ -156,6 +158,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TextField iloscT;
     @FXML
+    private TextField nowaKategoria;
+    @FXML
     private Button dodajMagazynbtn;
     @FXML
     private Label magazyn_status;
@@ -190,6 +194,9 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Label wyborStanowiska;
     @FXML
     private ComboBox<Pracownik> stanowiskoCombo;
+    
+    @FXML
+    private TextArea kategoriaOpis;
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -320,7 +327,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.zwolnijPracownika(row.getItem().getPracownikId());
             
-          //pracownicyTableZ.setItems(getPracownik());
           pracownicyTable.setItems(getPracownik());
             zwolnieniaStatus.setText("Pracownik został zwolniony!");
              
@@ -417,13 +423,6 @@ row.setContextMenu(contextMenu);
         katWybor.setVisible(false);
     }
 
-    public void comboValueK(ComboBox<Kategorie> katCombo) {
-
-        Kategorie k = katCombo.getValue();
-        int idKat = k.getKategoriaId();
-        wczytajLabel.setText(Integer.toString(idKat));
-        wczytajLabel.setVisible(false);
-    }
     
     public void comboValueS (ComboBox<Pracownik> stanowiskoCombo){
         Pracownik sp = stanowiskoCombo.getValue();
@@ -453,27 +452,21 @@ row.setContextMenu(contextMenu);
         KategorieQuery kategoria = new KategorieQuery();
         
         katDcombo.getItems().addAll(kategoria.KategorieSelectAll());
-        katCombo.getItems().addAll(kategoria.KategorieSelectAll());
         katComboTM.getItems().addAll(kategoria.KategorieSelectAll());
         KcomboT.getItems().addAll(kategoria.KategorieSelectAll());
 
         katDcombo.setConverter(new KategorieConverter());
-        katCombo.setConverter(new KategorieConverter());
         katComboTM.setConverter(new KategorieConverter());
         KcomboT.setConverter(new KategorieConverter());
 
-        katCombo.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueK(katCombo);
 
-            }
-        });
 
         katDcombo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 comboValueKD(katDcombo);
+                produktyD.getItems().clear();
+                produktyD.setItems(getTowaryZKategorii(Integer.parseInt(katWybor.getText())));
 
             }
         });
@@ -540,6 +533,9 @@ row.setContextMenu(contextMenu);
             statusDodajP.setText("Produkt został dodany do danej kategorii");
             clearFields();
             produktyTable();
+            
+                produktyD.getItems().clear();
+                produktyD.setItems(getTowaryZKategorii(Integer.parseInt(katWybor.getText())));
 
         } catch (Exception e) {
 
@@ -581,17 +577,10 @@ row.setContextMenu(contextMenu);
     }
 
     @FXML
-    private void wczytajDane(ActionEvent event) {
-
-        int idKat = Integer.parseInt(wczytajLabel.getText());
-
-        ProduktQuery produkt = new ProduktQuery();
-
-        try {
-            produktyD.getItems().setAll(produkt.produktySelectAllOnID(idKat));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    private void dodajKategorie(ActionEvent event) {
+        
+        new KategorieQuery().nowaKategoria(nowaKategoria.getText() , kategoriaOpis.getText());
+        statusDodajP.setText("Dodano nową kategorie");
     }
     
     @FXML
@@ -625,6 +614,25 @@ row.setContextMenu(contextMenu);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    
+    public ObservableList<Produkty> getTowaryZKategorii(int katID) {
+        ObservableList<Produkty> listaZamowien = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Produkty> pList = session.createCriteria(Produkty.class).list();
+
+        for (Produkty z : pList) {
+            
+            if(katID == z.getKategorie().getKategoriaId())
+                listaZamowien.add(z);
+            }
+                
+
+        
+        return listaZamowien;
     }
 
 }
