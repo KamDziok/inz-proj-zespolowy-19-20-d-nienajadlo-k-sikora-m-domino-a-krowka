@@ -110,22 +110,28 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     @FXML
     private Label labelID;
     
+
     @FXML
-    private TableColumn<Integer, Towaryzamowienie> idZamowienia;
+    private TableView<Zamowienie> zamowienieFaktura;
     @FXML
-    private TableColumn<Integer, Towaryzamowienie> ilosc;
+    private TableColumn<Zamowienie, Integer> idZamowienia;
     @FXML
-    private TableColumn<Float, Towaryzamowienie> koszt;
-    @FXML
-    private JFXButton wylogujDW1;
-    @FXML
-    private TableView<Towaryzamowienie> zamowienieFaktura;
-    @FXML
-    private TableView<Zamowienie> zaplateTable;
+    private TableColumn<Zamowienie, Date> dataZamowienia;
     @FXML
     private TableColumn<Zamowienie, String> statusZaplaty;
     @FXML
-    private JFXButton wylogujDW11;
+    private TableColumn<Zamowienie, Float> kosztZamowienia;
+
+    @FXML
+    private TableView<Zamowienie> zamowienieZwrot;
+    @FXML
+    private TableColumn<Zamowienie, Integer> idZamowieniaZwrot;
+    @FXML
+    private TableColumn<Zamowienie, Date> dataZamowieniaZwrot;
+    @FXML
+    private TableColumn<Zamowienie, String> statusZaplatyZwrot;
+    @FXML
+    private TableColumn<Zamowienie, Float> kosztZamowieniaZwrot;
     @FXML
     private TableColumn<Zamowienie, Integer> idZam;
 
@@ -146,8 +152,8 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         payCheckTable();
         wyszukajPracownika(getPracownik());
         comboPracownik();
-        statusZaplaty ();
         fakturyTable();
+        zwrotTable();
     }    
     
         public ObservableList<Pracownik> getPracownik() {
@@ -178,7 +184,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         return listaWyplat;
     }
         
-         public ObservableList<Zamowienie> zaplata() {
+         public ObservableList<Zamowienie> zaplata(String status) {
         ObservableList<Zamowienie> zam = FXCollections.
                 observableArrayList();
         Session session = hibernate.HibernateUtil.getSessionFactory().
@@ -186,27 +192,21 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         List<Zamowienie> pList = session.createCriteria(Zamowienie.class).list();
 
         for (Zamowienie z : pList) {
-            zam.add(z);
+            if(status.equals("faktura") 
+                    && !z.getStatusZaplaty().equals("anulowane") 
+                     && !z.getStatusZaplaty().equals("zwrot"))
+                zam.add(z);
+                
+            
+                else if (status.equals("zwrot") && z.getStatusZaplaty().equals("zwrot") )
+                    zam.add(z);
+                
 
         }
         return zam;
     }
        
-        
-        public ObservableList<Towaryzamowienie> getTowary() {
-        ObservableList<Towaryzamowienie> listaZamowienia = FXCollections.
-                observableArrayList();
-        Session session = hibernate.HibernateUtil.getSessionFactory().
-                openSession();
-        List<Towaryzamowienie> pList = session.
-                createCriteria(Towaryzamowienie.class).list();
-
-        for (Towaryzamowienie t : pList) {
-            listaZamowienia.add(t);
-
-        }
-        return listaZamowienia;
-    }
+       
         
          
     public void pracownicyTableP() {
@@ -225,13 +225,14 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     
       public void fakturyTable() {
 
-        idZamowienia.setCellValueFactory(new PropertyValueFactory<>("zamowienieID"));
-        ilosc.setCellValueFactory(new PropertyValueFactory<>("ilosc"));
-        koszt.setCellValueFactory(new PropertyValueFactory<>("koszt"));
+        idZamowienia.setCellValueFactory(new PropertyValueFactory<>("zamowienieId"));
+        dataZamowienia.setCellValueFactory(new PropertyValueFactory<>("data"));
+        statusZaplaty.setCellValueFactory(new PropertyValueFactory<>("statusZaplaty"));
+        kosztZamowienia.setCellValueFactory(new PropertyValueFactory<>("koszt"));
         
-        zamowienieFaktura.getItems().setAll(getTowary());
+        zamowienieFaktura.getItems().setAll(zaplata("faktura"));
         zamowienieFaktura.setRowFactory(tv -> {
-            TableRow<Towaryzamowienie> row = new TableRow<>();
+            TableRow<Zamowienie> row = new TableRow<>();
             row.getContextMenu();
             
               final ContextMenu contextMenu = new ContextMenu();
@@ -242,8 +243,7 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     public void handle(ActionEvent event) {
         try {
             KsiegowoscQuery ksiegowosc = new KsiegowoscQuery();
-            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().
-                    getZamowienieID()));
+            ksiegowosc.pobierzFakture(Integer.toString(row.getItem().getZamowienieId()));
             
              
         } catch (Exception e) {
@@ -253,6 +253,45 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     }
         });
             contextMenu.getItems().addAll(faktura);
+
+row.setContextMenu(contextMenu);
+    
+            return row;
+                
+        });
+    
+                }
+    
+      public void zwrotTable() {
+
+        idZamowieniaZwrot.setCellValueFactory(new PropertyValueFactory<>("zamowienieId"));
+        dataZamowieniaZwrot.setCellValueFactory(new PropertyValueFactory<>("data"));
+        statusZaplatyZwrot.setCellValueFactory(new PropertyValueFactory<>("statusZaplaty"));
+        kosztZamowieniaZwrot.setCellValueFactory(new PropertyValueFactory<>("koszt"));
+        
+        zamowienieZwrot.getItems().setAll(zaplata("zwrot"));
+        zamowienieZwrot.setRowFactory(tv -> {
+            TableRow<Zamowienie> row = new TableRow<>();
+            row.getContextMenu();
+            
+              final ContextMenu contextMenu = new ContextMenu();
+            MenuItem zwrot = new MenuItem("Zwróć pieniądze");
+
+            zwrot.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            new KsiegowoscQuery().odbierzZwrot(row.getItem());
+            zwrotTable();
+            
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+        });
+            contextMenu.getItems().addAll(zwrot);
 
 row.setContextMenu(contextMenu);
     
@@ -389,54 +428,12 @@ row.setContextMenu(contextMenu);
         
     }
     
-    public void statusZaplaty (){
-        
-        idZam.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
-        statusZaplaty.setCellValueFactory
-       (new PropertyValueFactory<>("statusZaplaty"));
-         zaplateTable.getItems().setAll(zaplata());
-         
-           zaplateTable.setEditable(true);
-           statusZaplaty.setCellFactory(TextFieldTableCell.forTableColumn());
-           zaplateTable.setRowFactory( tv -> {
-    TableRow<Zamowienie> row = new TableRow<>();
-    row.getContextMenu();
-    
-    
-    
-    final ContextMenu contextMenu = new ContextMenu();
-            MenuItem change = new MenuItem("Zmien status");
 
-           change.setOnAction(new EventHandler<ActionEvent>() {
-    @Override
-    public void handle(ActionEvent event) {
-        try {
-            ZamowienieQuery zamow = new ZamowienieQuery();
-            zamow.changeStatus(row.getItem().getZamowienieId(), row.getItem().getStatusZaplaty());
-            
-            zaplateTable.setItems(zaplata());
-        
-             
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-    }
-});
-contextMenu.getItems().addAll(change);
-
-row.setContextMenu(contextMenu);
-    
-    return row ;
-});
-        
-        
-    }
 
     @FXML
     private void onEditChange(TableColumn.CellEditEvent<Zamowienie, String> event) {
-        Zamowienie zam = zaplateTable.getSelectionModel().getSelectedItem();
-        zam.setStatusZaplaty(event.getNewValue());
+//        Zamowienie zam = zaplateTable.getSelectionModel().getSelectedItem();
+//        zam.setStatusZaplaty(event.getNewValue());
     }
 
     

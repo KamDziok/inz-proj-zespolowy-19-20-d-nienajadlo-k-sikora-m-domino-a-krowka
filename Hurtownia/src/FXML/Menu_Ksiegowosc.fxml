@@ -27,8 +27,8 @@
                               <TextField fx:id="szukajID1" layoutX="227.0" layoutY="29.0" prefHeight="25.0" prefWidth="131.0" />
                               <TableView fx:id="pracownicyTableP" layoutX="67.0" layoutY="82.0" prefHeight="261.0" prefWidth="518.0">
                                 <columns>
-                                  <TableColumn fx:id="id" prefWidth="101.0" text="Id pracownika" />
-                                  <TableColumn fx:id="imieP" prefWidth="67.0" text="Imie" />
+                                    <TableColumn fx:id="id" prefWidth="101.0" text="Id pracownika" />
+                                    <TableColumn fx:id="imieP" prefWidth="67.0" text="Imie" />
                                     <TableColumn fx:id="nazwiskoP" prefWidth="89.0" text="Nazwisko" />
                                     <TableColumn fx:id="stanowiskoP" prefWidth="142.0" text="Stanowisko" />
                                     <TableColumn fx:id="placa" prefWidth="118.0" text="Wynagrodzenie" />
@@ -79,11 +79,12 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="zamowienieFaktura" layoutX="54.0" layoutY="53.0" prefHeight="248.0" prefWidth="467.0">
+                              <TableView fx:id="zamowienieFaktura" layoutX="54.0" layoutY="53.0" prefHeight="248.0" prefWidth="500.0">
                                 <columns>
-                                  <TableColumn fx:id="idZamowienia" prefWidth="147.0" text="Id zamowienia" />
-                                  <TableColumn fx:id="ilosc" prefWidth="161.0" text="Ilość" />
-                                    <TableColumn fx:id="koszt" prefWidth="158.0" text="Koszt" />
+                                    <TableColumn fx:id="idZamowienia" prefWidth="130.0" text="Id zamowienia" />
+                                    <TableColumn fx:id="dataZamowienia" prefWidth="100.0" text="Data" />
+                                    <TableColumn fx:id="statusZaplaty" prefWidth="160.0" text="status zapłaty" />
+                                    <TableColumn fx:id="kosztZamowienia" prefWidth="110.0" text="koszt" />
                                 </columns>
                               </TableView>
                               <JFXButton fx:id="wylogujDW1" layoutX="570.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
@@ -91,21 +92,24 @@
                         </AnchorPane>
                     </content>
                   </Tab>
-                  <Tab text="Status zapłaty">
+                   <Tab text="Zwrot">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="zaplateTable" layoutX="83.0" layoutY="66.0" prefHeight="221.0" prefWidth="406.0">
+                              <TableView fx:id="zamowienieZwrot" layoutX="54.0" layoutY="53.0" prefHeight="248.0" prefWidth="500.0">
                                 <columns>
-                                  <TableColumn fx:id="idZam" prefWidth="200.0" text="Id zamówienia" />
-                                  <TableColumn fx:id="statusZaplaty" onEditCommit="#onEditChange" prefWidth="205.0" text="Status zapłaty" />
+                                    <TableColumn fx:id="idZamowieniaZwrot" prefWidth="130.0" text="Id zamowienia" />
+                                    <TableColumn fx:id="dataZamowieniaZwrot" prefWidth="100.0" text="Data" />
+                                    <TableColumn fx:id="statusZaplatyZwrot" prefWidth="160.0" text="status zapłaty" />
+                                    <TableColumn fx:id="kosztZamowieniaZwrot" prefWidth="110.0" text="koszt" />
                                 </columns>
                               </TableView>
-                              <JFXButton fx:id="wylogujDW11" layoutX="570.0" layoutY="21.0" onAction="#wyloguj" text="Wyloguj" />
+                              <JFXButton fx:id="wylogujDW2" layoutX="570.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
                            </children>
                         </AnchorPane>
                     </content>
                   </Tab>
+                  
               </tabs>
             </TabPane>
          </children>

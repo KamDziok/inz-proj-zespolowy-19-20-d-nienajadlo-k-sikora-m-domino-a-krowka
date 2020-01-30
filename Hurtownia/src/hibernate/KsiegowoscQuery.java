@@ -10,6 +10,7 @@ import com.itextpdf.text.DocumentException;
 import java.io.IOException;
 import java.util.List;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -88,5 +89,31 @@ public class KsiegowoscQuery {
         pdfCreator pdf = new pdfCreator();
         pdf.createInvoice(zamowienieID,vat, waluta, k, productss);
 //     
+    }
+       
+       
+       public void odbierzZwrot(Zamowienie z){
+        executeUpdate("UPDATE `ksiegowosc` SET `Przychody`=`Przychody` - "+
+                z.getKoszt() +" WHERE `HurtowniaID` =1");
+        executeUpdate("UPDATE `zamowienie` SET `StatusZaplaty` "
+            +"='anulowane' WHERE `ZamowienieID` = " + z.getZamowienieId());
+        
+      }
+      
+      
+      
+    public void executeUpdate(String query){
+    session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
     }
 }
