@@ -41,5 +41,6 @@ nbactions.xml
 nb-configuration.xml
 dist/run*
 dist/Hurtownia.html
+dist/Hurtownia.jnlp
 #itext
 invoices/*.pdf
