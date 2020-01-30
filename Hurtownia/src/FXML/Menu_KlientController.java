@@ -6,6 +6,7 @@
 package FXML;
 
 import static FXML.TabelaController.ID;
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.Adresy;
@@ -58,6 +59,7 @@ import javafx.stage.WindowEvent;
 
  class ZamowienieID {
     Date zamID;
+    Popup Popup = new Popup();
     
     ZamowienieID(Date zam) {
         this.zamID = zam;
@@ -462,25 +464,19 @@ faktura.setOnAction(new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent event) {
         
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informacja");
-        alert.setHeaderText(null);
-        
         try {
             KlientQuery klient = new KlientQuery();
             klient.pobierzFakture( "" +row.getItem().getZamowienieId());   
-            alert.setContentText("Faktura została zapisana do folderu Invoices!");     
+            Popup.show("Wygenerowano fakturę w katalogu Invoices.");
         } catch (Exception e) {
-            alert.setContentText("Nie udało się wygenerować faktury!"); 
+            Popup.show("Nie udało się wygenerować faktury");
             System.err.println(e.getMessage());
         }
-        
-        alert.showAndWait();
         
     }
 });
             
-            zwrot.setOnAction(new EventHandler<ActionEvent>() {
+zwrot.setOnAction(new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent event) {
         new KlientQuery().zwrocTowar(row.getItem());
@@ -493,7 +489,6 @@ faktura.setOnAction(new EventHandler<ActionEvent>() {
     public void handle(ActionEvent event) {
         new KlientQuery().zaplac(row.getItem());
         wczytajDane();
-        
     }
 });
 contextMenu.getItems().addAll(tow , faktura , zwrot , zaplac);
