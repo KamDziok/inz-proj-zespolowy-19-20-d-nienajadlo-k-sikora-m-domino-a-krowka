@@ -458,7 +458,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             MenuItem zaplac = new MenuItem("Zapłać");
             
 
-            tow.setOnAction(new EventHandler<ActionEvent>() {
+tow.setOnAction(new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent event) {
         try {
@@ -500,7 +500,7 @@ zwrot.setOnAction(new EventHandler<ActionEvent>() {
         public void handle(ActionEvent event) {
             new KlientQuery().zwrocTowar(row.getItem());
             wczytajDane();
-
+            Popup.show("Pomyślnie zwrócono towar");
  }
     });            
 
@@ -510,6 +510,9 @@ zwrot.setOnAction(new EventHandler<ActionEvent>() {
         public void handle(ActionEvent event) {
             new KlientQuery().zaplac(row.getItem());
             wczytajDane();
+            if(row.getItem().getStatusZaplaty().equals("zapłacone")) Popup.show("Nie można opłacić opłaconego zamówienia");
+            else if (row.getItem().getStatusZaplaty().equals("zwrot") || row.getItem().getStatusZaplaty().equals("anulowane")) Popup.show("Nie można opłacić anulowanego zamówienia.");
+            else  Popup.show("Pomyślnie zapłacono.");
         }
     });
 
@@ -668,7 +671,7 @@ row.setContextMenu(contextMenu);
             if(aktywne)
                 if (!(z.getStatusTransportu().equals("anulowane") 
                         && z.getStatusZaplaty().equals("anulowane"))
-                        && !(z.getStatusTransportu().equals("wysłane") 
+                        && !(z.getStatusTransportu().equals("wysłano") 
                         && z.getStatusZaplaty().equals("zapłacone")))
                     listaZamowien.add(z);
             if(anulowane)
@@ -676,7 +679,7 @@ row.setContextMenu(contextMenu);
                         && z.getStatusZaplaty().equals("anulowane"))
                         listaZamowien.add(z);
             if(zakonczone)
-                if(z.getStatusTransportu().equals("wysłane") 
+                if(z.getStatusTransportu().equals("wysłano") 
                         && z.getStatusZaplaty().equals("zapłacone"))
                         listaZamowien.add(z);
             }

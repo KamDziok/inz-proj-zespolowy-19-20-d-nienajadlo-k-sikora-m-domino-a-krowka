@@ -1,0 +1,29 @@
+sequenceDiagram
+activate Klient
+Klient ->> Aplikacja: Wprowadza dane logowania
+activate Aplikacja
+Aplikacja ->> Baza Danych: Sprawdź poprawność danych
+activate Baza Danych
+Baza Danych -->> Aplikacja: Zwróć odpowiedź
+alt Poprawne dane logowania
+     Aplikacja -> Klient: Przejdź dalej
+     Klient ->> Aplikacja: Dodaj towar do zamówienia
+     Aplikacja ->> Baza Danych: Sprawdź stan magazynu
+     Baza Danych -->> Aplikacja: Zwróć wynik
+     Aplikacja ->> Aplikacja: Zapisz towar w zamówieniu
+     Klient ->> Aplikacja: Zatwierdź zamówienie
+     Aplikacja ->> Baza Danych: Zapisz zamówienie
+     Baza Danych -->> Aplikacja: Potwierdzenie przyjęcia do realizacji
+     Klient ->> Aplikacja: Pobierz fakturę
+     Aplikacja ->> Baza Danych: Odczytaj dane zamówienia
+     Baza Danych -->> Aplikacja: Zwróć dane
+     Aplikacja ->> Aplikacja: Wygeneruj fakturę w PDF 
+    Klient -> Aplikacja: Wyloguj
+
+else Błędne dane logowania
+    Aplikacja ->> Klient: Wprowadź poprawne dane
+end
+
+deactivate Klient
+deactivate Aplikacja
+deactivate Baza Danych

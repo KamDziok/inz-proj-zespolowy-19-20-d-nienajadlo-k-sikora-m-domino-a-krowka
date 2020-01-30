@@ -12,9 +12,27 @@
 
 ![diagram aktywności](activity_diagram.jpg)
 
-### Praca nad diagramami sekwencji.
+### Diagramy sekwencji
 
-![diagram sekwencji logowania](umlDiagrams/mermaid_sequence.svg)
+#### Diagram sekwencji Klienta
+
+![diagram sekwencji klient](umlDiagrams/mermaid_sequence_Client.svg)
+
+#### Diagram sekwencji Admina
+
+![diagram sekwencji klient](umlDiagrams/mermaid_sequence_Admin.svg)
+
+#### Diagram sekwencji Magazniera
+
+![diagram sekwencji klient](umlDiagrams/mermaid_sequence_Magazynier.svg)
+
+#### Diagram sekwencji Księgowej
+
+![diagram sekwencji klient](umlDiagrams/mermaid_sequence_Ksiegowa.svg)
+
+#### Diagram sekwencji Kierownika
+
+![diagram sekwencji klient](umlDiagrams/mermaid_sequence_Kierownik.svg)
 
 ---
 

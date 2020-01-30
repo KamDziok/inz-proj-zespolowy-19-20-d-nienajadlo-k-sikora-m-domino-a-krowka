@@ -1,0 +1,41 @@
+sequenceDiagram
+activate Magazynier
+Magazynier ->> Aplikacja: Wprowadza dane logowania
+activate Aplikacja
+
+Aplikacja ->> Baza Danych: Sprawdź poprawność danych
+activate Baza Danych
+Baza Danych -->> Aplikacja: Zwróć odpowiedź
+
+
+
+alt Poprawne dane logowania
+Aplikacja ->> Magazynier: Przejdź dalej
+
+Magazynier ->> Aplikacja: Wyślij towar do klienta
+Aplikacja ->> Magazynier: Wybierz zamówienie
+Magazynier ->> Aplikacja: Wybiera zamówienie
+Aplikacja ->> Baza Danych: Zmień status zamówienia
+Baza Danych -->> Aplikacja: Zwróć komunikat
+Aplikacja ->> Magazynier: Zwróć komunikat
+
+
+Magazynier ->> Aplikacja: Sprawdź ilość towarów
+Aplikacja ->> Baza Danych: zapytanie SQL o stan towarów
+Baza Danych -->> Aplikacja: Zwróć ilość
+Aplikacja ->> Magazynier: Pokaż ilość
+
+Magazynier ->> Aplikacja: Odbierz zwrot towaru
+Aplikacja ->> Magazynier: Wybierz zwrócone zamówienie
+Magazynier ->> Aplikacja: Wybiera zamówienie
+Aplikacja ->> Baza Danych: Zmień ilość towarów
+Baza Danych -->> Aplikacja: Zwróć komunikat
+Aplikacja ->> Magazynier: Zwróć komunikat
+
+else Błędne dane logowania
+    Aplikacja ->> Magazynier: Wprowadź poprawne dane
+end
+
+deactivate Magazynier
+deactivate Aplikacja
+deactivate Baza Danych

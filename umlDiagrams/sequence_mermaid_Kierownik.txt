@@ -1,0 +1,33 @@
+sequenceDiagram
+activate Kierownik
+Kierownik ->> Aplikacja: Wprowadza dane logowania
+activate Aplikacja
+
+Aplikacja ->> Baza Danych: Sprawdź poprawność danych
+activate Baza Danych
+Baza Danych -->> Aplikacja: Zwróć odpowiedź
+
+alt Poprawne dane logowania
+Aplikacja ->> Kierownik: Przejdź dalej
+Kierownik ->> Aplikacja: Zatrudnij pracownika
+Aplikacja ->> Kierownik: Wprowadź dane pracownika
+Kierownik ->> Aplikacja: Wprowadza dane
+Aplikacja ->> Baza Danych: Dodaj nowego pracownika
+Baza Danych -->> Aplikacja: Komunikat Zwrotny
+Aplikacja ->> Kierownik: Informacja o przebiegu procesu
+
+Kierownik ->> Aplikacja: Dodaj towary na magazyn
+Aplikacja ->> Kierownik: Wprowadź dane towarów
+Kierownik ->> Aplikacja: Wprowadza dane
+Aplikacja ->> Baza Danych: Zapisz dane towarów
+Baza Danych -->> Aplikacja: Komunikat Zwrotny
+Aplikacja ->> Kierownik: Komunikat zwrotny
+
+
+else Błędne dane logowania
+    Aplikacja ->> Kierownik: Wprowadź poprawne dane
+end
+
+deactivate Kierownik
+deactivate Aplikacja
+deactivate Baza Danych
