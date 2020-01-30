@@ -27,7 +27,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,6 +39,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -47,6 +51,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.hibernate.Session;
 
 /**
  * FXML Controller class
@@ -193,9 +198,24 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     ZamowienieID zamID = new ZamowienieID(new Date());
     @FXML
     private Button zatwierdzBTN;
+    
+    
+    @FXML
+    private CheckBox anulowane;
+    
+    @FXML
+    private CheckBox aktywne;
+    
+    @FXML
+    private CheckBox zakonczone;
+    
+    
+    
+    
 
     @FXML
     void DodajAdres(ActionEvent event) {
+        
 
         String kraj = krajAD.getText();
         String miasto = miastoAD.getText();
@@ -349,7 +369,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        aktywne.setSelected(true);
         ComboBoxK();
         zamowieniaTable();
         towaryDoZamowieniaTable();
@@ -421,8 +441,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         zamowieniaK.getItems().clear();
         int id = Integer.parseInt(tabelaId.getText());
         ZamowienieQuery zamow = new ZamowienieQuery();
-        zamowieniaK.getItems().addAll(zamow.zamowieniaIDBezOczekujace(id));
+        zamowieniaK.getItems().addAll(getZamowienia(aktywne.isSelected()
+                ,anulowane.isSelected(),zakonczone.isSelected()));
         
+//         zamowieniaK.getItems().addAll(zamow.wszystkieZamowienia());
         zamowieniaK.setRowFactory( tv -> {
     TableRow<Zamowienie> row = new TableRow<>();
     row.getContextMenu();
@@ -479,7 +501,7 @@ zwrot.setOnAction(new EventHandler<ActionEvent>() {
             new KlientQuery().zwrocTowar(row.getItem());
             wczytajDane();
 
-        }
+ }
     });            
 
 
@@ -499,7 +521,26 @@ zwrot.setOnAction(new EventHandler<ActionEvent>() {
         return row ;
     });
 }
+      
+        
+        
+    
+    
+     @FXML
+    private void aktywneSelect(ActionEvent event) {
+        wczytajDane();
+    }
+     @FXML
+    private void zakonczoneSelect(ActionEvent event) {
+        wczytajDane();
+    }
+     @FXML
+    private void anulowaneSelect(ActionEvent event) {
+        wczytajDane();
+    }
+    
 
+   
     @FXML
     private void anuluj(ActionEvent event) {
         
@@ -613,6 +654,36 @@ row.setContextMenu(contextMenu);
     return row ;
 });
             wczytajDane();
+    }
+    
+    public ObservableList<Zamowienie> getZamowienia(boolean aktywne,boolean anulowane,boolean zakonczone) {
+        ObservableList<Zamowienie> listaZamowien = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Zamowienie> pList = session.createCriteria(Zamowienie.class).list();
+
+        for (Zamowienie z : pList) {
+            
+            if(aktywne)
+                if (!(z.getStatusTransportu().equals("anulowane") 
+                        && z.getStatusZaplaty().equals("anulowane"))
+                        && !(z.getStatusTransportu().equals("wysłane") 
+                        && z.getStatusZaplaty().equals("zapłacone")))
+                    listaZamowien.add(z);
+            if(anulowane)
+                if(z.getStatusTransportu().equals("anulowane") 
+                        && z.getStatusZaplaty().equals("anulowane"))
+                        listaZamowien.add(z);
+            if(zakonczone)
+                if(z.getStatusTransportu().equals("wysłane") 
+                        && z.getStatusZaplaty().equals("zapłacone"))
+                        listaZamowien.add(z);
+            }
+                
+
+        
+        return listaZamowien;
     }
     
     

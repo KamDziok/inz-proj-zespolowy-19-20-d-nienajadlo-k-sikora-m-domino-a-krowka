@@ -7,7 +7,9 @@ package hibernate;
 
 import Utils.pdfCreator;
 import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -279,7 +281,7 @@ public class KlientQuery {
      */
     
    public void pobierzFakture(String zamowienieID) 
-           throws DocumentException, IOException{
+           throws DocumentException, IOException, FileNotFoundException, ParseException{
         
        
        Zamowienie z = null;
