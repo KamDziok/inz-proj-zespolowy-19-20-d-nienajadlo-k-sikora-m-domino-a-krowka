@@ -35,6 +35,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -431,7 +432,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     
     final ContextMenu contextMenu = new ContextMenu();
             MenuItem tow = new MenuItem("Wyświetl dane");
-            MenuItem faktura = new MenuItem("faktura");
+            MenuItem faktura = new MenuItem("Generuj fakturę");
             MenuItem zwrot = new MenuItem("Zwróć zamówienie");
             MenuItem zaplac = new MenuItem("Zapłać");
             
@@ -456,17 +457,25 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
     }
 });
-            faktura.setOnAction(new EventHandler<ActionEvent>() {
+    
+faktura.setOnAction(new EventHandler<ActionEvent>() {
     @Override
     public void handle(ActionEvent event) {
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Informacja");
+        alert.setHeaderText(null);
+        
         try {
             KlientQuery klient = new KlientQuery();
-            klient.pobierzFakture( "" +row.getItem().getZamowienieId());
-            
-             
+            klient.pobierzFakture( "" +row.getItem().getZamowienieId());   
+            alert.setContentText("Faktura została zapisana do folderu Invoices!");     
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            alert.setContentText("Nie udało się wygenerować faktury!"); 
+            System.err.println(e.getMessage());
         }
+        
+        alert.showAndWait();
         
     }
 });
