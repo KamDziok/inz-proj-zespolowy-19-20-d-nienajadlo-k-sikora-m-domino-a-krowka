@@ -508,14 +508,18 @@ row.setContextMenu(contextMenu);
     private void zatwierdz(ActionEvent event) {
         try{
             KlientQuery klient = new KlientQuery();
-            if (towary.size() == 0)
-            zamID.setZamID(new Date());
+            if (towary.size() == 0){
+            klient.anulujZamowienie(zamID.getZamID());
+            statusZamowienia.setText("Brak Towarów w zamówieniu");
+            }
             
+            else {
             klient.zatwierdzZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
             zamID.setZamID(new Date());
             displayTowary();
             statusZamowienia.setText("Zamowienie zostało potwierdzone");
+            }
             
         }catch(Exception e){
             System.out.println(e.getMessage());
@@ -563,6 +567,7 @@ row.setContextMenu(contextMenu);
             
                 int p =  new MagazynQuery().dostepneTowary(produktyCombo.getValue().getProduktId());
                 dostepne.setText("Dostępne:    " + p);
+                towary.remove(0);
              
             displayTowary();
              
