@@ -243,42 +243,28 @@ public class KlientQuery {
             int ProduktID , int klientID  , ArrayList towary , Date date){
         
         
-    String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
-    
-    String dataID= new SimpleDateFormat("HHmmssSSS").format(date);
+        String data= new SimpleDateFormat("yyyy-MM-dd").format(date);
+        String dataID= new SimpleDateFormat("HHmmssSSS").format(date);
+        Produkty produkt;
+
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, "
-            + "`StatusZaplaty`, `StatusTransportu`, `Data`)"
-            + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', "
-            + "'oczekujące', '"+data+"')";
-    
-         
-             Produkty produkt;
-            produkt = (Produkty)session.get(Produkty.class, ProduktID);
-            float cena =  produkt.getCenaKupna();
-            float koszt = cena*ilosc;
-        
-    
+        produkt = (Produkty)session.get(Produkty.class, ProduktID);
+        session.close();
 
+        float cena =  produkt.getCenaKupna();
+        float koszt = cena*ilosc;
 
-    String query2 = "INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
-            + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
+        if (towary.isEmpty()) 
+            executeUpdate("INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, "
+                + "`StatusZaplaty`, `StatusTransportu`, `Data`)"
+                + "VALUES ('"+dataID + "', '" + klientID +"', 'nie zapłacone', "
+                + "'oczekujące', '"+data+"')");
 
-            +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')";
+        executeUpdate("INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, "
+                + "`Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES (NULL , '"
 
-  try {
-    session.getTransaction().begin();
-      if (towary.size() == 0) 
-    session.createSQLQuery(query).executeUpdate();
-    session.createSQLQuery(query2).executeUpdate();
-    session.getTransaction().commit();
-    session.close();
-}
-catch (HibernateException error){
-    session.getTransaction().rollback();
-    session.close();
-}
-    
+                +ilosc + "', '" + ProduktID +"', '" +dataID +"', '" + koszt +"')");
+
         towary.add("");
     }
     
@@ -354,54 +340,20 @@ catch (HibernateException error){
    
    public void zatwierdzZamowienie(String ID){
     
-        session = HibernateUtil.getSessionFactory().openSession();
-        String query = "UPDATE `zamowienie` SET `StatusTransportu`='"
-                +"w trakcie realizacji' WHERE `ZamowienieID` = " + ID;
+        executeUpdate("UPDATE `zamowienie` SET `StatusTransportu`='"
+                +"w trakcie realizacji' WHERE `ZamowienieID` = " + ID);
 
-        try {
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-}
-        catch (HibernateException error){
-        session.getTransaction().rollback();
-        session.close();
-        }
     }
    public void anulujZamowienie(String ID){
     
-        session = HibernateUtil.getSessionFactory().openSession();
-    String query = "DELETE FROM `towaryzamowienie` WHERE `ZamowienieID` =  " + ID;
-    String query2 = "DELETE FROM `zamowienie` WHERE `ZamowienieID` =  " + ID;
+    executeUpdate("DELETE FROM `towaryzamowienie` WHERE `ZamowienieID` =  " + ID);
+    executeUpdate("DELETE FROM `zamowienie` WHERE `ZamowienieID` =  " + ID);
 
-        try {
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.createSQLQuery(query2).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-}
-        catch (HibernateException error){
-        session.getTransaction().rollback();
-        session.close();
-        }
     }
    public void usunProdukt(int ID){
     
-        session = HibernateUtil.getSessionFactory().openSession();
-    String query = "DELETE FROM `towaryzamowienie` WHERE `TowaryZamowienieID` =  " + ID;
+    executeUpdate("DELETE FROM `towaryzamowienie` WHERE `TowaryZamowienieID` =  " + ID);
 
-        try {
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-}
-        catch (HibernateException error){
-        session.getTransaction().rollback();
-        session.close();
-        }
     }
    
    public void usunNieZapZam(String ID){
@@ -410,25 +362,27 @@ catch (HibernateException error){
       
       for(Zamowienie zamowienie : zamowienia){
           if(zamowienie.getStatusTransportu().equals("oczekujące")) {
-              String query = "DELETE FROM `towaryzamowienie` WHERE `ZamowienieID` = " 
-                      + zamowienie.getZamowienieId();
-              session = HibernateUtil.getSessionFactory().openSession();
+              executeUpdate("DELETE FROM `towaryzamowienie` WHERE `ZamowienieID` = " 
+                      + zamowienie.getZamowienieId());
 
-        try {
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-}
-        catch (HibernateException error){
-        session.getTransaction().rollback();
-        session.close();
-        }
           }
       }
     
-        session = HibernateUtil.getSessionFactory().openSession();
-    String query = "DELETE FROM `zamowienie` WHERE `StatusTransportu` = 'oczekujące' AND `KlientID` = " + ID;
+    executeUpdate("DELETE FROM `zamowienie` WHERE `StatusTransportu` = 'oczekujące' AND `KlientID` = " + ID);
+
+    }
+   
+    public void zwrocTowar(Zamowienie zam){
+        
+        if(zam.getStatusZaplaty().equals("nie zapłacone") 
+                && zam.getStatusTransportu().equals("w trakcie realizacji")){
+            String query = "UPDATE `zamowienie` SET `StatusZaplaty`='anulowane',`StatusTransportu`='anulowane' WHERE `ZamowienieID` = " + zam.getZamowienieId();
+        }
+        
+    }
+    
+    public void executeUpdate(String query){
+    session = HibernateUtil.getSessionFactory().openSession();
 
         try {
             session.getTransaction().begin();

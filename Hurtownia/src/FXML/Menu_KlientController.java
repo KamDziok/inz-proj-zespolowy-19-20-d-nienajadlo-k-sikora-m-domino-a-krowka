@@ -428,6 +428,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     final ContextMenu contextMenu = new ContextMenu();
             MenuItem tow = new MenuItem("Wyświetl dane");
             MenuItem faktura = new MenuItem("faktura");
+            MenuItem zwrot = new MenuItem("Zwróć zamówienie");
+            
 
             tow.setOnAction(new EventHandler<ActionEvent>() {
     @Override
@@ -463,7 +465,16 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         
     }
 });
-contextMenu.getItems().addAll(tow , faktura);
+            
+            zwrot.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        new KlientQuery().zwrocTowar(row.getItem());
+        System.out.println("Zwróć towar");
+        
+    }
+});
+contextMenu.getItems().addAll(tow , faktura , zwrot);
 
 row.setContextMenu(contextMenu);
     
@@ -479,14 +490,17 @@ row.setContextMenu(contextMenu);
         
         try{
             KlientQuery klient = new KlientQuery();
-            if (towary.size() == 0)
-            zamID.setZamID(new Date());
-            klient.anulujZamowienie(zamID.getZamID());
-            TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
-            displayTowary();
-            
-            statusZamowienia.setText("Zamowienie zostało anulowane");
-            
+            if (towary.size() == 0){
+                zamID.setZamID(new Date());
+                statusZamowienia.setText("");
+                }
+            else{
+                klient.anulujZamowienie(zamID.getZamID());
+                TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+                displayTowary();
+
+                statusZamowienia.setText("Zamowienie zostało anulowane");
+            }
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
