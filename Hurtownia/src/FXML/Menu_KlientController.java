@@ -478,29 +478,30 @@ faktura.setOnAction(new EventHandler<ActionEvent>() {
             
 zwrot.setOnAction(new EventHandler<ActionEvent>() {
     @Override
-    public void handle(ActionEvent event) {
-        new KlientQuery().zwrocTowar(row.getItem());
-        wczytajDane();
-        
-    }
-});            
-            zaplac.setOnAction(new EventHandler<ActionEvent>() {
-    @Override
-    public void handle(ActionEvent event) {
-        new KlientQuery().zaplac(row.getItem());
-        wczytajDane();
-    }
-});
-contextMenu.getItems().addAll(tow , faktura , zwrot , zaplac);
+        public void handle(ActionEvent event) {
+            new KlientQuery().zwrocTowar(row.getItem());
+            wczytajDane();
 
-row.setContextMenu(contextMenu);
-    
-    return row ;
-});
-      
-        
-        
-    }
+        }
+    });            
+
+
+    zaplac.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent event) {
+            new KlientQuery().zaplac(row.getItem());
+            wczytajDane();
+        }
+    });
+
+
+    contextMenu.getItems().addAll(tow , faktura , zwrot , zaplac);
+
+    row.setContextMenu(contextMenu);
+
+        return row ;
+    });
+}
 
     @FXML
     private void anuluj(ActionEvent event) {
