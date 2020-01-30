@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package hibernate;
+import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -106,6 +107,7 @@ public class KierownikQuery {
             + "`Opis`, `KategoriaID`) "
             + "VALUES (NULL, '" + Nazwa +"', '"+Cena+"', '"+Opis+"',"
             +Kategoria+")";
+    
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();
@@ -133,9 +135,21 @@ catch (HibernateException error){
             int ProduktID ){
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `magazyn` (`MagazynID`, `Ilosc`, "
+        List<Magazyn> produkty = new MagazynQuery().MagazynSelectAll();
+        boolean flag = true;
+        for (Magazyn produkt : produkty){
+            if(produkt.getProductId() == ProduktID)
+                flag = false;
+        }
+        
+        String query;
+        if(flag)
+            query = "INSERT INTO `magazyn` (`MagazynID`, `Ilosc`, "
             +"`CenaSprzedazy`, `ProduktID`, `HurtowniaID`)"
             + "VALUES (NULL, '" + ilosc +"', '"+Cena+"', '"+ProduktID+"', '1')";
+        
+        else
+            query = "UPDATE `magazyn` SET `Ilosc`=`Ilosc` + "+ilosc+" WHERE `ProduktID` = " + ProduktID;
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();

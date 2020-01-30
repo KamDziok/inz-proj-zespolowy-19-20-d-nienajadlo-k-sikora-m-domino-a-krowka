@@ -404,10 +404,31 @@ catch (HibernateException error){
         }
     }
    
-   public void usunNieZapZam(){
+   public void usunNieZapZam(String ID){
+       
+      List<Zamowienie> zamowienia =  new ZamowienieQuery().zamowieniaID(Integer.parseInt(ID));
+      
+      for(Zamowienie zamowienie : zamowienia){
+          if(zamowienie.getStatusTransportu().equals("oczekujące")) {
+              String query = "DELETE FROM `towaryzamowienie` WHERE `ZamowienieID` = " 
+                      + zamowienie.getZamowienieId();
+              session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
+          }
+      }
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "DELETE FROM `zamowienie` WHERE `StatusTransportu` = 'oczekujące'";
+    String query = "DELETE FROM `zamowienie` WHERE `StatusTransportu` = 'oczekujące' AND `KlientID` = " + ID;
 
         try {
             session.getTransaction().begin();

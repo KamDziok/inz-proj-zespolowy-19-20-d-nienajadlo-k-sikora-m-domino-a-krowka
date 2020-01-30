@@ -21,6 +21,7 @@ public abstract class Logowanie {
 
     Parent home;
     FXMLLoader wczytaj;
+    Stage app;
 // metoda wczytywania FXML
 
     public void wczytywanie(ActionEvent event, String adres) {
@@ -39,7 +40,7 @@ public abstract class Logowanie {
 
         try {
             Scene homeScene = new Scene(home);
-            Stage app = (Stage) ((Node) event.getSource()).getScene().
+            app = (Stage) ((Node) event.getSource()).getScene().
                     getWindow();
             app.hide(); //ukrywanie Stage
             app.setScene(homeScene);
@@ -50,5 +51,6 @@ public abstract class Logowanie {
         }
 
     }
+    
 
 }

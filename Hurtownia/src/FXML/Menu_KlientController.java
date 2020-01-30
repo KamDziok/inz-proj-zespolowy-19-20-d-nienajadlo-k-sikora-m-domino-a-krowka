@@ -47,6 +47,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -276,14 +277,17 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     public void comboValueKT (ComboBox<Kategorie> kategoriaCombo){
         
         Kategorie k = kategoriaCombo.getValue();
-        int idKat = k.getKategoriaId();
-        kat.setText(Integer.toString(idKat));
+        if (k!= null) {
+            int idKat = k.getKategoriaId();
+            kat.setText(Integer.toString(idKat));
+        }
         kat.setVisible(false);
         
     }
     
     public void ComboBoxK  (){
         kat.setText("");
+        kategoriaCombo.getItems().clear();
         KategorieQuery kategoria = new KategorieQuery();
         
         kategoriaCombo.getItems().addAll(kategoria.KategorieSelectAll());
@@ -308,9 +312,11 @@ public class Menu_KlientController extends Logowanie implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 comboValueProdukty(produktyCombo);
-                
+                if (produktyCombo.getValue() != null) {
+                    
                 int p =  new MagazynQuery().dostepneTowary(produktyCombo.getValue().getProduktId());
                 dostepne.setText("Dostępne:    " + p);
+                }
 
             }
         });
@@ -329,6 +335,13 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         String klientPanel = "/FXML/Login.fxml";
         wczytywanie(event, klientPanel);
         ramka(event);
+        new KlientQuery().usunNieZapZam(dane.getText());
+        app.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent e) {
+                new KlientQuery().usunNieZapZam(dane.getText());
+            }
+        });
 
     }
 
@@ -372,7 +385,10 @@ public class Menu_KlientController extends Logowanie implements Initializable {
       public void comboValueProdukty (ComboBox<Produkty> produktyCombo){
         
         Produkty p = produktyCombo.getValue();
-        int idP = p.getProduktId();
+        int idP = 0;
+          if (p != null) {
+        idP = p.getProduktId();
+          }
         prod.setText(Integer.toString(idP));
         prod.setVisible(false);
     }
@@ -475,7 +491,18 @@ row.setContextMenu(contextMenu);
             System.out.println(e.getMessage());
         }
         towary.clear();
+        clearForm();
+        
+        
     }
+    
+    public void clearForm(){
+        dostepne.setText("");
+        ilosctxt.setText("");
+        produktyCombo.getItems().clear();
+        ComboBoxK();
+        zamowieniaTable();
+        towaryDoZamowieniaTable();};
 
     @FXML
     private void zatwierdz(ActionEvent event) {
@@ -486,6 +513,7 @@ row.setContextMenu(contextMenu);
             
             klient.zatwierdzZamowienie(zamID.getZamID());
             TowaryzamowienieQuery towar = new TowaryzamowienieQuery();
+            zamID.setZamID(new Date());
             displayTowary();
             statusZamowienia.setText("Zamowienie zostało potwierdzone");
             
@@ -493,6 +521,7 @@ row.setContextMenu(contextMenu);
             System.out.println(e.getMessage());
         }
         towary.clear();
+        clearForm();
     }
     
     
@@ -531,6 +560,9 @@ row.setContextMenu(contextMenu);
             
             statusZamowienia.setText("Produkt "+ row.getItem().getProduktName() 
                     + " został usunięty!");
+            
+                int p =  new MagazynQuery().dostepneTowary(produktyCombo.getValue().getProduktId());
+                dostepne.setText("Dostępne:    " + p);
              
             displayTowary();
              
