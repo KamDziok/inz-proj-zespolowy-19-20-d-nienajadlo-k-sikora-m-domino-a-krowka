@@ -470,6 +470,7 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @Override
     public void handle(ActionEvent event) {
         new KlientQuery().zwrocTowar(row.getItem());
+        wczytajDane();
         System.out.println("Zwróć towar");
         
     }

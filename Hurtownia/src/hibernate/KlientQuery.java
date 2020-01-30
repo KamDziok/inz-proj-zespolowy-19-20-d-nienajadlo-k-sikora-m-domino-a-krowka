@@ -375,9 +375,28 @@ public class KlientQuery {
     public void zwrocTowar(Zamowienie zam){
         
         if(zam.getStatusZaplaty().equals("nie zapłacone") 
-                && zam.getStatusTransportu().equals("w trakcie realizacji")){
-            String query = "UPDATE `zamowienie` SET `StatusZaplaty`='anulowane',`StatusTransportu`='anulowane' WHERE `ZamowienieID` = " + zam.getZamowienieId();
-        }
+                && zam.getStatusTransportu().equals("w trakcie realizacji"))
+            executeUpdate("UPDATE `zamowienie` SET `StatusZaplaty`='anulowane'"
+                    +",`StatusTransportu`='anulowane' WHERE `ZamowienieID` = " 
+                    + zam.getZamowienieId());
+        
+        if(zam.getStatusZaplaty().equals("nie zapłacone") 
+                && zam.getStatusTransportu().equals("wysłano"))
+            executeUpdate("UPDATE `zamowienie` SET `StatusZaplaty`='anulowane'"
+                    +",`StatusTransportu`='zwrot' WHERE `ZamowienieID` = " 
+                    + zam.getZamowienieId());
+        
+        if(zam.getStatusZaplaty().equals("zapłacone") 
+                && zam.getStatusTransportu().equals("wysłano"))
+            executeUpdate("UPDATE `zamowienie` SET `StatusZaplaty`='zwrot'"
+                    +",`StatusTransportu`='zwrot' WHERE `ZamowienieID` = " 
+                    + zam.getZamowienieId());
+        
+        if(zam.getStatusZaplaty().equals("zapłacone") 
+                && zam.getStatusTransportu().equals("w trakcie realizacji"))
+            executeUpdate("UPDATE `zamowienie` SET `StatusZaplaty`='zwrot'"
+                    +",`StatusTransportu`='anulowane' WHERE `ZamowienieID` = " 
+                    + zam.getZamowienieId());
         
     }
     
