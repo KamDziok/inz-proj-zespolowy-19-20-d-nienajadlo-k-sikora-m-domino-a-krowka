@@ -54,7 +54,7 @@ public class ZamowienieQuery {
         return zamow;
     
 }
-    
+     
     public List<Zamowienie> zamowienaPrzedWyslaniem(){
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Zamowienie where StatusTransportu = 'oczekujące' OR StatusTransportu = 'w trakcie realizacji'";

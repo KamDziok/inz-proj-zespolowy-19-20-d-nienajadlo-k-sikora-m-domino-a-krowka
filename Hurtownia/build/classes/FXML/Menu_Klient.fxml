@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -24,6 +25,10 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="658.0">
                            <children>
+                               
+                                <CheckBox layoutX="35.0" layoutY="5.0" fx:id="anulowane" text="Anulowane"  onAction="#anulowaneSelect"/>
+                                <CheckBox layoutX="35.0" layoutY="30.0" fx:id="aktywne" text="Aktywne"  onAction="#aktywneSelect"/>
+                                <CheckBox layoutX="35.0" layoutY="55.0" fx:id="zakonczone" text="Zakończone"  onAction="#zakonczoneSelect"/>
                               <TableView fx:id="zamowieniaK" layoutX="34.0" layoutY="78.0" prefHeight="271.0" prefWidth="620.0">
                                 <columns>
                                     <TableColumn fx:id="id" prefWidth="100.0" text="Id zamowienia" />
