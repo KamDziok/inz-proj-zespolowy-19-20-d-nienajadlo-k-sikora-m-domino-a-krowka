@@ -8,15 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <jar href="Hurtownia.jar" size="147913" download="eager" />
-=======
-    <jar href="Hurtownia.jar" size="147597" download="eager" />
->>>>>>> 126f4f57d5286e332b22bc8df350ce98960cba72
-=======
-    <jar href="Hurtownia.jar" size="148381" download="eager" />
->>>>>>> 1e72856da6b528de0c7e8da0556e3dbbfba8c105
+    <jar href="Hurtownia.jar" size="149812" download="eager" />
     <jar href="lib\antlr-2.7.7.jar" size="437548" download="eager" />
     <jar href="lib\c3p0-0.9.2.1.jar" size="422423" download="eager" />
     <jar href="lib\charm-glisten-4.4.1.jar" size="1040787" download="eager" />

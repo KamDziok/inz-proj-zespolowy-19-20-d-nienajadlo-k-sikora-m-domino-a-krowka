@@ -72,12 +72,12 @@ public class pdfCreator {
         
         String table = readHtml("br")
                 + "<p>Wystawiono dla:</p>"
-                +"<p>"+k.getImie()+" "+k.getNazwisko()+"</p>"
-                +"<p>"+a.getMiasto()+" "+a.getUlica()+" "+a.getNumerBudynku()+"</p>"
-                +"<p>"+a.getEmail()+"</p>"
-                +"<p>"+k.getTelefon()+"</p>"
+                +"<p>Imie i nazwisko: "+k.getImie()+" "+k.getNazwisko()+"</p>"
+                +"<p>Adres: "+a.getMiasto()+" "+a.getUlica()+" "+a.getNumerBudynku()+"</p>"
+                +"<p>Email: "+a.getEmail()+"</p>"
+                +"<p>Tel. :"+k.getTelefon()+"</p>"
                 + "<p>Data zamówienia: "+ dateOfOrder +"</p>"
-                + "<p>Wystawiono dnia:"+dateTodayString+"</p>"
+                + "<p>Wystawiono dnia: "+dateTodayString+"</p>"
                 +readHtml("br")+readHtml("br");
 
         
