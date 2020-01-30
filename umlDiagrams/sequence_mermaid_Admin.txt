@@ -1,0 +1,22 @@
+sequenceDiagram
+activate Admin
+Admin ->> Aplikacja: Wprowadza dane logowania
+activate Aplikacja
+Aplikacja ->> Baza Danych: Sprawdź poprawność danych
+activate Baza Danych
+Baza Danych -->> Aplikacja: Zwróć odpowiedź
+alt Poprawne dane logowania
+     Aplikacja -> Admin: Przejdź dalej
+     Admin ->> Aplikacja: Wprowadza zapytanie SQL
+     Aplikacja ->> Baza Danych: Prześlij zapytanie SQL
+     Baza Danych -->> Baza Danych: Wykonaj zapytanie SQL
+     Baza Danych -->> Aplikacja: Zwróć odpowiedź
+     Aplikacja ->> Admin: Wyświetl odpowiedź
+
+else Błędne dane logowania
+    Aplikacja ->> Admin: Wprowadź poprawne dane
+end
+
+deactivate Admin
+deactivate Aplikacja
+deactivate Baza Danych

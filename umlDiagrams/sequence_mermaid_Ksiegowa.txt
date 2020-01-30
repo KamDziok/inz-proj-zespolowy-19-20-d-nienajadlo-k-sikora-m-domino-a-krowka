@@ -1,0 +1,39 @@
+sequenceDiagram
+activate Księgowa
+Księgowa ->> Aplikacja: Wprowadza dane logowania
+activate Aplikacja
+
+Aplikacja ->> Baza Danych: Sprawdź poprawność danych
+activate Baza Danych
+Baza Danych -->> Aplikacja: Zwróć odpowiedź
+
+
+
+alt Poprawne dane logowania
+Aplikacja ->> Księgowa: Przejdź dalej
+Księgowa ->> Aplikacja: Dodaj wypłatę do pracownika
+Aplikacja ->> Księgowa: Wprowadź dane wypłaty
+Księgowa ->> Aplikacja: Wprowadza dane
+Aplikacja ->> Baza Danych: Zapisz dane wypłat
+Baza Danych -->> Aplikacja: Zwróć komunikat
+Aplikacja ->> Księgowa: Zwróć komunikat
+
+Księgowa ->> Aplikacja: Wygeneruj fakturę do zamówienia
+Aplikacja ->> Aplikacja: Zapisz fakturę PDF
+Aplikacja ->> Księgowa: Zwróć komunikat
+
+Księgowa ->> Aplikacja: Zwróć pieniądze za zwrot klienta
+Aplikacja ->> Księgowa: Wybierz zwrócone zamówienie
+Księgowa ->> Aplikacja: Wybiera zamówienie
+Aplikacja ->> Baza Danych: Zmniejsz ilość pieniedzy firmy
+Aplikacja ->> Baza Danych: Zmień status zamówienia
+Baza Danych -->> Aplikacja: Zwróć komunikat
+Aplikacja ->> Księgowa: Zwróć kommunikat
+
+else Błędne dane logowania
+    Aplikacja ->> Księgowa: Wprowadź poprawne dane
+end
+
+deactivate Księgowa
+deactivate Aplikacja
+deactivate Baza Danych
