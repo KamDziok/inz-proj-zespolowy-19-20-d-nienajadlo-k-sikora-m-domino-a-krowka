@@ -64,38 +64,14 @@ public class MagazynQuery {
       public void wyslijZamowienie (int id){
       
         TowaryzamowienieQuery tz = new TowaryzamowienieQuery();  
-          List<Towaryzamowienie> tzTable = tz.zamowieniaID(String.valueOf(id));
-          for (Towaryzamowienie towar : tzTable) {
-            String query = "UPDATE `magazyn` SET `Ilosc`= `Ilosc` - "+
+        List<Towaryzamowienie> tzTable = tz.zamowieniaID(String.valueOf(id));
+        for (Towaryzamowienie towar : tzTable)
+            executeUpdate("UPDATE `magazyn` SET `Ilosc`= `Ilosc` - "+
                     towar.getIlosc()+" WHERE `ProduktID` = " 
-                    + towar.getProduktID();
-            try {
-            session = HibernateUtil.getSessionFactory().openSession();
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-        }
-            catch (HibernateException error){
-            session.getTransaction().rollback();
-            session.close();
-        }
-        }
-          
-          session = HibernateUtil.getSessionFactory().openSession();
-        String query = "UPDATE `zamowienie` SET `StatusTransportu` "
-            +"='wysłano' WHERE `ZamowienieID` = " + id;
-            
-        try {
-            session.getTransaction().begin();
-            session.createSQLQuery(query).executeUpdate();
-            session.getTransaction().commit();
-            session.close();
-        }
-        catch (HibernateException error){
-            session.getTransaction().rollback();
-            session.close();
-        }
+                    + towar.getProduktID());
+        executeUpdate("UPDATE `zamowienie` SET `StatusTransportu` "
+            +"='wysłano' WHERE `ZamowienieID` = " + id);
+         
       }
       
       
@@ -128,5 +104,38 @@ public class MagazynQuery {
               return 0;
         return zamow.getIlosc();
       }
+      
+      
+      public void odbierzZwrot(int id){
+          TowaryzamowienieQuery tz = new TowaryzamowienieQuery();  
+          List<Towaryzamowienie> tzTable = tz.zamowieniaID(String.valueOf(id));
+          for (Towaryzamowienie towar : tzTable) {
+            executeUpdate("UPDATE `magazyn` SET `Ilosc`= `Ilosc` + "+
+                    towar.getIlosc()+" WHERE `ProduktID` = " 
+                    + towar.getProduktID());
+            
+        }
+        
+        executeUpdate("UPDATE `zamowienie` SET `StatusTransportu` "
+            +"='anulowano' WHERE `ZamowienieID` = " + id);
+        
+      }
+      
+      
+      
+    public void executeUpdate(String query){
+    session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+            session.getTransaction().begin();
+            session.createSQLQuery(query).executeUpdate();
+            session.getTransaction().commit();
+            session.close();
+}
+        catch (HibernateException error){
+        session.getTransaction().rollback();
+        session.close();
+        }
+    }
       
 }

@@ -63,6 +63,14 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     @FXML
     private TableColumn<Zamowienie, String> statusTransportu;
     
+    // Zakładka Zwrot towaru Towar
+    @FXML
+    private TableView<Zamowienie> zwroty;
+    @FXML
+    private TableColumn<Zamowienie, Integer> idZamowieniaZwrot;
+    @FXML
+    private TableColumn<Zamowienie, String> statusTransportuZwrot;
+    
     
 
     @FXML
@@ -76,6 +84,7 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         statusZamowienTable();
+        statusZwrotTable();
         setTowaryMagazynTable();
     }
     
@@ -159,6 +168,63 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
         });
 
     }
+     
+    
+    public void statusZwrotTable() {
+
+        idZamowieniaZwrot.setCellValueFactory(new PropertyValueFactory<>("ZamowienieId"));
+        statusTransportuZwrot.setCellValueFactory(new PropertyValueFactory<>("statusTransportu"));
+
+        zwroty.setItems(getZwroty());
+        zwroty.setRowFactory( tv -> {
+            TableRow<Zamowienie> row = new TableRow<>();
+            row.getContextMenu();
+            final ContextMenu contextMenu = new ContextMenu();
+                    MenuItem tow = new MenuItem("Wyświetl dane");
+                    MenuItem send = new MenuItem("Odbierz towar");
+            tow.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        TabelaController.ID = String.valueOf(row.getItem().getZamowienieId());
+                        Stage PrimaryStage = new Stage();
+                        Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                            + "/Tabela.fxml"));
+                        Scene scene = new Scene(root);
+                        PrimaryStage.setScene(scene);
+                        PrimaryStage.show();
+                        PrimaryStage.setResizable(true);
+
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+            });
+            send.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        MagazynQuery mg = new MagazynQuery();
+                        mg.odbierzZwrot(row.getItem().getZamowienieId());
+                        statusZwrotTable();
+                        setTowaryMagazynTable();
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+
+                }
+            });
+                contextMenu.getItems().addAll(tow , send);
+                
+                
+            row.setContextMenu(contextMenu);
+            return row ;
+        });
+
+    }
     
     public ObservableList<Zamowienie> getNieWyslaneZamowienia() {
         ObservableList<Zamowienie> listaZamowien = FXCollections.
@@ -169,6 +235,20 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
 
         for (Zamowienie z : pList) {
             if(z.getStatusTransportu().equals("w trakcie realizacji"))
+            listaZamowien.add(z);
+
+        }
+        return listaZamowien;
+    }
+    public ObservableList<Zamowienie> getZwroty() {
+        ObservableList<Zamowienie> listaZamowien = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Zamowienie> pList = session.createCriteria(Zamowienie.class).list();
+
+        for (Zamowienie z : pList) {
+            if(z.getStatusTransportu().equals("zwrot"))
             listaZamowien.add(z);
 
         }
