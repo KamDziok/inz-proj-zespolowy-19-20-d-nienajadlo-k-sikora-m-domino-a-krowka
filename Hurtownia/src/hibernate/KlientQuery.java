@@ -252,8 +252,16 @@ public class KlientQuery {
         session = HibernateUtil.getSessionFactory().openSession();
         produkt = (Produkty)session.get(Produkty.class, ProduktID);
         session.close();
+        
+        Magazyn magazyn = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "From Magazyn WHERE ProduktID  = '" + ProduktID + "'";
+        query = session.createQuery(hql);
+        magazyn = (Magazyn) query.uniqueResult();
+        session.close();
 
-        float cena =  produkt.getCenaKupna();
+//        float cena =  produkt.getCenaKupna();
+        float cena =  magazyn.getCenaSprzedazy();
         float koszt = cena*ilosc;
 
         if (towary.isEmpty()) 
