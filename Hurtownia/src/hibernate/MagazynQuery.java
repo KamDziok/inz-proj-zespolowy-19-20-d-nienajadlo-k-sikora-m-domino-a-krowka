@@ -117,7 +117,7 @@ public class MagazynQuery {
         }
         
         executeUpdate("UPDATE `zamowienie` SET `StatusTransportu` "
-            +"='anulowano' WHERE `ZamowienieID` = " + id);
+            +"='anulowane' WHERE `ZamowienieID` = " + id);
         
       }
       

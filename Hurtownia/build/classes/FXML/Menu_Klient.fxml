@@ -24,12 +24,13 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="658.0">
                            <children>
-                              <TableView fx:id="zamowieniaK" layoutX="34.0" layoutY="78.0" prefHeight="271.0" prefWidth="596.0">
+                              <TableView fx:id="zamowieniaK" layoutX="34.0" layoutY="78.0" prefHeight="271.0" prefWidth="620.0">
                                 <columns>
-                                  <TableColumn fx:id="id" prefWidth="120.0" text="Id zamowienia" />
-                                    <TableColumn fx:id="dataZamowienia" prefWidth="135.0" text="Data" />
-                                    <TableColumn fx:id="statusZaplaty" prefWidth="163.0" text="status zapłaty" />
-                                    <TableColumn fx:id="statusTransportu" prefWidth="176.0" text="status transportu" />
+                                    <TableColumn fx:id="id" prefWidth="100.0" text="Id zamowienia" />
+                                    <TableColumn fx:id="dataZamowienia" prefWidth="125.0" text="Data" />
+                                    <TableColumn fx:id="statusZaplaty" prefWidth="155.0" text="status zapłaty" />
+                                    <TableColumn fx:id="statusTransportu" prefWidth="155.0" text="status transportu" />
+                                    <TableColumn fx:id="kosztZamowienia" prefWidth="75.0" text="koszt" />
                                 </columns>
                               </TableView>
                               <JFXButton fx:id="wylogujTZ" layoutX="584.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />

@@ -175,6 +175,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     @FXML
     private TableColumn<Zamowienie, String> statusTransportu;
     @FXML
+    private TableColumn<Zamowienie, Float> kosztZamowienia;
+    @FXML
     private Label tabelaId;
     @FXML
     private TableView<Towaryzamowienie> zamowieniaZT;
@@ -402,6 +404,8 @@ public class Menu_KlientController extends Logowanie implements Initializable {
         ("statusZaplaty"));
         statusTransportu.setCellValueFactory(new PropertyValueFactory<> 
         ("statusTransportu"));
+        kosztZamowienia.setCellValueFactory(new PropertyValueFactory<> 
+        ("koszt"));
        
     }
 

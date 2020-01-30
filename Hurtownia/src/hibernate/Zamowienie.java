@@ -4,6 +4,7 @@ package hibernate;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -53,6 +54,16 @@ public class Zamowienie  implements java.io.Serializable {
     public void setKlient(Klient klient) {
         this.klient = klient;
     }
+    
+    public float getKoszt(){
+        List<Towaryzamowienie> tz =  new TowaryzamowienieQuery()
+                .zamowieniaID(String.valueOf(zamowienieId));
+        float sum = 0;
+        for (Towaryzamowienie t : tz)
+            sum+=t.getKoszt();
+        return sum;
+    }
+    
     public String getStatusZaplaty() {
         return this.statusZaplaty;
     }
