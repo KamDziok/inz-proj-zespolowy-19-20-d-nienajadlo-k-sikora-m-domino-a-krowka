@@ -19,5 +19,7 @@ public class Popup {
         alert.setContentText(text);  
         alert.showAndWait();
     }
+
+
     
 }

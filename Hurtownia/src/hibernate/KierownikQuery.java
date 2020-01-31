@@ -133,6 +133,14 @@ catch (HibernateException error){
      
      public void dodajProduktNaMagazyn(int ilosc , float Cena, 
             int ProduktID ){
+         
+         
+         Ksiegowosc ksiegowosc = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "From Ksiegowosc WHERE KsiegowoscID  = 1";
+        query = session.createQuery(hql);
+        ksiegowosc = (Ksiegowosc) query.uniqueResult();
+        session.close();
     
         session = HibernateUtil.getSessionFactory().openSession();
         List<Magazyn> produkty = new MagazynQuery().MagazynSelectAll();
@@ -148,8 +156,15 @@ catch (HibernateException error){
             +"`CenaSprzedazy`, `ProduktID`, `HurtowniaID`)"
             + "VALUES (NULL, '" + ilosc +"', '"+Cena+"', '"+ProduktID+"', '1')";
         
-        else
+        else{
+            if(Cena != 0)
             query = "UPDATE `magazyn` SET `Ilosc`=`Ilosc` + "+ilosc+" WHERE `ProduktID` = " + ProduktID;
+            else
+                query = "UPDATE `magazyn` SET `Ilosc`=`Ilosc` + "+
+                        ilosc+" , `CenaSprzedazy` = "+
+                        Cena+" WHERE `ProduktID` = " + ProduktID;
+        }
+            
   try {
     session.getTransaction().begin();
     session.createSQLQuery(query).executeUpdate();

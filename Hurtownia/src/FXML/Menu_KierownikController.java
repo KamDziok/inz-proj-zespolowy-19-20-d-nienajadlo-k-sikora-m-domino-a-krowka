@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -16,6 +17,7 @@ import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
 import hibernate.KierownikQuery;
+import hibernate.Ksiegowosc;
 import hibernate.MagazynQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikConverter;
@@ -197,6 +199,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     
     @FXML
     private TextArea kategoriaOpis;
+    
 
     @FXML
     void wyloguj(ActionEvent event) {
@@ -217,6 +220,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         comboStanowisko();
         zamowieniaStatusTable();
         wyszukaj(getPracownik());
+        
+        cenaST.setPromptText("Zmień Cenę");
         
 
     }
@@ -587,15 +592,28 @@ row.setContextMenu(contextMenu);
     private void dodajNaMagazyn(ActionEvent event) {
         
         int idP = Integer.parseInt(wczytP.getText());
-        float cenaS = Float.parseFloat(cenaST.getText());
+        float cenaS = 0;
+        if(!cenaST.getText().equals(""))
+            cenaS = Float.parseFloat(cenaST.getText());
         int ilosc = Integer.parseInt(iloscT.getText());
-        
         try{
+            Session session;
+            Magazyn magazyn = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        String hql = "From Magazyn WHERE ProduktID  = " + idP;
+        Query query = session.createQuery(hql);
+        magazyn = (Magazyn) query.uniqueResult();
+        session.close();
+            
+            if(cenaS == 0 && magazyn == null)
+            {Popup.show("Nowy Produkt - Podaj Cenę");}
+            else {
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.dodajProduktNaMagazyn(ilosc, cenaS, idP);
             magazyn_status.setText("Produkt został dodany na magazyn!");
             cenaST.setText(null);
             iloscT.setText(null);
+            }
         }
         catch(Exception e){
             System.out.println(e.getMessage());
