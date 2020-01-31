@@ -2,7 +2,7 @@
 
 ### Diagram zależności tabel w bazie danych projektu
 
-![diagram ERD](umlDiagrams/erd.png)
+![diagram ERD](umlDiagrams/erd.PNG)
 
 ### Diagram przypadków uzycia
 
