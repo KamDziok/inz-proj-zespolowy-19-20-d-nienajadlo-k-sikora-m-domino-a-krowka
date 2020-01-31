@@ -73,11 +73,11 @@
                                     <TextArea fx:id="opisP" layoutX="120.0" layoutY="140.0" prefHeight="100.0" prefWidth="220.0" />
                                     
                                     <Button fx:id="DodajBTN" layoutX="240.0" prefWidth="100.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajProdukt" text="Dodaj produkt" />
-                                    <TableView fx:id="produktyD" layoutX="380.0" layoutY="99.0" prefHeight="336.0" prefWidth="355.0">
+                                    <TableView fx:id="produktyD" layoutX="380.0" layoutY="60.0" prefHeight="380.0" prefWidth="355.0">
                                       <columns>
-                                        <TableColumn fx:id="nazwaTD" prefWidth="123.0" text="nazwa produktu" />
-                                        <TableColumn fx:id="cenaTD" prefWidth="122.0" text="cena " />
-                                          <TableColumn fx:id="opisTD" prefWidth="109.0" text="opis" />
+                                            <TableColumn fx:id="nazwaTD" prefWidth="123.0" text="Nazwa" />
+                                            <TableColumn fx:id="cenaTD" prefWidth="122.0" text="Cena" />
+                                            <TableColumn fx:id="opisTD" prefWidth="109.0" text="Opis" />
                                       </columns>
                                     </TableView>
                                     <Label layoutX="10.0" layoutY="300.0" prefHeight="17.0" prefWidth="72.0" text="Kategoria:">
@@ -107,56 +107,42 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <JFXButton fx:id="wylogujDTM" layoutX="683.0" layoutY="14.0" onAction="#wyloguj" text="Wyloguj" />
-                              <Label layoutX="34.0" layoutY="59.0" prefHeight="17.0" prefWidth="96.0" text="Kategoria:">
+                              <Label layoutX="10.0" layoutY="60.0" prefHeight="17.0" prefWidth="96.0" text="Kategoria:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="katComboTM" layoutX="114.0" layoutY="57.0" prefHeight="25.0" prefWidth="155.0" />
+                              <ComboBox fx:id="katComboTM" layoutX="120.0" layoutY="60.0" prefHeight="25.0" prefWidth="150.0" />
                               <Label fx:id="wczytKMCombo" layoutX="116.0" layoutY="92.0" prefHeight="17.0" prefWidth="152.0" />
-                              <Label layoutX="34.0" layoutY="128.0" prefHeight="17.0" prefWidth="96.0" text="Produkty:">
+                              <Label layoutX="10.0" layoutY="100.0" prefHeight="17.0" prefWidth="96.0" text="Produkty:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="produktyComboTM" layoutX="114.0" layoutY="126.0" prefHeight="25.0" prefWidth="157.0" />
+                              <ComboBox fx:id="produktyComboTM" layoutX="120.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" />
                               <Label fx:id="wczytP" layoutX="116.0" layoutY="168.0" prefHeight="17.0" prefWidth="197.0" />
-                              <Label layoutX="28.0" layoutY="204.0" prefHeight="20.0" prefWidth="102.0" text="Cena sprzedaży:">
+                              <Label layoutX="10.0" layoutY="140.0" prefHeight="20.0" prefWidth="102.0" text="Cena sprzedaży:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="cenaST" layoutX="137.0" layoutY="201.0" prefHeight="25.0" prefWidth="131.0" />
-                              <Label layoutX="28.0" layoutY="266.0" prefHeight="20.0" prefWidth="62.0" text="Ilość:">
+                              <TextField fx:id="cenaST" layoutX="120.0" layoutY="140.0" prefHeight="25.0" prefWidth="150.0" />
+                              <Label layoutX="10.0" layoutY="180.0" prefHeight="20.0" prefWidth="62.0" text="Ilość:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="iloscT" layoutX="137.0" layoutY="263.0" prefHeight="25.0" prefWidth="131.0" />
+                              <TextField fx:id="iloscT" layoutX="120.0" layoutY="180.0" prefHeight="25.0" prefWidth="150.0" />
                               <Button fx:id="dodajMagazynbtn" layoutX="121.0" layoutY="350.0" mnemonicParsing="false" onAction="#dodajNaMagazyn" prefHeight="34.0" prefWidth="119.0" text="Dodaj na magazyn" />
                               <Label fx:id="magazyn_status" layoutX="83.0" layoutY="409.0" prefHeight="17.0" prefWidth="256.0" />
-                              <TableView fx:id="towary" layoutX="377.0" layoutY="177.0" prefHeight="131.0" prefWidth="348.0">
+                              <TableView fx:id="tabelaMagazyn" layoutX="310.0" layoutY="60.0" prefHeight="380.0" prefWidth="400.0">
                                 <columns>
-                                    <TableColumn fx:id="nazwaProduktu" prefWidth="151.0" text="Nazwa produktu" />
-                                  <TableColumn fx:id="cenaSTable" prefWidth="106.0" text="Cena sprzedaży" />
-                                    <TableColumn fx:id="iloscTable" prefWidth="90.0" text="Ilość" />
+                                        <TableColumn fx:id="nazwaProduktu" prefWidth="150.0" text="Nazwa" />
+                                        <TableColumn fx:id="cenaSTable" prefWidth="75.0" text="Sprzedaż" />
+                                        <TableColumn fx:id="cenaZakupuMagazyn" prefWidth="75.0" text="Kupno" />
+                                        <TableColumn fx:id="iloscTable" prefWidth="100.0" text="Ilość" />
                                 </columns>
                               </TableView>
-                              <JFXComboBox fx:id="PcomboT" layoutX="466.0" layoutY="109.0" prefHeight="25.0" prefWidth="168.0" />
-                              <Label layoutX="398.0" layoutY="119.0" prefHeight="17.0" prefWidth="97.0" text="Produkt:">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
-                              <JFXButton fx:id="wczytajTabela" layoutX="650.0" layoutY="109.0" onAction="#wczytajTabele" text="Tabela" />
-                              <Label layoutX="391.0" layoutY="86.0" prefHeight="17.0" prefWidth="97.0" text="Kategoria:">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
-                              <JFXComboBox fx:id="KcomboT" layoutX="467.0" layoutY="70.0" prefHeight="25.0" prefWidth="167.0" />
-                              <Label fx:id="kat" layoutX="712.0" layoutY="84.0" />
-                              <Label fx:id="pro" layoutX="699.0" layoutY="113.0" />
                            </children>
                         </AnchorPane>
                     </content>
@@ -190,10 +176,10 @@
                                     <JFXButton fx:id="wylogujKPr" layoutX="318.0" layoutY="2.0" onAction="#wyloguj" text="Wyloguj" />
                                     <TableView fx:id="pracownicyTable" layoutX="11.0" layoutY="75.0" prefHeight="312.0" prefWidth="367.0">
                                       <columns>
-                                        <TableColumn fx:id="imieT" prefWidth="75.0" text="Imie" />
-                                        <TableColumn fx:id="nazwiskoT" prefWidth="100.0" text="Nazwisko" />
-                                          <TableColumn fx:id="stanowiskoT" prefWidth="93.0" text="Stanowisko" />
-                                          <TableColumn fx:id="stawkaT" prefWidth="98.0" text="Płaca" />
+                                            <TableColumn fx:id="imieT" prefWidth="75.0" text="Imie" />
+                                            <TableColumn fx:id="nazwiskoT" prefWidth="100.0" text="Nazwisko" />
+                                            <TableColumn fx:id="stanowiskoT" prefWidth="93.0" text="Stanowisko" />
+                                            <TableColumn fx:id="stawkaT" prefWidth="98.0" text="Płaca" />
                                       </columns>
                                     </TableView>
                                     <Label fx:id="wyborCombo" layoutX="137.0" layoutY="-6.0" prefHeight="17.0" prefWidth="122.0" />

@@ -157,7 +157,7 @@ catch (HibernateException error){
             + "VALUES (NULL, '" + ilosc +"', '"+Cena+"', '"+ProduktID+"', '1')";
         
         else{
-            if(Cena != 0)
+            if(Cena == 0)
             query = "UPDATE `magazyn` SET `Ilosc`=`Ilosc` + "+ilosc+" WHERE `ProduktID` = " + ProduktID;
             else
                 query = "UPDATE `magazyn` SET `Ilosc`=`Ilosc` + "+

@@ -7,7 +7,9 @@ package hibernate;
 
 import Utils.pdfCreator;
 import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -34,7 +36,7 @@ public class KsiegowoscQuery {
          */
     
        public void pobierzFakture(String zamowienieID) 
-           throws DocumentException, IOException{
+           throws DocumentException, IOException, FileNotFoundException, ParseException{
         
        
        Zamowienie z = null;

@@ -97,9 +97,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private ComboBox<Kategorie> katDcombo;
 
-//    @FXML
-//    private ComboBox<Kategorie> katCombo;
-
     @FXML
     private JFXButton wylogujbtn;
     @FXML
@@ -166,23 +163,19 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private Label magazyn_status;
     @FXML
-    private JFXComboBox<Produkty> PcomboT;
-    @FXML
-    private JFXButton wczytajTabela;
-    @FXML
-    private JFXComboBox<Kategorie> KcomboT;
-    @FXML
     private Label kat;
     @FXML
     private Label pro;
     @FXML
-    private TableView<Magazyn> towary;
+    private TableView<Magazyn> tabelaMagazyn;
     @FXML
     private TableColumn<Magazyn, Float> cenaSTable;
     @FXML
     private TableColumn<Magazyn, Integer> iloscTable;
     @FXML
     private TableColumn<Zamowienie, Date> data;
+    @FXML
+    private TableColumn<Zamowienie, Float> cenaZakupuMagazyn;
    
     @FXML
     private TableColumn<Zamowienie, String> zaplata;
@@ -364,10 +357,13 @@ row.setContextMenu(contextMenu);
     public void magazynTable() {
         
         nazwaProduktu.setCellValueFactory(new PropertyValueFactory<>
-        ("ProduktName"));
+        ("productName"));
         cenaSTable.setCellValueFactory(new PropertyValueFactory<>
         ("cenaSprzedazy"));
         iloscTable.setCellValueFactory(new PropertyValueFactory<>("Ilosc"));
+        
+        cenaZakupuMagazyn.setCellValueFactory(new PropertyValueFactory<>
+        ("cenaZakupu"));
       
     }
     
@@ -387,30 +383,14 @@ row.setContextMenu(contextMenu);
 
     
     public void comboValueProdukty (ComboBox<Produkty> produktyComboTM){
-        
+        if(produktyComboTM.getValue() != null){
         Produkty p = produktyComboTM.getValue();
         int idP = p.getProduktId();
         wczytP.setText(Integer.toString(idP));
         wczytP.setVisible(false);
+        }
     }
-    
-      public void comboValueProduktyK (ComboBox<Produkty> PcomboT){
-        
-        Produkty p = PcomboT.getValue();
-        int idPa = p.getProduktId();
-        pro.setText(Integer.toString(idPa));
-        pro.setVisible(false);
-    }
-    
-    public void comboValueKT (ComboBox<Kategorie> KcomboT){
-        
-        Kategorie k = KcomboT.getValue();
-        int idKat = k.getKategoriaId();
-        kat.setText(Integer.toString(idKat));
-        kat.setVisible(false);
-        
-    }
-    
+
     public void comboValueKTM (ComboBox<Kategorie> katComboTM){
         
         Kategorie k = katComboTM.getValue();
@@ -455,14 +435,13 @@ row.setContextMenu(contextMenu);
     public void comboBoxK() {
 
         KategorieQuery kategoria = new KategorieQuery();
-        
+        katDcombo.getItems().clear();
         katDcombo.getItems().addAll(kategoria.KategorieSelectAll());
+        katComboTM.getItems().clear();
         katComboTM.getItems().addAll(kategoria.KategorieSelectAll());
-        KcomboT.getItems().addAll(kategoria.KategorieSelectAll());
 
         katDcombo.setConverter(new KategorieConverter());
         katComboTM.setConverter(new KategorieConverter());
-        KcomboT.setConverter(new KategorieConverter());
 
 
 
@@ -480,18 +459,20 @@ row.setContextMenu(contextMenu);
              @Override
             public void handle(ActionEvent event) {
                  comboValueKTM(katComboTM);
+                produktyComboTM.getItems().clear();
                  
                  if(!wczytKMCombo.equals("")){
                      int idKategoria = Integer.parseInt(wczytKMCombo.getText());
+                     tabelaMagazyn.getItems().clear();
+                     tabelaMagazyn.getItems().addAll(getTowaryZMagazynu(idKategoria));
                       ProduktQuery produkty = new ProduktQuery();
-        produktyComboTM.getItems().clear();
-        produktyComboTM.getItems().addAll(produkty.
-                produktySelectAllOnID(idKategoria));
-        produktyComboTM.setConverter(new ProduktyConverter());
-         produktyComboTM.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueProdukty(produktyComboTM);
+                        produktyComboTM.getItems().addAll(produkty.
+                                produktySelectAllOnID(idKategoria));
+                        produktyComboTM.setConverter(new ProduktyConverter());
+                         produktyComboTM.setOnAction(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                        comboValueProdukty(produktyComboTM);
 
                  }
                 });
@@ -499,31 +480,7 @@ row.setContextMenu(contextMenu);
             }
         });
         
-        KcomboT.setOnAction(new EventHandler<ActionEvent> () {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueKT(KcomboT);
-                
-             if(!kat.equals("")){   
-          int Kategoria = Integer.parseInt(kat.getText());        
-        ProduktQuery p = new ProduktQuery();
-        
-        PcomboT.getItems().addAll(p.produktySelectAllOnID(Kategoria));
-        PcomboT.setConverter(new ProduktyConverter());
-        
-        PcomboT.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueProduktyK(PcomboT);
-          }
-                });
-            }
-            }
-        });
-        
-
     }
-
     @FXML
     private void dodajProdukt(ActionEvent event) {
 
@@ -583,9 +540,10 @@ row.setContextMenu(contextMenu);
 
     @FXML
     private void dodajKategorie(ActionEvent event) {
-        
+        comboBoxK();
         new KategorieQuery().nowaKategoria(nowaKategoria.getText() , kategoriaOpis.getText());
         statusDodajP.setText("Dodano nową kategorie");
+        
     }
     
     @FXML
@@ -597,6 +555,7 @@ row.setContextMenu(contextMenu);
             cenaS = Float.parseFloat(cenaST.getText());
         int ilosc = Integer.parseInt(iloscT.getText());
         try{
+            System.out.println(cenaS);
             Session session;
             Magazyn magazyn = null;
         session = HibernateUtil.getSessionFactory().openSession();
@@ -618,23 +577,12 @@ row.setContextMenu(contextMenu);
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-    }
-
-    @FXML
-    private void wczytajTabele(ActionEvent event) {
         
-        int idP = Integer.parseInt(pro.getText());
-
-        MagazynQuery magazyn = new MagazynQuery();
-
-        try {
-            towary.getItems().setAll(magazyn.produktySelectAllOnID(idP));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        int idKategoria = Integer.parseInt(wczytKMCombo.getText());
+        tabelaMagazyn.getItems().clear();
+        tabelaMagazyn.getItems().addAll(getTowaryZMagazynu(idKategoria));
     }
-    
-    
+
     public ObservableList<Produkty> getTowaryZKategorii(int katID) {
         ObservableList<Produkty> listaZamowien = FXCollections.
                 observableArrayList();
@@ -652,5 +600,27 @@ row.setContextMenu(contextMenu);
         
         return listaZamowien;
     }
+    
+    public ObservableList<Magazyn> getTowaryZMagazynu(int katID) {
+        ObservableList<Magazyn> listaZamowien = FXCollections.
+                observableArrayList();
+        Session session = hibernate.HibernateUtil.getSessionFactory().
+                openSession();
+        List<Magazyn> pList = session.createCriteria(Magazyn.class).list();
+
+        for (Magazyn z : pList) {
+            
+            if(katID == z.getProdukty().getKategorie().getKategoriaId())
+                listaZamowien.add(z);
+            }
+                
+
+        
+        return listaZamowien;
+    }
 
 }
+
+
+
+// wczytKMCombo wartość kategori 

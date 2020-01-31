@@ -43,6 +43,11 @@ public class Magazyn  implements java.io.Serializable {
         return this.produkty;
     }
     
+    
+    public Float getCenaZakupu() {
+        return this.produkty.getCenaKupna();
+    }
+    
      public Integer getProductId(){
         return produkty.getProduktId();
     }
