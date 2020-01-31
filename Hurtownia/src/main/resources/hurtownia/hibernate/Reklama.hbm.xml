@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020-01-31 18:19:51 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hurtownia.hibernate.Reklama" table="reklama" catalog="hurtowniap2" optimistic-lock="version">
+        <id name="reklamaId" type="java.lang.Integer">
+            <column name="ReklamaID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="produkty" class="hurtownia.hibernate.Produkty" fetch="select">
+            <column name="ProduktID" not-null="true" />
+        </many-to-one>
+        <property name="tytul" type="string">
+            <column name="Tytul" length="30" not-null="true" />
+        </property>
+        <property name="data" type="date">
+            <column name="Data" length="10" not-null="true" />
+        </property>
+        <property name="opis" type="string">
+            <column name="Opis" length="300" not-null="true" />
+        </property>
+        <property name="grafika" type="string">
+            <column name="Grafika" length="300" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2020-01-31 18:19:51 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="hurtownia.hibernate.Hurtownia" table="hurtownia" catalog="hurtowniap2" optimistic-lock="version">
+        <id name="hurtowniaId" type="java.lang.Integer">
+            <column name="HurtowniaID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="adresy" class="hurtownia.hibernate.Adresy" fetch="select">
+            <column name="AdresID" not-null="true" />
+        </many-to-one>
+        <property name="telefon" type="long">
+            <column name="Telefon" precision="12" scale="0" not-null="true" />
+        </property>
+        <set name="ksiegowoscs" table="ksiegowosc" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="HurtowniaID" not-null="true" />
+            </key>
+            <one-to-many class="hurtownia.hibernate.Ksiegowosc" />
+        </set>
+        <set name="magazyns" table="magazyn" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="HurtowniaID" not-null="true" />
+            </key>
+            <one-to-many class="hurtownia.hibernate.Magazyn" />
+        </set>
+    </class>
+</hibernate-mapping>
