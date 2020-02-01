@@ -39,6 +39,7 @@ buildNumber.properties
 nbproject/private/
 nbactions.xml
 nb-configuration.xml
+dist/
 dist/run*
 dist/Hurtownia.html
 dist/*.jnlp

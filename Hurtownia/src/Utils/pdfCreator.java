@@ -67,6 +67,8 @@ public class pdfCreator {
         finishCalendar.add(Calendar.DAY_OF_MONTH, 14);
         String finishDateAsString = formatDate.format(finishCalendar.getTime()); 
         
+        createInvoiceDirIfNotExist();
+        
         Date dateToday = new Date();
         String dateTodayString = formatDate.format(dateToday);
         
@@ -198,5 +200,16 @@ public class pdfCreator {
                 Paths.get(appPath.get()+"\\src\\Utils\\html_templates\\"+ path+".html")));
 
         return contents;
+    }
+    
+    public static void createInvoiceDirIfNotExist(){
+        try{
+            File directoryInvoices = new File(appPath.get() + "\\invoices");
+            if(!directoryInvoices.exists()){
+                directoryInvoices.mkdir();
+            }
+        }catch(Exception e){
+            System.err.println("Cannot create invoices directory!");
+        }
     }
 }
