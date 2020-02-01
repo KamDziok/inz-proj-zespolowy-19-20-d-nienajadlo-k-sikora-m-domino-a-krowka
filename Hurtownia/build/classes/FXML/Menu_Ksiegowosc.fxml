@@ -48,6 +48,9 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="635.0">
                            <children>
                               <TableView fx:id="payCheckTable" layoutX="282.0" layoutY="100.0" prefHeight="253.0" prefWidth="349.0">
+                                  <placeholder>
+                                      <Label text="Aktualnie nie ma tu żadnych wynagrodzeń do zapłacenia."/>
+                                  </placeholder>
                                 <columns>
                                   <TableColumn fx:id="payDate" prefWidth="181.0" text="Data" />
                                   <TableColumn fx:id="payCheck" prefWidth="167.0" text="Wynagrodzenie" />
