@@ -7,21 +7,15 @@ package FXML;
 
 import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import hibernate.StanowiskoConverter;
 import hibernate.HibernateUtil;
 import hibernate.Magazyn;
-import hibernate.MagazynQuery;
 import hibernate.Kategorie;
 import hibernate.KategorieConverter;
 import hibernate.KategorieQuery;
 import hibernate.KierownikQuery;
-import hibernate.Ksiegowosc;
-import hibernate.MagazynQuery;
 import hibernate.Pracownik;
-import hibernate.PracownikConverter;
-import hibernate.PracownikQuery;
 import hibernate.ProduktQuery;
 import hibernate.Produkty;
 import hibernate.ProduktyConverter;
@@ -30,14 +24,11 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,8 +46,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 /**
@@ -279,11 +268,12 @@ public class Menu_KierownikController extends Logowanie implements Initializable
             KierownikQuery kierownik = new KierownikQuery();
             kierownik.dodajPracownika(imie, nazwisko, wyplata, posada);
             clearFields();
-            status_zatrudnienia.setText("Pracownik został zatrudniony!");
+            Popup.show("Pracownik został dodany!");
             pracownicyTable.setItems(getPracownik());
             
             
         } catch (Exception e) {
+            Popup.show("Nie można dodać pracownika!");
             System.out.println(e.getMessage());
         }
     }
@@ -498,11 +488,11 @@ row.setContextMenu(contextMenu);
             
                 produktyD.getItems().clear();
                 produktyD.setItems(getTowaryZKategorii(Integer.parseInt(katWybor.getText())));
+                Popup.show("Produkt został dodany.");
 
         } catch (Exception e) {
-
+            Popup.show("Nie można dodać produktu!");
             System.out.println(e.getMessage());
-
         }
 
     }
@@ -542,8 +532,7 @@ row.setContextMenu(contextMenu);
     private void dodajKategorie(ActionEvent event) {
         comboBoxK();
         new KategorieQuery().nowaKategoria(nowaKategoria.getText() , kategoriaOpis.getText());
-        statusDodajP.setText("Dodano nową kategorie");
-        
+        Popup.show("Kategoria została dodana!");
     }
     
     @FXML
@@ -573,9 +562,11 @@ row.setContextMenu(contextMenu);
             cenaST.setText(null);
             iloscT.setText(null);
             }
+            Popup.show("Dodano na magazyn!");
         }
         catch(Exception e){
             System.out.println(e.getMessage());
+            Popup.show("Nie można dodać na magazyn!");
         }
         
         int idKategoria = Integer.parseInt(wczytKMCombo.getText());
@@ -585,19 +576,15 @@ row.setContextMenu(contextMenu);
 
     public ObservableList<Produkty> getTowaryZKategorii(int katID) {
         ObservableList<Produkty> listaZamowien = FXCollections.
-                observableArrayList();
+        observableArrayList();
         Session session = hibernate.HibernateUtil.getSessionFactory().
-                openSession();
+        openSession();
         List<Produkty> pList = session.createCriteria(Produkty.class).list();
-
         for (Produkty z : pList) {
             
             if(katID == z.getKategorie().getKategoriaId())
                 listaZamowien.add(z);
             }
-                
-
-        
         return listaZamowien;
     }
     
