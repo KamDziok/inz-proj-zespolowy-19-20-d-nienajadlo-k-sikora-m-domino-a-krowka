@@ -266,12 +266,11 @@ public class Menu_KierownikController extends Logowanie implements Initializable
 
         try {
             KierownikQuery kierownik = new KierownikQuery();
-            kierownik.dodajPracownika(imie, nazwisko, wyplata, posada);
+            long workerId = kierownik.dodajPracownika(imie, nazwisko, wyplata, posada);
             clearFields();
             Popup.show("Pracownik został dodany!");
             pracownicyTable.setItems(getPracownik());
-            
-            
+            Popup.show("Kod nowego pracownika to: \n" + workerId);
         } catch (Exception e) {
             Popup.show("Nie można dodać pracownika!");
             System.out.println(e.getMessage());

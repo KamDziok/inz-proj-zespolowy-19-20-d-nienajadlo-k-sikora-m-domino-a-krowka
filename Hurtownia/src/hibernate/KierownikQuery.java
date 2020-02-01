@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package hibernate;
+import Utils.PathFinder;
+import java.io.File;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -32,14 +35,17 @@ public class KierownikQuery {
      * 
      */
     
-    public void dodajPracownika(String imie , String nazwisko, 
+    public long dodajPracownika(String imie , String nazwisko, 
             float placa,String stanowisko){
-    
+        
+        Date date = new Date();
+        int workerId = (int) date.getTime();
+
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`,"
+        String query = "INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`,"
             + " `PracownikID`, `Stanowisko`, `login`, `password`) "
             + "VALUES ('" + imie +"', '"+nazwisko+"', '"+placa+"',"
-            + " NULL, '"+stanowisko+"', NULL, NULL)";
+            + "'"+workerId+"','"+stanowisko+"', NULL, NULL)";
     
             try {
                 session.getTransaction().begin();
@@ -51,9 +57,8 @@ public class KierownikQuery {
                 session.getTransaction().rollback();
                 session.close();
             }
-       
-  
-    
+            
+            return workerId;
     }
     
     /**
@@ -176,6 +181,17 @@ catch (HibernateException error){
     session.close();
 }
     
+    }
+     
+    public static void createInvoiceDirIfNotExist(){
+        try{
+            File directoryInvoices = new File(PathFinder.get() + "\\workersCodes");
+            if(!directoryInvoices.exists()){
+                directoryInvoices.mkdir();
+            }
+        }catch(Exception e){
+            System.err.println("Cannot create invoices directory!");
+        }
     }
      
      

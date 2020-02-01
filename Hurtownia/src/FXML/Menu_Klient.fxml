@@ -25,12 +25,14 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="425.0" prefWidth="658.0">
                            <children>
-                               
                                 <CheckBox layoutX="35.0" layoutY="5.0" fx:id="anulowane" text="Anulowane"  onAction="#anulowaneSelect"/>
                                 <CheckBox layoutX="35.0" layoutY="30.0" fx:id="aktywne" text="Aktywne"  onAction="#aktywneSelect"/>
                                 <CheckBox layoutX="35.0" layoutY="55.0" fx:id="zakonczone" text="Zakończone"  onAction="#zakonczoneSelect"/>
                               <TableView fx:id="zamowieniaK" layoutX="34.0" layoutY="78.0" prefHeight="271.0" prefWidth="620.0">
-                                <columns>
+                                  <placeholder>
+                                      <Label text="Brak zamówień."/>
+                                  </placeholder>
+                                  <columns>
                                     <TableColumn fx:id="id" prefWidth="100.0" text="Id zamowienia" />
                                     <TableColumn fx:id="dataZamowienia" prefWidth="125.0" text="Data" />
                                     <TableColumn fx:id="statusZaplaty" prefWidth="155.0" text="status zapłaty" />
@@ -79,6 +81,9 @@
                               <Label fx:id="prod" layoutX="114.0" layoutY="145.0" prefHeight="17.0" prefWidth="150.0" />
                               <Label fx:id="statusZamowienia" layoutX="49.0" layoutY="312.0" prefHeight="17.0" prefWidth="241.0" />
                               <TableView fx:id="zamowieniaZT" layoutX="301.0" layoutY="82.0" prefHeight="276.0" prefWidth="344.0">
+                                  <placeholder>
+                                      <Label text="Aktualnie nie dodałeś nic do koszyka."/>
+                                  </placeholder>
                                 <columns>
                                   <TableColumn fx:id="nazwaZT" prefWidth="117.0" text="Nazwa produktu" />
                                   <TableColumn fx:id="iloscZT" prefWidth="114.0" text="Ilość" />
