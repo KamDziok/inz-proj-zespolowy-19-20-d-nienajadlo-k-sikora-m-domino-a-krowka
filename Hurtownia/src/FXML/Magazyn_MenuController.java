@@ -252,6 +252,7 @@ public class Magazyn_MenuController extends Logowanie implements Initializable {
             listaZamowien.add(z);
 
         }
+        
         return listaZamowien;
     }
     

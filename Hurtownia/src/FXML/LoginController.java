@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import Utils.Popup;
 import java.net.URL;
 import java.util.ResourceBundle;
 import com.gluonhq.charm.glisten.control.ToggleButtonGroup;
@@ -181,6 +182,9 @@ public class LoginController extends Logowanie implements Initializable {
                         klientZ.getNazwisko(), klientZ.getTelefon());
                 AdresyQuery a = new AdresyQuery();
                 Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
+                
+                if(adresZ == null) Popup.show("Zanim rozpoczniesz korzystanie z aplikacji wprowadź swoje dane w zakładce Uzupełnij Dane.");
+                
                 if (adresZ != null) {
                     menuKlient.adresDostawy(adresZ.getUlica(),
                             adresZ.getMiasto(), adresZ.getKraj(),
