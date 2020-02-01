@@ -8,6 +8,7 @@ import hibernate.Adresy;
 import hibernate.AdresyQuery;
 import hibernate.Klient;
 import hibernate.ZamowienieQuery;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -203,9 +204,15 @@ public class pdfCreator {
             } catch(Exception e){
                 e.printStackTrace();
             }
+            
+           Desktop desktop = Desktop.getDesktop();
+           desktop.open(fileHTML);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+
         
     }
     
