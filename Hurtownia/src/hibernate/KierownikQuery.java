@@ -5,7 +5,15 @@
  */
 package hibernate;
 import Utils.PathFinder;
+import Utils.Popup;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -36,11 +44,23 @@ public class KierownikQuery {
      */
     
     public long dodajPracownika(String imie , String nazwisko, 
-            float placa,String stanowisko){
+        float placa,String stanowisko) throws IOException{
         
         Date date = new Date();
         int workerId = (int) date.getTime();
-
+        
+        String filename = PathFinder.get()+"\\workerCodes\\"+imie+"_"+nazwisko+"_"+stanowisko+".txt";
+        
+        createWorkersCodesDirIfNotExist();
+        
+        try{
+            PrintWriter writeCode = new PrintWriter(filename, "UTF-8");
+            writeCode.println(workerId);
+            writeCode.close();
+        } catch(Exception e){
+            Popup.show("Nie można zapisać pliku z kodem pracownika!");
+        }
+        
         session = HibernateUtil.getSessionFactory().openSession();
         String query = "INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`,"
             + " `PracownikID`, `Stanowisko`, `login`, `password`) "
@@ -183,9 +203,9 @@ catch (HibernateException error){
     
     }
      
-    public static void createInvoiceDirIfNotExist(){
+    public static void createWorkersCodesDirIfNotExist(){
         try{
-            File directoryInvoices = new File(PathFinder.get() + "\\workersCodes");
+            File directoryInvoices = new File(PathFinder.get() + "\\workerCodes");
             if(!directoryInvoices.exists()){
                 directoryInvoices.mkdir();
             }
