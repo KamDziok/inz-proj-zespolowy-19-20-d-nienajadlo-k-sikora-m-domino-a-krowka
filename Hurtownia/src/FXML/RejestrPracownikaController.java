@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
 import hibernate.Pracownik;
 import hibernate.PracownikQuery;
@@ -46,6 +47,8 @@ public class RejestrPracownikaController extends Logowanie implements
     private TextField checkNazwisko;
     @FXML
     private TextField checkImie;
+    @FXML
+    private TextField workerCode;
 
     /**
      * Initializes the controller class.
@@ -97,18 +100,19 @@ public class RejestrPracownikaController extends Logowanie implements
 
     @FXML
     private void zarejestruj(ActionEvent event) {
-        
-        int id = Integer.parseInt(IDweryf.getText());
         String login = loginR.getText();
         String haslo = hasloR.getText();
+        String code = workerCode.getText();
         
         try{
             PracownikQuery pracownik = new PracownikQuery();
-            pracownik.dodanieDanych(login, haslo, id);
-            String alert = "/FXML/Alert.fxml";
+            pracownik.dodanieDanych(login, haslo, Integer.parseInt(code));
+            String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
             ramka(event);
+            Popup.show("Rejestracja przebiegła pomyslnie! Możesz się teraz zalogować.");
         }catch(Exception e){
+            Popup.show("Nie można zalogować się z tym kodem!");
             System.out.println(e.getMessage());
         }
     }

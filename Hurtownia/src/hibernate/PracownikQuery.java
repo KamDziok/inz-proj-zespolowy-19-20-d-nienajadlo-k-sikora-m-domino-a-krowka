@@ -70,7 +70,6 @@ public class PracownikQuery {
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
-
         return p;
     }
     
@@ -117,12 +116,12 @@ public class PracownikQuery {
             pracownik.setPassword(Hash.password(password));
             session.update(pracownik);
             tx.commit();
-
         } catch (HibernateException e) {
             if (tx != null) {
                 tx.rollback();
             }
             e.printStackTrace();
+            System.err.println("błąd id");
         } finally {
             session.close();
         }
