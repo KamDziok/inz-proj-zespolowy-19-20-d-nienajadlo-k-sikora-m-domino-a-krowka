@@ -26,6 +26,9 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="442.0" prefWidth="730.0">
                            <children>
                               <TableView fx:id="zamowieniaTable" layoutX="28.0" layoutY="55.0" prefHeight="396.0" prefWidth="704.0">
+                                  <placeholder>
+                                       <Label text="Aktualnie nie ma żadnych zamówień."/>
+                                  </placeholder>
                                 <columns>
                                   <TableColumn fx:id="id" prefWidth="128.0" text="Id zamowienia" />
                                   <TableColumn fx:id="data" prefWidth="176.0" text="Data" />
@@ -73,6 +76,9 @@
                                     
                                     <Button fx:id="DodajBTN" layoutX="240.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajProdukt" prefWidth="100.0" text="Dodaj produkt" />
                                     <TableView fx:id="produktyD" layoutX="380.0" layoutY="60.0" prefHeight="380.0" prefWidth="355.0">
+                                        <placeholder>
+                                            <Label text="Aktualnie nie ma w tej kategorii żadnych towarów."/>
+                                        </placeholder>
                                       <columns>
                                             <TableColumn fx:id="nazwaTD" prefWidth="123.0" text="Nazwa" />
                                             <TableColumn fx:id="cenaTD" prefWidth="122.0" text="Cena" />
@@ -135,6 +141,9 @@
                               <Button fx:id="dodajMagazynbtn" layoutX="121.0" layoutY="350.0" mnemonicParsing="false" onAction="#dodajNaMagazyn" prefHeight="34.0" prefWidth="119.0" text="Dodaj na magazyn" />
                               <Label fx:id="magazyn_status" layoutX="83.0" layoutY="409.0" prefHeight="17.0" prefWidth="256.0" />
                               <TableView fx:id="tabelaMagazyn" layoutX="310.0" layoutY="60.0" prefHeight="380.0" prefWidth="400.0">
+                                  <placeholder>
+                                      <Label text="Aktualnie nie ma żadnych towarów w tej kategorii."/>
+                                  </placeholder>
                                 <columns>
                                         <TableColumn fx:id="nazwaProduktu" prefWidth="150.0" text="Nazwa" />
                                         <TableColumn fx:id="cenaSTable" prefWidth="75.0" text="Sprzedaż" />
@@ -174,6 +183,9 @@
                                  <children>
                                     <JFXButton fx:id="wylogujKPr" layoutX="318.0" layoutY="2.0" onAction="#wyloguj" text="Wyloguj" />
                                     <TableView fx:id="pracownicyTable" layoutX="11.0" layoutY="75.0" prefHeight="312.0" prefWidth="367.0">
+                                        <placeholder>
+                                            <Label text="Aktualnie nie ma żadnych pracowników."/>
+                                        </placeholder>
                                       <columns>
                                             <TableColumn fx:id="imieT" prefWidth="75.0" text="Imie" />
                                             <TableColumn fx:id="nazwiskoT" prefWidth="100.0" text="Nazwisko" />
