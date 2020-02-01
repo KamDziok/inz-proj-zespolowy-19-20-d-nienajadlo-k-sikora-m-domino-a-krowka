@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 27 Sty 2020, 22:17
--- Wersja serwera: 10.1.37-MariaDB
--- Wersja PHP: 7.3.0
+-- Czas generowania: 01 Lut 2020, 18:41
+-- Wersja serwera: 10.4.11-MariaDB
+-- Wersja PHP: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,12 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `hurtowniap2`
 --
-
-DROP DATABASE IF EXISTS hurtowniap2;
-
-CREATE DATABASE IF NOT EXISTS hurtowniap2;
-
-USE hurtowniap2;
 
 DELIMITER $$
 --
@@ -61,7 +55,6 @@ CREATE TABLE `adresy` (
 --
 
 INSERT INTO `adresy` (`KlientID`, `Kraj`, `Miasto`, `Ulica`, `NumerBudynku`, `NumerLokalu`, `AdresID`, `Email`) VALUES
-(1, 'PL', 'Rzeszow', 'Pigonia', '1', 1, 3, 'ur@stud.pl'),
 (2, 'PL', 'Rzeszow', 'Jasionka', '1', 1, 10, 'myHurt@gmail.com');
 
 -- --------------------------------------------------------
@@ -122,11 +115,7 @@ CREATE TABLE `klient` (
 --
 
 INSERT INTO `klient` (`KlientID`, `Imie`, `Nazwisko`, `Telefon`, `login`, `password`) VALUES
-(1, 'Jan', 'Kowalski', '123123123', 'jankowalski', 'jankowalski'),
-(2, 'Hurtownia', 'Hurtownia', '123456789', '1231234324123', '1231321231232123'),
-(3, '', '', '0', '', ''),
-(4, '', '', '0', '', ''),
-(5, '', '', '0', '', '');
+(2, 'Hurtownia', 'Hurtownia', '123456789', '1231234324123', '1231321231232123');
 
 -- --------------------------------------------------------
 
@@ -144,6 +133,13 @@ CREATE TABLE `ksiegowosc` (
   `HurtowniaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Zrzut danych tabeli `ksiegowosc`
+--
+
+INSERT INTO `ksiegowosc` (`KsiegowoscID`, `Data`, `Przychody`, `Koszty`, `Aktywa`, `Pasywa`, `HurtowniaID`) VALUES
+(2, '0000-00-00', 1000000, 0, 0, 0, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -157,13 +153,6 @@ CREATE TABLE `magazyn` (
   `ProduktID` int(11) NOT NULL,
   `HurtowniaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `magazyn`
---
-
-INSERT INTO `magazyn` (`MagazynID`, `Ilosc`, `CenaSprzedazy`, `ProduktID`, `HurtowniaID`) VALUES
-(1, 123, 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -186,10 +175,9 @@ CREATE TABLE `pracownik` (
 --
 
 INSERT INTO `pracownik` (`Imie`, `Nazwisko`, `Placa`, `PracownikID`, `Stanowisko`, `login`, `password`) VALUES
-('Jan', 'Kowalski', 1222, 3, 'magazynier', 'JanKowal', 'password123'),
-('Janusz', 'Polakowski', 1234, 7, 'kierownik', 'kierownik', 'kierownik'),
-('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', 'ksiegowa'),
-('Marek', 'Nowak', 3444, 10, 'marketing', 'reklama', 'reklama');
+('Jan', 'Kowalski', 1222, 3, 'magazynier', 'magazynier', '5b13f7231308cf0e22ec64d44c6cd5c0'),
+('Janusz', 'Polakowski', 1234, 7, 'kierownik', 'kierownik', 'f746d33b44b95ad215a4b303eb3cc5f2'),
+('Anna', 'Nowak', 2000, 8, 'ksiegowa', 'ksiegowa', '1e9e73bc17f95bf29cc4249679dd3851');
 
 -- --------------------------------------------------------
 
@@ -204,14 +192,6 @@ CREATE TABLE `produkty` (
   `Opis` varchar(300) NOT NULL,
   `KategoriaID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `produkty`
---
-
-INSERT INTO `produkty` (`ProduktID`, `Nazwa`, `CenaKupna`, `Opis`, `KategoriaID`) VALUES
-(2, 'Ziemniaki', 1, 'Najtańsze ziemniaki w Polsce', 1),
-(4, 'banany', 2, 'Najzwyklejsze banany', 1);
 
 -- --------------------------------------------------------
 
@@ -241,13 +221,6 @@ CREATE TABLE `towaryzamowienie` (
   `ZamowienieID` int(11) NOT NULL,
   `Koszt` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `towaryzamowienie`
---
-
-INSERT INTO `towaryzamowienie` (`TowaryZamowienieID`, `Ilosc`, `ProduktID`, `ZamowienieID`, `Koszt`) VALUES
-(1, 123, 4, 1, 246);
 
 -- --------------------------------------------------------
 
@@ -284,13 +257,6 @@ CREATE TABLE `zamowienie` (
   `StatusTransportu` varchar(30) NOT NULL,
   `Data` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Zrzut danych tabeli `zamowienie`
---
-
-INSERT INTO `zamowienie` (`ZamowienieID`, `KlientID`, `StatusZaplaty`, `StatusTransportu`, `Data`) VALUES
-(1, 1, 'nie zapłacone', ' przyjęte do realizacji', '2020-01-13');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -406,13 +372,13 @@ ALTER TABLE `kategorie`
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `KlientID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `ksiegowosc`
 --
 ALTER TABLE `ksiegowosc`
-  MODIFY `KsiegowoscID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KsiegowoscID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `magazyn`
@@ -424,7 +390,7 @@ ALTER TABLE `magazyn`
 -- AUTO_INCREMENT dla tabeli `pracownik`
 --
 ALTER TABLE `pracownik`
-  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `PracownikID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `produkty`

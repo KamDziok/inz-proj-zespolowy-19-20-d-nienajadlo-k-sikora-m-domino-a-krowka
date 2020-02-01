@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import Utils.Hash;
 import Utils.pdfCreator;
 import com.itextpdf.text.DocumentException;
 import java.io.FileNotFoundException;
@@ -91,7 +92,7 @@ public class KlientQuery {
         String query = "INSERT INTO `klient` (`Imie`, `Nazwisko`, `Telefon`,"
                 + "`login`, `password`) VALUES ('" + imie + "', '"
                 + nazwisko + "', " + "'" + telefon + "', '" + login + "', '"
-                + haslo + "')";
+                + Hash.password(haslo) + "')";
         try {
             session.getTransaction().begin();
             session.createSQLQuery(query).executeUpdate();
@@ -120,7 +121,7 @@ public class KlientQuery {
         try {
             tx = session.beginTransaction();
             Klient klient = new KlientQuery().wyszukiwanie(login);
-            klient.setPassword(password);
+            klient.setPassword(Hash.password(password));
             session.update(klient);
             tx.commit();
 

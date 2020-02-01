@@ -5,6 +5,7 @@
  */
 package hurtownia;
 
+import Utils.Hash;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +40,9 @@ public class Hurtownia extends Application {
      * @throws Exception exception
      */
     public static void main(String[] args) throws Exception {
+        
         launch(args);
+      
         System.exit(0);
     }
     

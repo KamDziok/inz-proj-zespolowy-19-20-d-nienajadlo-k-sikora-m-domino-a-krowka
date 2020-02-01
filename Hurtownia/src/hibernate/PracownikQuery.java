@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import Utils.Hash;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ public class PracownikQuery {
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Pracownik where login = '" + login
-                + "' and password = '" + password + "'";
+                + "' and password = '" + Hash.password(password) + "'";
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
@@ -44,7 +45,7 @@ public class PracownikQuery {
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Pracownik where login = '" + login + "' "
-                + "and password = '" + password + "'";
+                + "and password = '" + Hash.password(password) + "'";
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
@@ -92,7 +93,7 @@ public class PracownikQuery {
         try {
             tx = session.beginTransaction();
             Pracownik pracownik = new PracownikQuery().wyszukiwanie(login);
-            pracownik.setPassword(password);
+            pracownik.setPassword(Hash.password(password));
             session.update(pracownik);
             tx.commit();
 
@@ -113,7 +114,7 @@ public class PracownikQuery {
             tx = session.beginTransaction();
             Pracownik pracownik = new PracownikQuery().wyszukiwanieID(id);
             pracownik.setLogin(login);
-            pracownik.setPassword(password);
+            pracownik.setPassword(Hash.password(password));
             session.update(pracownik);
             tx.commit();
 
