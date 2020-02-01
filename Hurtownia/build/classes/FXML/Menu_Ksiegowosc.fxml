@@ -34,13 +34,13 @@
                                     <TableColumn fx:id="placa" prefWidth="118.0" text="Wynagrodzenie" />
                                 </columns>
                               </TableView>
-                              <Label layoutX="67.0" layoutY="33.0" prefHeight="17.0" prefWidth="151.0" text="Wyszukaj pracownika po id:" />
+                              <Label layoutX="67.0" layoutY="33.0" prefHeight="17.0" prefWidth="151.0" text="Wyszukaj pracownika:" />
                               <JFXButton fx:id="wylogujP" layoutX="561.0" layoutY="17.0" onAction="#wyloguj" text="Wyloguj" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Dodaj wypłate">
+                <Tab text="Wypłać Wynagrodzenie">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="388.0" prefWidth="635.0">
                            <children>
@@ -50,27 +50,23 @@
                                   <TableColumn fx:id="payCheck" prefWidth="167.0" text="Wynagrodzenie" />
                                 </columns>
                               </TableView>
-                              <Label layoutX="17.0" layoutY="108.0" prefHeight="17.0" prefWidth="67.0" text="Pracownik:">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font></Label>
-                              <DatePicker fx:id="data" layoutX="112.0" layoutY="154.0" prefHeight="25.0" prefWidth="150.0" visible="false" />
-                              <Label layoutX="17.0" layoutY="158.0" prefHeight="17.0" prefWidth="43.0" text="Data:" visible="false" />
-                              <Label layoutX="14.0" layoutY="205.0" text="Wynagrodzenie:" />
-                              <TextField fx:id="kwota" layoutX="112.0" layoutY="201.0" />
-                              <Button layoutX="84.0" layoutY="261.0" mnemonicParsing="false" onAction="#dodajWyplate" prefHeight="26.0" prefWidth="142.0" text=" Dodaj wynagrodzenie" />
+                              <!--<DatePicker fx:id="data" layoutX="112.0" layoutY="154.0" prefHeight="25.0" prefWidth="150.0" visible="false" />-->
+                              <!--<Label layoutX="17.0" layoutY="158.0" prefHeight="17.0" prefWidth="43.0" text="Data:" visible="false" />-->
+                              <!--<Label layoutX="14.0" layoutY="205.0" text="Wynagrodzenie:" />-->
+                              <!--<TextField fx:id="kwota" layoutX="112.0" layoutY="201.0" />-->
+                              <Button layoutX="84.0" layoutY="261.0" mnemonicParsing="false" onAction="#zaplacWynagrodzenie" prefHeight="26.0" prefWidth="142.0" text=" Zapłać wszystkie" />
                               <JFXButton fx:id="wylogujDW" layoutX="585.0" layoutY="8.0" onAction="#wyloguj" text="Wyloguj" />
-                              <ComboBox fx:id="szukajPracownikaCombo" layoutX="374.0" layoutY="57.0" prefHeight="25.0" prefWidth="166.0" />
-                              <Button fx:id="wyszukajPracownikaID" layoutX="565.0" layoutY="57.0" mnemonicParsing="false" onAction="#wyszukajPracownikaPoID" text="Wyszukaj" />
+                              <!--<ComboBox fx:id="szukajPracownikaCombo" layoutX="374.0" layoutY="57.0" prefHeight="25.0" prefWidth="166.0" />-->
+                              <!--<Button fx:id="wyszukajPracownikaID" layoutX="565.0" layoutY="57.0" mnemonicParsing="false" onAction="#wyszukajPracownikaPoID" text="Wyszukaj" />-->
                               <Label layoutX="282.0" layoutY="61.0" text="Pracownik:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="pracownikIDLabel" layoutX="374.0" layoutY="81.0" />
-                              <ComboBox fx:id="pracownikCombo" layoutX="90.0" layoutY="104.0" prefHeight="25.0" prefWidth="178.0" />
+                              <!--<Label fx:id="pracownikIDLabel" layoutX="374.0" layoutY="81.0" />-->
+<!--                              <ComboBox fx:id="pracownikCombo" layoutX="90.0" layoutY="104.0" prefHeight="25.0" prefWidth="178.0" />
                               <Label fx:id="idPracownika" layoutX="127.0" layoutY="129.0" prefHeight="17.0" prefWidth="69.0" />
-                              <Label fx:id="labelID" layoutX="35.0" layoutY="129.0" text="XXX" />
+                              <Label fx:id="labelID" layoutX="35.0" layoutY="129.0" text="XXX" />-->
                            </children>
                         </AnchorPane>
                   </content>
