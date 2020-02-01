@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
@@ -72,7 +71,7 @@
                                     </Label>
                                     <TextArea fx:id="opisP" layoutX="120.0" layoutY="140.0" prefHeight="100.0" prefWidth="220.0" />
                                     
-                                    <Button fx:id="DodajBTN" layoutX="240.0" prefWidth="100.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajProdukt" text="Dodaj produkt" />
+                                    <Button fx:id="DodajBTN" layoutX="240.0" layoutY="250.0" mnemonicParsing="false" onAction="#dodajProdukt" prefWidth="100.0" text="Dodaj produkt" />
                                     <TableView fx:id="produktyD" layoutX="380.0" layoutY="60.0" prefHeight="380.0" prefWidth="355.0">
                                       <columns>
                                             <TableColumn fx:id="nazwaTD" prefWidth="123.0" text="Nazwa" />
@@ -92,7 +91,7 @@
                                        </font>
                                     </Label>
                                     <TextArea fx:id="kategoriaOpis" layoutX="120.0" layoutY="340.0" prefHeight="100.0" prefWidth="220.0" />
-                                    <Button fx:id="wczytajBtn" layoutX="200.0" prefWidth="140.0" layoutY="450.0" mnemonicParsing="false" onAction="#dodajKategorie" text="Dodaj Kategorie" />
+                                    <Button fx:id="wczytajBtn" layoutX="200.0" layoutY="450.0" mnemonicParsing="false" onAction="#dodajKategorie" prefWidth="140.0" text="Dodaj Kategorie" />
                                     <JFXButton fx:id="wylogujbtn" layoutX="693.0" layoutY="7.0" onAction="#wyloguj" text="Wyloguj" />
                                     <Label fx:id="katWybor" layoutX="113.0" layoutY="59.0" prefHeight="17.0" prefWidth="173.0" />
                                     <Label fx:id="statusDodajP" layoutX="380.0" layoutY="435.0" prefHeight="17.0" prefWidth="276.0" />
@@ -194,12 +193,12 @@
                               </Pane>
                               <JFXTextField fx:id="imieDP" layoutX="81.0" layoutY="85.0" prefHeight="25.0" prefWidth="199.0" />
                               <JFXTextField fx:id="nazwiskoDP" layoutX="106.0" layoutY="142.0" prefHeight="25.0" prefWidth="164.0" />
+                              <ComboBox fx:id="stanowiskoCombo" layoutX="132.0" layoutY="214.0" prefHeight="25.0" prefWidth="182.0" />
+                              <Label fx:id="wyborStanowiska" layoutX="79.0" layoutY="244.0" />
                               <JFXTextField fx:id="wynagrodzenieDP" layoutX="145.0" layoutY="268.0" />
                               <Button fx:id="DodajP" layoutX="132.0" layoutY="371.0" mnemonicParsing="false" onAction="#Dodaj_Pracownika" text="Zatrudnij" />
                               <Label fx:id="status_zatrudnienia" layoutX="81.0" layoutY="40.0" prefHeight="17.0" prefWidth="237.0" />
                               <Label fx:id="pracownikLabel" layoutX="118.0" layoutY="436.0" prefHeight="17.0" prefWidth="154.0" />
-                              <ComboBox fx:id="stanowiskoCombo" layoutX="132.0" layoutY="214.0" prefHeight="25.0" prefWidth="182.0" />
-                              <Label fx:id="wyborStanowiska" layoutX="79.0" layoutY="244.0" />
                            </children>
                         </AnchorPane>
                     </content>

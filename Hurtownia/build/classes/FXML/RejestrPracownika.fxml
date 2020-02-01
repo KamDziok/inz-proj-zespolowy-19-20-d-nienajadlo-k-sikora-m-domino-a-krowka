@@ -20,9 +20,9 @@
                </font>
             </Label>
             <Text layoutX="41.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sprawdź czy jesteś zatrudniony?" textAlignment="CENTER" wrappingWidth="291.13671875" />
+            <TextField fx:id="checkImie" layoutX="73.0" layoutY="111.0" prefHeight="25.0" prefWidth="140.0" promptText="Wpisz swoje imie" />
             <TextField fx:id="checkNazwisko" layoutX="215.0" layoutY="111.0" prefHeight="25.0" prefWidth="148.0" promptText="Wpisz swoje nazwisko" />
             <Button fx:id="sprawdzW" layoutX="155.0" layoutY="157.0" mnemonicParsing="false" onAction="#sprawdzZatrudnienie" text="Sprawdź" />
-            <JFXButton fx:id="powrotW" layoutX="15.0" layoutY="28.0" onAction="#powrotLogowanie" text="Powrót" />
             <Label fx:id="weryfikacja" layoutX="69.0" layoutY="204.0" prefHeight="17.0" prefWidth="269.0" />
             <Label alignment="CENTER" layoutX="82.0" layoutY="241.0" prefHeight="17.0" prefWidth="207.0" text="ZAREJESTRUJ SIĘ W SYSTEMIE" textAlignment="CENTER">
                <font>
@@ -41,9 +41,9 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="zarejestrujbtn" layoutX="143.0" layoutY="406.0" mnemonicParsing="false" onAction="#zarejestruj" text="ZAREJESTRUJ" />
-            <TextField fx:id="checkImie" layoutX="73.0" layoutY="111.0" prefHeight="25.0" prefWidth="140.0" promptText="Wpisz swoje imie" />
             <PasswordField fx:id="hasloR" layoutX="104.0" layoutY="351.0" prefHeight="25.0" prefWidth="201.0" />
+            <Button fx:id="zarejestrujbtn" layoutX="143.0" layoutY="406.0" mnemonicParsing="false" onAction="#zarejestruj" text="ZAREJESTRUJ" />
+            <JFXButton fx:id="powrotW" layoutX="15.0" layoutY="28.0" onAction="#powrotLogowanie" text="Powrót" />
          </children>
       </Pane>
    </children>
