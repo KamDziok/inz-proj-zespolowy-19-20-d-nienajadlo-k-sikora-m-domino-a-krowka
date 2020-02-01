@@ -72,12 +72,25 @@ public class pdfCreator {
         Date dateToday = new Date();
         String dateTodayString = formatDate.format(dateToday);
         
+        try{
+            readHtml("br");
+        } catch(Exception e){
+            System.err.println("Cannot read HTML files!");
+        }
+
+        try{
+            a.getAdresId();
+        } catch(Exception e){
+            Popup.show("Nie dodałeś jeszcze swojego adresu!"
+                    + " Zrób to aby wygenerować fakturę");
+        }
+        
         String table = readHtml("br")
                 + "<p>Wystawiono dla:</p>"
                 +"<p>Imie i nazwisko: "+k.getImie()+" "+k.getNazwisko()+"</p>"
                 +"<p>Adres: "+a.getMiasto()+" "+a.getUlica()+" "+a.getNumerBudynku()+"</p>"
                 +"<p>Email: "+a.getEmail()+"</p>"
-                +"<p>Tel. :"+k.getTelefon()+"</p>"
+                +"<p>Tel.: "+k.getTelefon()+"</p>"
                 + "<p>Data zamówienia: "+ dateOfOrder +"</p>"
                 + "<p>Wystawiono dnia: "+dateTodayString+"</p>"
                 +readHtml("br")+readHtml("br");
@@ -187,6 +200,8 @@ public class pdfCreator {
                 HTMLWorker htmlWorker = new HTMLWorker(document);
                 htmlWorker.parse(new StringReader(page));
                 document.close();
+            } catch(Exception e){
+                e.printStackTrace();
             }
         } catch (Exception e) {
             e.printStackTrace();

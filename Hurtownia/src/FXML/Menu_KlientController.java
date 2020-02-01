@@ -485,7 +485,7 @@ faktura.setOnAction(new EventHandler<ActionEvent>() {
         
         try {
             KlientQuery klient = new KlientQuery();
-            klient.pobierzFakture( "" +row.getItem().getZamowienieId());   
+            klient.pobierzFakture( ""+row.getItem().getZamowienieId());   
             Popup.show("Wygenerowano fakturę w katalogu Invoices.");
         } catch (Exception e) {
             Popup.show("Nie udało się wygenerować faktury");
@@ -667,7 +667,7 @@ row.setContextMenu(contextMenu);
         List<Zamowienie> pList = session.createCriteria(Zamowienie.class).list();
 
         for (Zamowienie z : pList) {
-            
+            if(z.getKlientID() == Integer.parseInt(dane.getText())){
             if(aktywne)
                 if (!(z.getStatusTransportu().equals("anulowane") 
                         && z.getStatusZaplaty().equals("anulowane"))
@@ -683,6 +683,7 @@ row.setContextMenu(contextMenu);
                         && z.getStatusZaplaty().equals("zapłacone"))
                         listaZamowien.add(z);
             }
+        }
                 
 
         

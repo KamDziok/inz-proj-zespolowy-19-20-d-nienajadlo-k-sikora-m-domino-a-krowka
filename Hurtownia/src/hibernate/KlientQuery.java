@@ -290,10 +290,10 @@ public class KlientQuery {
      */
     
    public void pobierzFakture(String zamowienieID) 
-           throws DocumentException, IOException, FileNotFoundException, ParseException{
+        throws DocumentException, IOException, FileNotFoundException, ParseException{
         
        
-       Zamowienie z = null;
+        Zamowienie z = null;
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "From Zamowienie WHERE ZamowienieID  = " + zamowienieID + "";
         query = session.createQuery(hql);
@@ -316,37 +316,32 @@ public class KlientQuery {
         query = session.createQuery(hql3);
         towary = query.list();
         session.close();
-       String[][] productss =  new String[towary.size()][3];
+        String[][] productss =  new String[towary.size()][3];
        
        
-       
+       System.err.println(productss[0][0]);
        
        
        System.out.println(towary.get(0));
-       for(int i = 0; i < towary.size() ; i++){
-           
-           
+       for(int i = 0; i < towary.size(); i++){
+
            Produkty p = null;
-        session = HibernateUtil.getSessionFactory().openSession();
-        String hql4 = "From Produkty WHERE ProduktID  = '" + towary.get(i).
-                getProduktID() + "'";
-        query = session.createQuery(hql4);
-        p = (Produkty) query.uniqueResult();
-        session.close();
-        
+            session = HibernateUtil.getSessionFactory().openSession();
+            String hql4 = "From Produkty WHERE ProduktID  = '" + towary.get(i).
+                    getProduktID() + "'";
+            query = session.createQuery(hql4);
+            p = (Produkty) query.uniqueResult();
+            session.close();
         
            productss[i][0] = p.getNazwa();
            productss[i][1] = String.valueOf(towary.get(i).getIlosc());
            productss[i][2] = String.valueOf(p.getCenaKupna());
        }
        
-       
-       //        INSTRUKCJA DO PDF 
        int vat = 23;
        String waluta = "PLN";
-        pdfCreator pdf = new pdfCreator();
-        pdf.createInvoice(zamowienieID,vat, waluta, k, productss);
-//     
+       pdfCreator pdf = new pdfCreator();
+       pdf.createInvoice(zamowienieID,vat, waluta, k, productss);  
     }
    
    public void zatwierdzZamowienie(String ID){
