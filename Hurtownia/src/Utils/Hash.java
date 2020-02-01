@@ -39,7 +39,6 @@ public class Hash {
         {
             e.printStackTrace();
         }
-        System.out.println(generatedPassword);
         return generatedPassword;
     }
     

@@ -58,6 +58,13 @@ public class Pracownik  implements java.io.Serializable {
         return this.nazwisko;
     }
     
+    public String getImieNazwisko(){
+        return this.imie + " " + this.nazwisko;
+    }
+    public String getNazwiskoImie(){
+        return this.nazwisko + " " + this.imie;
+    }
+    
     public void setNazwisko(String nazwisko) {
         this.nazwisko = nazwisko;
     }

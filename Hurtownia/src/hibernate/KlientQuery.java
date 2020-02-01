@@ -42,7 +42,7 @@ public class KlientQuery {
         Klient k = null;
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Klient where login = '" + login + "'"
-                + " and password = '" + password + "'";
+                + " and password = '" + Hash.password(password) + "'";
         query = session.createQuery(hql);
         k = (Klient) query.uniqueResult();
         session.close();
@@ -64,7 +64,7 @@ public class KlientQuery {
         session = HibernateUtil.getSessionFactory().openSession();
         String hql = "from Klient where login = '" + login + "' "
                 + "and password = "
-                + "'" + password + "'";
+                + "'" + Hash.password(password) + "'";
         query = session.createQuery(hql);
         k = (Klient) query.uniqueResult();
         session.close();

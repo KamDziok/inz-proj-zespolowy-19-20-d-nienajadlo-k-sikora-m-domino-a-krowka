@@ -24,6 +24,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -34,6 +35,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -87,29 +89,28 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     private JFXButton wylogujP;
 
 
-    @FXML
-    private DatePicker data;
-
-    @FXML
-    private TextField kwota;
+//    @FXML
+//    private DatePicker data;
+//
+//    @FXML
+//    private TextField kwota;
 
 
     @FXML
     private JFXButton wylogujDW;
-    @FXML
-    private ComboBox<Pracownik> szukajPracownikaCombo;
-    @FXML
-    private Button wyszukajPracownikaID;
-    @FXML
-    private Label pracownikIDLabel;
-    @FXML
-    private ComboBox<Pracownik> pracownikCombo;
-    @FXML
-    private Label idPracownika;
+//    @FXML
+//    private ComboBox<Pracownik> szukajPracownikaCombo;
+//    @FXML
+//    private Button wyszukajPracownikaID;
+//    @FXML
+//    private Label pracownikIDLabel;
+//    @FXML
+//    private ComboBox<Pracownik> pracownikCombo;
+//    @FXML
+//    private Label idPracownika;
     
-    @FXML
-    private Label labelID;
-    
+//    @FXML
+//    private Label labelID;    
 
     @FXML
     private TableView<Zamowienie> zamowienieFaktura;
@@ -143,6 +144,8 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         ramka(event);
         
     }
+    
+    
     /**
      * Initializes the controller class.
      */
@@ -154,7 +157,11 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
         comboPracownik();
         fakturyTable();
         zwrotTable();
-    }    
+        
+    }
+
+
+ 
     
         public ObservableList<Pracownik> getPracownik() {
         ObservableList<Pracownik> listaPracownikow = FXCollections.
@@ -325,7 +332,12 @@ row.setContextMenu(contextMenu);
               String lowerCaseFilter = newValue.toLowerCase();
 
                 if (pracownik.getPracownikId().toString().
-                        contains(lowerCaseFilter)) {
+                        contains(lowerCaseFilter) 
+                        || pracownik.getImie().toLowerCase().contains(lowerCaseFilter) 
+                        || pracownik.getNazwisko().toLowerCase().contains(lowerCaseFilter)
+                        || pracownik.getStanowisko().toLowerCase().contains(lowerCaseFilter)
+                        || pracownik.getImieNazwisko().toLowerCase().contains(lowerCaseFilter)
+                        || pracownik.getNazwiskoImie().toLowerCase().contains(lowerCaseFilter)){
                     return true;
                 }
 
@@ -347,69 +359,69 @@ row.setContextMenu(contextMenu);
         
         PracownikQuery praca = new PracownikQuery();
         
-        szukajPracownikaCombo.getItems().addAll(praca.PracownikSelectAll());
-        szukajPracownikaCombo.setConverter(new PracownikConverter());
-        pracownikCombo.getItems().addAll(praca.PracownikSelectAll());
-        pracownikCombo.setConverter(new PracownikConverter());
+//        szukajPracownikaCombo.getItems().addAll(praca.PracownikSelectAll());
+//        szukajPracownikaCombo.setConverter(new PracownikConverter());
+//        pracownikCombo.getItems().addAll(praca.PracownikSelectAll());
+//        pracownikCombo.setConverter(new PracownikConverter());
         
-        pracownikCombo.setOnAction(new EventHandler<ActionEvent>(){
-            @Override
-            public void handle(ActionEvent event) {
-                comboValuePD(pracownikCombo);
-            }
-            
-        });
+//        pracownikCombo.setOnAction(new EventHandler<ActionEvent>(){
+//            @Override
+//            public void handle(ActionEvent event) {
+//                comboValuePD(pracownikCombo);
+//            }
+//            
+//        });
         
-        szukajPracownikaCombo.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                comboValueP(szukajPracownikaCombo);
-            }
-            
-        });
+//        szukajPracownikaCombo.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                comboValueP(szukajPracownikaCombo);
+//            }
+//            
+//        });
     }
     
     public void comboValueP (ComboBox <Pracownik> szukajPracownikaCombo){
         
         Pracownik p = szukajPracownikaCombo.getValue();
         int PracownikId = p.getPracownikId();
-        pracownikIDLabel.setText(Integer.toString(PracownikId));
-        pracownikIDLabel.setVisible(false);
+//        pracownikIDLabel.setText(Integer.toString(PracownikId));
+//        pracownikIDLabel.setVisible(false);
     }
     
-    public void comboValuePD (ComboBox <Pracownik> pracownikCombo){
-        
-        Pracownik p = pracownikCombo.getValue();
-        int PracownikId = p.getPracownikId();
-        idPracownika.setText(Integer.toString(PracownikId));
-        idPracownika.setVisible(false);
-       labelID.setText(Integer.toString(PracownikId));
-       labelID.setVisible(false);
-    }
+//    public void comboValuePD (ComboBox <Pracownik> pracownikCombo){
+//        
+//        Pracownik p = pracownikCombo.getValue();
+//        int PracownikId = p.getPracownikId();
+//        idPracownika.setText(Integer.toString(PracownikId));
+//        idPracownika.setVisible(false);
+//       labelID.setText(Integer.toString(PracownikId));
+//       labelID.setVisible(false);
+//    }
 
     @FXML
     private void wyszukajPracownikaPoID(ActionEvent event) {
-         int idPracownika = Integer.parseInt(pracownikIDLabel.getText());
+//         int idPracownika = Integer.parseInt(pracownikIDLabel.getText());
         
         WyplatyQuery wyplata = new WyplatyQuery();
         
         try{
-            payCheckTable.getItems().setAll(wyplata.wyplatyID(idPracownika));
+//            payCheckTable.getItems().setAll(wyplata.wyplatyID(idPracownika));
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         
     }
     @FXML
-    private void dodajWyplate(ActionEvent event){
+    private void zaplacWynagrodzenie(ActionEvent event){
  //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
  //SET @p0='1500'; SET @p1='3'; CALL `dodajWyplate`(@p0, @p1);
 //valueStr = valueStr.replace(',', '.');        
- float wyplataKwota = Float.parseFloat(kwota.getText().replace(',', '.'));
- int id = Integer.parseInt(idPracownika.getText());
+// float wyplataKwota = Float.parseFloat(kwota.getText().replace(',', '.'));
+// int id = Integer.parseInt(idPracownika.getText());
       WyplatyQuery wyplataa = new WyplatyQuery();
       try{
-       wyplataa.dodajWyplate(wyplataKwota, id);
+//       wyplataa.dodajWyplate(wyplataKwota, id);
        System.out.println("Wyplata run");
        Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informacja");
