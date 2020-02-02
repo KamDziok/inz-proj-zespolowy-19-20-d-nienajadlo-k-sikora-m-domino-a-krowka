@@ -6,6 +6,7 @@
 package hurtownia;
 
 import Utils.Hash;
+import Utils.SalaryAuto;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +41,10 @@ public class Hurtownia extends Application {
      * @throws Exception exception
      */
     public static void main(String[] args) throws Exception {
+        
+        SalaryAuto SA = new SalaryAuto();
+        
+        SA.autoAddSalary();
         
         launch(args);
       

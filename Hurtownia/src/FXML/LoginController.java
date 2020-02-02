@@ -89,19 +89,20 @@ public class LoginController extends Logowanie implements Initializable {
         boolean workerVerification = pracownik.selecyByLoginandPassword(log, pass);
         boolean clientVerification = klient.selecyByLoginandPassword(log, pass);
         
-        if(!clientVerification && !workerVerification){
-            Popup.show("Niepoprawne dane logowania!");
-            login.setText("");
-            passwd.setText("");
-            throw new Exception();
-        }
-
         if (login.getText().equals("admin") && passwd.getText().
             equals("admin")) {
             String admin = "/FXML/PanelAdministratora.fxml";
             wczytywanie(event, admin);
             ramka(event);
             Popup.show("Zalogowano do systemu jako administrator.");
+            throw new Exception();
+        }
+        
+        if(!clientVerification && !workerVerification){
+            Popup.show("Niepoprawne dane logowania!");
+            login.setText("");
+            passwd.setText("");
+            throw new Exception();
         }
         
         if(workerVerification){

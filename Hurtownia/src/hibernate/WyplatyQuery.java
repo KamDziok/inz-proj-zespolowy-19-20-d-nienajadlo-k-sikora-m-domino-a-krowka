@@ -71,10 +71,10 @@ public class WyplatyQuery {
       * use this method to add new salary for worker
       * 
       */
-         public void dodajWyplate(Date dataSql , float kwotaSql, int idPrac){
+         public void dodajWyplate(String dataSql , float kwotaSql, int idPrac){
     
         session = HibernateUtil.getSessionFactory().openSession();
-    String query = "INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`,"
+        String query = "INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`,"
             + " `PracownikID`) "
             + "VALUES (NULL, '"+dataSql+"', '"+kwotaSql+"',"
             + " '"+idPrac+"')";
