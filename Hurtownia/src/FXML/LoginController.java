@@ -79,97 +79,63 @@ public class LoginController extends Logowanie implements Initializable {
     private JFXButton rejestracjaH;
 
     @FXML
-    void LogInAction(ActionEvent event) throws IOException {
+    void LogInAction(ActionEvent event) throws IOException, Exception {
 
         String log = login.getText();
         String pass = passwd.getText();
+        PracownikQuery pracownik = new PracownikQuery();
+        KlientQuery klient = new KlientQuery();
+        
+        boolean workerVerification = pracownik.selecyByLoginandPassword(log, pass);
+        boolean clientVerification = klient.selecyByLoginandPassword(log, pass);
+        
+        if(!clientVerification && !workerVerification){
+            Popup.show("Niepoprawne dane logowania!");
+            login.setText("");
+            passwd.setText("");
+            throw new Exception();
+        }
 
         if (login.getText().equals("admin") && passwd.getText().
-                equals("admin")) {
+            equals("admin")) {
             String admin = "/FXML/PanelAdministratora.fxml";
             wczytywanie(event, admin);
             ramka(event);
+            Popup.show("Zalogowano do systemu jako administrator.");
         }
-
-        if (pracownikR.isSelected()) {
-
-            PracownikQuery pracownik = new PracownikQuery();
-
+        
+        if(workerVerification){
             Pracownik logowanie = pracownik.selectByLoginandPassword(log, pass);
-
-            if (logowanie != null) {
-                status.setText("Logowanie zakończone sukcesem!");
-
-                if (logowanie.getStanowisko().equals("kierownik")) {
-
+            
+            if (logowanie.getStanowisko().equals("kierownik")) {
                     String kierownik = "/FXML/Menu_Kierownik.fxml";
                     wczytywanie(event, kierownik);
                     ramka(event);
-                    /*Stage PrimaryStage = new Stage();
-                     Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                     + "/Menu_Kierownik.fxml"));
-                     Scene scene = new Scene(root, 750, 600);
-                     PrimaryStage.setScene(scene);
-                     PrimaryStage.show();
-                     PrimaryStage.setResizable(false);*/
                 }
 
                 if (logowanie.getStanowisko().equals("ksiegowa")) {
-
                     String ksiegowy = "/FXML/Menu_Ksiegowosc.fxml";
                     wczytywanie(event, ksiegowy);
                     ramka(event);
-                    /*Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                            + "/Menu_Ksiegowosc.fxml"));
-                    Scene scene = new Scene(root, 900, 700);
-                    PrimaryStage.setScene(scene);
-                    PrimaryStage.show();
-                    PrimaryStage.setResizable(false);     */
                 }
 
                 if (logowanie.getStanowisko().equals("magazynier")) {
-
                     String magazynier = "/FXML/Magazyn_Menu.fxml";
                     wczytywanie(event, magazynier);
                     ramka(event);
-                    /* Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                            + "/Magazyn_Menu.fxml"));
-                    Scene scene = new Scene(root, 900, 700);
-                    PrimaryStage.setScene(scene);
-                    PrimaryStage.show();
-                    PrimaryStage.setResizable(false); */
-
                 }
 
                 if (logowanie.getStanowisko().equals("marketing")) {
-
                     String marketing = "/FXML/Menu_Marketing.fxml";
                     wczytywanie(event, marketing);
                     ramka(event);
-                    /*  Stage PrimaryStage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                            + "/Menu_Marketing.fxml"));
-                    Scene scene = new Scene(root, 900, 700);
-                    PrimaryStage.setScene(scene);
-                    PrimaryStage.show();
-                    PrimaryStage.setResizable(false); */
                 }
-               
-            }
-
-        } else {
-            status.setText("Sprawdź poprawność logowania");
-        }
-
-        //}
-        if (klientR.isSelected()) {
-            // if (login.getText().equals("klient") && passwd.getText().equals("test")) {
-            KlientQuery klient = new KlientQuery();
+        } 
+        
+        else if(clientVerification){
             Klient logowanie = klient.selectByLoginandPassword(log, pass);
-            if (logowanie != null) {
-                status.setText("Logowanie zakończone sukcesem!");
+            
+            status.setText("Logowanie zakończone sukcesem!");
                 klientZ = logowanie;
                 String adres = "/FXML/Menu_Klient.fxml";
                 wczytywanie(event, adres);
@@ -179,7 +145,7 @@ public class LoginController extends Logowanie implements Initializable {
                 menuKlient.wczytDoTabeli(klientZ.getKlientId());
                 ramka(event);
                 menuKlient.daneOsobowe(klientZ.getImie(),
-                        klientZ.getNazwisko(), klientZ.getTelefon());
+                klientZ.getNazwisko(), klientZ.getTelefon());
                 AdresyQuery a = new AdresyQuery();
                 Adresy adresZ = a.wyswietlAdres(klientZ.getKlientId());
                 
@@ -194,19 +160,8 @@ public class LoginController extends Logowanie implements Initializable {
                 } else if (adresZ == null) {
                     menuKlient.DodajAdresBTN();
                 }
-                
                 menuKlient.wczytajDane();
-                /*Stage PrimaryStage = new Stage();
-                Parent root = FXMLLoader.load(getClass().getResource("/FXML/Menu_Klient.fxml"));
-                Scene scene = new Scene(root, 800, 480);
-                PrimaryStage.setScene(scene);
-                PrimaryStage.show();
-                PrimaryStage.setResizable(false); */
-            } else {
-                status.setText("Sprawdź poprawność logowania");
-            }
-        }
-
+        } 
     }
 
     @FXML
@@ -215,13 +170,6 @@ public class LoginController extends Logowanie implements Initializable {
         String wybor = "/FXML/Wybor.fxml";
         wczytywanie(event, wybor);
         ramka(event);
-        /* Stage PrimaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                + "/Rejestracja.fxml"));
-        Scene scene = new Scene(root, 500, 600);
-        PrimaryStage.setScene(scene);
-        PrimaryStage.show();
-        PrimaryStage.setResizable(false);*/
     }
 
     @FXML
@@ -230,21 +178,11 @@ public class LoginController extends Logowanie implements Initializable {
         String przypomnienieH = "/FXML/Przypomnienie.fxml";
         wczytywanie(event, przypomnienieH);
         ramka(event);
-
-        /*Stage PrimaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/FXML"
-                + "/Przypomnienie.fxml"));
-        Scene scene = new Scene(root, 500, 400);
-        PrimaryStage.setScene(scene);
-        PrimaryStage.show();
-        PrimaryStage.setResizable(false); */
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb
     ) {
-        final ToggleGroup group = new ToggleGroup();
-        klientR.setToggleGroup(group);
-        pracownikR.setToggleGroup(group);
+
     }
 }
