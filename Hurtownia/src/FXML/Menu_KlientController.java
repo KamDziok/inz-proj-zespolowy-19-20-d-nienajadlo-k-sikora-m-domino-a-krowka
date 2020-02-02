@@ -214,21 +214,72 @@ public class Menu_KlientController extends Logowanie implements Initializable {
     
 
     @FXML
-    void DodajAdres(ActionEvent event) {
-        
-
+    void DodajAdres(ActionEvent event) throws Exception {
         String kraj = krajAD.getText();
         String miasto = miastoAD.getText();
         String ulica = ulicaDA.getText();
         String nB = numerBudynkuAD.getText();
         String nL = numerLokaluAD.getText();
         String email = emailAD.getText();
+        
+        if(email.length() > 0 ){
+            if(!email.contains("@")) {
+                Popup.show("Niepoprawny adres email!");
+                throw new Exception();
+            }
+            
+            if(!email.contains(".pl") && !email.contains(".com") && !email.contains(".eu")){
+                Popup.show("Niepoprawny adres email!");
+                throw new Exception();
+            }
+            
+            if(email.contains(".pl")){
+                if(email.indexOf(".pl") - email.indexOf("@") <= 1){
+                    Popup.show("Niepoprawny adres email!");
+                    throw new Exception();
+                }
+            }
+            
+                
+            if(email.contains(".com")){
+                if(email.indexOf(".com") - email.indexOf("@") <= 1){
+                    Popup.show("Niepoprawny adres email!");
+                    throw new Exception();
+                }
+            }
+            
+                
+            if(email.contains(".eu")){
+                if(email.indexOf(".eu") - email.indexOf("@") <= 1){
+                    Popup.show("Niepoprawny adres email!");
+                    throw new Exception();
+                }
+            }
+            
+        }
+        
+        if(nB.length() != 0){
+            try{
+                Integer.parseInt(nB);
+            }catch(NumberFormatException e){
+                Popup.show("Błędny numer budynku");
+            }
+        }
+        
+        if(nL.length() != 0){
+            try{
+                Integer.parseInt(nL);
+            }catch(NumberFormatException e){
+                Popup.show("Błędny numer lokalu.");
+            }
+        }
+ 
 
         int id = Integer.parseInt(dane.getText());
 
         AdresyQuery a = new AdresyQuery();
         Adresy adresZ = a.wyswietlAdres(id);
-        System.out.println(id);
+
         if (adresZ == null) {
             try {
                 AdresyQuery adres = new AdresyQuery();
