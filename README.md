@@ -10,7 +10,7 @@
 
 ### Diagram aktywności
 
-![diagram aktywności](activity_diagram.jpg)
+![diagram aktywności](diagram_aktywnosci.jpg)
 
 ### Diagramy sekwencji
 

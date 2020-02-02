@@ -5,13 +5,16 @@
  */
 package FXML;
 
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
+import hibernate.KierownikQuery;
 import hibernate.KsiegowoscQuery;
 import hibernate.Pracownik;
 import hibernate.PracownikConverter;
 import hibernate.PracownikQuery;
 import hibernate.Towaryzamowienie;
 import hibernate.Wyplaty;
+import hibernate.WyplatyPracownik;
 import hibernate.WyplatyQuery;
 import hibernate.Zamowienie;
 import hibernate.ZamowienieQuery;
@@ -27,7 +30,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -43,6 +49,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import static javafx.scene.input.KeyCode.S;
+import javafx.stage.Stage;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -73,14 +80,17 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     private TableColumn<Pracownik, Float> placa;
     
     @FXML
-    private TableView<Wyplaty> payCheckTable;
+    private TableView<WyplatyPracownik> payCheckTable;
     
     @FXML
-    private TableColumn<Wyplaty, Float> payCheck;
+    private TableColumn<WyplatyPracownik, Float> payCheck;
     
     
     @FXML
-    private TableColumn<Wyplaty, Date> payDate;
+    private TableColumn<WyplatyPracownik, Date> payDate;
+    
+    @FXML
+    private TableColumn<WyplatyPracownik, String> payCheckEmployeeName;
     
     @FXML
     private TextField szukajID1;
@@ -89,28 +99,9 @@ public class Menu_KsiegowoscController extends Logowanie implements Initializabl
     private JFXButton wylogujP;
 
 
-//    @FXML
-//    private DatePicker data;
-//
-//    @FXML
-//    private TextField kwota;
-
 
     @FXML
-    private JFXButton wylogujDW;
-//    @FXML
-//    private ComboBox<Pracownik> szukajPracownikaCombo;
-//    @FXML
-//    private Button wyszukajPracownikaID;
-//    @FXML
-//    private Label pracownikIDLabel;
-//    @FXML
-//    private ComboBox<Pracownik> pracownikCombo;
-//    @FXML
-//    private Label idPracownika;
-    
-//    @FXML
-//    private Label labelID;    
+    private JFXButton wylogujDW; 
 
     @FXML
     private TableView<Zamowienie> zamowienieFaktura;
@@ -313,6 +304,41 @@ row.setContextMenu(contextMenu);
         public void payCheckTable() {
         payDate.setCellValueFactory(new PropertyValueFactory<>("data"));
         payCheck.setCellValueFactory(new PropertyValueFactory<>("kwota"));
+        payCheckEmployeeName.setCellValueFactory(new PropertyValueFactory<>("pracownikName"));
+        payCheckTable.getItems().setAll(new KsiegowoscQuery().wszystkieWyplaty());
+        payCheckTable.setRowFactory( tv -> {
+    TableRow<WyplatyPracownik> row = new TableRow<>();
+    row.getContextMenu();
+    
+    
+    
+    final ContextMenu contextMenu = new ContextMenu();
+            MenuItem pay = new MenuItem("Zapłać");
+            
+
+            pay.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+             int wyplataID = row.getItem().getWyplataId();
+             new WyplatyQuery().wyplacDlaKlienta(wyplataID);
+             payCheckTable();
+             Popup.show("Wypłata zapłacona dla: " + row.getItem().pracownikName);
+             
+             
+        } catch (Exception e) {
+            Popup.show("Problem z wypłaceniem wypłaty");
+        }
+        
+    }
+});
+            
+            contextMenu.getItems().addAll(pay);
+
+row.setContextMenu(contextMenu);
+    
+    return row ;
+});
         
      
     }
@@ -359,44 +385,13 @@ row.setContextMenu(contextMenu);
         
         PracownikQuery praca = new PracownikQuery();
         
-//        szukajPracownikaCombo.getItems().addAll(praca.PracownikSelectAll());
-//        szukajPracownikaCombo.setConverter(new PracownikConverter());
-//        pracownikCombo.getItems().addAll(praca.PracownikSelectAll());
-//        pracownikCombo.setConverter(new PracownikConverter());
-        
-//        pracownikCombo.setOnAction(new EventHandler<ActionEvent>(){
-//            @Override
-//            public void handle(ActionEvent event) {
-//                comboValuePD(pracownikCombo);
-//            }
-//            
-//        });
-        
-//        szukajPracownikaCombo.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                comboValueP(szukajPracownikaCombo);
-//            }
-//            
-//        });
     }
     
     public void comboValueP (ComboBox <Pracownik> szukajPracownikaCombo){
         
         Pracownik p = szukajPracownikaCombo.getValue();
         int PracownikId = p.getPracownikId();
-//        pracownikIDLabel.setText(Integer.toString(PracownikId));
-//        pracownikIDLabel.setVisible(false);
     }
-    
-//    public void comboValuePD (ComboBox <Pracownik> pracownikCombo){
-//        
-//        Pracownik p = pracownikCombo.getValue();
-//        int PracownikId = p.getPracownikId();
-//        idPracownika.setText(Integer.toString(PracownikId));
-//        idPracownika.setVisible(false);
-//       labelID.setText(Integer.toString(PracownikId));
-//       labelID.setVisible(false);
 //    }
 
     @FXML
@@ -406,7 +401,6 @@ row.setContextMenu(contextMenu);
         WyplatyQuery wyplata = new WyplatyQuery();
         
         try{
-//            payCheckTable.getItems().setAll(wyplata.wyplatyID(idPracownika));
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -414,28 +408,18 @@ row.setContextMenu(contextMenu);
     }
     @FXML
     private void zaplacWynagrodzenie(ActionEvent event){
- //INSERT INTO `wyplaty` (`WyplataID`, `Data`, `Kwota`, `PracownikID`) VALUES (NULL, '2020-01-21', '1299', '3');
- //SET @p0='1500'; SET @p1='3'; CALL `dodajWyplate`(@p0, @p1);
-//valueStr = valueStr.replace(',', '.');        
-// float wyplataKwota = Float.parseFloat(kwota.getText().replace(',', '.'));
 // int id = Integer.parseInt(idPracownika.getText());
-      WyplatyQuery wyplataa = new WyplatyQuery();
       try{
-//       wyplataa.dodajWyplate(wyplataKwota, id);
-       System.out.println("Wyplata run");
-       Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Informacja");
-            alert.setHeaderText(null);
-            alert.setContentText("Wyplata dodana!");
-            alert.showAndWait();
+        List<Wyplaty> wyplaty  = new WyplatyQuery().WyplatySelectAll();
+        
+        for (Wyplaty wyplata : wyplaty){
+            new WyplatyQuery().wyplacDlaKlienta(wyplata.getWyplataId());
+             Popup.show("Wypłacono Wynagrodzenia wszystkim pracownikom.");
+        
+        }
       }catch(Exception e){
-            System.out.println(e.getMessage());
-            System.out.println("Wyplata error!");
-            Alert alert2 = new Alert(Alert.AlertType.WARNING);
-            alert2.setTitle("Informacja");
-            alert2.setHeaderText(null);
-            alert2.setContentText("Coś jest nie tak...");
-            alert2.showAndWait();
+          
+             Popup.show("Problem z wypłaceniem wynagrodzeń.");
                }
         
     }
