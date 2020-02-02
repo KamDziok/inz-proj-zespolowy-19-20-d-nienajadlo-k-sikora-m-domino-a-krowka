@@ -35,8 +35,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            
             <TextField fx:id="loginR" layoutX="104.0" layoutY="100.0" prefHeight="25.0" prefWidth="201.0" />
+            
             <Label layoutX="42.0" layoutY="160.0" text="Hasło:">
                <font>
                   <Font size="14.0" />
@@ -44,12 +44,19 @@
             </Label>
             <PasswordField fx:id="hasloR" layoutX="104.0" layoutY="160.0" prefHeight="25.0" prefWidth="201.0" />
             
-            <Label layoutX="42.0" layoutY="220" prefHeight="25.0" prefWidth="43.0" text="Kod:">
+            <Label layoutX="42.0" layoutY="220.0" text="Powtórz hasło:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="workerCode" layoutX="104.0" layoutY="220" prefHeight="25.0" prefWidth="201.0" />
+            <PasswordField fx:id="repeatPassword" layoutX="140.0" layoutY="220.0" prefHeight="25.0" prefWidth="201.0" />
+            
+            <Label layoutX="42.0" layoutY="280" prefHeight="25.0" prefWidth="43.0" text="Kod:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="workerCode" layoutX="104.0" layoutY="280" prefHeight="25.0" prefWidth="201.0" />
             
             <Button fx:id="zarejestrujbtn" layoutX="143.0" layoutY="406.0" mnemonicParsing="false" onAction="#zarejestruj" text="Zarejestruj" />
             <JFXButton fx:id="powrotW" layoutX="15.0" layoutY="28.0" onAction="#powrotLogowanie" text="Powrót" />
