@@ -40,9 +40,8 @@ public abstract class Logowanie {
 
         try {
             Scene homeScene = new Scene(home);
-            app = (Stage) ((Node) event.getSource()).getScene().
-                    getWindow();
-            app.hide(); //ukrywanie Stage
+            app = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            app.hide(); 
             app.setScene(homeScene);
             app.show();
 
