@@ -644,9 +644,10 @@ zwrot.setOnAction(new EventHandler<ActionEvent>() {
             displayTowary();
             statusZamowienia.setText("Zamowienie zostało potwierdzone");
             }
+            Popup.show("Twoje zamówienie zostało przyjęte do realizacji!");
             
         }catch(Exception e){
-            System.out.println(e.getMessage());
+            Popup.show("Nie można przyjąć tego zamówienia!");
         }
         towary.clear();
         clearForm();
