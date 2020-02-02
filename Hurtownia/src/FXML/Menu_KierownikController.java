@@ -55,41 +55,20 @@ import org.hibernate.transform.DistinctRootEntityResultTransformer;
  */
 public class Menu_KierownikController extends Logowanie implements Initializable
 {
-
     @FXML
     private TableView<Zamowienie> zamowieniaTable;
-
     @FXML
     private TableColumn<Zamowienie, Integer> id;
-
-
-    @FXML
-    private JFXButton wylogujZA;
-
     @FXML
     private TextField nazwaP;
-
     @FXML
     private TextArea opisP;
-    
-    
-
     @FXML
     private TextField cenaP;
-
-    @FXML
-    private Button DodajBTN;
-
     @FXML
     private TableView<Produkty> produktyD;
-
     @FXML
     private ComboBox<Kategorie> katDcombo;
-
-    @FXML
-    private JFXButton wylogujbtn;
-    @FXML
-    private JFXButton wylogujKPr;
     @FXML
     private TableView<Pracownik> pracownicyTable;
     @FXML
@@ -107,32 +86,17 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private JFXTextField wynagrodzenieDP;
     @FXML
-    private Button DodajP;
-    @FXML
-    private Label status_zatrudnienia;
-    @FXML
-    private Label pracownikLabel;
-    @FXML
-    private Label wyborCombo;
-    @FXML
     private Label katWybor;
     @FXML
     private Label statusDodajP;
     @FXML
     private TextField wyszukajField;
-    private TextField wyszukajFileldZ;
     @FXML
     private TableColumn<Produkty, String> nazwaTD;
     @FXML
     private TableColumn<Produkty, Float> cenaTD;
     @FXML
     private TableColumn<Produkty, String> opisTD;
-    @FXML
-    private Button wczytajBtn;
-    @FXML
-    private Label wczytajLabel;
-    @FXML
-    private JFXButton wylogujDTM;
     @FXML
     private ComboBox<Kategorie> katComboTM;
     @FXML
@@ -148,13 +112,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     @FXML
     private TextField nowaKategoria;
     @FXML
-    private Button dodajMagazynbtn;
-    @FXML
     private Label magazyn_status;
-    @FXML
-    private Label kat;
-    @FXML
-    private Label pro;
     @FXML
     private TableView<Magazyn> tabelaMagazyn;
     @FXML
@@ -165,7 +123,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private TableColumn<Zamowienie, Date> data;
     @FXML
     private TableColumn<Zamowienie, Float> cenaZakupuMagazyn;
-   
     @FXML
     private TableColumn<Zamowienie, String> zaplata;
     @FXML
@@ -178,23 +135,17 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     private Label wyborStanowiska;
     @FXML
     private ComboBox<Pracownik> stanowiskoCombo;
-    
     @FXML
     private TextArea kategoriaOpis;
-    
-
     @FXML
     void wyloguj(ActionEvent event) {
-
         String wylogowywanie = "/FXML/Login.fxml";
         wczytywanie(event, wylogowywanie);
         ramka(event);
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         pracownicyTable();
         produktyTable();
         magazynTable();
@@ -243,15 +194,11 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         Session session = hibernate.HibernateUtil.getSessionFactory().
                 openSession();
         Criteria crit = (Criteria)session.createCriteria(Pracownik.class);
-        //Criterion price = Restrictions.gt("stanowisko",new String());
         crit.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
-        
         List <Pracownik> stanowisko = crit.list();
                 
-       
         for (Pracownik s : stanowisko) {
             stanowiskoP.add(s);
-
         }
         return stanowiskoP;
     }
@@ -284,9 +231,6 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         cenaP.setText(null);
         nazwaP.setText(null);
         opisP.setText(null);
-      //  stanowiskoCombo.getItems().clear();
-        
-
     }
 
     public void pracownicyTable() {
@@ -406,10 +350,8 @@ row.setContextMenu(contextMenu);
     }
     
     public void comboStanowisko(){
-        
         stanowiskoCombo.setItems(stanowisko());
         stanowiskoCombo.setConverter(new StanowiskoConverter());
-        
         stanowiskoCombo.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

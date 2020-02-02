@@ -18,8 +18,10 @@ public class PracownikQuery {
     Criteria criteria = null;
 
     public boolean selecyByLoginandPassword(String login, String password) {
+        Session session = null;
         Pracownik p = null;
         session = HibernateUtil.getSessionFactory().openSession();
+        
         String hql = "from Pracownik where login = '" + login
                 + "' and password = '" + Hash.password(password) + "'";
         query = session.createQuery(hql);

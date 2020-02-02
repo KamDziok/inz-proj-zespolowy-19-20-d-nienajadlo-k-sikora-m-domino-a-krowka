@@ -68,8 +68,7 @@ public class RejestrPracownikaController extends Logowanie implements
             ramka(event);
             Popup.show("Rejestracja przebiegła pomyslnie! Możesz się teraz zalogować.");
         }catch(Exception e){
-            loginR.setText("");
-            hasloR.setText("");
+            clearFields();
             Popup.show("Nie można zalogować się z tym kodem!");
         }
     }
