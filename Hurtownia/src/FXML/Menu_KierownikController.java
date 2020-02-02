@@ -279,6 +279,7 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         try {
             ChangeSalaryWindowController.pracownik = row.getItem();
            Stage PrimaryStage = new Stage();
+           ChangeSalaryWindowController.stage = PrimaryStage;
             Parent root = FXMLLoader.load(getClass().getResource("/FXML"
                 + "/ChangeSalaryWindow.fxml"));
             

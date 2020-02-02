@@ -97,6 +97,28 @@ public class PracownikQuery {
         }
     }
     
+    
+    public boolean changeSalary(int workerId, float salary){
+        session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Pracownik pracownik = new PracownikQuery().wyszukiwanieID(workerId);
+            pracownik.setPlaca(salary);
+            session.update(pracownik);
+            tx.commit();
+            return true;
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+    
     public void dodanieDanych(String login, String password, int id){
             session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
