@@ -10,6 +10,7 @@ import com.itextpdf.text.DocumentException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -117,5 +118,26 @@ public class KsiegowoscQuery {
         session.getTransaction().rollback();
         session.close();
         }
+    }
+    
+    
+    
+    public List<WyplatyPracownik> wszystkieWyplaty() {
+        List<Pracownik> pracownicy = new PracownikQuery().PracownikSelectAll();
+        List<WyplatyPracownik> wyplataPracownikow = new ArrayList<WyplatyPracownik>();
+        for (Pracownik pracownik : pracownicy){
+            List<Wyplaty> wyplatyDlaPracownika = new WyplatyQuery().wyplatyID(pracownik.getPracownikId());
+                for(Wyplaty wyplata : wyplatyDlaPracownika){
+                    
+                    WyplatyPracownik w= new WyplatyPracownik(pracownik.getImieNazwisko() , wyplata.getData(),wyplata.getKwota(),wyplata.getWyplataId());
+                    System.out.println(w.pracownikName);
+                    wyplataPracownikow.add(w);
+                }
+           
+            
+            
+        }
+        return wyplataPracownikow;
+        
     }
 }

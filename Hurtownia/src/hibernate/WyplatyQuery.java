@@ -112,6 +112,31 @@ public class WyplatyQuery {
            transaction.commit();
            session.close();
      }
+              
+      
+              
+        public void wyplacDlaKlienta(int idWyplaty) {
+            session = HibernateUtil.getSessionFactory().openSession();
+         Transaction tx = null;
+         
+       session = HibernateUtil.getSessionFactory().openSession();
+    
+        String query = "DELETE FROM Wyplaty WHERE wyplataId = "
+                + idWyplaty;
+          
+        try {
+          session.getTransaction().begin();
+          session.createSQLQuery(query).executeUpdate();
+          session.getTransaction().commit();
+          session.close();
+        }
+        catch (HibernateException error){
+            session.getTransaction().rollback();
+            session.close();
+        }
+        }
+              
+              
     
      
 }
