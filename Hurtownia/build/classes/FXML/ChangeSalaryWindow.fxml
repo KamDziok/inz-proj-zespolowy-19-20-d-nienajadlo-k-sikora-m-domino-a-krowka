@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.ChangeSalaryWindowController">
+     <children>
+        <Label fx:id="title" text="Title"  layoutX="0.0" layoutY="0.0" prefHeight="25.0" prefWidth="300.0" />
+        <TextField fx:id="newSalary" layoutX="20.0" layoutY="30.0" prefHeight="25.0" prefWidth="220.0" />
+   </children>
+</AnchorPane>

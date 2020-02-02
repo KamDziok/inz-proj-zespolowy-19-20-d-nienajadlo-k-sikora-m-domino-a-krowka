@@ -31,7 +31,10 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
@@ -43,6 +46,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -305,7 +309,8 @@ public class Menu_KierownikController extends Logowanie implements Initializable
     
     
     final ContextMenu contextMenu = new ContextMenu();
-            MenuItem del = new MenuItem("Usuń");
+            MenuItem del = new MenuItem("Zwolnij Pracownika");
+            MenuItem salary = new MenuItem("Zmień wynagrodzenie");
 
             del.setOnAction(new EventHandler<ActionEvent>() {
     @Override
@@ -323,7 +328,28 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         
     }
 });
-contextMenu.getItems().addAll(del);
+            
+            salary.setOnAction(new EventHandler<ActionEvent>() {
+    @Override
+    public void handle(ActionEvent event) {
+        try {
+            ChangeSalaryWindowController.pracownik = row.getItem();
+           Stage PrimaryStage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/FXML"
+                + "/ChangeSalaryWindow.fxml"));
+            
+            Scene scene = new Scene(root);
+            PrimaryStage.setScene(scene);
+            PrimaryStage.show();
+            PrimaryStage.setResizable(false);
+             
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        
+    }
+});
+contextMenu.getItems().addAll(del , salary);
 
 row.setContextMenu(contextMenu);
     
