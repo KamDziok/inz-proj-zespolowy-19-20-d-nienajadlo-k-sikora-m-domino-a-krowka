@@ -5,7 +5,10 @@
  */
 package FXML;
 
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
+import hibernate.Adresy;
+import hibernate.AdresyQuery;
 import hibernate.Klient;
 import hibernate.KlientQuery;
 import hibernate.Pracownik;
@@ -45,6 +48,9 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
 
     @FXML
     private TextField loginZH;
+    
+     @FXML
+    private TextField email;
 
     @FXML
     private PasswordField powtorzH;
@@ -64,6 +70,11 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
 
     }
 
+    
+    private static PracownikQuery worker = new PracownikQuery();
+    private static KlientQuery client = new KlientQuery();
+    private static AdresyQuery addressQuery = new AdresyQuery();
+    private static Adresy address = new Adresy();
     
     @FXML
     void sprawdz(ActionEvent event) {
@@ -88,44 +99,54 @@ public class PrzypomnienieController extends Logowanie implements Initializable 
         }
     }
         
-        
+     private void clearFields(){
+         loginZH.setText("");
+         noweHaslo.setText("");
+         email.setText("");
+         powtorzH.setText("");
+     }
     
 
     @FXML
-    void zmianaHasla(ActionEvent event) {
+    void zmianaHasla(ActionEvent event) throws Exception {
         
         String login = loginZH.getText();
-        String nHaslo = noweHaslo.getText();
-        String pHaslo = powtorzH.getText();
+        String password = noweHaslo.getText();
+        String repeatedPassword = powtorzH.getText();
+        String emailAddress = email.getText();
         
-        if(pHaslo.equals(nHaslo)){
-            potwierdzenie.setText("Hasła się zgadzają!");
+        Klient clientFromPanel = client.wyszukiwanie(login);
+        Adresy addressFromDb = addressQuery.wyswietlAdres(clientFromPanel.getKlientId());
+        
+        boolean validLogin = clientFromPanel.getLogin().equals(login);
+        boolean validEmail = addressFromDb.getEmail().equals(emailAddress);
+        boolean formValid = validLogin && validEmail;
+        
+        if(!formValid){
+            Popup.show("Niepoprawny login lub email!!");
+            clearFields();
+            throw new Exception();
         }
-
-        //zmiana hasła dla klienta przez formularz ZmianaHasła
-        KlientQuery klient = new KlientQuery();
-        try {
-            
-            klient.changePassword(login, nHaslo);
+        
+        if(password.length() < 6){
+            Popup.show("Hasło musi mieć conajmniej 6 znaków!");
+            throw new Exception();
+        }
+        
+        if(!password.equals(repeatedPassword)){
+            Popup.show("Wprowadzone hasła nie są takie same!");
+            throw new Exception();
+        }
+        
+        try{
+            client.changePassword(login, password);
+            Popup.show("Hasło zostało zmienione! Uruchom aplikacje ponownie aby dane zostały poprawnie wprowadzone!");
             String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
             ramka(event);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        
-        //zmiana hasła dla obsługi przez formularz ZmianaHasła
-        PracownikQuery pracownik = new PracownikQuery();
-        try {
-
-            pracownik.changePassword(login, nHaslo);
-            String alert = "/FXML/Login.fxml";
-            wczytywanie(event, alert);
-            ramka(event);
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch(Exception e){
+            Popup.show("Nie można zmienić hasła! Nastąpił błąd!");
+            throw new Exception();
         }
     }
 

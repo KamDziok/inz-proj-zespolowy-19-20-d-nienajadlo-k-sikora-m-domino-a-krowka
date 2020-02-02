@@ -80,7 +80,7 @@ public class AdresyQuery {
         query.setParameter("emailParam", email);
         a = (Adresy) query.uniqueResult();
         session.close();
-       return a;
+        return a;
     }
     
     /**

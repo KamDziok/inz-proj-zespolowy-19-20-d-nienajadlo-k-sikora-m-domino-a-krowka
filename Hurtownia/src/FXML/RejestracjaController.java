@@ -44,6 +44,9 @@ public class RejestracjaController extends Logowanie implements Initializable {
 
     @FXML
     private PasswordField hasloR;
+    
+    @FXML
+    private PasswordField repeatPassword;
 
     @FXML
     private Label status;
@@ -91,6 +94,7 @@ public class RejestracjaController extends Logowanie implements Initializable {
         long telefon = Long.parseLong(telefonR.getText());
         String login = loginR.getText();
         String haslo = hasloR.getText();
+        String passwordRepeat = repeatPassword.getText();
         
          if(login.length() < 5){
             Popup.show("Login musi mieć conajmniej 6 znaków!");
@@ -99,6 +103,11 @@ public class RejestracjaController extends Logowanie implements Initializable {
          
         if(haslo.length() < 5){
             Popup.show("Hasło musi mieć conajmniej 6 znaków!");
+            throw new Exception();
+        }
+        
+        if(!haslo.equals(passwordRepeat)){
+            Popup.show("Wprowadzone hasła nie są takie same!");
             throw new Exception();
         }
 

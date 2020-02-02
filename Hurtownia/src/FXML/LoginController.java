@@ -134,8 +134,6 @@ public class LoginController extends Logowanie implements Initializable {
         
         else if(clientVerification){
             Klient logowanie = klient.selectByLoginandPassword(log, pass);
-            
-            status.setText("Logowanie zakończone sukcesem!");
                 klientZ = logowanie;
                 String adres = "/FXML/Menu_Klient.fxml";
                 wczytywanie(event, adres);

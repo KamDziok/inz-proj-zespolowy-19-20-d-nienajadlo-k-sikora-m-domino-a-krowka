@@ -108,7 +108,9 @@ public class Adresy  implements java.io.Serializable {
         this.hurtownias = hurtownias;
     }
 
-
+    public String getLogin(){
+        return this.klient.getLogin();
+    }
 
 
 }
