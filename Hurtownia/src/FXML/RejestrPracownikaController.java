@@ -73,8 +73,6 @@ public class RejestrPracownikaController extends Logowanie implements
         String haslo = hasloR.getText();
         int code = Integer.parseInt(workerCode.getText());
         
-        System.err.println(pracownik.wyszukiwanieID(code).getLogin());
-        
         if(pracownik.wyszukiwanieID(code).getLogin() != null){
             Popup.show("Nie można zarejestrować się z tym kodem, ponieważ zostal on już użyty!");
             throw new Exception();
