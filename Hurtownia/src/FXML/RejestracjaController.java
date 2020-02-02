@@ -5,6 +5,7 @@
  */
 package FXML;
 
+import Utils.Popup;
 import com.jfoenix.controls.JFXButton;
 import hibernate.Klient;
 import hibernate.KlientQuery;
@@ -64,11 +65,16 @@ public class RejestracjaController extends Logowanie implements Initializable {
     }
 
     @FXML
-    void zarejestruj(ActionEvent event) {
+    void zarejestruj(ActionEvent event) throws Exception {
 
         String imie = imieR.getText();
         String nazwisko = nazwiskoR.getText();
         long telefon = Long.parseLong(telefonR.getText());
+        
+        if(telefonR.getText().length() != 8){
+            Popup.show("Numer telefonu jest wymagany i musi mieć 9 cyfr!");
+            throw new Exception();
+        }
 
         String login = loginR.getText();
         String haslo = hasloR.getText();
