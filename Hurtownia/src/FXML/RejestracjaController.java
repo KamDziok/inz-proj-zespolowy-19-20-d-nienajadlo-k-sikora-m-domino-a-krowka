@@ -69,15 +69,38 @@ public class RejestracjaController extends Logowanie implements Initializable {
 
         String imie = imieR.getText();
         String nazwisko = nazwiskoR.getText();
-        long telefon = Long.parseLong(telefonR.getText());
         
-        if(telefonR.getText().length() != 8){
+
+        
+        if(imie.length() < 2){
+            Popup.show("Wprowadź poprawne imie!");
+            throw new Exception();
+        }
+        
+         if(nazwisko.length() < 2){
+            Popup.show("Wprowadź poprawne nazwisko!");
+            throw new Exception();
+        }
+         
+        if(telefonR.getText().length() != 9){
             Popup.show("Numer telefonu jest wymagany i musi mieć 9 cyfr!");
             throw new Exception();
         }
-
+         
+         
+        long telefon = Long.parseLong(telefonR.getText());
         String login = loginR.getText();
         String haslo = hasloR.getText();
+        
+         if(login.length() < 5){
+            Popup.show("Login musi mieć conajmniej 6 znaków!");
+            throw new Exception();
+        }
+         
+        if(haslo.length() < 5){
+            Popup.show("Hasło musi mieć conajmniej 6 znaków!");
+            throw new Exception();
+        }
 
         Klient k = new Klient(imie, nazwisko, telefon, login, haslo);
 
@@ -85,13 +108,13 @@ public class RejestracjaController extends Logowanie implements Initializable {
 
         try {
             queryK.rejestracja(imie, nazwisko, telefon, login, haslo);
-            status.setText("Rejestracja udana!");
-             String alert = "/FXML/Alert.fxml";
+            Popup.show("Rejestracja przebiegła pomyślnie. Możesz się teraz zalogować.");
+            String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
             ramka(event);
             
         } catch (Exception e) {
-            System.out.println(e.getLocalizedMessage());
+            Popup.show("Coś poszło nie tak! Skontaktuj się z pomocą techniczną systemu.");
         }
         
        
