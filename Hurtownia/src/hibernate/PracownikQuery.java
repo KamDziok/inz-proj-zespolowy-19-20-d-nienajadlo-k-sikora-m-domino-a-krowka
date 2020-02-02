@@ -51,7 +51,6 @@ public class PracownikQuery {
         query = session.createQuery(hql);
         p = (Pracownik) query.uniqueResult();
         session.close();
-
         return p;
     }
     
