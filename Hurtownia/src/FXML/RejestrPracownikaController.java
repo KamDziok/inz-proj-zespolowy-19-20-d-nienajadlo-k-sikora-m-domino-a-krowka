@@ -99,14 +99,24 @@ public class RejestrPracownikaController extends Logowanie implements
     }
 
     @FXML
-    private void zarejestruj(ActionEvent event) {
+    private void zarejestruj(ActionEvent event) throws Exception {
+        PracownikQuery pracownik = new PracownikQuery();
         String login = loginR.getText();
         String haslo = hasloR.getText();
-        String code = workerCode.getText();
+        int code = Integer.parseInt(workerCode.getText());
+        
+        System.err.println(pracownik.wyszukiwanieID(code).getLogin());
+        
+        if(pracownik.wyszukiwanieID(code).getLogin() != null){
+            Popup.show("Nie można zarejestrować się z tym kodem, ponieważ zostal on już użyty!");
+            throw new Exception();
+        } else if(pracownik.wyszukiwanieID(code).getPassword() != null){
+            Popup.show("Nie można zarejestrować się z tym kodem, ponieważ zostal on już użyty!");
+            throw new Exception();
+        }
         
         try{
-            PracownikQuery pracownik = new PracownikQuery();
-            pracownik.dodanieDanych(login, haslo, Integer.parseInt(code));
+            pracownik.dodanieDanych(login, haslo, code);
             String alert = "/FXML/Login.fxml";
             wczytywanie(event, alert);
             ramka(event);
