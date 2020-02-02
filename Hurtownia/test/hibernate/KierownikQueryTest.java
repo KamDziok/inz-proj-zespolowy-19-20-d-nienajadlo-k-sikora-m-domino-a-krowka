@@ -5,6 +5,7 @@
  */
 package hibernate;
 
+import java.io.IOException;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,7 +42,7 @@ public class KierownikQueryTest {
      * Test of dodajPracownika method, of class KierownikQuery.
      */
     @Test
-    public void testDodajPracownika() {
+    public void testDodajPracownika() throws IOException {
         System.out.println("dodajPracownika");
         String imie = "";
         String nazwisko = "";

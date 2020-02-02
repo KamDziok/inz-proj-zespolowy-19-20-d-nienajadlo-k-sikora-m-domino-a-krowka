@@ -200,9 +200,26 @@ public class Menu_KierownikController extends Logowanie implements Initializable
         Criteria crit = (Criteria)session.createCriteria(Pracownik.class);
         crit.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
         List <Pracownik> stanowisko = crit.list();
+        
+        Boolean kierownik = false;
+        Boolean magazynier = false;
+        Boolean ksiegowa = false;
                 
         for (Pracownik s : stanowisko) {
-            stanowiskoP.add(s);
+            if(s.getStanowisko().equals("kierownik") && !kierownik){
+               stanowiskoP.add(s);
+               kierownik = !kierownik;
+            }
+            
+            if(s.getStanowisko().equals("ksiegowa") && !ksiegowa){
+               stanowiskoP.add(s);
+               ksiegowa = !ksiegowa;
+            }
+            
+            if(s.getStanowisko().equals("magazynier") && !ksiegowa){
+               stanowiskoP.add(s);
+               magazynier = !magazynier;
+            }
         }
         return stanowiskoP;
     }

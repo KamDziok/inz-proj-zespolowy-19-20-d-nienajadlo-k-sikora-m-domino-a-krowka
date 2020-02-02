@@ -5,10 +5,19 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.ChangeSalaryWindowController">
      <children>
-        <Label fx:id="title" text="Title"  layoutX="0.0" layoutY="0.0" prefHeight="25.0" prefWidth="300.0" />
-        <TextField fx:id="newSalary" layoutX="20.0" layoutY="30.0" prefHeight="25.0" prefWidth="220.0" />
+        <Label fx:id="title" text="Title"  layoutX="220.0" layoutY="50.0" prefHeight="25.0" prefWidth="300.0">
+              <font>
+                  <Font size="14.0" />
+              </font>
+        </Label>
+        
+        <Label fx:id="kwota" text="Nowa kwota: "  layoutX="90.0" layoutY="90.0" prefHeight="25.0" prefWidth="300.0" />
+        <TextField fx:id="newSalary" layoutX="175.0" layoutY="90.0" prefHeight="25.0" prefWidth="220.0" />
+        
+        <Button fx:id="chengeSalary" layoutX="210.0" layoutY="140" mnemonicParsing="false" onAction="#changeSalaryHandler" text="Zmień pensję" />
    </children>
 </AnchorPane>
