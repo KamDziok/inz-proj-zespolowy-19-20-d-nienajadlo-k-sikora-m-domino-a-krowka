@@ -59,38 +59,6 @@ public class RejestrPracownikaController extends Logowanie implements
     }
 
     @FXML
-    private void sprawdzZatrudnienie(ActionEvent event) {
-        
-        String imie = checkImie.getText();
-        String nazwisko = checkNazwisko.getText();
-        
-        try{
-              PracownikQuery pracownik = new PracownikQuery();
-            Pracownik p = pracownik.wyszukanieZatrudnienie(nazwisko, imie);
-             
-            if(p != null){
-                weryfikacja.setText("Jesteś zatrudniony w hurtowni!");
-                
-                int id = pracownik.wyszukanieZatrudnienie(nazwisko, imie).
-                        getPracownikId();
-                
-               IDweryf.setText(Integer.toString(id));
-               IDweryf.setVisible(false);
-               
-            }
-            else{
-                weryfikacja.setText("Nie jesteś zatrudniony w hurtowni!");
-            }
-              
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        
-      
-       
-    }
-
-    @FXML
     private void powrotLogowanie(ActionEvent event) {
 
         String powrot = "/FXML/Login.fxml";
