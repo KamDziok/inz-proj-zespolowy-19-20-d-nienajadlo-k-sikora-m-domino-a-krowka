@@ -70,7 +70,7 @@ public class MagazynQuery {
                     towar.getIlosc()+" WHERE `ProduktID` = " 
                     + towar.getProduktID());
         executeUpdate("UPDATE `zamowienie` SET `StatusTransportu` "
-            +"='wysłano' WHERE `ZamowienieID` = " + id);
+            +"='wyslano' WHERE `ZamowienieID` = " + id);
          
       }
       
