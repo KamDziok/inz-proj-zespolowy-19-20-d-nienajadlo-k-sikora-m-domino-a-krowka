@@ -561,7 +561,7 @@ zwrot.setOnAction(new EventHandler<ActionEvent>() {
         public void handle(ActionEvent event) {
             new KlientQuery().zaplac(row.getItem());
             wczytajDane();
-            if(row.getItem().getStatusZaplaty().equals("zapłacone")) Popup.show("Nie można opłacić opłaconego zamówienia");
+            if(row.getItem().getStatusZaplaty().equals("zaplacone")) Popup.show("Nie można opłacić opłaconego zamówienia");
             else if (row.getItem().getStatusZaplaty().equals("zwrot") || row.getItem().getStatusZaplaty().equals("anulowane")) Popup.show("Nie można opłacić anulowanego zamówienia.");
             else  Popup.show("Pomyślnie zapłacono.");
         }
@@ -723,16 +723,16 @@ row.setContextMenu(contextMenu);
             if(aktywne)
                 if (!(z.getStatusTransportu().equals("anulowane") 
                         && z.getStatusZaplaty().equals("anulowane"))
-                        && !(z.getStatusTransportu().equals("wysłano") 
-                        && z.getStatusZaplaty().equals("zapłacone")))
+                        && !(z.getStatusTransportu().equals("wyslano") 
+                        && z.getStatusZaplaty().equals("zaplacone")))
                     listaZamowien.add(z);
             if(anulowane)
                 if(z.getStatusTransportu().equals("anulowane") 
                         && z.getStatusZaplaty().equals("anulowane"))
                         listaZamowien.add(z);
             if(zakonczone)
-                if(z.getStatusTransportu().equals("wysłano") 
-                        && z.getStatusZaplaty().equals("zapłacone"))
+                if(z.getStatusTransportu().equals("wyslano") 
+                        && z.getStatusZaplaty().equals("zaplacone"))
                         listaZamowien.add(z);
             }
         }
