@@ -39,20 +39,28 @@ public class ChangeSalaryWindowController implements Initializable {
         title.setText(pracownik.getImieNazwisko());
     }    
    
-    public boolean changeSalaryHandler(){
+    public boolean changeSalaryHandler() throws Exception{
        float salary = 0;
        int workerId = pracownik.getPracownikId();
        
+
        try{
            salary = Float.parseFloat(newSalary.getText());
+
        } catch(Exception e){
            Popup.show("Wprowadzono niepoprawne dane!");
        }
        
+       if(salary < 2600){
+            Popup.show("Wynagrodzenie nie może być mniejsze niż 2600zł!");
+            return false;
+        }
+       
        try{
            worker.changeSalary(workerId, salary);
            Popup.show("Pomyślnie zmieniono wypłatę dla tego pracownika! Uruchom ponownie progam aby zobaczyć zmiany.");
-           stage.close();
+//           stage.close();
+           return true;
        } catch(Exception e){
            Popup.show("Nie można zmienić wypłaty dla tego pracownika!");
        }
