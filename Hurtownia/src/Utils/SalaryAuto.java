@@ -39,7 +39,7 @@ public class SalaryAuto {
                 salariesQuery.dodajWyplate(dateOfSalary, worker.getPlaca(), worker.getPracownikId());
             }
         } else{
-            System.err.println("Nie można dodać wypłat pracowników!");
+//            System.err.println("Nie można dodać wypłat pracowników!");
         }
         
         return true;
